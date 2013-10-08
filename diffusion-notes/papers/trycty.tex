@@ -1,0 +1,244 @@
+\documentclass[a5paper]{article}
+\usepackage{defns}
+\IfFileExists{ajr.sty}{\usepackage{ajr}}{}
+
+\newcommand{\ibc}{\textsc{ibc}}
+\newcommand{\lj}{|_{\xi=0}}
+\newcommand{\rj}{|_{\xi=1}}
+\newcommand{\cA}{{\cal A}}
+\newcommand{\cB}{{\cal B}}
+\newcommand{\cE}{{\cal E}}
+\newcommand{\cI}{{\cal I}}
+\newcommand{\uzero}{\xi+(1-\xi)\cE}
+
+\title{Use internal boundary conditions that ensure continuity for 
+simple diffusion}
+
+\author{Tony Roberts}
+
+\date{February 2002}
+
+\begin{document}
+
+\maketitle
+
+\tableofcontents
+
+\section{First try a direct approach}
+
+Consider something as simple as the diffusion equation
+\begin{equation}
+	\D tu=\DD xu\,,
+	\label{eq:diff}
+\end{equation}
+for the field~$u(x,t)$ on an unbounded domain.  Divide the domain 
+into elements of size~$h$ by introducing these internal boundary conditions 
+at grid points~$x_j$:
+\begin{equation}
+	[u]=0
+	\quad\mbox{and}\quad
+	h\left[u_x\right]=(1-\gamma)\delta^2u\,,
+	\label{eq:ibc}
+\end{equation}
+where $\delta^2u=u(x+h,t)-2u(x,t)+u(x-h,t)$ and $[\cdot]$ denotes the jump 
+across $x_j$.
+With these \ibc{}s: at $\gamma=0$ the operator~$\partial_x^2$ is self 
+adjoint; at $\gamma=1$ they ensure continuity of the field~$u$ and its 
+derivative between elements.
+
+Let the $j$th element be $x_{j-1}\leq x\leq x_j$ and a scaled internal 
+coordinate $\xi=(x-x_{j-1})/h\in[0,1]$\,.  
+
+\paragraph{Linear solution:} 
+In a power series in the coupling~$\gamma$ the solution field in the 
+$j$th element is
+\begin{equation}
+	u=U_j\xi+U_{j-1}(1-\xi)+\gamma v'_j+\Ord{\gamma^2}
+	\quad\mbox{such that}\quad
+	\dot U_j=\gamma g'_j+\Ord{\gamma^2}\,.
+	\label{eq:linear}
+\end{equation}
+That is, to leading order the solution field is straight line 
+interpolation between grid values~$U_j$.  Since the operator remains 
+self-adjoint there will be nice exponential decay to this centre 
+subspace.
+
+\paragraph{Coupled evolution:}
+Substitute~(\ref{eq:linear}) into the diffusion equation~(\ref{eq:diff}) 
+and the \ibc{}s~(\ref{eq:ibc}) to determine the following equations 
+for first order quantities in~$\gamma$:
+\begin{eqnarray}
+	0 & = & -g'_j\xi-g'_{j-1}(1-\xi)+\frac{1}{h^2}v'_{j\xi\xi}\,;
+	\label{eq:deq}  \\
+	0 & = & v^l_{j+1}-v_j^r\,;
+	\label{eq:cty'}  \\
+	0 & = & v_{j+1\,\xi}^l-v_{j\,\xi}^r
+	-\left(v_j^l-2v_j^r+v_{j+1}^r\right)
+	+\delta^2U_j\,;
+	\label{eq:jump}
+\end{eqnarray}
+where $v_j^r=v'_j\rj$ and $v_j^l=v'_j\lj$\,.  Since the operator is 
+self adjoint we know the adjoint eigenvectors must be piecewise linear 
+and constant, so a solvability condition is to multiply~(\ref{eq:deq}) 
+by the triangular
+\begin{displaymath}
+	z_j(x)=\left\{
+		\begin{array}{ll}
+		\xi\,, & \mbox{$j$th element,}  \\
+		1-\xi\,, & \mbox{$(j+1)$th element}\,
+	\end{array}\right.
+\end{displaymath}
+and integrate.  Using the internal boundary conditions this 
+solvability condition becomes
+\begin{equation}
+	0= -\rat16\left(g'_{j-1}+4g'_j+g'_{j+1}\right)
+	+\frac{1}{h^2}\delta^2U_j\,.
+	\label{eq:queer}
+\end{equation}
+Thus our model would be
+\begin{equation}
+	\left(1+\rat16\delta^2\right)\dot U_j=\frac{1}{h^2}\delta^2U_j\,.
+	\label{eq:qmod}
+\end{equation}
+As it stands this is acceptable.
+The left-hand side reminds me of cubic splines, and also of the 
+weights at the core of Simpson integration.
+If we had nonlinear terms, such as advection, artificially multiplied 
+by~$\gamma$ so everthing occurred at leading order in~$\gamma$ then we 
+would obtain Galerkin projection on the right-hand side---this may be 
+a nice justification of a slightly modified Galerkin method.
+
+However, the big problem is that we apparently cannot practically 
+systematically refine the discretisation because we do not have a 
+definite, compact expression for the evolution~$g_j$.
+
+Changing the definition of the amplitudes does not seem to help 
+either:  if we let
+\begin{equation}
+	u=\cA U_j\xi+\cA U_{j-1}(1-\xi)+\gamma v'_j+\Ord{\gamma^2}
+	\quad\mbox{such that}\quad
+	\dot U_j=\gamma g'_j+\Ord{\gamma^2}\,,
+	\label{eq:linearm}
+\end{equation}
+for some discrete operator~$\cA$, then~(\ref{eq:queer}) would become
+\begin{equation}
+	0= -\rat16\left(\cA g'_{j-1}+4\cA g'_j+\cA g'_{j+1}\right)
+	+\frac{1}{h^2}\delta^2\cA U_j\,;
+	\label{eq:queerm}
+\end{equation}
+that is, $\cA$ factors.
+
+
+\section{Use operators to investigate higher order models}
+
+We make heavy use of discrete operators such as the shift~$E 
+U_j=U_{j+1}$, shift-left~$\cE=E^{-1}$, centred 
+difference~$\delta=E^{1/2}-\cE^{1/2}$, forward difference~$\Delta=E-1$ 
+and backward difference~$\nabla=1-\cE$\,.  These only apply to the 
+subscript~$j$.
+
+Now seek solutions of the diffusion equation~(\ref{eq:diff}) and the 
+\ibc{}s~(\ref{eq:ibc}) in the form
+\begin{eqnarray}
+	u & = & (\uzero) U_j +\gamma v'U_j +\gamma^2v''U_j +\cdots
+	\label{eq:opu}  \\
+	\mbox{such that}\quad
+	\dot U_j & = & \gamma g'U_j +\gamma^2g''U_j +\cdots\,,
+	\label{eq:opg}
+\end{eqnarray}
+where $g'$, $g''$, $v'$ and~$v''$ are operators with the last two 
+depending upon the subgrid position~$\xi$.  Consequently
+\begin{eqnarray}
+	\D tu & = & (\uzero +\gamma v' +\gamma^2v''
+	+\cdots)(\gamma g' +\gamma^2g'' +\cdots)U_j  \nonumber\\
+	 & = & \gamma(\uzero)g'U_j +\gamma^2 [(\uzero)g'' +v'g']U_j 
+	 +\cdots\,, \label{eq:ut}\\
+	\DD xu & = & \gamma h^{-2}v'_{\xi\xi} +\gamma^2h^{-2}v''_{\xi\xi} 
+	+\cdots\,. \label{eq:uxx}
+\end{eqnarray}
+Equating coefficients of powers of~$\gamma$ gives equations for the 
+field operators.
+Continuity between elements, namely $[u]=0$, requires that 
+$v'_r=Ev'_l$, $v''_r=Ev''_l$, etc, where subscripts $r$~and~$l$ denote 
+evaluation at the right, $\xi=1$, and at the left, $\xi=0$, 
+respectively.
+For example, see that $[\uzero]U_j$ is continuous.
+The jump condition~(\ref{eq:ibc}) is $Eu_{\xi l} -u_{\xi r} 
+=(1-\gamma) (Eu_r-2u_r+u_l)$ which becomes
+\begin{eqnarray}
+Ev'_{\xi l} -v'_{\xi r}-(Ev'_r-2v'_r+v'_l) & = & -\delta^2\,,
+	\label{eq:vdjmp}  \\
+Ev''_{\xi l} -v''_{\xi r}-(Ev''_r-2v''_r+v''_l) & = & 
+-(Ev'_r-2v'_r+v'_l)\,.
+	\label{eq:vddjmp}
+\end{eqnarray}
+The above equations are complete except for an amplitude condition 
+which we leave free for now.
+
+\subsection{First order coupling}  
+
+Solve the order~$\gamma^1$ equations.
+The solvability condition is obtained by applying the operator
+\begin{equation}
+	\cI=\int_0^1 d\xi[\xi+(1-\xi)E]
+	\label{eq:solvo}
+\end{equation}
+as this integrates weighted by the basic triangular shape.
+Note that $\cI(\uzero)=1+\rat16\delta^2$.
+Apply $\cI$ to the order~$\gamma^1$ terms 
+of~(\ref{eq:ut}--\ref{eq:uxx}) and use the jump 
+condition~(\ref{eq:vdjmp}) to deduce
+\begin{equation}
+	(1+\rat16\delta^2)g'=\frac{1}{h^2}\delta^2\,.
+	\label{eq:opd}
+\end{equation}
+This forms the noncompact evolution equations~(\ref{eq:qmod}): the 
+formal solution for the evolution operator being
+\begin{equation}
+	g'=(1-\rat16\delta^2+\rat1{36}\delta^4-\rat1{316}\delta^6+\cdots)
+	\frac{1}{h^2}\delta^2\,.
+	\label{eq:opdf}
+\end{equation}
+We also discover this evolution operator by solving for the subgrid 
+field.  Integrating twice, (\ref{eq:ut}--\ref{eq:uxx}) gives
+\begin{displaymath}
+	v'=\frac{h^2}{6}[\xi^3+(3\xi^2-\xi^3)\cE]g'+\cE\cA+\xi\cB\,,
+\end{displaymath}
+where $\cE\cA$ and $\cB$ are arbitrary constant operators of 
+integration.  Ensuring continuity between elements determines~$\cB$:
+\begin{eqnarray*}
+	v'_r-Ev'_l & = & \frac{h^2}{6}[1+2\cE]g'+\cE\cA+\cB
+	-\cA=0\\
+	\Rightarrow\quad\cB & = & (1-\cE)\cA -\frac{h^2}{6}[1+2\cE]g' \\
+	\Rightarrow\quad v' & = & \frac{h^2}{6}\left[(-\xi+\xi^3) 
+	+(-2\xi+3\xi^2-\xi^3)\cE\right]g' +[\uzero]\cA \\
+	\mbox{and}\quad v'_\xi&=& \frac{h^2}{6}\left[(-1+3\xi^2) 
+	+(-2+6\xi-3\xi^2)\cE\right]g' +[1-\cE]\cA
+\end{eqnarray*}
+See that the operator~$\cA$ is proportional to the linear solution and 
+that it may be chosen to achieve some extra purpose.\footnote{For 
+example, instead of fixing amplitudes, we could require continuous 
+derivatives between elements when the first order solution is 
+evaluated at $\gamma=1$: that is, $Eu_{\xi l}=u_{\xi r}$, which seems 
+to require $\cA=0$\,!  } Then the jump condition~(\ref{eq:vdjmp}) 
+determines the same evolution~(\ref{eq:opd}).
+
+\subsection{Second order coupling}
+
+Solve the order~$\gamma^2$ equations.
+The differential equation in the interior is
+\begin{equation}
+	[\uzero]g''+v'g'=\frac{1}{h^2}v''_{\xi\xi}\,.
+	\label{eq:vddeqn}
+\end{equation}
+Apply the solvability operator~$\cI$ to deduce
+\begin{eqnarray}
+&&	(1+\rat16\delta^2)g''+\cI v'g'= \frac{1}{h^2}\cI v''_{\xi\xi} 
+	\nonumber \\
+&&	(1+\rat16\delta^2)g'' -\frac{h^2}{360}(7\cE+16+7E){g'}^2 
+	+(1+\rat16\delta^2)\cA g' = \frac{1}{h^2}\delta^2\cA \nonumber \\
+&&	(1+\rat16\delta^2)g''= -\frac{h^2}{360}(30+7\delta^2){g'}^2
+\end{eqnarray}
+The evolution is independent of~$\cA$ so its freedom is no use.
+
+\end{document}

@@ -1,0 +1,224 @@
+\documentclass[12pt,a5paper]{article}
+\usepackage[a5paper,margin=6mm]{geometry}
+%\usepackage{graphicx}
+\usepackage{amsmath,amsfonts,defns}
+
+\newcommand{\Bb}[1]{%
+  \expandafter\def\csname#1#1\endcsname%
+  {\ensuremath{\mathbb #1}}}
+\Bb X\Bb T\Bb R\Bb I\Bb J
+
+\usepackage{pdfcomment}
+\newcommand{\ajr}[1]{%
+  \pdfcomment[author=AJR,color={1 1 0},subject={#1}]{#1}}
+\newcommand{\gaj}[1]{%
+  \pdfcomment[author=GAJ,color={0 1 1},subject={#1}]{#1}}
+\AtBeginDocument{\listofpdfcomments}
+
+\title{Notes on the Diffusion Equation}
+
+\begin{document}
+\maketitle
+\section{Introduction}
+Consider an arbitrary solution $u:\XX\times \TT\mapsto \RR$ to the simple diffusion equation 
+\begin{eqnarray}
+	\D tu = \DD xu\,.
+	\label{eq:diff}
+\end{eqnarray}
+A computationally feasible approach would be to 
+first establish $|{\JJ}|$ discrete grid-points,
+${\vec X}=[X_j]_{j\in\JJ}$, and thence
+partition the spatial domain \XX\ into 
+contiguous intervals \(\II_j:=(X_{j-1},X_j]\). 
+The coarse dynamics at the grid-points are then summarised by
+${\vec U}=[U_j]_{j\in\JJ}$, where $U_j(t)=u(X_j,t)$ for all $t\in \TT$, according to some temporal evolution
+\begin{eqnarray}
+	\dot{\vec U}(t) = {\vec g}({\vec U}(t))\,.
+	\label{eq:temporal}
+\end{eqnarray}
+Consequently, a link from the coarse dynamics ${\vec U}$ back to the continuum dynamics $u$ might be provided
+by choosing an appropriate spatial mapping of the form
+\begin{eqnarray}
+	u  := u(x,{\vec U}(t)).
+	\label{eq:spatial}
+\end{eqnarray}
+Under this scheme, the linear diffusion equation~(\ref{eq:diff}) becomes
+\begin{eqnarray}
+	\D {\vec U}{u}\cdot{\vec g} = \DD x{u}\,.
+	\label{eq:diff2}
+\end{eqnarray}
+Observe that the evolution of $u$ now has nonlinear interactions with ${\vec U}$.
+
+\section{Centre Manifold Approximation}
+The original diffusion equation~(\ref{eq:diff}) admits 
+physically--realisable eigensolutions of the form
+\begin{eqnarray}
+	u(x,t)  = e^{-k^2 t\pm ikx}\,,
+\label{eq:raw-eigmode}
+\end{eqnarray}
+with real eigenvalues $\lambda=-k^2\le 0$ for 
+eigenmode wavenumbers $\pm k$. 
+As a consequence, the transient solutions corresponding
+to $\lambda<0$ decay rapidly to the centre manifold corresponding to $\lambda=0$. 
+
+This centre manifold can be found in practice by iteratively refining approximations to $u$. In particular, consider a series expansion of the form
+\begin{eqnarray}
+	u  & \sim & \hat{u}_0+\gamma\hat{u}_1+\gamma^2\hat{u}_2+\cdots\,,
+\end{eqnarray}
+for some parameter $0\le\gamma\le 1$. Without loss of generality, let
+$\hat{u}_0=0$ be the trivial stationary solution to equation~(\ref{eq:diff}). 
+
+In addition, the constant eigensolution for $\lambda=0$ implies a slow evolution for the coarse dynamics given by 
+equation~(\ref{eq:temporal}), which therefore admits a series expansion of the form
+\begin{eqnarray}
+	\dot{{\vec U}} & \sim & \gamma {\vec g}_1+\gamma^2 {\vec g}_2+\cdots\,.
+\end{eqnarray}
+Hence, equation~(\ref{eq:diff2}) may be decomposed at each order 
+$\ell$ of the series parameter $\gamma$, giving
+\begin{eqnarray}
+   \DD {x}{\hat{u}_1} & = & 0\,, \label{eq:pert1}
+\\
+  \DD {x}{\hat{u}_\ell} & = & \sum_{m=1}^{\ell-1}\D {\vec U}{\hat{u}_m}\cdot{\vec g}_{\ell-m}\,,
+\hspace*{5mm}\mbox{for }\ell=2,3,\ldots\,.
+\end{eqnarray}
+
+
+\section{First-order Approximation}
+Now,  the leading equation~(\ref{eq:pert1}) admits any spatially piecewise linear function as a solution. 
+Hence, in keeping
+with the discretisation imposed by the coarse dynamics, 
+consider the linear approximation
+\begin{eqnarray}
+   \hat{u}_1 = \sum_{j\in\JJ}\chi_j(\xi_j U_j+(1-\xi_j)U_{j-1})\,,
+\end{eqnarray}
+where $\chi_j(x)$ is an indicator that takes on the value 1 (or 0) inside (or outside) of the $j$th~interval, and 
+$\xi_j(x)=({x-X_{j-1}})({X_j-X_{j-1}})$ is a spatial, linear interpolator.
+This particular approximation is chosen to be continuous across the boundaries of each interval. 
+In general, it suffices 
+to impose a continuity condition at the right-hand end of each arbitrary $j$th interval, namely:
+\begin{eqnarray}
+   [u]_j := \lim_{\epsilon\rightarrow 0^{+}} u(X_j+\epsilon,t)-u(X_j-\epsilon,t)= 0\,.
+\label{eq:cont-cond}
+\end{eqnarray}
+Unfortunately, this linear approximation is not smooth at the interval boundaries. 
+For convenience, consider regular grid spacings of size 
+$X_j-X_{j-1}=H$. Then, denoting $\D xu$ as $u'$, observe that
+\begin{eqnarray}
+   [\hat{u}'_1]_j = \frac{1}{H}(U_{j+1}+U_{j-1}-2U_j)~=~\frac{1}{H}\left.\delta^{2}\hat{u}_1\right|_{X_j}\,,
+\end{eqnarray}
+for the centred difference $\delta u(x,t):= u(x+\frac{H}{2},t)-u(x-\frac{H}{2},t)$\,.
+However, this non-smoothness may be corrected at higher order by imposing a further segment boundary condition, namely
+\begin{eqnarray}
+   [u']_j = \frac{1-\gamma}{H}\left.\delta^{2}u\right|_{X_j}\,.
+\label{eq:smooth-cond}
+\end{eqnarray}
+This condition implies, for example, that at second order
+\begin{eqnarray}
+   [\hat{u}'_2]_j = \frac{1}{H}\left.\delta^{2}\hat{u}_2\right|_{X_j}
+-\frac{1}{H}\left.\delta^{2}\hat{u}_1\right|_{X_j}\,.
+\end{eqnarray}
+Consequently, smooth approximations are found in the limit as $\gamma\rightarrow 1$.
+
+\section{Linear Eigenmode Analysis}
+Consider a single eigenmode of the form~(\ref{eq:raw-eigmode}) for some fixed wavenumber $k>0$. 
+Thus, allowing for the partitioning of \XX, let
+\begin{eqnarray}
+u & \sim & \sum_{j\in\JJ} \chi_j a_j e^{ikH\xi_j} + \text{c.c.}\,,
+\end{eqnarray}
+for arbitrary, time--varying, complex coefficients $a_j=A_j+iB_j$. 
+We now seek the `spatial' evolution from interval to interval for the given wavenumber.
+The continuity condition~(\ref{eq:cont-cond}) implies that
+\begin{eqnarray}
+a_{j+1} - a_j e^{ikH\xi_j} + \text{c.c.} = 0\,.
+\end{eqnarray}
+Similarly, the smoothness condition~(\ref{eq:smooth-cond}) implies that 
+\begin{eqnarray}
+ik a_{j+1} -ik a_j e^{ikH} + \text{c.c.} =  
+\frac{1-\gamma}{H}\left(
+a_{j+1} e^{ikH} + a_j - 2 a_j e^{ikH}
+\right)
++ \text{c.c.}\,,
+\end{eqnarray}
+where continuity has also been invoked at the left-hand of the $j$th interval.
+In coefficient form, the update from the $j$th to $(j+1)$th segment is
+\begin{eqnarray}
+\left[\begin{array}{cc}
+1 & 0\\
+fc & 1-fs\\
+\end{array}\right]
+\left[\begin{array}{c}
+A_{j+1}\\
+B_{j+1}\\
+\end{array}\right]
+=
+\left[\begin{array}{cc}
+c & -s\\
+s+f(2c-1) & c-2fs\\
+\end{array}\right]
+\left[\begin{array}{c}
+A_{j}\\
+B_{j}\\
+\end{array}\right]\,,
+\end{eqnarray}
+where $c+is:=e^{ikH}$ and $f:=\frac{1-\gamma}{kH}$.
+Now, letting $a_{j+1}=\mu a_j$, the characteristic equation for 
+the growth factor $\mu$ is
+\begin{eqnarray}
+(1-fs)\left[\mu^2-2\frac{c-fs}{1-fs}\mu+1\right] = 0\,,
+\end{eqnarray}
+with roots given by
+\begin{eqnarray}
+\mu & = & \beta\pm\sqrt{\beta^2-1}
+\hspace*{5mm}\mbox{for } 
+\beta~=~\frac{c-fs}{1-fs}\,.
+\end{eqnarray}
+Observe that $\beta\le 1$ since $c=\cos kH\le 1$ and 
+$1-fs=1-(1-\gamma)\frac{\sin kH}{kH}\ge 0$.
+Thus, for $|\beta|<1$, the factors are complex with magnitude 
+$|\mu|=1$,
+indicating marginally stable evolution of $a_j$. 
+This includes the limiting case of $\gamma=1$ ($f=0$), for which
+$\mu=c\pm is=e^{\pm ikH}$.
+Likewise, $\mu=\pm 1$ for $\beta=\pm 1$, corresponding to $kH=n\pi$, $n=0,1,2,\ldots$.
+Finally, for small regions near each $kH=(2n+1)\pi$, 
+it is found that $\beta<-1$, resulting in two real factors,
+$\mu<-1$ and $-1<\mu<0$, indicating unstable (saddle) evolution.
+\gaj{What does this say about our overall stability?}
+
+\section{Linear Dual Space}
+The linear diffusion equation~(\ref{eq:diff}) is seperable into the temporal operator $\D {t}{}$ and the spatial operator
+${\cal L}=\DD {x}{}$. Assuming a spatially square-integrable field over \XX, the inner product can be shown to obey
+\begin{eqnarray}
+\langle{\cal L}u,v\rangle =
+\langle u,{\cal L}v\rangle + R\,,
+\end{eqnarray}
+with the residual 
+\begin{eqnarray}
+R &= & \sum_{j=\underline{J}+1}^{\bar{J}}\left[u'v-v'u\right]_{X_{j-1}}^{X_j}\,,
+\end{eqnarray}
+for $\underline{J}=\inf{\JJ}$ and $\bar{J}=\sup{\JJ}$.
+Now, letting $r=u'v-v'u$, the residual becomes 
+\begin{eqnarray}
+R = r_{\bar{J}}-r_{\underline{J}}-\sum_{j=\underline{J}+1}^{\bar{J}-1}[r]_j\,,
+\end{eqnarray}
+where, assuming that $v$ also obeys conditions~(\ref{eq:cont-cond}) and~(\ref{eq:smooth-cond}),
+\begin{eqnarray}
+[r]_j & = & [u']_j V_j-[v']_j U_j
+\nonumber\\
+& = & \frac{1-\gamma}{H}\left[
+(U_{j+1}+U_{j-1})V_j-(V_{j+1}+V_{j-1})U_j
+\right]\,.
+\end{eqnarray}
+\ajr{Have to shift the j by $0,\pm1$ in these sums and then massive cancellation to show the operator is self-adjoint.  AT least it all cancels except at the ends: which is why periodic is so nice because the ends then also cancel.}
+\gaj{Counter example?: 2 intervals $\Rightarrow [r]_1 = (U_0+U_2)V_1-(V_0+V_2)U_1$.
+Assume material conservation at boundaries, i.e. u'=v'=0.
+Then $R=-[r]_1\neq 0$.}
+\gaj{Try $[u']_0=0 \Rightarrow U_{-1}=2U_0-U_1$, $[u']_2=0 \Rightarrow U_3=2U_2-U_1$. So $R=-[r]_0-[r]_1-[r]_2
+=-U_{-1}V_0+V_{-1}U_0
+-U_3V_2+V_3U_2
+=U_1V_0-V_1U_0
++U_1V_2-V_1U_2
+=-[r]_1$.}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\end{document}
