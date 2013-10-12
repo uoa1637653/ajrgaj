@@ -80,6 +80,7 @@ $\ell$ of the series parameter $\gamma$, giving
 \\
   \DD {x}{\hat{u}_\ell} & = & \sum_{m=1}^{\ell-1}\D {\vec U}{\hat{u}_m}\cdot{\vec g}_{\ell-m}\,,
 \hspace*{5mm}\mbox{for }\ell=2,3,\ldots\,.
+\label{eq:pert_ell}
 \end{eqnarray}
 
 
@@ -90,6 +91,7 @@ with the discretisation imposed by the coarse dynamics,
 consider the linear approximation
 \begin{eqnarray}
    \hat{u}_1 = \sum_{j\in\JJ}\chi_j(\xi_j U_j+(1-\xi_j)U_{j-1})\,,
+\label{eq:uhat1}
 \end{eqnarray}
 where $\chi_j(x)$ is an indicator that takes on the value 1 (or 0) inside (or outside) of the $j$th~interval, and 
 $\xi_j(x)=({x-X_{j-1}})({X_j-X_{j-1}})$ is a spatial, linear interpolator.
@@ -111,11 +113,6 @@ However, this non-smoothness may be corrected at higher order by imposing a furt
 \begin{eqnarray}
    [u']_j = \frac{1-\gamma}{H}\left.\delta^{2}u\right|_{X_j}\,.
 \label{eq:smooth-cond}
-\end{eqnarray}
-This condition implies, for example, that at second order
-\begin{eqnarray}
-   [\hat{u}'_2]_j = \frac{1}{H}\left.\delta^{2}\hat{u}_2\right|_{X_j}
--\frac{1}{H}\left.\delta^{2}\hat{u}_1\right|_{X_j}\,.
 \end{eqnarray}
 Consequently, smooth approximations are found in the limit as $\gamma\rightarrow 1$.
 
@@ -219,6 +216,46 @@ Then $R=-[r]_1\neq 0$.}
 =U_1V_0-V_1U_0
 +U_1V_2-V_1U_2
 =-[r]_1$.}
+
+\section{Second-order Approximation}
+Substituting the first-order approximation~(\ref{eq:uhat1}) into the
+nonlinear diffusion equation~(\ref{eq:pert_ell}) for $\ell=2$ gives
+\begin{eqnarray}
+\hat{u}''_2 = \sum_{j\in\JJ}\chi_j(\xi_j g_{1,j}+(1-\xi_j)g_{1,j-1})\,.
+\end{eqnarray}
+Spatial integration then gives
+\begin{eqnarray}
+\hat{u}'_2 & = & \frac{H}{2}\sum_{j\in\JJ}\chi_j(\xi^2_j g_{1,j}
+-(1-\xi_j)^2g_{1,j-1}+c_j)\,,
+\\
+\hat{u}_2 & = & \frac{H^2}{6}\sum_{j\in\JJ}\chi_j(\xi^3_j g_{1,j}
++(1-\xi_j)^3g_{1,j-1}+3c_j\xi_j+d_j)\,.
+\end{eqnarray}
+Note that the two constants of integration form 
+piecewise linear terms that properly belong with the first-order
+approximation, and hence may be neglected.
+Consequently, the jump across adjacent intervals gives
+\begin{eqnarray}
+[\hat{u}_2]_j = 0\,, &&
+[\hat{u}'_2]_j = -Hg_{1,j}\,,
+\end{eqnarray}
+such that $\hat{u}_2$ satsfies the continuity 
+condition~(\ref{eq:cont-cond}). The smoothness 
+condition~(\ref{eq:smooth-cond}) then implies that
+\begin{eqnarray}
+   [\hat{u}'_2]_j = 
+\frac{1}{H}\left.\delta^{2}\hat{u}_2\right|_{X_j}
+-\frac{1}{H}\left.\delta^{2}\hat{u}_1\right|_{X_j}
+%\nonumber\\
+ = \frac{H}{6}\delta^2g_{1,j}
+-\frac{1}{H}\delta^{2}U_j
+\,,
+\end{eqnarray}
+and hence
+\begin{eqnarray}
+(1+\frac{1}{6}\delta^2)g_{1,j} = \frac{1}{H^2}\delta^2U_j\,.
+\end{eqnarray}
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \end{document}
