@@ -191,12 +191,12 @@ ${\cal L}=\DD {x}{}$. Assuming a spatially square-integrable field over \XX, the
 \end{eqnarray}
 with the residual 
 \begin{eqnarray}
-R &= & \sum_{j=\underline{J}+1}^{\bar{J}}\left[u'v-v'u\right]_{X_{j-1}}^{X_j}\,,
+R &= & \sum_{j\in\JJ}\left[u'v-v'u\right]_{X_{j-1}}^{X_j}\,.
 \end{eqnarray}
-for $\underline{J}=\inf{\JJ}$ and $\bar{J}=\sup{\JJ}$.
+%for $\underline{J}=\inf{\JJ}$ and $\bar{J}=\sup{\JJ}$.
 Now, letting $r=u'v-v'u$, the residual becomes 
 \begin{eqnarray}
-R = r_{\bar{J}}-r_{\underline{J}}-\sum_{j=\underline{J}+1}^{\bar{J}-1}[r]_j\,,
+R = r_{\text{right}}-r_{\text{left}}-\sum_{j=\underline{J}+1}^{\bar{J}-1}[r]_j\,,
 \end{eqnarray}
 where, assuming that $v$ also obeys conditions~(\ref{eq:cont-cond}) and~(\ref{eq:smooth-cond}),
 \begin{eqnarray}
@@ -207,15 +207,25 @@ where, assuming that $v$ also obeys conditions~(\ref{eq:cont-cond}) and~(\ref{eq
 \right]\,.
 \end{eqnarray}
 \ajr{Have to shift the j by $0,\pm1$ in these sums and then massive cancellation to show the operator is self-adjoint.  AT least it all cancels except at the ends: which is why periodic is so nice because the ends then also cancel.}
-\gaj{Counter example?: 2 intervals $\Rightarrow [r]_1 = (U_0+U_2)V_1-(V_0+V_2)U_1$.
+\quad\gaj{Counter example?: 2 intervals $\Rightarrow [r]_1 = (U_0+U_2)V_1-(V_0+V_2)U_1$.
 Assume material conservation at boundaries, i.e. u'=v'=0.
 Then $R=-[r]_1\neq 0$.}
-\gaj{Try $[u']_0=0 \Rightarrow U_{-1}=2U_0-U_1$, $[u']_2=0 \Rightarrow U_3=2U_2-U_1$. So $R=-[r]_0-[r]_1-[r]_2
+\quad\gaj{Try $[u']_0=0 \Rightarrow U_{-1}=2U_0-U_1$, $[u']_2=0 \Rightarrow U_3=2U_2-U_1$. So $R=-[r]_0-[r]_1-[r]_2
 =-U_{-1}V_0+V_{-1}U_0
 -U_3V_2+V_3U_2
 =U_1V_0-V_1U_0
 +U_1V_2-V_1U_2
 =-[r]_1$.}
+\quad\ajr{Check the following.}
+There are three main boundary conditions on a finite domain:
+\begin{description}
+\item[periodic] easy;
+\item[Dirichlet] setting \(u=0\) on the bdry, that is, \(U_{\text{bdry}}=0\), means we get cancellation in~\(R\) if correspondingly \(v=V=0\) on the bdry;
+\item[Neumann] requiring \(u'=0\) on the bdry is more complicated, but it appears that setting on the bdry \(u'=\frac{1-\gamma}H(U_{\text{next}}-U_{\text{bdry}})\), means we get cancellation in~\(R\) if correspondingly for~\(v\) on the bdry interval..
+\end{description}
+
+
+
 
 \section{Second-order Approximation}
 Substituting the first-order approximation~(\ref{eq:uhat1}) into the
