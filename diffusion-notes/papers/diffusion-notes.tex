@@ -196,9 +196,10 @@ R &= & \sum_{j\in\JJ}\left[u'v-v'u\right]_{X_{j-1}}^{X_j}\,.
 %for $\underline{J}=\inf{\JJ}$ and $\bar{J}=\sup{\JJ}$.
 Now, letting $r=u'v-v'u$, the residual becomes 
 \begin{eqnarray}
-R = r_{\text{right}}-r_{\text{left}}-\sum_{j=\underline{J}+1}^{\bar{J}-1}[r]_j\,,
+R = r_{\text{right}}-r_{\text{left}}-\sum_{j=\text{left}+1}^{\text{right}-1}[r]_j\,,
 \end{eqnarray}
-where, assuming that $v$ also obeys conditions~(\ref{eq:cont-cond}) and~(\ref{eq:smooth-cond}),
+if there are at least two intervals.
+Assuming that $v$ also obeys conditions~(\ref{eq:cont-cond}) and~(\ref{eq:smooth-cond}), the $j$-th residual jump becomes
 \begin{eqnarray}
 [r]_j & = & [u']_j V_j-[v']_j U_j
 \nonumber\\
@@ -206,6 +207,18 @@ where, assuming that $v$ also obeys conditions~(\ref{eq:cont-cond}) and~(\ref{eq
 (U_{j+1}+U_{j-1})V_j-(V_{j+1}+V_{j-1})U_j
 \right]\,.
 \end{eqnarray}
+Observe that terms from adjacent interval boundaries will cancel, leaving
+\begin{eqnarray}
+R & = & 
+u'_{\text{right}}V_{\text{right}}-v'_{\text{right}}U_{\text{right}}
+-u'_{\text{left}}V_{\text{left}}+v'_{\text{left}}U_{\text{left}}
+\nonumber\\ &&
+{}-\frac{1-\gamma}{H}\left[
+U_{\text{left}}V_{\text{left}+1}-V_{\text{left}}U_{\text{left}+1}
++U_{\text{right}}V_{\text{right}-1}-V_{\text{right}}U_{\text{right}-1}
+\right]\,.
+\end{eqnarray}
+
 \ajr{Have to shift the j by $0,\pm1$ in these sums and then massive cancellation to show the operator is self-adjoint.  AT least it all cancels except at the ends: which is why periodic is so nice because the ends then also cancel.}
 \quad\gaj{Counter example?: 2 intervals $\Rightarrow [r]_1 = (U_0+U_2)V_1-(V_0+V_2)U_1$.
 Assume material conservation at boundaries, i.e. u'=v'=0.
