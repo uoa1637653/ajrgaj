@@ -65,36 +65,34 @@ This centre manifold can be found in practice by iteratively refining approximat
 \begin{eqnarray}
 	u  & \sim & \hat{u}_0+\gamma\hat{u}_1+\gamma^2\hat{u}_2+\cdots\,,
 \end{eqnarray}
-for some parameter $0\le\gamma\le 1$. Without loss of generality, let
-$\hat{u}_0=0$ be the trivial stationary solution to equation~(\ref{eq:diff}). 
-
-In addition, the constant eigensolution for $\lambda=0$ implies a slow evolution for the coarse dynamics given by 
+for some parameter $0\le\gamma\le 1$.
+Now, the constant eigensolution for $\lambda=0$ implies a slow evolution for the coarse dynamics given by 
 equation~(\ref{eq:temporal}), which therefore admits a series expansion of the form
 \begin{eqnarray}
 	\dot{{\vec U}} & \sim & \gamma {\vec g}_1+\gamma^2 {\vec g}_2+\cdots\,.
 \end{eqnarray}
 Hence, equation~(\ref{eq:diff2}) may be decomposed at each order 
-$\ell$ of the series parameter $\gamma$, giving
+$\ell$ of the parameter $\gamma$, giving
 \begin{eqnarray}
-   \DD {x}{\hat{u}_1} & = & 0\,, \label{eq:pert1}
+   \DD {x}{\hat{u}_0} & = & 0\,, \label{eq:pert1}
 \\
-  \DD {x}{\hat{u}_\ell} & = & \sum_{m=1}^{\ell-1}\D {\vec U}{\hat{u}_m}\cdot{\vec g}_{\ell-m}\,,
-\hspace*{5mm}\mbox{for }\ell=2,3,\ldots\,.
+  \DD {x}{\hat{u}_\ell} & = & \sum_{m=0}^{\ell-1}\D {\vec U}{\hat{u}_m}\cdot{\vec g}_{\ell-m}\,,
+\hspace*{5mm}\mbox{for }\ell=1,2,\ldots\,.
 \label{eq:pert_ell}
 \end{eqnarray}
 
 
-\section{First-order Approximation}
-Now,  the leading equation~(\ref{eq:pert1}) admits any spatially piecewise linear function as a solution. 
+\section{Zeroth-order Approximation}
+The leading equation~(\ref{eq:pert1}) admits any spatially piecewise linear function as a solution. 
 Hence, in keeping
 with the discretisation imposed by the coarse dynamics, 
 consider the linear approximation
 \begin{eqnarray}
-   \hat{u}_1 = \sum_{j\in\JJ}\chi_j(\xi_j U_j+(1-\xi_j)U_{j-1})\,,
+   \hat{u}_0 = \sum_{j\in\JJ}\chi_j(\xi_j U_j+(1-\xi_j)U_{j-1})\,,
 \label{eq:uhat1}
 \end{eqnarray}
 where $\chi_j(x)$ is an indicator that takes on the value 1 (or 0) inside (or outside) of the $j$th~interval, and 
-$\xi_j(x)=({x-X_{j-1}})({X_j-X_{j-1}})$ is a spatial, linear interpolator.
+$\xi_j(x)=\frac{x-X_{j-1}}{X_j-X_{j-1}}$ is a linear, spatial interpolator.
 This particular approximation is chosen to be continuous across the boundaries of each interval. 
 In general, it suffices 
 to impose a continuity condition at the right-hand end of each arbitrary $j$th interval, namely:
@@ -106,10 +104,10 @@ Unfortunately, this linear approximation is not smooth at the interval boundarie
 For convenience, consider regular grid spacings of size 
 $X_j-X_{j-1}=H$. Then, denoting $\D xu$ as $u'$, observe that
 \begin{eqnarray}
-   [\hat{u}'_1]_j = \frac{1}{H}(U_{j+1}+U_{j-1}-2U_j)~=~\frac{1}{H}\left.\delta^{2}\hat{u}_1\right|_{X_j}\,,
+   [\hat{u}'_1]_j = \frac{1}{H}(U_{j+1}+U_{j-1}-2U_j)~=~\frac{1}{H}\left.\delta^{2}\hat{u}_0\right|_{X_j}\,,
 \end{eqnarray}
 for the centred difference $\delta u(x,t):= u(x+\frac{H}{2},t)-u(x-\frac{H}{2},t)$\,.
-However, this non-smoothness may be corrected at higher order by imposing a further segment boundary condition, namely
+However, this non-smoothness may be corrected at higher order by imposing a further internal boundary condition, namely
 \begin{eqnarray}
    [u']_j = \frac{1-\gamma}{H}\left.\delta^{2}u\right|_{X_j}\,.
 \label{eq:smooth-cond}
@@ -180,7 +178,12 @@ Likewise, $\mu=\pm 1$ for $\beta=\pm 1$, corresponding to $kH=n\pi$, $n=0,1,2,\l
 Finally, for small regions near each $kH=(2n+1)\pi$, 
 it is found that $\beta<-1$, resulting in two real factors,
 $\mu<-1$ and $-1<\mu<0$, indicating unstable (saddle) evolution.
-\gaj{What does this say about our overall stability?}
+More precisely, these unstable regions occur when
+\begin{eqnarray}
+%c-fs < -(1-fs) & \Rightarrow & 1+c < 2fs 
+%\frac{kH}{1-\gamma}\cos^2\frac{kH}{2} < 2\sin\frac{kH}{2}\cos\frac{kH}{2}\,.
+\frac{kH}{2} <(1-\gamma)\tan\frac{kH}{2}\,, && kH\ne n\pi\,.
+\end{eqnarray}
 
 \section{Linear Dual Space}
 The linear diffusion equation~(\ref{eq:diff}) is seperable into the temporal operator $\D {t}{}$ and the spatial operator
@@ -268,7 +271,7 @@ condition~(\ref{eq:smooth-cond}) then implies that
 \begin{eqnarray}
    [\hat{u}'_2]_j = 
 \frac{1}{H}\left.\delta^{2}\hat{u}_2\right|_{X_j}
--\frac{1}{H}\left.\delta^{2}\hat{u}_1\right|_{X_j}
+-\frac{1}{H}\left.\delta^{2}\hat{u}_0\right|_{X_j}
 %\nonumber\\
  = \frac{H}{6}\delta^2g_{1,j}
 -\frac{1}{H}\delta^{2}U_j

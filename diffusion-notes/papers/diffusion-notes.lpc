@@ -1,5 +1,4 @@
-\contentsline {lpcsec}{\numberline {}GAJ\ - What does this say about our overall stability?}{5}{section*.2}
-\contentsline {lpcsec}{\numberline {}AJR\ - Have to shift the j by $0,\pm 1$ in these sums and then massive cancellation to show the operator is self-adjoint. AT least it all cancels except at the ends: which is why periodic is so nice because the ends then also cancel.}{6}{section*.3}
-\contentsline {lpcsec}{\numberline {}GAJ\ - Counter example?: 2 intervals $\Rightarrow [r]_1 = (U_0+U_2)V_1-(V_0+V_2)U_1$. Assume material conservation at boundaries, i.e. u'=v'=0. Then $R=-[r]_1\not =0$.}{6}{section*.4}
-\contentsline {lpcsec}{\numberline {}GAJ\ - Try $[u']_0=0 \Rightarrow U_{-1}=2U_0-U_1$, $[u']_2=0 \Rightarrow U_3=2U_2-U_1$. So $R=-[r]_0-[r]_1-[r]_2 =-U_{-1}V_0+V_{-1}U_0 -U_3V_2+V_3U_2 =U_1V_0-V_1U_0 +U_1V_2-V_1U_2 =-[r]_1$.}{6}{section*.5}
-\contentsline {lpcsec}{\numberline {}AJR\ - Check the following.}{6}{section*.6}
+\contentsline {lpcsec}{\numberline {}AJR\ - Have to shift the j by $0,\pm 1$ in these sums and then massive cancellation to show the operator is self-adjoint. AT least it all cancels except at the ends: which is why periodic is so nice because the ends then also cancel.}{6}{section*.2}
+\contentsline {lpcsec}{\numberline {}GAJ\ - Counter example?: 2 intervals $\Rightarrow [r]_1 = (U_0+U_2)V_1-(V_0+V_2)U_1$. Assume material conservation at boundaries, i.e. u'=v'=0. Then $R=-[r]_1\not =0$.}{6}{section*.3}
+\contentsline {lpcsec}{\numberline {}GAJ\ - Try $[u']_0=0 \Rightarrow U_{-1}=2U_0-U_1$, $[u']_2=0 \Rightarrow U_3=2U_2-U_1$. So $R=-[r]_0-[r]_1-[r]_2 =-U_{-1}V_0+V_{-1}U_0 -U_3V_2+V_3U_2 =U_1V_0-V_1U_0 +U_1V_2-V_1U_2 =-[r]_1$.}{6}{section*.4}
+\contentsline {lpcsec}{\numberline {}AJR\ - Check the following.}{6}{section*.5}
