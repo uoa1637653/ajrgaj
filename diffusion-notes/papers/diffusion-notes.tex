@@ -64,6 +64,7 @@ to $\lambda<0$ decay rapidly to the centre manifold corresponding to $\lambda=0$
 This centre manifold can be found in practice by iteratively refining approximations to $u$. In particular, consider a series expansion of the form
 \begin{eqnarray}
 	u  & \sim & \hat{u}_0+\gamma\hat{u}_1+\gamma^2\hat{u}_2+\cdots\,,
+\label{eq:u:series}
 \end{eqnarray}
 for some parameter $0\le\gamma\le 1$.
 Now, the constant eigensolution for $\lambda=0$ implies a slow evolution for the coarse dynamics given by 
@@ -82,14 +83,14 @@ $\ell$ of the parameter $\gamma$, giving
 \end{eqnarray}
 
 
-\section{Zeroth-order Approximation}
+\section{Leading Approximation}
 The leading equation~(\ref{eq:pert1}) admits any spatially piecewise linear function as a solution. 
 Hence, in keeping
 with the discretisation imposed by the coarse dynamics, 
 consider the linear approximation
 \begin{eqnarray}
    \hat{u}_0 = \sum_{j\in\JJ}\chi_j(\xi_j U_j+(1-\xi_j)U_{j-1})\,,
-\label{eq:uhat1}
+\label{eq:uhat0}
 \end{eqnarray}
 where $\chi_j(x)$ is an indicator that takes on the value 1 (or 0) inside (or outside) of the $j$th~interval, and 
 $\xi_j(x)=\frac{x-X_{j-1}}{X_j-X_{j-1}}$ is a linear, spatial interpolator.
@@ -184,6 +185,9 @@ More precisely, these unstable regions occur when
 %\frac{kH}{1-\gamma}\cos^2\frac{kH}{2} < 2\sin\frac{kH}{2}\cos\frac{kH}{2}\,.
 \frac{kH}{2} <(1-\gamma)\tan\frac{kH}{2}\,, && kH\ne n\pi\,.
 \end{eqnarray}
+Thus, for $\gamma=0$ there is an initial forbidden gap $k\in(0,\frac{\pi}{H})$ adjacent to the centre manifold
+wavenumber $k=0$.
+\gaj{What am I trying to say here?}
 
 \section{Linear Dual Space}
 The linear diffusion equation~(\ref{eq:diff}) is seperable into the temporal operator $\D {t}{}$ and the spatial operator
@@ -196,11 +200,11 @@ with the residual
 \begin{eqnarray}
 R &= & \sum_{j\in\JJ}\left[u'v-v'u\right]_{X_{j-1}}^{X_j}\,.
 \end{eqnarray}
-%for $\underline{J}=\inf{\JJ}$ and $\bar{J}=\sup{\JJ}$.
 Now, letting $r=u'v-v'u$, the residual becomes 
 \begin{eqnarray}
-R = r_{\text{right}}-r_{\text{left}}-\sum_{j=\text{left}+1}^{\text{right}-1}[r]_j\,,
+R = r_{\bar{J}}-r_{\underline{J}}-\sum_{j=\underline{J}+1}^{\bar{J}-1}[r]_j\,,
 \end{eqnarray}
+for $\underline{J}=\inf{\JJ}$ and $\bar{J}=\sup{\JJ}$,
 if there are at least two intervals.
 Assuming that $v$ also obeys conditions~(\ref{eq:cont-cond}) and~(\ref{eq:smooth-cond}), the $j$-th residual jump becomes
 \begin{eqnarray}
@@ -213,25 +217,15 @@ Assuming that $v$ also obeys conditions~(\ref{eq:cont-cond}) and~(\ref{eq:smooth
 Observe that terms from adjacent interval boundaries will cancel, leaving
 \begin{eqnarray}
 R & = & 
-u'_{\text{right}}V_{\text{right}}-v'_{\text{right}}U_{\text{right}}
--u'_{\text{left}}V_{\text{left}}+v'_{\text{left}}U_{\text{left}}
+u'_{\bar{J}}V_{\bar{J}}-v'_{\bar{J}}U_{\bar{J}}
+-u'_{\underline{J}}V_{\underline{J}}+v'_{\underline{J}}U_{\underline{J}}
 \nonumber\\ &&
 {}-\frac{1-\gamma}{H}\left[
-U_{\text{left}}V_{\text{left}+1}-V_{\text{left}}U_{\text{left}+1}
-+U_{\text{right}}V_{\text{right}-1}-V_{\text{right}}U_{\text{right}-1}
+U_{\underline{J}}V_{\underline{J}+1}-V_{\underline{J}}U_{\underline{J}+1}
++U_{\bar{J}}V_{\bar{J}-1}-V_{\bar{J}}U_{\bar{J}-1}
 \right]\,.
 \end{eqnarray}
 
-\ajr{Have to shift the j by $0,\pm1$ in these sums and then massive cancellation to show the operator is self-adjoint.  AT least it all cancels except at the ends: which is why periodic is so nice because the ends then also cancel.}
-\quad\gaj{Counter example?: 2 intervals $\Rightarrow [r]_1 = (U_0+U_2)V_1-(V_0+V_2)U_1$.
-Assume material conservation at boundaries, i.e. u'=v'=0.
-Then $R=-[r]_1\neq 0$.}
-\quad\gaj{Try $[u']_0=0 \Rightarrow U_{-1}=2U_0-U_1$, $[u']_2=0 \Rightarrow U_3=2U_2-U_1$. So $R=-[r]_0-[r]_1-[r]_2
-=-U_{-1}V_0+V_{-1}U_0
--U_3V_2+V_3U_2
-=U_1V_0-V_1U_0
-+U_1V_2-V_1U_2
-=-[r]_1$.}
 \quad\ajr{Check the following.}
 There are three main boundary conditions on a finite domain:
 \begin{description}
@@ -243,38 +237,47 @@ There are three main boundary conditions on a finite domain:
 
 
 
-\section{Second-order Approximation}
-Substituting the first-order approximation~(\ref{eq:uhat1}) into the
-nonlinear diffusion equation~(\ref{eq:pert_ell}) for $\ell=2$ gives
+\section{First-order Approximation}
+Substituting the leading approximation~(\ref{eq:uhat0}) into the
+nonlinear diffusion equation~(\ref{eq:pert_ell}) for $\ell=1$ results in
+the first-order equation
 \begin{eqnarray}
-\hat{u}''_2 = \sum_{j\in\JJ}\chi_j(\xi_j g_{1,j}+(1-\xi_j)g_{1,j-1})\,.
+\hat{u}''_1 = \sum_{j\in\JJ}\chi_j(\xi_j g_{1,j}+(1-\xi_j)g_{1,j-1})\,.
 \end{eqnarray}
 Spatial integration then gives
 \begin{eqnarray}
-\hat{u}'_2 & = & \frac{H}{2}\sum_{j\in\JJ}\chi_j(\xi^2_j g_{1,j}
--(1-\xi_j)^2g_{1,j-1}+c_j)\,,
+\hat{u}'_1 & = & \frac{H}{2}\sum_{j\in\JJ}\chi_j(\xi^2_j g_{1,j}
+-(1-\xi_j)^2g_{1,j-1}+c_{1,j})\,,
+\label{eq:udhat1}
 \\
-\hat{u}_2 & = & \frac{H^2}{6}\sum_{j\in\JJ}\chi_j(\xi^3_j g_{1,j}
-+(1-\xi_j)^3g_{1,j-1}+3c_j\xi_j+d_j)\,.
+\hat{u}_1 & = & \frac{H^2}{6}\sum_{j\in\JJ}\chi_j(\xi^3_j g_{1,j}
++(1-\xi_j)^3g_{1,j-1}+3\xi_{j}c_{1,j}+d_{1,j})\,.
+\label{eq:uhat1}
 \end{eqnarray}
-Note that the two constants of integration form 
-piecewise linear terms that properly belong with the first-order
-approximation, and hence may be neglected.
-Consequently, the jump across adjacent intervals gives
+Recall from the chosen  spatial discretisation that $u|_{X_j}=U_{j}$ at each grid-point.
+Observe this is already satified by $\hat{u}_0$ from equation~(\ref{eq:uhat0}), implying
+from expansion~(\ref{eq:u:series}) that
 \begin{eqnarray}
-[\hat{u}_2]_j = 0\,, &&
-[\hat{u}'_2]_j = -Hg_{1,j}\,,
+\left.\hat{u}_\ell\right|_{X_j}=0 && \mbox{for }\ell=1,2,\ldots\,.
 \end{eqnarray}
-such that $\hat{u}_2$ satsfies the continuity 
-condition~(\ref{eq:cont-cond}). The smoothness 
-condition~(\ref{eq:smooth-cond}) then implies that
+Thus $[\hat{u}_\ell]_j=0$ at each $X_j$, satisfying the continuity 
+condition~(\ref{eq:cont-cond}).
+Now, evaluating equation~(\ref{eq:uhat1}) at $\xi_j=0$ gives $d_{1,j}=-g_{1,j-1}$,
+and at $\xi_j=1$ gives $3c_{1,j}=-(g_{1,j}-g_{1,j-1})$.
+Thus,  from equation~(\ref{eq:udhat1}), observe that
 \begin{eqnarray}
-   [\hat{u}'_2]_j = 
-\frac{1}{H}\left.\delta^{2}\hat{u}_2\right|_{X_j}
--\frac{1}{H}\left.\delta^{2}\hat{u}_0\right|_{X_j}
-%\nonumber\\
- = \frac{H}{6}\delta^2g_{1,j}
--\frac{1}{H}\delta^{2}U_j
+[\hat{u}'_1]_j = -H(1+\frac{1}{6}\delta^2)g_{1,j}\,,
+\end{eqnarray}
+However, the smoothness 
+condition~(\ref{eq:smooth-cond}) gives
+\begin{eqnarray}
+   [\hat{u}'_1]_j = 
+\frac{1}{H}\left.\delta^{2}\hat{u}_1\right|_{X_j}
+-\frac{1}{H}\left.\delta^{2}\hat{u}_0\right|_{X_j}\,,
+\end{eqnarray}
+where, from equation~(\ref{eq:uhat1}),
+\begin{eqnarray}
+\left.\delta^2\hat{u}_1\right|_{X_j} =
 \,,
 \end{eqnarray}
 and hence
