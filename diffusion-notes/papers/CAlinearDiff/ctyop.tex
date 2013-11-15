@@ -1,0 +1,107 @@
+\documentclass[12pt,a5paper]{article}
+\usepackage{natbib,defns,reducecode}
+\IfFileExists{ajr.sty}{\usepackage{ajr}}{}
+\title{holistic discretisation that ensures continuity between 
+adjacent elements}
+\author{AJR}
+\date{Feb 2002 -- \today}
+
+\begin{document}
+
+\maketitle
+
+Execute in Reduce with \verb|in_tex "ctyop.tex"$|
+
+The \(j\)th element is \(X_{j-1}\leq x\leq X_j\).
+
+Improve printing.
+\begin{reduce}
+on div; off allfac; on revpri;
+factor hh,gamma,uu;
+\end{reduce}
+
+Define shift right/left operators \verb|ep| and~\verb|em|: use that in terms of centred mean and difference operators, \(\mu\)~and~\(\delta\), they are \(1\pm\mu\delta+\rat12\delta^2\) \cite[p.65]{npl61}.
+Also encode the identity that \(\mu^2=1+\delta^2/4\)\,.
+Define the `spline' operator \(\verb|ss|=S:=(1+\delta^2/6)^{-1}\).
+\begin{reduce}
+ep:=1+mu*del+del^2/2;
+em:=1-mu*del+del^2/2;
+let { mu^2=>1+del^2/4
+    , ss*del^2=>6-6*ss };
+\end{reduce}
+
+Write the solution in terms of the microscale variable~\(\xi:=(x-X_{j-1})/H\).
+\begin{reduce}
+depend xi,x; 
+let df(~a,x)=>df(a,xi)/hh;
+\end{reduce}
+
+To find corrections, linear operator~\verb|linv| solves \textsc{de}s of the form \(\DD \xi{\hat u}=\text{Res}\) such that \(\hat u=0\) at \(\xi=0,1\).
+\begin{reduce}
+operator linv; linear linv;
+let { linv(xi^~~p,xi)=>(xi^(p+2)-xi)/(p+1)/(p+2)
+    , linv(1,xi)=>(xi^2-xi)/2 };
+\end{reduce}
+
+Write the slow manifold in terms of amplitudes \(U_j(t):=u(X_j,t)\).  
+These depend upon time according to \(\de t{U_j}=g_j\)\,.
+We let all the \(j\)~dependence be in the operators.
+\begin{reduce}
+depend uu,t; 
+let df(uu,t)=>g;
+\end{reduce}
+
+The linear solution are equilibria, \(g=0\), of piecewise linear field between \(U_{j-1}\) at \(\xi=0\) and \(U_j\) at \(\xi=1\).
+\begin{reduce}
+g:=0;
+u:=xi*uu+(1-xi)*em*uu;
+\end{reduce}
+
+Iterate until the slow manifold model is found to the following specified order of accuracy.
+\begin{reduce}
+let gamma^4=>0;
+for it:=1:9 do begin 
+\end{reduce}
+
+Compute residuals of governing equations.
+\begin{reduce}
+    write pde:= -df(u,t)+df(u,x,x);
+    write amp:=sub(xi=1,u)-uu;
+    write cty:=sub(xi=0,ep*u)-sub(xi=1,u);
+    hux:=hh*df(u,x)$
+    write jmp:=-sub(xi=0,ep*hux)+sub(xi=1,hux)
+        +(1-gamma)*sub(xi=1,ep*u-2*u+em*u);
+\end{reduce}
+
+Correct approximations based upon the residuals.
+These ad hoc corrections are not optimal, but they do work after enough iterations.
+\begin{reduce}
+    write g:=g+(gd:=-ss*jmp/hh^2);
+    u:=u-linv(pde-(xi+(1-xi)*em)*gd,xi)*hh^2;
+\end{reduce}
+
+Exit the loop when all residuals are zero to the order specified.
+\begin{reduce}
+    showtime;
+    if {pde,amp,cty,jmp}={0,0,0,0} then write it:=it+10000;
+end;
+\end{reduce}
+
+This appears to simplify the form of the evolution:
+introducing \(\verb|gamdel2|:=\gamma\delta^2\).
+\begin{reduce}
+factor gamdel2;
+g:=(g where ss*gamma=>gamma-ss/6*gamdel2);
+u:=(u where { ss*gamma=>gamma-ss/6*gamdel2
+            , gamma*del^2=>gamdel2})$
+\end{reduce}
+
+Fin.
+\begin{reduce}
+end;
+\end{reduce}
+
+\bibliographystyle{agsm}
+\bibliography{bibexport,bib}
+
+\end{document}
