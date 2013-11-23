@@ -93,11 +93,11 @@ consider the linear approximation
    \hat{u}_0 = \sum_{j\in\JJ}\chi_j(\xi_j U_j+(1-\xi_j)U_{j-1})\,,
 \label{eq:uhat0}
 \end{eqnarray}
-where $\chi_j(x)$ is an indicator that takes on the value 1 (or 0) inside (or outside) of the $j$th~interval, and 
-$\xi_j(x)=\frac{x-X_{j-1}}{X_j-X_{j-1}}$ is a linear, spatial interpolator.
-This particular approximation is chosen to be continuous across the boundaries of each interval. 
+with indicator $\chi_j(x)=1$ (or 0) for $x\in\II_j$ (or $x\not\in\II_j$), and interpolator
+$\xi_j(x)=\frac{x-X_{j-1}}{X_j-X_{j-1}}$.
+This particular approximation is chosen to be continuous across the boundaries of each interval $\II_j$. 
 In general, it suffices 
-to impose a continuity condition at the right-hand end of each arbitrary $j$th interval, namely:
+to impose a continuity condition at the right-hand end of each $\II_j$, namely:
 \begin{eqnarray}
    [u]_j := \lim_{\epsilon\rightarrow 0^{+}} u(X_j+\epsilon,t)-u(X_j-\epsilon,t)= 0\,.
 \label{eq:cont-cond}
@@ -189,7 +189,7 @@ More precisely, these unstable regions occur when
 \label{eq:leaforbid}
 \end{eqnarray}
 Thus, at equilibrium ($\gamma=0$) there is an initial forbidden gap $\kappa\in(0,\pi)$ adjacent to the centre manifold
-wavenumber $\kappa=0$, indicating that transient solutions decay to the centre manifold at a rate of at least
+wavenumber $\kappa=0$ (see Figure~\ref{fig:leaspec}), indicating that transient solutions decay to the centre manifold at a rate of at least
 $\lambda=-\frac{\kappa^2}{H^2}=-\frac{\pi^2}{H^2}$. It is this gap that provides robustness to nonlinear perturbations
 of the system about the equilibrium.
 
@@ -223,7 +223,7 @@ Assuming a spatially square-integrable field over \XX, an appropriate inner prod
 \langle u'',v\rangle =
 \langle u,v''\rangle + R\,,
 \end{eqnarray}
-with a residual 
+with residual 
 \begin{eqnarray}
 R &= & \sum_{j\in\JJ}\left[u'v-v'u\right]_{X_{j-1}}^{X_j}\,.
 \end{eqnarray}
@@ -231,9 +231,10 @@ Now, letting $r=u'v-v'u$, the residual becomes
 \begin{eqnarray}
 R = r_{\bar{J}}-r_{\underline{J}}-\sum_{j=\underline{J}+1}^{\bar{J}-1}[r]_j\,,
 \end{eqnarray}
-for $\underline{J}=\inf{\JJ}$ and $\bar{J}=\sup{\JJ}$,
-if there are at least two intervals.
-Assuming that $v$ also obeys conditions~(\ref{eq:cont-cond}) and~(\ref{eq:smooth-cond}), the $j$-th residual jump becomes
+for outer boundary indices $\underline{J}=\inf{\JJ}$ and $\bar{J}=\sup{\JJ}$
+(supposing $|\JJ|> 2$).
+Assuming that $v$ also obeys conditions~(\ref{eq:cont-cond}) and~(\ref{eq:smooth-cond}), 
+the residual jump at $X_j$ becomes
 \begin{eqnarray}
 [r]_j & = & [u']_j V_j-[v']_j U_j
 \nonumber\\
@@ -241,24 +242,24 @@ Assuming that $v$ also obeys conditions~(\ref{eq:cont-cond}) and~(\ref{eq:smooth
 (U_{j+1}+U_{j-1})V_j-(V_{j+1}+V_{j-1})U_j
 \right]\,.
 \end{eqnarray}
-Observe that terms from adjacent interval boundaries will cancel, leaving
-only contriutions from the outermost boundary intervals, namely:
+Observe that terms from adjacent intervals $\II_{j-1}$ and $\II_{j+1}$ will cancel terms from $\II_j$, leaving
+only contributions from the outermost boundary intervals $\II_{\underline{J}+1}$ and $\II_{\bar{J}}$; consequently:
 \begin{eqnarray}
 R & = & 
 u'_{\bar{J}}V_{\bar{J}}-v'_{\bar{J}}U_{\bar{J}}
 -u'_{\underline{J}}V_{\underline{J}}+v'_{\underline{J}}U_{\underline{J}}
 \nonumber\\ &&
 {}-\frac{1-\gamma}{H}\left[
-U_{\underline{J}}V_{\underline{J}+1}-V_{\underline{J}}U_{\underline{J}+1}
-+U_{\bar{J}}V_{\bar{J}-1}-V_{\bar{J}}U_{\bar{J}-1}
+U_{\bar{J}}V_{\bar{J}-1}-V_{\bar{J}}U_{\bar{J}-1}
++U_{\underline{J}}V_{\underline{J}+1}-V_{\underline{J}}U_{\underline{J}+1}
 \right]\,.
 \end{eqnarray}
-There are three main boundary conditions on a finite domain that lead to a zero residual:
+On a finite domain , there are three main outer boundary conditions that lead to a zero residual:
 \begin{description}
 \item[periodic] TODO;
-\item[Dirichlet] Setting \(u=0\) on the boundaries corresponds to \(U_{\underline{J}}=U_{\bar{J}}=0\), 
+\item[Dirichlet] Setting \(u=0\) at $X_{\underline{J}}$ and $X_{\bar{J}}$ corresponds to \(U_{\underline{J}}=U_{\bar{J}}=0\), 
 giving $R=0$ if correspondingly \(v=0\) on the boundaries.
-\item[Neumann] Requiring \(u'=0\) on the boundaries corresponds to choosing 
+\item[Neumann] Requiring \(u'=0\) on the boundaries  (for $\gamma=1$) corresponds to 
 \(u'_{\underline{J}}=\frac{1-\gamma}{H}(U_{\underline{J}+1}-U_{\underline{J}})\)
 and \(u'_{\bar{J}}=\frac{1-\gamma}{H}(U_{\bar{J}}-U_{\bar{J}-1})\),
 giving $R=0$ if correspondingly \(v'=0\) on the boundaries.
