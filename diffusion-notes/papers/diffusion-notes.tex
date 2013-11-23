@@ -52,13 +52,13 @@ Observe that the evolution of $u$ now has nonlinear interactions with ${\vec U}$
 
 \section{Centre Manifold Approximation}
 The original diffusion equation~(\ref{eq:diff}) admits 
-physically--realisable eigensolutions of the form
+eigensolutions of the form
 \begin{eqnarray}
-	u(x,t)  = e^{-k^2 t\pm ikx}\,,
+	u(x,t)  = e^{\lambda t\pm\sqrt{\lambda}x}\,,
 \label{eq:raw-eigmode}
 \end{eqnarray}
-with real eigenvalues $\lambda=-k^2\le 0$ for 
-eigenmode wavenumbers $\pm k$. 
+which are physically realisable for real eigenvalues $\lambda=-k^2\le 0$ for 
+corresponding eigenmode wavenumbers $\pm k$. 
 As a consequence, the transient solutions corresponding
 to $\lambda<0$ decay rapidly to the centre manifold corresponding to $\lambda=0$. 
 
@@ -117,22 +117,23 @@ However, this non-smoothness may be corrected at higher order by imposing a furt
 Consequently, smooth approximations are found in the limit as $\gamma\rightarrow 1$.
 
 \section{Linear Eigenmode Analysis}
-Consider a single eigenmode of the form~(\ref{eq:raw-eigmode}) for some fixed wavenumber $k>0$. 
+Consider a single eigenmode of the form~(\ref{eq:raw-eigmode}) for some fixed, non-dimensionalised 
+wavenumber $\kappa=kH>0$. 
 Thus, allowing for the partitioning of \XX, let
 \begin{eqnarray}
-u & \sim & \sum_{j\in\JJ} \chi_j a_j e^{ikH\xi_j} + \text{c.c.}\,,
+u & \sim & \sum_{j\in\JJ} \chi_j a_j e^{i\kappa\xi_j} + \text{c.c.}\,,
 \end{eqnarray}
 for arbitrary, time--varying, complex coefficients $a_j=A_j+iB_j$. 
 We now seek the `spatial' evolution from interval to interval for the given wavenumber.
 The continuity condition~(\ref{eq:cont-cond}) implies that
 \begin{eqnarray}
-a_{j+1} - a_j e^{ikH\xi_j} + \text{c.c.} = 0\,.
+a_{j+1} - a_j e^{i\kappa\xi_j} + \text{c.c.} = 0\,.
 \end{eqnarray}
 Similarly, the smoothness condition~(\ref{eq:smooth-cond}) implies that 
 \begin{eqnarray}
-ik a_{j+1} -ik a_j e^{ikH} + \text{c.c.} =  
+ik a_{j+1} -ik a_j e^{i\kappa} + \text{c.c.} =  
 \frac{1-\gamma}{H}\left(
-a_{j+1} e^{ikH} + a_j - 2 a_j e^{ikH}
+a_{j+1} e^{i\kappa} + a_j - 2 a_j e^{i\kappa}
 \right)
 + \text{c.c.}\,,
 \end{eqnarray}
@@ -157,7 +158,7 @@ A_{j}\\
 B_{j}\\
 \end{array}\right]\,,
 \end{eqnarray}
-where $c+is:=e^{ikH}$ and $f:=\frac{1-\gamma}{kH}$.
+where $c+is:=e^{i\kappa}$ and $f:=\frac{1-\gamma}{\kappa}$.
 Now, letting $a_{j+1}=\mu a_j$, the characteristic equation for 
 the growth factor $\mu$ is
 \begin{eqnarray}
@@ -169,27 +170,28 @@ with roots given by
 \hspace*{5mm}\mbox{for } 
 \beta~=~\frac{c-fs}{1-fs}\,.
 \end{eqnarray}
-Observe that $\beta\le 1$ since $c=\cos kH\le 1$ and 
-$1-fs=1-(1-\gamma)\frac{\sin kH}{kH}\ge 0$.
+Observe that $\beta\le 1$ since $c=\cos\kappa\le 1$ and 
+$1-fs=1-(1-\gamma)\frac{\sin\kappa}{\kappa}\ge 0$.
 Thus, for $|\beta|<1$, the factors are complex with magnitude 
 $|\mu|=1$,
 indicating marginally stable evolution of $a_j$. 
 This includes the limiting case of $\gamma=1$ ($f=0$), for which
-$\mu=c\pm is=e^{\pm ikH}$.
-Likewise, $\mu=\pm 1$ for $\beta=\pm 1$, corresponding to $kH=n\pi$, $n=0,1,2,\ldots$.
-Finally, for small regions near each $kH=(2n+1)\pi$, 
+$\mu=c\pm is=e^{\pm i\kappa}$.
+Likewise, $\mu=\pm 1$ for $\beta=\pm 1$, corresponding to $\kappa=n\pi$, $n=0,1,2,\ldots$.
+Finally, for small regions near each $\kappa=(2n+1)\pi$, 
 it is found that $\beta<-1$, resulting in two real factors,
 $\mu<-1$ and $-1<\mu<0$, indicating unstable (saddle) evolution.
 More precisely, these unstable regions occur when
 \begin{eqnarray}
 %c-fs < -(1-fs) & \Rightarrow & 1+c < 2fs 
 %\frac{kH}{1-\gamma}\cos^2\frac{kH}{2} < 2\sin\frac{kH}{2}\cos\frac{kH}{2}\,.
-\frac{kH}{2} <(1-\gamma)\tan\frac{kH}{2}\,, && kH\ne n\pi\,.
+\frac{\kappa}{2} <(1-\gamma)\tan\frac{\kappa}{2}\,, && \kappa\ne n\pi\,.
 \label{eq:leaforbid}
 \end{eqnarray}
-Thus, for $\gamma=0$ there is an initial forbidden gap $k\in(0,\frac{\pi}{H})$ adjacent to the centre manifold
-wavenumber $k=0$.
-\gaj{What am I trying to say here?}
+Thus, at equilibrium ($\gamma=0$) there is an initial forbidden gap $\kappa\in(0,\pi)$ adjacent to the centre manifold
+wavenumber $\kappa=0$, indicating that transient solutions decay to the centre manifold at a rate of at least
+$\lambda=-\frac{\kappa^2}{H^2}=-\frac{\pi^2}{H^2}$. It is this gap that provides robustness to nonlinear perturbations
+of the system about the equilibrium.
 
 \begin{figure}
 \centering
@@ -210,19 +212,18 @@ wavenumber $k=0$.
 \addlegendentry{spectrum};
 \end{axis}
 \end{tikzpicture}
-\caption{spectrum determined by the forbidding condition~\eqref{eq:leaforbid}.}
+\caption{The equilibrium spectrum determined by the forbidding condition~\eqref{eq:leaforbid}.}
 \label{fig:leaspec}
 \end{figure}
 
 
 \section{Linear Dual Space}
-The linear diffusion equation~(\ref{eq:diff}) is seperable into the temporal operator $\D {t}{}$ and the spatial operator
-${\cal L}=\DD {x}{}$. Assuming a spatially square-integrable field over \XX, the inner product can be shown to obey
+Assuming a spatially square-integrable field over \XX, an appropriate inner product for a solution $u$ and its dual $v$ can be shown to obey
 \begin{eqnarray}
-\langle{\cal L}u,v\rangle =
-\langle u,{\cal L}v\rangle + R\,,
+\langle u'',v\rangle =
+\langle u,v''\rangle + R\,,
 \end{eqnarray}
-with the residual 
+with a residual 
 \begin{eqnarray}
 R &= & \sum_{j\in\JJ}\left[u'v-v'u\right]_{X_{j-1}}^{X_j}\,.
 \end{eqnarray}
@@ -241,6 +242,7 @@ Assuming that $v$ also obeys conditions~(\ref{eq:cont-cond}) and~(\ref{eq:smooth
 \right]\,.
 \end{eqnarray}
 Observe that terms from adjacent interval boundaries will cancel, leaving
+only contriutions from the outermost boundary intervals, namely:
 \begin{eqnarray}
 R & = & 
 u'_{\bar{J}}V_{\bar{J}}-v'_{\bar{J}}U_{\bar{J}}
@@ -251,16 +253,24 @@ U_{\underline{J}}V_{\underline{J}+1}-V_{\underline{J}}U_{\underline{J}+1}
 +U_{\bar{J}}V_{\bar{J}-1}-V_{\bar{J}}U_{\bar{J}-1}
 \right]\,.
 \end{eqnarray}
-
-\quad\ajr{Check the following.}
-There are three main boundary conditions on a finite domain:
+There are three main boundary conditions on a finite domain that lead to a zero residual:
 \begin{description}
-\item[periodic] easy;
-\item[Dirichlet] setting \(u=0\) on the bdry, that is, \(U_{\text{bdry}}=0\), means we get cancellation in~\(R\) if correspondingly \(v=V=0\) on the bdry;
-\item[Neumann] requiring \(u'=0\) on the bdry is more complicated, but it appears that setting on the bdry \(u'=\frac{1-\gamma}H(U_{\text{next}}-U_{\text{bdry}})\), means we get cancellation in~\(R\) if correspondingly for~\(v\) on the bdry interval..
+\item[periodic] TODO;
+\item[Dirichlet] Setting \(u=0\) on the boundaries corresponds to \(U_{\underline{J}}=U_{\bar{J}}=0\), 
+giving $R=0$ if correspondingly \(v=0\) on the boundaries.
+\item[Neumann] Requiring \(u'=0\) on the boundaries corresponds to choosing 
+\(u'_{\underline{J}}=\frac{1-\gamma}{H}(U_{\underline{J}+1}-U_{\underline{J}})\)
+and \(u'_{\bar{J}}=\frac{1-\gamma}{H}(U_{\bar{J}}-U_{\bar{J}-1})\),
+giving $R=0$ if correspondingly \(v'=0\) on the boundaries.
 \end{description}
-
-
+Under any of the above three conditions, observe that $\langle{\cal L}u,v\rangle =\langle u,{\cal L}v\rangle$
+for ${\cal L}=\DD {x}{}$, and hence ${\cal L}$ is self-adjoint.
+Furthermore, we are free to choose any dual $v$ to satisfy ${\cal L}v=0$ for conenience.
+In particular, we may specifically target the $j$-th interval for $u$, for each $j\in\JJ$,  with $v=\hat{v}_0^{[j]}$, where
+\begin{eqnarray}
+\hat{v}_0^{[j]} = \chi_j\xi_j + \chi_{j+1}(1-\xi_{j+1})\,,
+\end{eqnarray}
+which satisfies conditions~\eqref{eq:cont-cond} and~\eqref{eq:smooth-cond} for $\gamma=0$.
 
 
 \section{First-order Approximation}
@@ -303,8 +313,9 @@ However, the smoothness condition~(\ref{eq:smooth-cond}) gives
 \end{eqnarray}
 and hence
 \begin{eqnarray}
-(1+\frac{1}{6}\delta^2)g_{1,j} = \frac{1}{H^2}\delta^2U_j\,.
+\left(1+\frac{1}{6}\delta^2\right)g_{1,j} = \frac{1}{H^2}\delta^2U_j\,.
 \end{eqnarray}
+This solution can also be otained more directly by solving the dual equation $\langle{\cal L}\hat{u}_1,\hat{v}_0^{[j]}\rangle = 0$.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
