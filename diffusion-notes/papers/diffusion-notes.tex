@@ -254,14 +254,22 @@ U_{\bar{J}}V_{\bar{J}-1}-V_{\bar{J}}U_{\bar{J}-1}
 +U_{\underline{J}}V_{\underline{J}+1}-V_{\underline{J}}U_{\underline{J}+1}
 \right]\,.
 \end{eqnarray}
-On a finite domain , there are three main outer boundary conditions that lead to a zero residual:
+On a finite domain, there are three main outer boundary conditions that lead to a zero residual:
 \begin{description}
-\item[periodic] TODO;
-\item[Dirichlet] Setting \(u=0\) at $X_{\underline{J}}$ and $X_{\bar{J}}$ corresponds to \(U_{\underline{J}}=U_{\bar{J}}=0\), 
+\item[periodic] Having period $\bar{J}-\underline{J}$ corresponds to \(U_{\bar{J}}=U_{\underline{J}}\). Furthermore, by joining
+the domain cylindrically at $X_{\underline{J}}$ and $X_{\bar{J}}$,  it can be shown that
+\begin{eqnarray}
+u'_{\underline{J}}-u'_{\bar{J}} = [u']_{\bar{J}} = \frac{1-\gamma}{H}(U_{\underline{J}+1}+U_{\bar{J}-1}-2U_{\bar{J}})\,,
+\end{eqnarray}
+using condition~\eqref{eq:smooth-cond}. Hence, $R=0$ if correspondingly $v$ is periodic with period $\bar{J}-\underline{J}$.
+\item[Dirichlet] Setting \(u=0\) at the boundaries corresponds to \(U_{\underline{J}}=U_{\bar{J}}=0\), 
 giving $R=0$ if correspondingly \(v=0\) on the boundaries.
 \item[Neumann] Requiring \(u'=0\) on the boundaries  (for $\gamma=1$) corresponds to 
-\(u'_{\underline{J}}=\frac{1-\gamma}{H}(U_{\underline{J}+1}-U_{\underline{J}})\)
-and \(u'_{\bar{J}}=\frac{1-\gamma}{H}(U_{\bar{J}}-U_{\bar{J}-1})\),
+\begin{eqnarray}
+u'_{\underline{J}}=\frac{1-\gamma}{H}(U_{\underline{J}+1}-U_{\underline{J}})\,,
+&&
+u'_{\bar{J}}=\frac{1-\gamma}{H}(U_{\bar{J}}-U_{\bar{J}-1})\,,
+\end{eqnarray}
 giving $R=0$ if correspondingly \(v'=0\) on the boundaries.
 \end{description}
 Under any of the above three conditions, observe that $\langle{\cal L}u,v\rangle =\langle u,{\cal L}v\rangle$
