@@ -106,7 +106,7 @@ Unfortunately, this linear approximation is not smooth at the interval boundarie
 For convenience, consider regular grid spacings of size 
 $X_j-X_{j-1}=H$. Then, denoting $\D xu$ as $u'$, observe that
 \begin{eqnarray}
-   [\hat{u}'_1]_j = \frac{1}{H}(U_{j+1}+U_{j-1}-2U_j)~=~\frac{1}{H}\left.\delta^{2}\hat{u}_0\right|_{X_j}\,,
+   [\hat{u}'_0]_j = \frac{1}{H}(U_{j+1}+U_{j-1}-2U_j)~=~\frac{1}{H}\left.\delta^{2}\hat{u}_0\right|_{X_j}\,,
 \end{eqnarray}
 for the centred difference $\delta u(x,t):= u(x+\frac{H}{2},t)-u(x-\frac{H}{2},t)$\,.
 However, this non-smoothness may be corrected at higher order by imposing a further internal boundary condition, namely
@@ -274,13 +274,18 @@ giving $R=0$ if correspondingly \(v'=0\) on the boundaries.
 \end{description}
 Under any of the above three conditions, observe that $\langle{\cal L}u,v\rangle =\langle u,{\cal L}v\rangle$
 for ${\cal L}=\DD {x}{}$, and hence ${\cal L}$ is self-adjoint.
-Furthermore, we are free to choose any dual $v$ to satisfy ${\cal L}v=0$ for conenience.
+Furthermore, we are free to choose any dual $v$, e.g.\ to satisfy ${\cal L}v=0$ for conenience.
 In particular, we may specifically target the $j$-th interval for $u$, for each $j\in\JJ$,  with $v=\hat{v}_0^{[j]}$, where
 \begin{eqnarray}
 \hat{v}_0^{[j]} = \chi_j\xi_j + \chi_{j+1}(1-\xi_{j+1})\,,
 \end{eqnarray}
 which satisfies conditions~\eqref{eq:cont-cond} and~\eqref{eq:smooth-cond} for $\gamma=0$.
-
+It may then be shown that
+\begin{eqnarray}
+\langle u'', \hat{v}_0^{[j]}\rangle = -[u']_j+\frac{1}{H}\left.\delta^2 u\right|_{X_j}\,,
+\end{eqnarray}
+for any relevant $u$.
+\gaj{This means, from condition~\eqref{eq:smooth-cond}, that ${\cal L}$ is not self-adjoint for $\gamma>0$!?}
 
 \section{First-order Approximation}
 Substituting the leading approximation~(\ref{eq:uhat0}) into the
