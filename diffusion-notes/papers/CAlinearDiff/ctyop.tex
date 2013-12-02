@@ -1,5 +1,5 @@
 \documentclass[12pt,a5paper]{article}
-\usepackage{natbib,defns,reducecode}
+\usepackage{amsmath,natbib,defns,reducecode}
 \IfFileExists{ajr.sty}{\usepackage{ajr}}{}
 \title{holistic discretisation that ensures continuity between 
 adjacent elements}
@@ -12,12 +12,17 @@ adjacent elements}
 
 Execute in Reduce with \verb|in_tex "ctyop.tex"$|
 
+Seeks to model the 1D advection-diffusion \pde
+\begin{equation*}
+\D tu=-c\D xu+\DD xu
+\end{equation*}
+on a macroscale grid, for `small' advection speed~\(c\).
 The \(j\)th element is \(X_{j-1}\leq x\leq X_j\).
 
 Improve printing.
 \begin{reduce}
 on div; off allfac; on revpri;
-factor hh,gamma,uu;
+factor hh,gamma,uu,c;
 \end{reduce}
 
 Define shift right/left operators \verb|ep| and~\verb|em|: use that in terms of centred mean and difference operators, \(\mu\)~and~\(\delta\), they are \(1\pm\mu\delta+\rat12\delta^2\) \cite[p.65]{npl61}.
@@ -58,14 +63,15 @@ u:=xi*uu+(1-xi)*em*uu;
 \end{reduce}
 
 Iterate until the slow manifold model is found to the following specified order of accuracy.
+Resolving to errors~\Ord{c^3} in the advection speed~\(c\) allows us to explore any stabilising effect of our analysis in the presence of otherwise destabilising advection.
 \begin{reduce}
-let gamma^4=>0;
-for it:=1:9 do begin 
+let { gamma^3=>0, c^3=>0 };
+for it:=1:19 do begin 
 \end{reduce}
 
 Compute residuals of governing equations.
 \begin{reduce}
-    write pde:= -df(u,t)+df(u,x,x);
+    write pde:= -df(u,t)+df(u,x,x)-c*df(u,x);
     write amp:=sub(xi=1,u)-uu;
     write cty:=sub(xi=0,ep*u)-sub(xi=1,u);
     hux:=hh*df(u,x)$
