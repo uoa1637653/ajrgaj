@@ -314,6 +314,7 @@ Observe this is already satified by $\hat{u}_0$ from equation~(\ref{eq:uhat0}), 
 from expansion~(\ref{eq:u:series}) that
 \begin{eqnarray}
 \left.\hat{u}_\ell\right|_{X_j}=0 && \mbox{for }\ell=1,2,\ldots\,.
+\label{eq:u_ell_fixed}
 \end{eqnarray}
 Thus $[\hat{u}_\ell]_j=0$, satisfying the continuity 
 condition~(\ref{eq:cont-cond}), and $\delta^2\hat{u}_\ell|_{X_j}=0$.
@@ -321,7 +322,7 @@ Now, evaluating equation~(\ref{eq:uhat1}) at $\xi_j=0$ gives $d_{1,j}=-g_{1,j-1}
 and at $\xi_j=1$ gives $3c_{1,j}=-(g_{1,j}-g_{1,j-1})$.
 Thus,  from equation~(\ref{eq:udhat1}), observe that
 \begin{eqnarray}
-[\hat{u}'_1]_j = -H(1+\frac{1}{6}\delta^2)g_{1,j}\,.
+[\hat{u}'_1]_j = -H\left(1+\frac{1}{6}\delta^2\right)g_{1,j}\,.
 \end{eqnarray}
 However, the smoothness condition~(\ref{eq:smooth-cond}) gives
 \begin{eqnarray}
@@ -334,10 +335,35 @@ However, the smoothness condition~(\ref{eq:smooth-cond}) gives
 and hence
 \begin{eqnarray}
 \left(1+\frac{1}{6}\delta^2\right)g_{1,j} = \frac{1}{H^2}\delta^2U_j\,.
+\label{eq:g1}
 \end{eqnarray}
 This solution can also be otained more directly via the dual space by computing $\langle\hat{u}''_1,\hat{v}_0^{[j]}\rangle$ from
 equations~\eqref{eq:vhat0} and~\eqref{eq:uhat:1:dd}, and using results~\eqref{eq:udd:vhat0} and~\eqref{eq:udhat1-jump}.
 
+\section{Second-order Approximation}
+For convenience, consider the shift operator $\sigma u(x,t) := u(x+H,t)$, which commutes with $\delta:=\sigma^{\frac{1}{2}}-\sigma^{-\frac{1}{2}}$.
+Then, from equation~\eqref{eq:pert_ell} for $\ell=2$, we obtain
+\begin{eqnarray}
+  \hat{u}''_2 & = & \D{\vec U}{\hat{u}_0}\cdot{\vec g}_{2}+\D{\vec U}{\hat{u}_1}\cdot{\vec g}_{1}
+\nonumber\\
+& = & \sum_{j\in\JJ}\chi_j\left\{\xi_j+(1-\xi_j)\sigma^{-1}\right\}g_{2,j}
+\nonumber\\
+&& {}+\frac{1}{6}\sum_{j\in\JJ}\chi_j\xi_j(1-\xi_j)\left\{
+(\xi_j-2)\sigma^{-1}-(\xi_j+1)
+\right\}S\delta^2g_{1,j}\,,
+\label{eq:uhat2:dd}
+\end{eqnarray}
+using equations~\eqref{eq:uhat0} and~\eqref{eq:uhat1}, and equation~\eqref{eq:g1} with $S=(1+\delta^2/6)^{-1}$.
+Next, observe 
+from equations~\eqref{eq:udd:vhat0}, \eqref{eq:smooth-cond} and \eqref{eq:u_ell_fixed} that
+\begin{eqnarray}
+\langle\hat{u}''_\ell,\hat{v}_0^{[j]}\rangle=0 && \mbox{for }\ell=2,3,\ldots\,.
+\end{eqnarray}
+Hence, it can be shown by direct integration and simplification that
+\begin{eqnarray}
+\langle\hat{u}''_2,\hat{v}_0^{[j]}\rangle = S^{-1}g_{2,j}-\frac{H}{6}\left(\frac{7}{60}\delta^2+\frac{1}{2}\right)S\delta^2g_{1,j}=0\,,
+\end{eqnarray}
+from equations~\eqref{eq:vhat0} and~\eqref{eq:uhat2:dd}.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \end{document}
