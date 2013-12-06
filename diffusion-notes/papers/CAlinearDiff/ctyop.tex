@@ -22,7 +22,7 @@ The \(j\)th element is \(X_{j-1}\leq x\leq X_j\).
 Improve printing.
 \begin{reduce}
 on div; off allfac; on revpri;
-factor hh,gamma,uu,c;
+factor hh,uu,c,d;
 \end{reduce}
 
 Define shift right/left operators \verb|ep| and~\verb|em|: use that in terms of centred mean and difference operators, \(\mu\)~and~\(\delta\), they are \(1\pm\mu\delta+\rat12\delta^2\) \cite[p.65]{npl61}.
@@ -65,7 +65,7 @@ u:=xi*uu+(1-xi)*em*uu;
 Iterate until the slow manifold model is found to the following specified order of accuracy.
 Resolving to errors~\Ord{c^3} in the advection speed~\(c\) allows us to explore any stabilising effect of our analysis in the presence of otherwise destabilising advection.
 \begin{reduce}
-let { gamma^3=>0, c^3=>0 };
+let { gamma^4=>0, c=>0 };
 for it:=1:19 do begin 
 \end{reduce}
 
@@ -91,6 +91,14 @@ Exit the loop when all residuals are zero to the order specified.
     showtime;
     if {pde,amp,cty,jmp}={0,0,0,0} then write it:=it+10000;
 end;
+\end{reduce}
+
+
+Get equivalent \pde, but need to improve to be able to analyse to any order.
+\begin{reduce}
+ssd:=1-hh^2*d^2/6+hh^4*d^4/72-hh^6*d^6/2160;
+let d^7=>0;
+gde:=sub(ss=ssd,g);
 \end{reduce}
 
 This appears to simplify the form of the evolution:
