@@ -1,6 +1,6 @@
 \documentclass[12pt,a5paper]{article}
 \usepackage[a5paper,margin=6mm]{geometry}
-%\usepackage{graphicx}
+\usepackage{graphicx}
 \usepackage{amsmath,amsfonts,defns}
 \usepackage{pgfplots}
 
@@ -117,7 +117,7 @@ However, this non-smoothness may be corrected at higher order by imposing a furt
 \end{eqnarray}
 Consequently, smooth approximations are found in the limit as $\gamma\rightarrow 1$.
 
-\section{Linear Eigenmode Analysis}
+\section{Linear Eigenmode Analysis}\label{sec:eig:modes}
 Consider a single eigenmode of the form~(\ref{eq:raw-eigmode}) for some fixed, non-dimensionalised 
 wavenumber $\kappa=kH>0$. 
 Thus, allowing for the partitioning of \XX, let
@@ -194,7 +194,7 @@ wavenumber $\kappa=0$ (see Figure~\ref{fig:leaspec}), indicating that transient 
 $\lambda=-\frac{\kappa^2}{H^2}=-\frac{\pi^2}{H^2}$. It is this gap that provides robustness to nonlinear perturbations
 of the system about the equilibrium.
 
-\begin{figure}
+\begin{figure}[hbt]
 \centering
 \begin{tikzpicture}
 \begin{axis}[ xlabel={$\kappa$}
@@ -292,7 +292,7 @@ It can then be shown in general that
 \end{eqnarray}
 for any continuous, twice-differentiable $u$.
 
-\section{First-order Approximation}
+\section{First-order Approximation}\label{sec:first-order}
 Substituting the leading approximation~(\ref{eq:uhat0}) into the
 nonlinear diffusion equation~(\ref{eq:pert_ell}) for $\ell=1$ results in
 the first-order equation
@@ -347,23 +347,33 @@ Consequently, as a first approximation, the coarse dynamics evolve according to
 \end{eqnarray}
 from equations~\eqref{eq:temporal} and~\eqref{eq:Udot:series},
 where, for convenience, we let $S=(1+\frac{1}{6}\delta^2)^{-1}$.
-Now, recall from Section~\ref{sec:centre-man} that the eigensolution~\eqref{eq:raw-eigmode} 
-to the diffusion equation~\eqref{eq:diff} has the spectrum $\lambda=-k^2$.
-It can further be shown that this eigensolution satisfies the relation 
+Now, recall from Section~\ref{sec:centre-man} that the eigensolution $u=e^{\lambda t+ikx}$ %%~\eqref{eq:raw-eigmode} 
+to the diffusion equation~\eqref{eq:diff} has the exact spectrum $\lambda=-k^2$.
+It can further be shown that this eigensolution  satisfies the relation 
 $\delta^2u=-2(1-\cos kH)u$. Hence, the spectrum of the first-order approximation with $\gamma=1$ is
 given by
 \begin{eqnarray}
 \lambda = -\frac{6(1-\cos kH)}{H^2(2+\cos kH)} \sim -k^2-\frac{1}{12}H^2k^4+{\cal O}(H^4k^6)\,,
+\label{eq:spec:1st}
 \end{eqnarray}
-which reveals an error of size ${\cal O}(H^2k^4)$ in comparison to the true spectrum.
+which reveals an error of size ${\cal O}(H^2k^4)$ in comparison to the exact spectrum.
+The behaviour of this approximate spectrum is shown in Figure~\ref{fig:spec:first-order}.
 %% \cos kH \sim 1-k^2H^2/2+k^4H^4/24-O(k^6H^6).
 %% -2(1-\cos kH) \sim -k^2H^2+k^4H^4/12-...
 %% 1/(2+\cos kH) \sim 1/3(1-k^2H^2/6+...) = (1/3)*(1+k^2H^2/6-...)
 %% -6(1-\cos kH)/(2+\cos kH) \sim (-k^2H^2+k^4H^4/12+...)*(1+k^2H^2/6+...)  = -k^2H^2-k^4H^4/6+k^2H^2/12+...
 %%  = -k^2H^2-k^4H^4/12+...
+\begin{figure}[hbt]
+\centering
+\includegraphics[width=0.8\textwidth]{figures/first-order-spectrum.png}
+\caption{The exact spectrum ($\lambda$ versus $k$) of the linear diffusion equation, compared to a first-order approximation with $H=0.1$ and $H=0.05$, respectively, for $\gamma=1$.}
+\label{fig:spec:first-order}
+\end{figure}
+
 
 \section{Second-order Approximation}
-For convenience, consider the shift operator $\sigma u(x,t) := u(x+H,t)$, which commutes with $\delta:=\sigma^{\frac{1}{2}}-\sigma^{-\frac{1}{2}}$.
+For convenience, consider the shift operator $\sigma u(x,t) := u(x+H,t)$;
+ whence $\delta:=\sigma^{\frac{1}{2}}-\sigma^{-\frac{1}{2}}$.
 Then, from equation~\eqref{eq:pert_ell} for $\ell=2$, we obtain
 \begin{eqnarray}
   \hat{u}''_2 & = & \D{\vec U}{\hat{u}_0}\cdot{\vec g}_{2}+\D{\vec U}{\hat{u}_1}\cdot{\vec g}_{1}
@@ -386,6 +396,43 @@ Alternatively, it can be shown by direct integration and simplification that
 \langle\hat{u}''_2,\hat{v}_0^{[j]}\rangle = HS^{-1}g_{2,j}-\frac{H}{6}\left(\frac{7}{60}\delta^2+\frac{1}{2}\right)S\delta^2g_{1,j}\,,
 \end{eqnarray}
 from equations~\eqref{eq:vhat0} and~\eqref{eq:uhat2:dd}.
+Hence, as a second approximation, the coarse dynamics evolve according to
+\begin{eqnarray}
+	\dot{\vec U} = \frac{\gamma}{H^2}S\delta^2\vec U 
++ \frac{\gamma^2}{60H^2}(7-2S)S^2\delta^4\vec U
++ {\cal O}(\gamma^3)\,,
+\end{eqnarray}
+using the fact that $S\delta^2=6(1-S)$.
+%%on div; off allfac; factor h,k,gamma;
+%%let k^8 => 0;
+%%c:=1-k^2H^2/2+k^4*H^4/24-k^6*h^6/720;
+%%Dsq:=-2*(1-c); Si:=1+Dsq/6;
+%%S:=1-(Si-1)+(Si-1)^2-(Si-1)^3;
+%%lam:=gamma*S*Dsq/H^2+gamma^2*(7-2*S)*S^2*Dsq^2/(60*H^2);
+%%lam -> -k^2+H^4*k^6/180+O(H^6k^8)
+Thus, following Section~\ref{sec:first-order}, the approximate spectrum for $\gamma=1$ is now
+\begin{eqnarray}
+\lambda = -\frac{1}{5H^2}\frac{96+27c-72c^2-51c^3}{8+12c+6c^2+c^3}
+\sim -k^2-\frac{1}{180}H^4k^6+{\cal O}(H^6k^8)\,,
+\end{eqnarray}
+where, as previously in Section~\ref{sec:eig:modes}, $c:=\cos kH$.
+Observe that the $O(H^2k^4)$ error term from the first-order approximation~\eqref{eq:spec:1st} has now been
+completely eliminated by the second-order correction, in favour of an $O(H^4k^6)$ error.
+
+The behaviour of this corrected, approximate spectrum is shown in Figure~\ref{fig:spec:2nd-order}.
+Observe that the approximation becomes untenable from the first turning point, at which $k\approx\frac{\pi}{H}$.
+%% \cos kH \sim 1-k^2H^2/2+k^4H^4/24-O(k^6H^6).
+%% -2(1-\cos kH) \sim -k^2H^2+k^4H^4/12-...
+%% 1/(2+\cos kH) \sim 1/3(1-k^2H^2/6+...) = (1/3)*(1+k^2H^2/6-...)
+%% -6(1-\cos kH)/(2+\cos kH) \sim (-k^2H^2+k^4H^4/12+...)*(1+k^2H^2/6+...)  = -k^2H^2-k^4H^4/6+k^2H^2/12+...
+%%  = -k^2H^2-k^4H^4/12+...
+\begin{figure}[hbt]
+\centering
+\includegraphics[width=0.8\textwidth]{figures/second-order-spectrum.png}
+\caption{The exact spectrum ($\lambda$ versus $k$) of the linear diffusion equation, compared to a second-order approximation with $H=0.1$ and $H=0.05$, respectively, for $\gamma=1$.}
+\label{fig:spec:2nd-order}
+\end{figure}
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \end{document}
