@@ -1,0 +1,153 @@
+\documentclass[12pt,a5paper]{article}
+\usepackage{amsmath,natbib,defns,reducecode}
+\IfFileExists{ajr.sty}{\usepackage{ajr}}{}
+\title{Holistic discretisation of nlS equation with periodic potential wells}
+\author{AJR}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+Execute in Reduce with \verb|in_tex "potwell.tex"$|
+
+Instead of the nlS, start by modelling the 1D diffusion \pde\ with potential wells \(V(x):=\frac\nu{H^2}(1-\cos[2\pi x/H)]\),
+\begin{equation*}
+-i\D tu=\DD xu-V(x)u
+\end{equation*}
+on a macroscale grid with same spacing as the wells: that is, locate the grid at the minimum of the wells at \(X_j=jH\) say.
+The \(j\)th~element is \(X_{j-1}\leq x\leq X_j\).
+
+Improve printing.
+\begin{reduce}
+on div; off allfac; on revpri;
+factor hh,uu,d,nu;
+\end{reduce}
+
+Define shift right/left operators \verb|ep| and~\verb|em|: use that in terms of centred mean and difference operators, \(\mu\)~and~\(\delta\), they are \(1\pm\mu\delta+\rat12\delta^2\) \cite[p.65]{npl61}.
+Also encode the identity that \(\mu^2=1+\delta^2/4\)\,.
+Define the `spline' operator \(\verb|ss|=S:=(1+\delta^2/6)^{-1}\).
+\begin{reduce}
+ep:=1+mu*del+del^2/2;
+em:=1-mu*del+del^2/2;
+let { mu^2=>1+del^2/4
+    , ss*del^2=>6-6*ss };
+\end{reduce}
+
+Write the solution in terms of the microscale variable~\(\xi:=(x-X_{j-1})/H\).
+\begin{reduce}
+depend xi,x; 
+let df(~a,x)=>df(a,xi)/hh;
+\end{reduce}
+
+To find corrections, linear operator~\verb|linv| solves \textsc{de}s of the form \(\DD \xi{\hat u}=\text{Res}\) such that \(\hat u=0\) at \(\xi=0,1\).
+\begin{reduce}
+operator linv; linear linv;
+let { linv(xi^~~p,xi)=>(xi^(p+2)-xi)/(p+1)/(p+2)
+    , linv(1,xi)=>(xi^2-xi)/2 
+    , linv(cos(~~m*pi*xi),xi)
+        =>(1-cos(m*pi*xi))/(m*pi)^2 when evenp(m)
+    , linv(sin(~~m*pi*xi),xi)=>-sin(m*pi*xi)/(m*pi)^2 
+    , linv(xi^~~p*cos(~~m*pi*xi),xi)
+        =>xi^p*(1-cos(m*pi*xi))/(m*pi)^2 when evenp(m)
+    , linv(xi^~~p*sin(~~m*pi*xi),xi)
+        =>-xi^p*sin(m*pi*xi)/(m*pi)^2 
+    };
+\end{reduce}
+
+Write the slow manifold in terms of amplitudes \(U_j(t):=u(X_j,t)\).  
+These depend upon time according to \(\de t{U_j}=g_j\)\,.
+We let all the \(j\)~dependence be in the operators.
+\begin{reduce}
+depend uu,t; 
+let df(uu,t)=>g;
+\end{reduce}
+
+The linear solution are equilibria, \(g=0\), of piecewise linear field between \(U_{j-1}\) at \(\xi=0\) and \(U_j\) at \(\xi=1\).
+\begin{reduce}
+g:=0;
+u:=xi*uu+(1-xi)*em*uu;
+\end{reduce}
+
+Iterate until the slow manifold model is found to the following specified order of accuracy.
+Resolving to errors~\Ord{c^3} in the advection speed~\(c\) allows us to explore any stabilising effect of our analysis in the presence of otherwise destabilising advection.
+\begin{reduce}
+let { gamma=>0, nu^3=>0 };
+for it:=1:9 do begin 
+\end{reduce}
+
+Compute residuals of governing equations.
+\begin{reduce}
+    pde:=trigsimp(
+        i*df(u,t)+df(u,x,x)-nu*(1-cos(2*pi*xi))*u
+        , combine);
+    amp:=sub(xi=1,u)-uu;
+    cty:=sub(xi=0,ep*u)-sub(xi=1,u);
+    hux:=hh*df(u,x)$
+    jmp:=-sub(xi=0,ep*hux)+sub(xi=1,hux)
+        +(1-gamma)*sub(xi=1,ep*u-2*u+em*u);
+    write lengthRes:=map(length(~a),{pde,amp,cty,jmp});
+\end{reduce}
+
+Correct approximations based upon the residuals.
+These ad hoc corrections are not optimal, but they do work after enough iterations.
+\begin{reduce}
+    g:=g+i*(gd:=-ss*jmp/hh^2);
+    u:=u-linv(pde-(xi+(1-xi)*em)*gd,xi)*hh^2;
+\end{reduce}
+
+Exit the loop when all residuals are zero to the order specified.
+\begin{reduce}
+    showtime;
+    if {pde,amp,cty,jmp}={0,0,0,0} then write it:=it+10000;
+end;
+\end{reduce}
+
+
+Get equivalent \pde, but need to improve to be able to analyse to any order.
+\begin{reduce}
+ssd:=1-hh^2*d^2/6+hh^4*d^4/72-hh^6*d^6/2160;
+let d^7=>0;
+migde:=sub(ss=ssd,-i*g);
+\end{reduce}
+
+%This appears to simplify the form of the evolution:
+%introducing \(\verb|gamdel2|:=\gamma\delta^2\).
+%\begin{reduce}
+%factor gamdel2;
+%g:=(g where ss*gamma=>gamma-ss/6*gamdel2);
+%u:=(u where { ss*gamma=>gamma-ss/6*gamdel2
+%            , gamma*del^2=>gamdel2})$
+%\end{reduce}
+Optionally plot some fully coupled subgrid fields of the linear problem, \(\epsilon=0\)\,, for a potential strength \(\nu=20\), say.
+These plots do not look correct---nearly but not quite??
+\begin{reduce}
+load_package gnuplot;
+if 1 then begin 
+  hh:=1; %uu:=1;
+  gamma:=1; epsilon:=0; nu:=20;
+  operator uu; uj:=sub(uu=uu(j),u)$
+  uj:=(uj where { del^9=>0
+      , ss=>1-del^2/6+(del^2/6)^2-(del^2/6)^3+(del^2/6)^4})$
+  uj:=(uj where { mu*uu(~k)=>(uu(k+1/2)+uu(k-1/2))/2
+      , del*uu(~k)=>uu(k+1/2)-uu(k-1/2) })$
+%  uj0:=(u where {mu=>-1/2/del,del^2=>1,ss=>1/(1+del^2/6)}); %??
+%  uj1:=(u where {mu=>0,del^2=>-2,ss=>1/(1+del^2/6)}); %OK
+  uj0:=coeffn(uj,uu(j),1)$
+  uj1:=sub(xi=xi-1,coeffn(uj,uu(j-1),1))$
+  uj2:=sub(xi=xi-2,coeffn(uj,uu(j-2),1))$
+%  uj3:=sub(xi=xi-3,coeffn(uj,uu(j-3),1))$
+  ujs:=map(max(-1/2,min(3/2,~a)),{uj0,uj1,uj2});
+  plot(ujs,xi=(0 .. 3));
+end;
+\end{reduce}
+
+Fin.
+\begin{reduce}
+end;
+\end{reduce}
+
+\bibliographystyle{agsm}
+\bibliography{bibexport,bib}
+
+\end{document}
