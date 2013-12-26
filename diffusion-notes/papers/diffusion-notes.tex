@@ -20,19 +20,18 @@
 
 \begin{document}
 \maketitle
-\section{Introduction}
+\section{Introduction}\label{sec:intro}
 Consider an arbitrary solution $u:\XX\times \TT\mapsto \RR$ to the simple diffusion equation 
 \begin{eqnarray}
 	\D tu = \DD xu\,.
 	\label{eq:diff}
 \end{eqnarray}
 A computationally feasible approach would be to 
-first establish $|{\JJ}|$ discrete grid-points,
+first establish a sequence  of discrete grid-points,
 ${\vec X}=[X_j]_{j\in\JJ}$, and thence
-partition the spatial domain \XX\ into 
-contiguous intervals \(\II_j:=(X_{j-1},X_j]\). 
-The coarse dynamics at the grid-points are then summarised by
-${\vec U}=[U_j]_{j\in\JJ}$, where $U_j(t)=u(X_j,t)$ for all $t\in \TT$, according to some temporal evolution
+summarise the continuum dynamics $u$ by the coarse dynamics
+${\vec U}=[U_j]_{j\in\JJ}$, where $U_j(t):=u(X_j,t)$ for all $t\in \TT$.
+We may suppose  that ${\vec U}$ evolves temporally according to some self-contained system
 \begin{eqnarray}
 	\dot{\vec U}(t) = {\vec g}({\vec U}(t))\,.
 	\label{eq:temporal}
@@ -54,7 +53,7 @@ Observe that the evolution of $u$ now has nonlinear interactions with ${\vec U}$
 The original diffusion equation~(\ref{eq:diff}) admits 
 eigensolutions of the form
 \begin{eqnarray}
-	u(x,t)  = e^{\lambda t+ikx}\,,
+	\tilde{u}(x,t)  = e^{\lambda t+ikx}\,,
 \label{eq:raw-eigmode}
 \end{eqnarray}
 which are physically realisable for real eigenvalues $\lambda=-k^2\le 0$ for 
@@ -88,21 +87,26 @@ $\ell$ of the parameter $\gamma$, giving
 \section{Leading Approximation}
 The leading equation~(\ref{eq:pert1}) admits any spatially piecewise linear function as a solution. 
 Hence, in keeping
-with the discretisation imposed by the coarse dynamics, 
-consider the linear approximation
+with the discretisation imposed by the coarse dynamics of Section~\ref{sec:intro},
+let the spatial domain be partitioned into contiguous intervals, namely $\XX=\bigcup_{j\in\JJ^+}\II_j$, where
+$\II_j:=[X_{j-1},X_j]$ and $\JJ^+:=\JJ\backslash\{\underline{J}\}$ with $\underline{J}:=\inf\JJ$.
+Then, consider the piecewise  linear approximation
 \begin{eqnarray}
-   \hat{u}_0 = \sum_{j\in\JJ}\chi_j(\xi_j U_j+(1-\xi_j)U_{j-1})\,,
+   \hat{u}_0 = \sum_{j\in\JJ^+}\chi_j(\xi_j U_j+(1-\xi_j)U_{j-1})\,,
 \label{eq:uhat0}
 \end{eqnarray}
-with indicator $\chi_j(x)=1$ (or 0) for $x\in\II_j$ (or $x\not\in\II_j$), and interpolator
+with indicator $\chi_j(x)=1$ (or 0) for $x\in\II_j$ (or $x\not\in\II_j$), and linear interpolator
 $\xi_j(x)=\frac{x-X_{j-1}}{X_j-X_{j-1}}$.
-This particular approximation is chosen to be continuous across the boundaries of each interval $\II_j$. 
+This particular approximation is chosen to be continuous across the 
+internal interval boundaries,
+namely $X_j=\II_j\bigcap\II_{j+1}$ for $j\in\JJ^0:=\JJ^+\backslash\{\bar{J}\}$, where $\bar{J}:=\sup\JJ$. 
 In general, it suffices 
-to impose a continuity condition at the right-hand end of each $\II_j$, namely:
+to impose a continuity condition at the right-hand end of each interval, namely:
 \begin{eqnarray}
-   [u]_j := \lim_{\epsilon\rightarrow 0^{+}} u(X_j+\epsilon,t)-u(X_j-\epsilon,t)= 0\,.
+   [u]_j = 0 && \forall j\in\JJ^0\,,
 \label{eq:cont-cond}
 \end{eqnarray}
+where $ [u]_j := \lim_{\epsilon\rightarrow 0^{+}} u(X_j+\epsilon,t)-u(X_j-\epsilon,t)$.
 Unfortunately, this linear approximation is not smooth at the interval boundaries. 
 For convenience, consider regular grid spacings of size 
 $X_j-X_{j-1}=H$. Then, denoting $\D xu$ as $u'$, observe that
@@ -112,7 +116,7 @@ $X_j-X_{j-1}=H$. Then, denoting $\D xu$ as $u'$, observe that
 for the centred difference $\delta u(x,t):= u(x+\frac{H}{2},t)-u(x-\frac{H}{2},t)$\,.
 However, this non-smoothness may be corrected at higher order by imposing a further internal boundary condition, namely
 \begin{eqnarray}
-   [u']_j = \frac{1-\gamma}{H}\left.\delta^{2}u\right|_{X_j}\,.
+   [u']_j = \frac{1-\gamma}{H}\left.\delta^{2}u\right|_{X_j}\hspace*{5mm}\forall j\in\JJ^0\,.
 \label{eq:smooth-cond}
 \end{eqnarray}
 Consequently, smooth approximations are found in the limit as $\gamma\rightarrow 1$.
@@ -122,7 +126,7 @@ Consider a single eigenmode of the form~(\ref{eq:raw-eigmode}) for some fixed, n
 wavenumber $\kappa=kH>0$. 
 Thus, allowing for the partitioning of \XX, let
 \begin{eqnarray}
-u & \sim & \sum_{j\in\JJ} \chi_j a_j e^{i\kappa\xi_j} + \text{c.c.}\,,
+\tilde{u} & \sim & \sum_{j\in\JJ^+} \chi_j a_j e^{i\kappa\xi_j} + \text{c.c.}\,,
 \end{eqnarray}
 for arbitrary, time--varying, complex coefficients $a_j=A_j+iB_j$. 
 We now seek the `spatial' evolution from interval to interval for the given wavenumber.
@@ -191,7 +195,7 @@ More precisely, these unstable regions occur when
 \end{eqnarray}
 Thus, at equilibrium ($\gamma=0$) there is an initial forbidden gap $\kappa\in(0,\pi)$ adjacent to the centre manifold
 wavenumber $\kappa=0$ (see Figure~\ref{fig:leaspec}), indicating that transient solutions decay to the centre manifold at a rate of at least
-$\lambda=-\frac{\kappa^2}{H^2}=-\frac{\pi^2}{H^2}$. It is this gap that provides robustness to nonlinear perturbations
+$\lambda=-k^2=-\frac{\pi^2}{H^2}$. It is this gap that provides robustness to nonlinear perturbations
 of the system about the equilibrium.
 
 \begin{figure}[hbt]
@@ -219,12 +223,11 @@ of the system about the equilibrium.
 
 
 \section{Linear Dual Space}
-Suppose the domain \XX has been discretised to have outer boundaries $X_{\underline{J}}$ and $X_{\bar{J}}$ for indices
-$\underline{J}=\inf{\JJ}$ and $\bar{J}=\sup{\JJ}$. Assume for convenience that $|\JJ|> 2$.
+Assume for convenience that there are $|\JJ|\ge 3$ discrete grid-points, and thus $|\JJ^+|\ge 2$ intervals.
 Then an appropriate inner product for spatially square-integrable fields $u$ and $v$ is given by
 \begin{eqnarray}
 \langle u,v\rangle = \int_{X_{\underline{J}}}^{X_{\bar{J}}}uv\;dx
-= \sum_{j=\underline{J}+1}^{\bar{J}}\int_{\II_j}uv\;dx\,.
+= \sum_{j\in\JJ^+}\int_{\II_j}uv\;dx\,.
 \end{eqnarray}
 It can then be shown, for twice-differentiable fields, that
 \begin{eqnarray}
@@ -233,8 +236,8 @@ It can then be shown, for twice-differentiable fields, that
 \end{eqnarray}
 with residual 
 \begin{eqnarray}
-R &= & \sum_{j=\underline{J}+1}^{\bar{J}}[r]_{X_{j-1}}^{X_j}
-= r_{\bar{J}}-r_{\underline{J}}-\sum_{j=\underline{J}+1}^{\bar{J}-1}[r]_j\,,
+R &= & \sum_{j\in\JJ^+}[r]_{X_{j-1}}^{X_j}
+= r_{\bar{J}}-r_{\underline{J}}-\sum_{j\in\JJ^0}[r]_j\,,
 \end{eqnarray}
 for $r=u'v-v'u$.
 Now, assuming that both $u$ and $v$ obey conditions~(\ref{eq:cont-cond}) and~(\ref{eq:smooth-cond}), 
@@ -246,7 +249,7 @@ the residual jump at $X_j$ becomes
 (U_{j+1}+U_{j-1})V_j-(V_{j+1}+V_{j-1})U_j
 \right]\,.
 \end{eqnarray}
-Observe that terms from adjacent intervals $\II_{j-1}$ and $\II_{j+1}$ will cancel terms from $\II_j$, leaving
+Observe that terms from surrounding intervals $\II_{j-1}$ and $\II_{j+1}$ will cancel terms from $\II_j$, leaving
 only contributions from the outermost boundary intervals $\II_{\underline{J}+1}$ and $\II_{\bar{J}}$; consequently:
 \begin{eqnarray}
 R & = & 
@@ -279,34 +282,34 @@ giving $R=0$ if correspondingly \(v'=0\) on the boundaries.
 Under any of the above three conditions, observe that $\langle{\cal L}u,v\rangle =\langle u,{\cal L}v\rangle$
 for ${\cal L}=\DD {x}{}$, and hence ${\cal L}$ is self-adjoint.
 Furthermore, we are free to choose any dual $v$, e.g.\ to satisfy ${\cal L}v=0$ for conenience.
-In particular, we may specifically target the $j$-th interval for $u$, for each $j\in\JJ$,  with $v=\hat{v}_0^{[j]}$, where
+In particular, we may specifically target the $j$-th interval for $u$ by selecting $v=\hat{v}_0^{[j]}$, where
 \begin{eqnarray}
-\hat{v}_0^{[j]} = \chi_j\xi_j + \chi_{j+1}(1-\xi_{j+1})\,,
+\hat{v}_0^{[j]} := \chi_j\xi_j + \chi_{j+1}(1-\xi_{j+1})\hspace*{5mm}\forall j\in\JJ^0\,.
 \label{eq:vhat0}
 \end{eqnarray}
-which satisfies conditions~\eqref{eq:cont-cond} and~\eqref{eq:smooth-cond} for $\gamma=0$.
+Observe that this dual satisfies conditions~\eqref{eq:cont-cond} and~\eqref{eq:smooth-cond} for $\gamma=0$.
 It can then be shown in general that
 \begin{eqnarray}
 \langle u'', \hat{v}_0^{[j]}\rangle = -[u']_j+\frac{1}{H}\left.\delta^2 u\right|_{X_j}\,,
 \label{eq:udd:vhat0}
 \end{eqnarray}
-for any continuous, twice-differentiable $u$.
+for any continuous, twice-differentiable field $u$.
 
 \section{First-order Approximation}\label{sec:first-order}
 Substituting the leading approximation~(\ref{eq:uhat0}) into the
 nonlinear diffusion equation~(\ref{eq:pert_ell}) for $\ell=1$ results in
 the first-order equation
 \begin{eqnarray}
-\hat{u}''_1 = \sum_{j\in\JJ}\chi_j(\xi_j g_{1,j}+(1-\xi_j)g_{1,j-1})\,.
+\hat{u}''_1 = \sum_{j\in\JJ^+}\chi_j(\xi_j g_{1,j}+(1-\xi_j)g_{1,j-1})\,.
 \label{eq:uhat:1:dd}
 \end{eqnarray}
 Spatial integration then gives
 \begin{eqnarray}
-\hat{u}'_1 & = & \frac{H}{2}\sum_{j\in\JJ}\chi_j(\xi^2_j g_{1,j}
+\hat{u}'_1 & = & \frac{H}{2}\sum_{j\in\JJ^+}\chi_j(\xi^2_j g_{1,j}
 -(1-\xi_j)^2g_{1,j-1}+c_{1,j})\,,
 \label{eq:udhat1}
 \\
-\hat{u}_1 & = & \frac{H^2}{6}\sum_{j\in\JJ}\chi_j(\xi^3_j g_{1,j}
+\hat{u}_1 & = & \frac{H^2}{6}\sum_{j\in\JJ^+}\chi_j(\xi^3_j g_{1,j}
 +(1-\xi_j)^3g_{1,j-1}+3\xi_{j}c_{1,j}+d_{1,j})\,.
 \label{eq:uhat1}
 \end{eqnarray}
@@ -314,11 +317,11 @@ Recall from the chosen  spatial discretisation that $u|_{X_j}=U_{j}$ at each gri
 Observe this is already satified by $\hat{u}_0$ from equation~(\ref{eq:uhat0}), implying
 from expansion~(\ref{eq:u:series}) that
 \begin{eqnarray}
-\left.\hat{u}_\ell\right|_{X_j}=0 && \mbox{for }\ell=1,2,\ldots\,.
+\left.\hat{u}_\ell\right|_{X_j}\equiv 0 && \mbox{for }\ell=1,2,\ldots\,.
 \label{eq:u_ell_fixed}
 \end{eqnarray}
 Thus $[\hat{u}_\ell]_j=0$, satisfying the continuity 
-condition~(\ref{eq:cont-cond}), and $\delta^2\hat{u}_\ell|_{X_j}=0$.
+condition~(\ref{eq:cont-cond}), and furthermore $\delta^2\hat{u}_\ell|_{X_j}=0$.
 Now, evaluating equation~(\ref{eq:uhat1}) at $\xi_j=0$ gives $d_{1,j}=-g_{1,j-1}$,
 and at $\xi_j=1$ gives $3c_{1,j}=-(g_{1,j}-g_{1,j-1})$.
 Thus,  from equation~(\ref{eq:udhat1}), observe that
@@ -346,14 +349,14 @@ Consequently, as a first approximation, the coarse dynamics evolve according to
 	\dot{\vec U} = \frac{\gamma}{H^2}S\delta^2\vec U + {\cal O}(\gamma^2)\,,
 \end{eqnarray}
 from equations~\eqref{eq:temporal} and~\eqref{eq:Udot:series},
-where, for convenience, we let $S=(1+\frac{1}{6}\delta^2)^{-1}$.
-Now, recall from Section~\ref{sec:centre-man} that the eigensolution $u=e^{\lambda t+ikx}$ %%~\eqref{eq:raw-eigmode} 
+where, for convenience, we let $S:=(1+\frac{1}{6}\delta^2)^{-1}$.
+Now, recall from Section~\ref{sec:centre-man} that the eigensolution $\tilde{u}(x,t)=e^{\lambda t+ikx}$ %%~\eqref{eq:raw-eigmode} 
 to the diffusion equation~\eqref{eq:diff} has the exact spectrum $\lambda=-k^2$.
 It can further be shown that this eigensolution  satisfies the relation 
-$\delta^2u=-2(1-\cos kH)u$. Hence, the spectrum of the first-order approximation with $\gamma=1$ is
+$\delta^2\tilde{u}=-2(1-c)\tilde{u}$, where, as before, $c:=\cos kH$. Hence, the spectrum of the first-order approximation with $\gamma=1$ is
 given by
 \begin{eqnarray}
-\lambda = -\frac{6(1-\cos kH)}{H^2(2+\cos kH)} \sim -k^2-\frac{1}{12}H^2k^4+{\cal O}(H^4k^6)\,,
+\lambda = -\frac{6(1-c)}{H^2(2+c)} \sim -k^2-\frac{1}{12}H^2k^4+{\cal O}(H^4k^6)\,,
 \label{eq:spec:1st}
 \end{eqnarray}
 which reveals an error of size ${\cal O}(H^2k^4)$ in comparison to the exact spectrum.
@@ -395,9 +398,9 @@ Then, from equation~\eqref{eq:pert_ell} for $\ell=2$, we obtain
 \begin{eqnarray}
   \hat{u}''_2 & = & \D{\vec U}{\hat{u}_0}\cdot{\vec g}_{2}+\D{\vec U}{\hat{u}_1}\cdot{\vec g}_{1}
 \nonumber\\
-& = & \sum_{j\in\JJ}\chi_j\left\{\xi_j+(1-\xi_j)\sigma^{-1}\right\}g_{2,j}
+& = & \sum_{j\in\JJ^+}\chi_j\left\{\xi_j+(1-\xi_j)\sigma^{-1}\right\}g_{2,j}
 \nonumber\\
-&& {}+\frac{1}{6}\sum_{j\in\JJ}\chi_j\xi_j(1-\xi_j)\left\{
+&& {}+\frac{1}{6}\sum_{j\in\JJ^+}\chi_j\xi_j(1-\xi_j)\left\{
 (\xi_j-2)\sigma^{-1}-(\xi_j+1)
 \right\}S\delta^2g_{1,j}\,,
 \label{eq:uhat2:dd}
@@ -406,7 +409,7 @@ using equations~\eqref{eq:uhat0} , \eqref{eq:uhat1}, and~\eqref{eq:g1}.
 Next, observe 
 from equations~\eqref{eq:udd:vhat0}, \eqref{eq:smooth-cond} and \eqref{eq:u_ell_fixed} that
 \begin{eqnarray}
-\langle\hat{u}''_\ell,\hat{v}_0^{[j]}\rangle=0 && \mbox{for }\ell=2,3,\ldots\,.
+\langle\hat{u}''_\ell,\hat{v}_0^{[j]}\rangle\equiv0 && \mbox{for }\ell=2,3,\ldots\,.
 \end{eqnarray}
 Alternatively, it can be shown by direct integration and simplification that
 \begin{eqnarray}
@@ -430,14 +433,13 @@ using the fact that $S\delta^2=6(1-S)$.
 Thus, following Section~\ref{sec:first-order}, the approximate spectrum for $\gamma=1$ is now
 \begin{eqnarray}
 \lambda = -\frac{1}{5H^2}\frac{96+27c-72c^2-51c^3}{8+12c+6c^2+c^3}
-\sim -k^2-\frac{1}{180}H^4k^6+{\cal O}(H^6k^8)\,,
+\sim -k^2-\frac{1}{180}H^4k^6+{\cal O}(H^6k^8)\,.
 \end{eqnarray}
-where, as previously in Section~\ref{sec:eig:modes}, $c:=\cos kH$.
 Observe that the $O(H^2k^4)$ error term from the first-order approximation~\eqref{eq:spec:1st} has now been
 completely eliminated by the second-order correction, in favour of an $O(H^4k^6)$ error.
 
 The behaviour of this corrected, approximate spectrum is shown in Figure~\ref{fig:spec:2nd-order}.
-Observe that the approximation becomes untenable from the first turning point, at which $k\approx\frac{\pi}{H}$.
+Observe that the approximation becomes untenable near to the first turning point, at which $k\approx\frac{\pi}{H}$.
 %% \cos kH \sim 1-k^2H^2/2+k^4H^4/24-O(k^6H^6).
 %% -2(1-\cos kH) \sim -k^2H^2+k^4H^4/12-...
 %% 1/(2+\cos kH) \sim 1/3(1-k^2H^2/6+...) = (1/3)*(1+k^2H^2/6-...)
