@@ -65,24 +65,25 @@ u:=xi*uu+(1-xi)*em*uu;
 Iterate until the slow manifold model is found to the following specified order of accuracy.
 Resolving to errors~\Ord{c^3} in the advection speed~\(c\) allows us to explore any stabilising effect of our analysis in the presence of otherwise destabilising advection.
 \begin{reduce}
-let { gamma^4=>0, c=>0 };
-for it:=1:19 do begin 
+let { gamma^7=>0, c=>0 };
+for it:=1:99 do begin 
 \end{reduce}
 
 Compute residuals of governing equations.
 \begin{reduce}
-    write pde:= -df(u,t)+df(u,x,x)-c*df(u,x);
-    write amp:=sub(xi=1,u)-uu;
-    write cty:=sub(xi=0,ep*u)-sub(xi=1,u);
+    pde:= -df(u,t)+df(u,x,x)-c*df(u,x);
+    amp:=sub(xi=1,u)-uu;
+    cty:=sub(xi=0,ep*u)-sub(xi=1,u);
     hux:=hh*df(u,x)$
-    write jmp:=-sub(xi=0,ep*hux)+sub(xi=1,hux)
+    jmp:=-sub(xi=0,ep*hux)+sub(xi=1,hux)
         +(1-gamma)*sub(xi=1,ep*u-2*u+em*u);
+    write lengthres:=map(length(~a),{pde,amp,cty,jmp});
 \end{reduce}
 
 Correct approximations based upon the residuals.
 These ad hoc corrections are not optimal, but they do work after enough iterations.
 \begin{reduce}
-    write g:=g+(gd:=-ss*jmp/hh^2);
+    g:=g+(gd:=-ss*jmp/hh^2);
     u:=u-linv(pde-(xi+(1-xi)*em)*gd,xi)*hh^2;
 \end{reduce}
 
@@ -99,6 +100,15 @@ Get equivalent \pde, but need to improve to be able to analyse to any order.
 ssd:=1-hh^2*d^2/6+hh^4*d^4/72-hh^6*d^6/2160;
 let d^7=>0;
 gde:=sub(ss=ssd,g);
+\end{reduce}
+
+Explore the sawtooth mode for which \(\delta=i2\), \(\mu=0\) and \(S=1/(1+\delta^2/6)=3\)\,.
+Appears to be very good convergence to the correct value of~\(-\pi^2/H^2\): roughly a significant digit accuracy for each order in~\(\gamma\).
+\begin{reduce}
+gsaw:=sub({ss=3,mu=0,del=i*2},g*hh^2/uu);
+on rounded; print_precision 6$
+gsawsumonpi2:=gsaw*(for n:=0:10 sum gamma^n)/pi^2;
+off rounded;
 \end{reduce}
 
 This appears to simplify the form of the evolution:

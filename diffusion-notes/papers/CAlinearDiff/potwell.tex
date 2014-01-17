@@ -92,14 +92,14 @@ u:=xi*uu+(1-xi)*em*uu;
 
 Iterate until the slow manifold model is found to the following specified order of accuracy.
 \begin{reduce}
-let { gamma^2=>0, aa^2=>0 };
+let { gamma^3=>0, c=>0, aa=>0 };
 for it:=1:99 do begin 
 \end{reduce}
 
 Compute residuals of governing equations.
 \begin{reduce}
     pde:=trigsimp(
-        i*df(u,t)+df(u,x,x)+aa*pi^2/hh^2*cos(2*pi*xi)*u
+        i*df(u,t)+df(u,x,x)-c*df(u,x)+aa*pi^2/hh^2*cos(2*pi*xi)*u
         , combine);
     amp:=sub(xi=1,u)-uu;
     cty:=sub(xi=0,ep*u)-sub(xi=1,u);
@@ -171,7 +171,11 @@ for i:=2:2*n-1 do delmu(i,i-1):=-1/2;
 for i:=2:2*n-1 do delmu(i-1,i):=+1/2;
 on rounded; print_precision 4;
 in "tmp.red";
-write aa:=1;
+write aa:=1; write c:=2;
+jmp:=u(n,n)-sub(xi=xi-1,u(n+1,n));
+write jump:=sub(xi=1,{jmp,df(jmp,x),df(jmp,x,2),df(jmp,x,3)});
+jmp:=sub(xi=xi-1,u(n+1,n))-sub(xi=xi-2,u(n+2,n));
+write jump:=sub(xi=2,{jmp,df(jmp,x),df(jmp,x,2),df(jmp,x,3)});
 ujs:=map(max(-1/2,min(3/2,~a)),
       {u(n,n)
       ,sub(xi=xi-1,u(n+1,n))
