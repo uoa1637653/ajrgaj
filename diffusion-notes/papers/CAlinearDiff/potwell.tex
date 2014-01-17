@@ -32,6 +32,8 @@ The \(j\)th~element is \(X_{j-1}\leq x\leq X_j\).
 \label{fig:A1gam2}
 \end{figure}
 
+Figure~\ref{fig:A1gam2} plots subgrid fields for potential strength \(A=1\) which look good, but \(A=2,3\) are ugly.
+
 
 Improve printing.
 \begin{reduce}
@@ -150,7 +152,7 @@ Result is beautiful.
 \begin{reduce}
 load_package gnuplot;
 if 1 then begin
-hh:=1; gamma:=1; epsilon:=0; aa:=1;
+hh:=1; gamma:=1; epsilon:=0;
 u:=(sub(mu=delmu/del,u) where del^2=>delsq);
 off nat;out "tmp.red"$
 write u:=u$
@@ -169,12 +171,13 @@ for i:=2:2*n-1 do delmu(i,i-1):=-1/2;
 for i:=2:2*n-1 do delmu(i-1,i):=+1/2;
 on rounded; print_precision 4;
 in "tmp.red";
+write aa:=1;
 ujs:=map(max(-1/2,min(3/2,~a)),
       {u(n,n)
       ,sub(xi=xi-1,u(n+1,n))
       ,sub(xi=xi-2,u(n+2,n))
       ,sub(xi=xi-3,u(n+3,n))
-      });
+      })$
 plot(ujs,xi=(0 .. 4));
 end;
 \end{reduce}
