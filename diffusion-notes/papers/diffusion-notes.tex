@@ -361,7 +361,13 @@ given by
 \label{eq:spec:1st}
 \end{eqnarray}
 which reveals an error of size ${\cal O}(H^2k^4)$ in comparison to the exact spectrum.
+
 The behaviour of this approximate spectrum is shown in Figure~\ref{fig:spec:first-order}.
+Observe that the second turning point of the approximation occurs at $k=\frac{\pi}{H}$, corresponding to $c=-1$.
+Hence, from the left-hand side of equation~\eqref{eq:spec:1st}, we obtain $\lambda=-\frac{12}{H^2}$, in contrast to the true value of
+$\lambda=-\frac{\pi^2}{H^2}$, giving an error of $\Delta\lambda\approx-\frac{2.1}{H^2}$.
+Using the right-hand side of  equation~\eqref{eq:spec:1st} instead leads to an approximate error estimate of
+$\Delta\lambda\approx-\frac{\pi^4}{12H^2}\approx-\frac{8.1}{H^2}$.
 %% \cos kH \sim 1-k^2H^2/2+k^4H^4/24-O(k^6H^6).
 %% -2(1-\cos kH) \sim -k^2H^2+k^4H^4/12-...
 %% 1/(2+\cos kH) \sim 1/3(1-k^2H^2/6+...) = (1/3)*(1+k^2H^2/6-...)
@@ -391,13 +397,10 @@ The behaviour of this approximate spectrum is shown in Figure~\ref{fig:spec:firs
 \label{fig:spec:first-order}
 \end{figure}
 
-Alternatively, recall from Section~\ref{sec:eig:modes} that for the special eigenmode $k=\frac{\pi}{H}$,
-the corresponding continuum eigensolution $\tilde{u}$ decays at the rate $\lambda=-\frac{\pi^2}{H^2}$.
-In contrast, the equivalent sawtooth mode in the coarse dynamics is given by $\tilde{U}_j=e^{\lambda t}(-1)^{j}$, 
-assuming for the sake of argument that $X_j\equiv jH$. It can then be shown that $\tilde{U}_j$,
-which obeys the relation $\delta^2\tilde{U}_j=-4\tilde{U}_j$,
-satisfies equation~\eqref{eq:Udot:1} for $\gamma=1$ with a decay rate of $\lambda=-\frac{12}{H^2}$.
-Observe that this is exactly the left-hand side of equation~\eqref{eq:spec:1st} for $c=-1$.
+Alternatively, suppose for the sake of argument that $X_j\equiv jH$. Then the continuum eigenmode $\tilde{u}(x,t)=e^{\lambda t+i\pi x/H}$ 
+gives rise to a sawtooth mode in the coarse dynamics of the form $\tilde{U}_j=e^{\lambda t}(-1)^{j}$.
+It can then be shown that $\tilde{U}_j$ obeys the relation $\delta^2\tilde{U}_j=-4\tilde{U}_j$,
+and satisfies equation~\eqref{eq:Udot:1} for $\gamma=1$ with a decay rate of $\lambda=-\frac{12}{H^2}$, the same as above.
 
 \section{Second-order Approximation}
 For convenience, consider the shift operator $\sigma u(x,t) := u(x+H,t)$;
@@ -408,8 +411,8 @@ Then, from equation~\eqref{eq:pert_ell} for $\ell=2$, we obtain
 \nonumber\\
 & = & \sum_{j\in\JJ^+}\chi_j\left\{\xi_j+(1-\xi_j)\sigma^{-1}\right\}g_{2,j}
 \nonumber\\
-&& {}+\frac{1}{6}\sum_{j\in\JJ^+}\chi_j\xi_j(1-\xi_j)\left\{
-(\xi_j-2)\sigma^{-1}-(\xi_j+1)
+&& {}-\frac{1}{6}\sum_{j\in\JJ^+}\chi_j\xi_j(1-\xi_j)\left\{
+(2-\xi_j)\sigma^{-1}+(1+\xi_j)
 \right\}S\delta^2g_{1,j}\,,
 \label{eq:uhat2:dd}
 \end{eqnarray}
@@ -438,18 +441,19 @@ using the fact that $S\delta^2=6(1-S)$.
 %%S:=1-(Si-1)+(Si-1)^2-(Si-1)^3;
 %%lam:=gamma*S*Dsq/H^2+gamma^2*(7-2*S)*S^2*Dsq^2/(60*H^2);
 %%lam -> -k^2+H^4*k^6/180+O(H^6k^8)
+
 Thus, following Section~\ref{sec:first-order}, the approximate spectrum for $\gamma=1$ is now
 \begin{eqnarray}
 \lambda = -\frac{1}{5H^2}\frac{96+27c-72c^2-51c^3}{8+12c+6c^2+c^3}
 \sim -k^2-\frac{1}{180}H^4k^6+{\cal O}(H^6k^8)\,.
 \end{eqnarray}
-Observe that the $O(H^2k^4)$ error term from the first-order approximation~\eqref{eq:spec:1st} has now been
-completely eliminated by the second-order correction, in favour of an $O(H^4k^6)$ error. In addition, as per Section~\ref{sec:first-order},
-the sawtooth mode (with $c=-1$) now has a decay rate of $-\frac{48}{5H^2}=-\frac{9.6}{H^2}$, in comparison to the true value of
-$-\frac{\pi^2}{H^2}\approx-\frac{9.87}{H^2}$ and the first-order value of $-\frac{12}{H^2}$.
-
-The behaviour of this corrected, approximate spectrum is shown in Figure~\ref{fig:spec:2nd-order}.
-Observe that the approximation becomes untenable near to the first turning point, at which $k\approx\frac{\pi}{H}$.
+Observe that the ${\cal O}(H^2k^4)$ error term from the first-order approximation~\eqref{eq:spec:1st} has now been
+completely eliminated by the second-order correction, in favour of an ${\cal O}(H^4k^6)$ error. 
+This adjusted spectral behaviour is shown in Figure~\ref{fig:spec:2nd-order}.
+Observe that the turning point again occurs at $k=\frac{\pi}{H}$. Hence,
+as per Section~\ref{sec:first-order},
+the sawtooth mode (with $c=-1$) now has a decay rate of $\lambda=-\frac{48}{5H^2}$, leading to an error of
+$\Delta\lambda\approx\frac{0.27}{H^2}$, which is an order of magnitude smaller than the first-order error.
 %% \cos kH \sim 1-k^2H^2/2+k^4H^4/24-O(k^6H^6).
 %% -2(1-\cos kH) \sim -k^2H^2+k^4H^4/12-...
 %% 1/(2+\cos kH) \sim 1/3(1-k^2H^2/6+...) = (1/3)*(1+k^2H^2/6-...)
