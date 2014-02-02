@@ -20,6 +20,7 @@
 
 \begin{document}
 \maketitle
+\numberwithin{equation}{section}
 \section{Introduction}\label{sec:intro}
 Consider an arbitrary solution $u:\XX\times \TT\mapsto \RR$ to the simple diffusion equation 
 \begin{eqnarray}
@@ -59,7 +60,7 @@ eigensolutions of the form
 which are physically realisable for real eigenvalues $\lambda=-k^2\le 0$ for 
 corresponding eigenmode wavenumbers $\pm k$. 
 As a consequence, the transient solutions corresponding
-to $\lambda<0$ decay rapidly to the centre manifold corresponding to $\lambda=0$. 
+to $\lambda<0$ decay to the centre manifold corresponding to $\lambda=0$. 
 
 This centre manifold can be found in practice by iteratively refining approximations to $u$. In particular, consider a series expansion of the form
 \begin{eqnarray}
@@ -228,6 +229,7 @@ Then an appropriate inner product for spatially square-integrable fields $u$ and
 \begin{eqnarray}
 \langle u,v\rangle = \int_{X_{\underline{J}}}^{X_{\bar{J}}}uv\;dx
 = \sum_{j\in\JJ^+}\int_{\II_j}uv\;dx\,.
+\label{eq:inner}
 \end{eqnarray}
 It can then be shown, for twice-differentiable fields, that
 \begin{eqnarray}
@@ -288,12 +290,12 @@ In particular, we may specifically target the $j$-th interval for $u$ by selecti
 \label{eq:vhat0}
 \end{eqnarray}
 Observe that this dual satisfies conditions~\eqref{eq:cont-cond} and~\eqref{eq:smooth-cond} for $\gamma=0$.
-It can then be shown in general that
-\begin{eqnarray}
-\langle u'', \hat{v}_0^{[j]}\rangle = -[u']_j+\frac{1}{H}\left.\delta^2 u\right|_{X_j}\,,
-\label{eq:udd:vhat0}
-\end{eqnarray}
-for any continuous, twice-differentiable field $u$.
+%It can then be shown in general (see Section~\ref{sec:inner}) that
+%\begin{eqnarray}
+%\langle u'', \hat{v}_0^{[j]}\rangle = -[u']_j+\frac{1}{H}\left.\delta^2 u\right|_{X_j}\,,
+%\label{eq:udd:vhat0}
+%\end{eqnarray}
+%for any continuous, twice-differentiable field $u$.
 
 \section{First-order Approximation}\label{sec:first-order}
 Substituting the leading approximation~(\ref{eq:uhat0}) into the
@@ -403,7 +405,7 @@ It can then be shown that $\tilde{U}_j$ obeys the relation $\delta^2\tilde{U}_j=
 and satisfies equation~\eqref{eq:Udot:1} for $\gamma=1$ with a decay rate of $\lambda=-\frac{12}{H^2}$, the same as above.
 
 \section{Second-order Approximation}
-For convenience, consider the shift operator $\sigma u(x,t) := u(x+H,t)$;
+For convenience, consider the right--shift operator $\sigma u(x,t) := u(x+H,t)$;
  whence $\delta:=\sigma^{{1}/{2}}-\sigma^{-{1}/{2}}$.
 Then, from equation~\eqref{eq:pert_ell} for $\ell=2$, we obtain
 \begin{eqnarray}
@@ -483,6 +485,120 @@ $\Delta\lambda\approx\frac{0.27}{H^2}$, which is an order of magnitude smaller t
 \label{fig:spec:2nd-order}
 \end{figure}
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Linear Advection}
+The addition of linear advection of speed $C$ to the diffusion equation~\eqref{eq:diff} leads to the
+linear diffusion--advection equation
+\begin{eqnarray}
+	\D tu = \DD xu - C\D xu\,.
+	\label{eq:diff-adv}
+\end{eqnarray}
+Under the assumption that $u$ still obeys the continuity condition~\eqref{eq:cont-cond} and the smoothness condition~\eqref{eq:smooth-cond}, this equation may be transformed, via the inner product of terms with the
+linear dual solution $\hat{v}_0^{[j]}$, from equation~\eqref{eq:vhat0}, into
+\begin{eqnarray}
+	\left\langle\D {\vec U}u,\hat{v}_0^{[j]}\right\rangle\cdot\dot{\vec U} & = & 
+\frac{\gamma}{H}\delta^2u|_{X_j} - \frac{C}{H}(\sigma-1){\cal I}_j u\,,
+\end{eqnarray}
+where ${\cal I}_j u := \int_{X^+_{j-1}}^{X^-_j}u\,dx$
+from equation~\eqref{eq:iop}, and
+use has been made of results~\eqref{eq:udd:vhat0} and~\eqref{eq:ud:vhat0}.
+Substituting the linear approximation $u=u_0+{\cal O}(\gamma+C)$, from equation~\eqref{eq:uhat0}, then leads to
+\begin{eqnarray}
+	H\left(1+\frac{1}{6}\delta^2\right)\dot{U}_j & = & 
+\frac{\gamma}{H}\delta^2U_j - C\mu\delta U_j + {\cal O}((\gamma+C)^2)\,,
+\end{eqnarray}
+where $\mu:=(\sigma^{{1}/{2}}+\sigma^{-{1}/{2}})/2$.
+Observe that the first and second spatial derivatives are approximated by centred differences, which follows
+naturally from the derivation. This is in contrast to the usual approach of difference equations,
+where the first derivative, for example, could arbitrarily be approximated by a forward, backward or centred difference.
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newpage
+\appendix
+\Alph{section}
+\section{Dual Inner--products}\label{sec:inner}
+From definition~\eqref{eq:inner} of the inner product, further define, for convenience,
+the integral operator ${\cal I}_j$, such that
+\begin{eqnarray}
+{\cal I}_j\;\cdot & := & \int_{X^+_{j-1}}^{X^-_j}\cdot\;dx\,.
+\label{eq:iop}
+\end{eqnarray}
+Then observe, for example, that
+\begin{eqnarray}
+\langle u'',\chi_j\rangle & = & \int_{X^+_{j-1}}^{X^-_j}\DD xu\;dx
+~=~\left.\D xu\right|_{X^-_j} - \left.\D xu\right|_{X^+_{j-1}}
+\\
+\Rightarrow {\cal I}_j u'' & = & u'|_{X^-_j}-u'|_{X^+_{j-1}}\,,
+\label{eq:udd:chi}
+\end{eqnarray}
+and similarly
+\begin{eqnarray}
+\langle u',\chi_j\rangle & = & {\cal I}_j u'
+~=~\int_{X^+_{j-1}}^{X^-_j}\D xu\;dx
+~=~\left.u\right|_{X^-_j} - \left.u\right|_{X^+_{j-1}}
+\,.
+\label{eq:ud:chi}
+\end{eqnarray}
+Now, recalling that $\xi_j=(x-X_{j-1})/H$ for $x\in\II_j$, observe that
+\begin{eqnarray}
+\langle u'',\xi_j\chi_j\rangle & = & \int_{X^+_{j-1}}^{X^-_j}\xi_j\DD xu\;dx
+\nonumber\\
+& = & \left[\xi_j\D {\xi_j}u\right]_{X^+_{j-1}}^{X^-_j}
+-\frac{1}{H}\int_{X^+_{j-1}}^{X^-_j}\D xu\;dx
+\nonumber\\
+& = & \left.\D xu\right|_{X^-_j}-\frac{1}{H}\left\{
+\left.u\right|_{X^-_j} - \left.u\right|_{X^+_{j-1}}
+\right\}
+\\
+\Rightarrow {\cal I}_j\xi_ju'' & = & u'|_{X^-_j}-(u|_{X^-_j}-u|_{X^+_{j-1}})/H\,,
+\label{eq:udd:xi:chi}
+\end{eqnarray}
+and similarly
+\begin{eqnarray}
+\langle u',\xi_j\chi_j\rangle & = & {\cal I}_j\xi_ju'
+~=~\int_{X^+_{j-1}}^{X^-_j}\xi_j\D xu\;dx
+\nonumber\\
+& = & \left[\xi_j u\right]_{X^+_{j-1}}^{X^-_j}
+-\frac{1}{H}\int_{X^+_{j-1}}^{X^-_j}u\;dx
+\nonumber\\
+& = & \left.u\right|_{X^-_j}-\frac{1}{H}{\cal I}_j u\,.
+\label{eq:ud:xi:chi}
+\end{eqnarray}
+
+Now, recall from equation~\eqref{eq:vhat0} that the linear dual solution applicable to the interval $\II_j$ is given by
+\begin{eqnarray}
+\hat{v}_0^{[j]} & := & \chi_j\xi_j + \chi_{j+1}(1-\xi_{j+1})~=~\xi_j\chi_j+\sigma(1-\xi_j)\chi_j\,.
+\end{eqnarray}
+%where $\sigma$ is the right-shift operator.
+Hence, it follows from equations~\eqref{eq:udd:chi} and~\eqref{eq:udd:xi:chi} that
+\begin{eqnarray}
+\langle u'',\hat{v}_0^{[j]}\rangle & = & 
+{\cal I}_j\xi_ju''+\sigma{\cal I}_j(1-\xi_j)u''
+\nonumber\\
+& = & u'|_{X^-_j}-\frac{1}{H}\left(u|_{X^-_j} - u|_{X^+_{j-1}}\right)
+\nonumber\\&&
+{}+u'|_{X^-_{j+1}} - u'|_{X^+_j}
+\nonumber\\&&
+{}-u'|_{X^-_{j+1}}+\frac{1}{H}\left(u|_{X^-_{j+1}} - u|_{X^+_j}\right)\,.
+\end{eqnarray}
+Assuming continuity of $u$ across the interval boundaries, i.e.\ $[u]_j=0$, this simplifies to
+\begin{eqnarray}
+\langle u'',\hat{v}_0^{[j]}\rangle & = & 
+{}-\left[u'\right]_j+\frac{1}{H}\left.\delta^2u\right|_{X_j}\,.
+\label{eq:udd:vhat0}
+\end{eqnarray}
+Similarly, it follows from equations~\eqref{eq:ud:chi} and~\eqref{eq:ud:xi:chi} that
+\begin{eqnarray}
+\langle u',\hat{v}_0^{[j]}\rangle & = & 
+{\cal I}_j\xi_ju'+\sigma{\cal I}_j(1-\xi_j)u'
+\nonumber\\
+& = & u|_{X^-_j}-\frac{1}{H}{\cal I}_ju
++u|_{X^-_{j+1}} - u|_{X^+_j}
+-u|_{X^-_{j+1}}+\frac{1}{H}{\cal I}_{j+1}u
+\nonumber\\
+& = & \frac{1}{H}(\sigma-1){\cal I}_ju\,,
+\label{eq:ud:vhat0}
+\end{eqnarray}
+again due to the continuity of $u$.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%5
 \end{document}
