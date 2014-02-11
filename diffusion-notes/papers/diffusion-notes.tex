@@ -492,25 +492,64 @@ linear diffusion--advection equation
 	\D tu = \DD xu - C\D xu\,.
 	\label{eq:diff-adv}
 \end{eqnarray}
-Under the assumption that $u$ still obeys the continuity condition~\eqref{eq:cont-cond} and the smoothness condition~\eqref{eq:smooth-cond}, this equation may be transformed, via the inner product of terms with the
-linear dual solution $\hat{v}_0^{[j]}$, from equation~\eqref{eq:vhat0}, into
+Recalling that ${\cal L}=\DD{x}{}$ and $\vec{g}=\dot{\vec{U}}$, this may be rewritten in the form
 \begin{eqnarray}
-	\left\langle\D {\vec U}u,\hat{v}_0^{[j]}\right\rangle\cdot\dot{\vec U} & = & 
-\frac{\gamma}{H}\delta^2u|_{X_j} - \frac{C}{H}(\sigma-1){\cal I}_j u\,,
+{\cal M}(u,g) & := & {\cal L}u-C\D xu-\D{\vec{U}}{u}\cdot\vec{g}~=~0\,.
+\end{eqnarray}
+Under the assumption that $u$ still obeys the continuity condition~\eqref{eq:cont-cond} and the smoothness condition~\eqref{eq:smooth-cond}, this equation may be transformed\footnote{Via the inner product of terms with the
+linear dual solution $\hat{v}_0^{[j]}$, from equation~\eqref{eq:vhat0}.} into the solvability condition
+\begin{eqnarray}
+       {\cal S}(u,g) & := & 
+          \frac{\gamma}{H}\delta^2u|_{X_j} - \frac{C}{H}(\sigma-1){\cal I}_j u
+	-\left\langle\D {\vec U}u,\hat{v}_0^{[j]}\right\rangle\cdot\vec{g}~=~0 \,,
 \end{eqnarray}
 where ${\cal I}_j u := \int_{X^+_{j-1}}^{X^-_j}u\,dx$
 from equation~\eqref{eq:iop}, and
 use has been made of results~\eqref{eq:udd:vhat0} and~\eqref{eq:ud:vhat0}.
-Substituting the linear approximation $u=u_0+{\cal O}(\gamma+C)$, from equation~\eqref{eq:uhat0}, and simplifying then leads to
+
+Now, the initial approximation is $\hat{u}=\hat{u}_0+{\cal O}(\gamma+C)$, from equation~\eqref{eq:uhat0}.
+Hence, $\hat{\vec{g}}$ may be chosen to satisfy the approximate solvability condition 
 \begin{eqnarray}
-	\dot{U}_j & = & 
-S\gamma\frac{\delta^2U_j}{H^2} - SC\frac{\mu\delta U_j}{H} + {\cal O}((\gamma+C)^2)\,,
+{\cal S}(\hat{u},\hat{g}) & \approx & {\cal S}(\hat{u}_0,\hat{g})~=~0+{\cal O}((\gamma+C)^2)\,,
 \end{eqnarray}
-where $\mu:=(\sigma^{{1}/{2}}+\sigma^{-{1}/{2}})/2$.
+whereupon
+\begin{eqnarray}
+	g_{j} & = & 
+\gamma S\frac{\delta^2U_j}{H^2} - CS\frac{\mu\delta U_j}{H} + {\cal O}((\gamma+C)^2)\,,
+\end{eqnarray}
+where $\mu:=(\sigma^{{1}/{2}}+\sigma^{-{1}/{2}})/2$. 
 Observe that the first and second spatial derivatives are approximated by centred differences, which follows
 naturally from the derivation. This is in contrast to the usual approach of difference equations,
 where the first derivative, for example, could arbitrarily be approximated by a forward, backward or centred difference.
 
+Next, the spatial approximation is improved to become\footnote{Now using an implicit dependence 
+upon $\gamma$ and $C$, in contrast to the explicit dependence assumed in expansions~\eqref{eq:u:series} and~\eqref{eq:Udot:series}.} 
+$\hat{u}=\hat{u}_0+\hat{u}_1+{\cal O}((\gamma+C))^2$, where $\hat{u}_1$ is found by solving
+the approximate manifold equation
+\begin{eqnarray}
+{\cal M}(\hat{u},\hat{g}) & \approx & {\cal M}(\hat{u}_0+\hat{u}_1,\hat{g})~=~0+O((\gamma+C)^2)\,,
+\end{eqnarray}
+or, equivalently,
+\begin{eqnarray}
+{\cal L}\hat{u}_1 & = & -{\cal M}(\hat{u}_0,\hat{g})+O((\gamma+C)^2)\,.
+\end{eqnarray}
+Subsequently, the temporal approximation is improved by resolving the approximate solvability condition
+\begin{eqnarray}
+{\cal S}(\hat{u},\hat{g}) & \approx & {\cal S}(\hat{u}_0+\hat{u}_1,\hat{g})~=~0+{\cal O}((\gamma+C)^3)\,,
+\end{eqnarray}
+giving rise to
+\begin{eqnarray}
+	g_{j} & = & 
+\gamma S\frac{\delta^2U_j}{H^2} - CS\frac{\mu\delta U_j}{H} 
+\nonumber\\&&
+{}-\frac{\gamma^2}{10}S(S-1)(7-2S)\frac{\delta^2 U_j}{H^2}
+-\frac{2\gamma C}{5}(S-1)^2S\frac{\mu\delta U_j}{H}
+\nonumber\\&&
+{}-\frac{C^2}{20}(S-1)^2(2S-1)U_j+ {\cal O}((\gamma+C)^3)
+\,.
+\end{eqnarray}
+
+\gaj{How to draw true spectrum $\lambda=-k^2-ikC$ or $(\lambda+k^2)^2+(kC)^2=0$?}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \newpage
 \appendix
