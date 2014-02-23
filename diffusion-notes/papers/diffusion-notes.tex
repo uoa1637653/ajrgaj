@@ -489,67 +489,127 @@ $\Delta\lambda\approx\frac{0.27}{H^2}$, which is an order of magnitude smaller t
 The addition of linear advection of speed $C$ to the diffusion equation~\eqref{eq:diff} leads to the
 linear diffusion--advection equation
 \begin{eqnarray}
-	\D tu = \DD xu - C\D xu\,.
+	\D tu = \DD xu - C\D xu\,,
 	\label{eq:diff-adv}
 \end{eqnarray}
-Recalling that ${\cal L}=\DD{x}{}$ and $\vec{g}=\dot{\vec{U}}$, this may be rewritten in the form
+which has the spectrum $\lambda=-k^2-ikC$ for a general eigenmode $\tilde{u}(x,t)=e^{\lambda t+ikx}$.
+Now, recalling that ${\cal L}=\DD{x}{}$ and $\vec{g}=\dot{\vec{U}}$, let equation~\eqref{eq:diff-adv} be rewritten in the form
 \begin{eqnarray}
 {\cal M}(u,g) & := & {\cal L}u-C\D xu-\D{\vec{U}}{u}\cdot\vec{g}~=~0\,.
+\label{eq:Mug}
 \end{eqnarray}
-Under the assumption that $u$ still obeys the continuity condition~\eqref{eq:cont-cond} and the smoothness condition~\eqref{eq:smooth-cond}, this equation may be transformed\footnote{Via the inner product of terms with the
+Under the assumption that $u$ still obeys the continuity condition~\eqref{eq:cont-cond} and the smoothness condition~\eqref{eq:smooth-cond}, this equation may in turn be transformed\footnote{Via the inner product of terms with the
 linear dual solution $\hat{v}_0^{[j]}$, from equation~\eqref{eq:vhat0}.} into the solvability condition
 \begin{eqnarray}
        {\cal S}(u,g) & := & 
           \frac{\gamma}{H}\delta^2u|_{X_j} - \frac{C}{H}(\sigma-1){\cal I}_j u
 	-\left\langle\D {\vec U}u,\hat{v}_0^{[j]}\right\rangle\cdot\vec{g}~=~0 \,,
+\label{eq:Sug}
 \end{eqnarray}
 where ${\cal I}_j u := \int_{X^+_{j-1}}^{X^-_j}u\,dx$
 from equation~\eqref{eq:iop}, and
 use has been made of results~\eqref{eq:udd:vhat0} and~\eqref{eq:ud:vhat0}.
 
-Now, the initial approximation is $\hat{u}=\hat{u}_0+{\cal O}(\gamma+C)$, from equation~\eqref{eq:uhat0}.
-Hence, $\hat{\vec{g}}$ may be chosen to satisfy the approximate solvability condition 
+Next, recall the initial continuum approximation of $u\approx\hat{u}_0$, from equation~\eqref{eq:uhat0},
+with the corresponding coarse evolution of $\hat{\vec{g}}\approx\hat{\vec{g}}_0=\vec{0}$. Observe that this
+`solution' approximately satisfies equations~\eqref{eq:Mug} and~\eqref{eq:Sug}, since
+${\cal M}(\hat{u}_0,\hat{\vec{g}}_0)={\cal O}(\gamma+C)$ and
+${\cal S}(\hat{u}_0,\hat{\vec{g}}_0)={\cal O}(\gamma+C)$.
+This suggests a two-step approach to refining the approximation: firstly, find a correction
+$\hat{\vec{g}}_1$ to $\hat{\vec{g}}_0$ such that ${\cal S}(\hat{u}_0,\hat{\vec{g}}_0+\hat{\vec{g}}_1)={\cal O}(\gamma^{2}+C^{2})$;
+and, secondly, find a correction
+$\hat{u}_1$ to $\hat{u}_0$ such that ${\cal M}(\hat{u}_0+\hat{u}_1,\hat{\vec{g}}_0+\hat{\vec{g}}_1)={\cal O}(\gamma^{n+1}+C^{n+1})$.
+In general, let\footnote{Now using an implicit dependence 
+upon $\gamma$ and $C$, in contrast to the explicit dependence assumed in expansions~\eqref{eq:u:series} and~\eqref{eq:Udot:series}.} 
 \begin{eqnarray}
-{\cal S}(\hat{u},\hat{g}) & \approx & {\cal S}(\hat{u}_0,\hat{g})~=~0+{\cal O}((\gamma+C)^2)\,,
+u & \sim & \hat{u}_0+\hat{u}_1+\hat{u}_2+\cdots\,,
+\label{eq:new:u:series}
+\\
+\vec{g} & \sim & \hat{\vec{g}}_0+\hat{\vec{g}}_1+\hat{\vec{g}}_2+\cdots\,,
+\label{eq:new:g:series}
 \end{eqnarray}
-whereupon
+where\footnote{Alternative schemes will differ in the definition of $\hat{u}_n$  and $\hat{\vec{g}}_n$.} 
+$\hat{u}_n=\sum_{p,q|p+q=n}a_{p,q}\gamma^p C^q$, and similarly for $\hat{\vec{g}}_n$. 
+Then, it can be shown that substitution of these expansions into the solvability condition~\eqref{eq:Sug} gives
 \begin{eqnarray}
-	g_{j} & = & 
-\gamma S\frac{\delta^2U_j}{H^2} - CS\frac{\mu\delta U_j}{H} + {\cal O}((\gamma+C)^2)\,,
+\left\langle\D {\vec U}{\hat{u}_0},\hat{v}_0^{[j]}\right\rangle\cdot\vec{g}_n & = &
+{\cal S}(\hat{u}_0+\cdots+\hat{u}_{n-1},
+\hat{\vec{g}}_0+\cdots+\hat{\vec{g}}_{n-1})
+\nonumber\\
+&&{}+{\cal O}(\gamma^{n+1}+C^{n+1})\,.
+\label{eq:Sug:n}
 \end{eqnarray}
-where $\mu:=(\sigma^{{1}/{2}}+\sigma^{-{1}/{2}})/2$. 
-Observe that the first and second spatial derivatives are approximated by centred differences, which follows
+Similarly, substitution of the expansions into the manifold equation~\eqref{eq:Mug} leads to
+\begin{eqnarray}
+{\cal L}\hat{u}_n & = & -{\cal M}(\hat{u}_0+\cdots+\hat{u}_{n-1},
+\hat{\vec{g}}_0+\cdots+\hat{\vec{g}}_{n-1})
+\nonumber\\
+&&{}+\D{\vec{U}}{\hat{u}_0}\cdot\hat{\vec{g}}_n+O(\gamma^{n+1}+C^{n+1})\,.
+\end{eqnarray}
+For example, for $n=1$ the solvability condition~\eqref{eq:Sug:n} reduces to
+\begin{eqnarray}
+	H\left(1+\frac{1}{6}\delta^2\right)\hat{g}_{1,j} & = & 
+\gamma\frac{\delta^2U_j}{H} - C\mu\delta U_j\,,
+\end{eqnarray}
+where $\mu:=(\sigma^{{1}/{2}}+\sigma^{-{1}/{2}})/2$, whereupon
+\begin{eqnarray}
+	\hat{g}_{j} & = & 
+\gamma S\frac{\delta^2U_j}{H^2} - CS\frac{\mu\delta U_j}{H} + {\cal O}(\gamma^2+C^2)\,,
+\end{eqnarray}
+Observe that the first and second spatial derivatives in equation~\eqref{eq:diff-adv} are here
+approximated by centred differences, which follows
 naturally from the derivation. This is in contrast to the usual approach of difference equations,
 where the first derivative, for example, could arbitrarily be approximated by a forward, backward or centred difference.
 
-Next, the spatial approximation is improved to become\footnote{Now using an implicit dependence 
-upon $\gamma$ and $C$, in contrast to the explicit dependence assumed in expansions~\eqref{eq:u:series} and~\eqref{eq:Udot:series}.} 
-$\hat{u}=\hat{u}_0+\hat{u}_1+{\cal O}((\gamma+C))^2$, where $\hat{u}_1$ is found by solving
-the approximate manifold equation
+Next,  after finding $\hat{u}_1$ (not shown here), the approximate solution is refined for $n=2$, giving
 \begin{eqnarray}
-{\cal M}(\hat{u},\hat{g}) & \approx & {\cal M}(\hat{u}_0+\hat{u}_1,\hat{g})~=~0+O((\gamma+C)^2)\,,
-\end{eqnarray}
-or, equivalently,
-\begin{eqnarray}
-{\cal L}\hat{u}_1 & = & -{\cal M}(\hat{u}_0,\hat{g})+O((\gamma+C)^2)\,.
-\end{eqnarray}
-Subsequently, the temporal approximation is improved by resolving the approximate solvability condition
-\begin{eqnarray}
-{\cal S}(\hat{u},\hat{g}) & \approx & {\cal S}(\hat{u}_0+\hat{u}_1,\hat{g})~=~0+{\cal O}((\gamma+C)^3)\,,
-\end{eqnarray}
-giving rise to
-\begin{eqnarray}
-	g_{j} & = & 
+	\hat{g}_{j} & = & 
 \gamma S\frac{\delta^2U_j}{H^2} - CS\frac{\mu\delta U_j}{H} 
 \nonumber\\&&
 {}-\frac{\gamma^2}{10}S(S-1)(7-2S)\frac{\delta^2 U_j}{H^2}
--\frac{2\gamma C}{5}(S-1)^2S\frac{\mu\delta U_j}{H}
+-\frac{2\gamma C}{5}S(S-1)^2\frac{\mu\delta U_j}{H}
 \nonumber\\&&
-{}-\frac{C^2}{20}(S-1)^2(2S-1)U_j+ {\cal O}((\gamma+C)^3)
+{}-\frac{C^2}{20}(S-1)^2(2S-1)U_j+ {\cal O}(\gamma^3+C^3)
 \,.
 \end{eqnarray}
+Recalling that the eigenmode $\tilde{u}$ obeys $\delta^2\tilde{u}=-2(1-c)\tilde{u}$, 
+and noting that $\mu\delta\tilde{u}=is\tilde{u}$ where $s:=\sin kH$,
+observe that the sawtooth mode (with $c=-1$, $s=0$, $\delta^2\rightarrow-4$ and $S\rightarrow3$) 
+now has an approximate rate of $\lambda=-\frac{48}{5H^2}-C^2$, in contrast to the true rate of
+$\lambda=-\frac{\pi^2}{H^2}-i\frac{\pi}{H}C$.
 
-\gaj{How to draw true spectrum $\lambda=-k^2-ikC$ or $(\lambda+k^2)^2+(kC)^2=0$?}
+To see that the $C^2$ term is an artifact of the expansion of $\hat{g}_j$, higher order terms in $\gamma$ are found,
+and $S$ is replaced by its asymptotic expansion
+\begin{eqnarray}
+S & \sim & 1-\frac{1}{6}\delta^2+\frac{1}{36}\delta^4-\frac{1}{216}\delta^6+\frac{1}{1296}\delta^8-\frac{1}{7776}\delta^{10}+\cdots\,.
+\end{eqnarray}
+The resulting coefficients of terms like $\gamma^p C^2\delta^qU_j$ are summarised in Table~\ref{tab:terms}.
+Observe that terms for each fixed $q$ cancel out when summed over $p$ (in the limit as $\gamma\rightarrow 1$).
+\begin{table}[hbt]
+\centering
+\begin{tabular}{|c|c|c|c|c|c|}
+\hline
+& \multicolumn{5}{|c|}{$q$}\\
+\cline{2-6}
+$p$ & 4 & 6 & 8 & 10 & 12\\
+\hline
+&&&&&\\[-2ex]
+0 & $-\frac{1}{720}$ & $\frac{1}{1080}$ & $-\frac{1}{2880}$ & $\frac{1}{9720}$ & $-\frac{5}{186624}$\\[1ex]
+1 & $\frac{1}{360}$ & $-\frac{1}{504}$ & $\frac{59}{75600}$ & $-\frac{307}{1360800}$ & $\frac{19}{362880}$\\[1ex]
+2 & $-\frac{1}{720}$ & $\frac{1}{840}$ & $-\frac{79}{151200}$ & $\frac{47}{340200}$ & $-\frac{1}{57600}$\\[1ex]
+3 & - & $-\frac{1}{7560}$ & $\frac{1}{10800}$ & $-\frac{31}{2993760}$ & $-\frac{5311}{314344800}$\\[1ex]
+4 & - & - & $-\frac{1}{302400}$ & $-\frac{43}{7484400}$ & $\frac{1271}{121080960}$\\[1ex]
+5 & - & - & - & $\frac{1}{1496880}$ & $-\frac{1039}{544864320}$\\[1ex]
+6 & - & - & - & - & $\frac{541}{5448643200}$\\[1ex]
+\hline
+&&&&&\\[-2ex]
+$\sum$ & 0 & 0 & 0 & 0 & 0\\
+\hline
+\end{tabular}
+\caption{The coefficients of $\gamma^pC^2\delta^q U_j$ terms in the expansion of $\hat{\vec{g}}$ for leading 
+values of $p$ and $q$.}
+\label{tab:terms}
+\end{table}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \newpage
 \appendix
