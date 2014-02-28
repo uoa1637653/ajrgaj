@@ -3,6 +3,13 @@
 \usepackage{graphicx}
 \usepackage{amsmath,amsfonts,defns}
 \usepackage{pgfplots}
+\usepackage[T1]{fontenc}
+\usepackage{frcursive}
+\usepackage[scr=boondoxo]{mathalfa}
+
+\newcommand{\setfont}[2]{{\fontfamily{#1}\selectfont #2}}
+\newcommand{\fcurs}[1]{\text{\setfont{frc}{#1}}}
+\newcommand{\bcurs}[1]{\text{$\mathscr{#1}$}}
 
 \newcommand{\Bb}[1]{%
   \expandafter\def\csname#1#1\endcsname%
@@ -399,8 +406,8 @@ $\Delta\lambda\approx-\frac{\pi^4}{12H^2}\approx-\frac{8.1}{H^2}$.
 \label{fig:spec:first-order}
 \end{figure}
 
-Alternatively, suppose for the sake of argument that $X_j\equiv jH$. Then the continuum eigenmode $\tilde{u}(x,t)=e^{\lambda t+i\pi x/H}$ 
-gives rise to a sawtooth mode in the coarse dynamics of the form $\tilde{U}_j=e^{\lambda t}(-1)^{j}$.
+Alternatively, note that the continuum eigenmode for $k=\frac{\pi}{H}$ is given\footnote{Since $X_j=X_0+jH$, and the neglected coefficient is arbitrary.}  by $\tilde{u}(x,t)=e^{\lambda t+i\pi x/H}$ .
+This gives rise to a sawtooth mode in the coarse dynamics of the form $\tilde{U}_j=e^{\lambda t}(-1)^{j}$.
 It can then be shown that $\tilde{U}_j$ obeys the relation $\delta^2\tilde{U}_j=-4\tilde{U}_j$,
 and satisfies equation~\eqref{eq:Udot:1} for $\gamma=1$ with a decay rate of $\lambda=-\frac{12}{H^2}$, the same as above.
 
@@ -553,7 +560,7 @@ For example, for $n=1$ the solvability condition~\eqref{eq:Sug:n} reduces to
 \end{eqnarray}
 where $\mu:=(\sigma^{{1}/{2}}+\sigma^{-{1}/{2}})/2$, whereupon
 \begin{eqnarray}
-	\hat{g}_{j} & = & 
+	g_j & = & \dot{U}_j~=~
 \gamma S\frac{\delta^2U_j}{H^2} - CS\frac{\mu\delta U_j}{H} + {\cal O}(\gamma^2+C^2)\,,
 \end{eqnarray}
 Observe that the first and second spatial derivatives in equation~\eqref{eq:diff-adv} are here
@@ -561,9 +568,9 @@ approximated by centred differences, which follows
 naturally from the derivation. This is in contrast to the usual approach of difference equations,
 where the first derivative, for example, could arbitrarily be approximated by a forward, backward or centred difference.
 
-Next,  after finding $\hat{u}_1$ (not shown here), the approximate solution is refined for $n=2$, giving
+Next,  after finding $\hat{u}_1$ (not shown here), the approximate solution is refined at step $n=2$, giving
 \begin{eqnarray}
-	\hat{g}_{j} & = & 
+	\dot{U}_j & = & 
 \gamma S\frac{\delta^2U_j}{H^2} - CS\frac{\mu\delta U_j}{H} 
 \nonumber\\&&
 {}-\frac{\gamma^2}{10}S(S-1)(7-2S)\frac{\delta^2 U_j}{H^2}
@@ -572,6 +579,16 @@ Next,  after finding $\hat{u}_1$ (not shown here), the approximate solution is r
 {}-\frac{C^2}{20}(S-1)^2(2S-1)U_j+ {\cal O}(\gamma^3+C^3)
 \,.
 \end{eqnarray}
+Observe that choosing a time-scale of $H^2$ naturally leads to an advection parameterisation in terms of $CH$.
+
+****
+%\setfont{frc}{This is frcursive font.}\\
+%\setfont{calligra}{This is Calligra font.}
+This is a \bcurs{c} did you know?
+What about \fcurs{c} versus \fcurs{s}? Also in math mode, $\bcurs{c}:=\cos kH, \fcurs{s}:=\sin kH$?
+$\mathscr{c} and \mathscr{s}$ symbol
+
+****
 Recalling that the eigenmode $\tilde{u}$ obeys $\delta^2\tilde{u}=-2(1-c)\tilde{u}$, 
 and noting that $\mu\delta\tilde{u}=is\tilde{u}$ where $s:=\sin kH$,
 observe that the sawtooth mode (with $c=-1$, $s=0$, $\delta^2\rightarrow-4$ and $S\rightarrow3$) 
