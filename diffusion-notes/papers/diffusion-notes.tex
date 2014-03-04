@@ -1,6 +1,6 @@
 \documentclass[12pt,a5paper]{article}
 \usepackage[a5paper,margin=6mm]{geometry}
-\usepackage{graphicx}
+\usepackage{graphicx,subcaption}
 \usepackage{amsmath,amsfonts,defns}
 \usepackage{pgfplots}
 \usepackage[T1]{fontenc}
@@ -130,8 +130,8 @@ However, this non-smoothness may be corrected at higher order by imposing a furt
 Consequently, smooth approximations are found in the limit as $\gamma\rightarrow 1$.
 
 \section{Linear Eigenmode Analysis}\label{sec:eig:modes}
-Consider a single eigenmode of the form~(\ref{eq:raw-eigmode}) for some fixed, non-dimensionalised 
-wavenumber $\kappa=kH>0$. 
+Consider a single eigenmode of the form~(\ref{eq:raw-eigmode}) for some arbitrary, 
+non-dimensionalised wavenumber $\kappa:=kH>0$. 
 Thus, allowing for the partitioning of \XX, let
 \begin{eqnarray}
 \tilde{u} & \sim & \sum_{j\in\JJ^+} \chi_j a_j e^{i\kappa\xi_j} + \text{c.c.}\,,
@@ -144,8 +144,8 @@ a_{j+1} - a_j e^{i\kappa\xi_j} + \text{c.c.} = 0\,.
 \end{eqnarray}
 Similarly, the smoothness condition~(\ref{eq:smooth-cond}) implies that 
 \begin{eqnarray}
-ik a_{j+1} -ik a_j e^{i\kappa} + \text{c.c.} =  
-\frac{1-\gamma}{H}\left(
+i\kappa a_{j+1} -i\kappa a_j e^{i\kappa} + \text{c.c.} =  
+(1-\gamma)\left(
 a_{j+1} e^{i\kappa} + a_j - 2 a_j e^{i\kappa}
 \right)
 + \text{c.c.}\,,
@@ -155,7 +155,7 @@ In coefficient form, the update from the $j$th to $(j+1)$th segment is
 \begin{eqnarray}
 \left[\begin{array}{cc}
 1 & 0\\
-fc & 1-fs\\
+\bcurs{f}\bcurs{c} & 1-\bcurs{f}\fcurs{s}\\
 \end{array}\right]
 \left[\begin{array}{c}
 A_{j+1}\\
@@ -163,33 +163,33 @@ B_{j+1}\\
 \end{array}\right]
 =
 \left[\begin{array}{cc}
-c & -s\\
-s+f(2c-1) & c-2fs\\
+\bcurs{c} & -\fcurs{s}\\
+\fcurs{s}+f(2\bcurs{c}-1) & \bcurs{c}-2\bcurs{f}\fcurs{s}\\
 \end{array}\right]
 \left[\begin{array}{c}
 A_{j}\\
 B_{j}\\
 \end{array}\right]\,,
 \end{eqnarray}
-where $c+is:=e^{i\kappa}$ and $f:=\frac{1-\gamma}{\kappa}$.
+where $\bcurs{c}+i\fcurs{s}:=e^{i\kappa}$ and $\bcurs{f}:=(1-\gamma)/\kappa$.
 Now, letting $a_{j+1}=\mu a_j$, the characteristic equation for 
 the growth factor $\mu$ is
 \begin{eqnarray}
-(1-fs)\left[\mu^2-2\frac{c-fs}{1-fs}\mu+1\right] = 0\,,
+(1-\bcurs{f}\fcurs{s})\left[\mu^2-2\frac{\bcurs{c}-\bcurs{f}\fcurs{s}}{1-\bcurs{f}\fcurs{s}}\mu+1\right] = 0\,,
 \end{eqnarray}
 with roots given by
 \begin{eqnarray}
 \mu & = & \beta\pm\sqrt{\beta^2-1}
 \hspace*{5mm}\mbox{for } 
-\beta~=~\frac{c-fs}{1-fs}\,.
+\beta~=~\frac{\bcurs{c}-\bcurs{f}\fcurs{s}}{1-\bcurs{f}\fcurs{s}}\,.
 \end{eqnarray}
-Observe that $\beta\le 1$ since $c=\cos\kappa\le 1$ and 
-$1-fs=1-(1-\gamma)\frac{\sin\kappa}{\kappa}\ge 0$.
+Observe that $\beta\le 1$ since $\bcurs{c}=\cos\kappa\le 1$ and 
+$1-\bcurs{f}\fcurs{s}=1-(1-\gamma)\frac{\sin\kappa}{\kappa}\ge 0$.
 Thus, for $|\beta|<1$, the factors are complex with magnitude 
 $|\mu|=1$,
 indicating marginally stable evolution of $a_j$. 
 This includes the limiting case of $\gamma=1$ ($f=0$), for which
-$\mu=c\pm is=e^{\pm i\kappa}$.
+$\mu=\bcurs{c}\pm i\fcurs{s}=e^{\pm i\kappa}$.
 Likewise, $\mu=\pm 1$ for $\beta=\pm 1$, corresponding to $\kappa=n\pi$, $n=0,1,2,\ldots$.
 Finally, for small regions near each $\kappa=(2n+1)\pi$, 
 it is found that $\beta<-1$, resulting in two real factors,
@@ -352,36 +352,66 @@ and hence
 \end{eqnarray}
 This solution can also be otained more directly via the dual space by computing $\langle\hat{u}''_1,\hat{v}_0^{[j]}\rangle$ from
 equations~\eqref{eq:vhat0} and~\eqref{eq:uhat:1:dd}, and using results~\eqref{eq:udd:vhat0} and~\eqref{eq:udhat1-jump}.
-
 Consequently, as a first approximation, the coarse dynamics evolve according to
 \begin{eqnarray}
 	\dot{\vec U} = \frac{\gamma}{H^2}S\delta^2\vec U + {\cal O}(\gamma^2)\,,
 \label{eq:Udot:1}
 \end{eqnarray}
 from equations~\eqref{eq:temporal} and~\eqref{eq:Udot:series},
-where, for convenience, we let $S:=(1+\frac{1}{6}\delta^2)^{-1}$.
-Now, recall from Section~\ref{sec:centre-man} that the eigensolution $\tilde{u}(x,t)=e^{\lambda t+ikx}$ %%~\eqref{eq:raw-eigmode} 
-to the diffusion equation~\eqref{eq:diff} has the exact spectrum $\lambda=-k^2$.
-It can further be shown that this eigensolution  satisfies the relation 
-$\delta^2\tilde{u}=-2(1-c)\tilde{u}$, where, as before, $c:=\cos kH$. Hence, the spectrum of the first-order approximation with $\gamma=1$ is
-given by
+where, for convenience, we define the non-local operator $S:=(1+\frac{1}{6}\delta^2)^{-1}$.
+
+Now, recall that Section~\ref{sec:eig:modes} introduced the non-dimensionalised wavenumber $\kappa:=kH$. 
+For convenience, we here likewise define a non-dimensionalised expansion rate of $\bar{\lambda}:=\lambda H^2$.
+Hence, the eigensolution~\eqref{eq:raw-eigmode} may be rewritten as $\tilde{u}(x,t)=e^{\bar{\lambda}t/H^2+i\kappa x/H}$, 
+such that the spectrum of equation~\eqref{eq:diff} becomes $\bar{\lambda}=-\kappa^2$.
+It can further be shown that
+$\delta^2\tilde{u}=-2(1-\bcurs{c})\tilde{u}$, where, as before, $\bcurs{c}=\cos\kappa$. 
+Hence, the spectrum of the first-order approximation (with $\gamma=1$) is given by
 \begin{eqnarray}
-\lambda = -\frac{6(1-c)}{H^2(2+c)} \sim -k^2-\frac{1}{12}H^2k^4+{\cal O}(H^4k^6)\,,
+\bar{\lambda} = -\frac{6(1-\bcurs{c})}{(2+\bcurs{c})} \sim -\kappa^2-\frac{1}{12}\kappa^4+{\cal O}(\kappa^6)\,,
 \label{eq:spec:1st}
 \end{eqnarray}
-which reveals an error of size ${\cal O}(H^2k^4)$ in comparison to the exact spectrum.
+which reveals an error of size ${\cal O}(\kappa^4)$ in comparison to the exact spectrum.
 
-The behaviour of this approximate spectrum is shown in Figure~\ref{fig:spec:first-order}.
-Observe that the second turning point of the approximation occurs at $k=\frac{\pi}{H}$, corresponding to $c=-1$.
-Hence, from the left-hand side of equation~\eqref{eq:spec:1st}, we obtain $\lambda=-\frac{12}{H^2}$, in contrast to the true value of
-$\lambda=-\frac{\pi^2}{H^2}$, giving an error of $\Delta\lambda\approx-\frac{2.1}{H^2}$.
-Using the right-hand side of  equation~\eqref{eq:spec:1st} instead leads to an approximate error estimate of
-$\Delta\lambda\approx-\frac{\pi^4}{12H^2}\approx-\frac{8.1}{H^2}$.
+The stability of the approximate dynamics is shown by Figures~\ref{fig:spec:first-order:nd}--\ref{fig:spec:first-order}.
+Observe that the turning point of the approximation occurs at $\kappa=\pi$,
+where the continuum eigenmode becomes
+ $\tilde{u}(x,t)=e^{\bar{\lambda}t/H^2+i\pi x/H}$.
+This gives rise\footnote{Since $X_j=X_0+jH$, and the neglected coefficient is arbitrary.} 
+to a sawtooth mode in the coarse dynamics of the form $\tilde{U}_j=e^{\bar{\lambda}t/H^2}(-1)^{j}$.
+Hence, from either equation~\eqref{eq:spec:1st} with $\bcurs{c}=\cos\pi=-1$, or from 
+ equation~\eqref{eq:Udot:1} with $\gamma=1$ and $\delta^2\tilde{U}_j=-4\tilde{U}_j$,
+we obtain $\bar{\lambda}=-12$, in contrast to the true value of
+$\bar{\lambda}=-\pi^2$, giving an error of $\Delta\bar{\lambda}\approx-2.1$.
+%Using the right-hand side of  equation~\eqref{eq:spec:1st} instead leads to an approximate error estimate of
+%$\Delta\bar{\lambda}\approx-\frac{\pi^4}{12H^2}\approx-\frac{8.1}{H^2}$.
 %% \cos kH \sim 1-k^2H^2/2+k^4H^4/24-O(k^6H^6).
 %% -2(1-\cos kH) \sim -k^2H^2+k^4H^4/12-...
 %% 1/(2+\cos kH) \sim 1/3(1-k^2H^2/6+...) = (1/3)*(1+k^2H^2/6-...)
 %% -6(1-\cos kH)/(2+\cos kH) \sim (-k^2H^2+k^4H^4/12+...)*(1+k^2H^2/6+...)  = -k^2H^2-k^4H^4/6+k^2H^2/12+...
 %%  = -k^2H^2-k^4H^4/12+...
+\begin{figure}[hbt]
+\centering
+\begin{tikzpicture}
+\begin{axis}[ xlabel={$\kappa$}, ylabel={$\bar{\lambda}$}
+  ,axis x line=middle,axis y line=middle
+  ,thick,grid,no marks,samples=101
+  ,domain=0:4,ymax=3
+  ,xtick={0.62832,1.25664,1.88496,2.51328,3.1416,3.76992}
+  ,xticklabels={$\frac{\pi}{5}$,$\frac{2\pi}{5}$,$\frac{3\pi}{5}$,$\frac{4\pi}{5}$,$\pi$,$\frac{6\pi}{5}$}
+  ,legend pos=outer north east
+  ] 
+\addplot  {0-(x^2)}; 
+\addlegendentry{exact};
+\addplot {-6*(1-cos(deg(x)))/(2+cos(deg(x)))}; 
+\addlegendentry{approx.};
+\end{axis}
+\end{tikzpicture}
+\caption{The  non-dimensionalised spectrum ($\bar{\lambda}$ versus~$\kappa$) of the linear diffusion equation, contrasting the 
+continuum dynamics against the discrete, first-order approximation (for $\gamma=1$).}
+\label{fig:spec:first-order:nd}
+\end{figure}
+
 \begin{figure}[hbt]
 \centering
 \begin{tikzpicture}
@@ -402,14 +432,10 @@ $\Delta\lambda\approx-\frac{\pi^4}{12H^2}\approx-\frac{8.1}{H^2}$.
 \end{axis}
 \end{tikzpicture}
 %\includegraphics[width=0.8\textwidth]{figures/first-order-spectrum.png}
-\caption{The exact spectrum ($\lambda$ versus~$k$) of the linear diffusion equation, compared to a first-order approximation with $H=0.4$ and $H=0.2$ for $\gamma=1$.}
+\caption{The  dimensionalised spectrum ($\lambda$ versus~$k$) of the linear diffusion equation, contrasting the 
+continuum dynamics against the discrete, first-order approximation (for $\gamma=1$) with interval length $H$.}
 \label{fig:spec:first-order}
 \end{figure}
-
-Alternatively, note that the continuum eigenmode for $k=\frac{\pi}{H}$ is given\footnote{Since $X_j=X_0+jH$, and the neglected coefficient is arbitrary.}  by $\tilde{u}(x,t)=e^{\lambda t+i\pi x/H}$ .
-This gives rise to a sawtooth mode in the coarse dynamics of the form $\tilde{U}_j=e^{\lambda t}(-1)^{j}$.
-It can then be shown that $\tilde{U}_j$ obeys the relation $\delta^2\tilde{U}_j=-4\tilde{U}_j$,
-and satisfies equation~\eqref{eq:Udot:1} for $\gamma=1$ with a decay rate of $\lambda=-\frac{12}{H^2}$, the same as above.
 
 \section{Second-order Approximation}
 For convenience, consider the right--shift operator $\sigma u(x,t) := u(x+H,t)$;
@@ -451,55 +477,77 @@ using the fact that $S\delta^2=6(1-S)$.
 %%lam:=gamma*S*Dsq/H^2+gamma^2*(7-2*S)*S^2*Dsq^2/(60*H^2);
 %%lam -> -k^2+H^4*k^6/180+O(H^6k^8)
 
-Thus, following Section~\ref{sec:first-order}, the approximate spectrum for $\gamma=1$ is now
+Thus, following Section~\ref{sec:first-order}, the approximate spectrum (for $\gamma=1$) is now
 \begin{eqnarray}
-\lambda = -\frac{1}{5H^2}\frac{96+27c-72c^2-51c^3}{8+12c+6c^2+c^3}
-\sim -k^2-\frac{1}{180}H^4k^6+{\cal O}(H^6k^8)\,.
+\bar{\lambda} = -\frac{3(1-\bcurs{c})(32+41\bcurs{c}+17\bcurs{c}^2)}{5(2+\bcurs{c})^3}
+\sim -\kappa^2-\frac{1}{180}\kappa^6+{\cal O}(\kappa^8)\,.
 \end{eqnarray}
-Observe that the ${\cal O}(H^2k^4)$ error term from the first-order approximation~\eqref{eq:spec:1st} has now been
-completely eliminated by the second-order correction, in favour of an ${\cal O}(H^4k^6)$ error. 
-This adjusted spectral behaviour is shown in Figure~\ref{fig:spec:2nd-order}.
-Observe that the turning point again occurs at $k=\frac{\pi}{H}$. Hence,
+Observe that the ${\cal O}(\kappa^4)$ error term from the first-order approximation~\eqref{eq:spec:1st} has now been
+completely eliminated by the second-order correction, in favour of an ${\cal O}(\kappa^6)$ error. 
+This adjusted spectral behaviour is shown in Figure~\ref{fig:spec:2nd-order:nd}.
+Observe that the turning point again occurs at $\kappa=\pi$. Hence,
 as per Section~\ref{sec:first-order},
-the sawtooth mode (with $c=-1$) now has a decay rate of $\lambda=-\frac{48}{5H^2}$, leading to an error of
-$\Delta\lambda\approx\frac{0.27}{H^2}$, which is an order of magnitude smaller than the first-order error.
+the sawtooth mode (with $\bcurs{c}=-1$) now has a decay rate of $\bar{\lambda}=-9.6$, leading to an error of
+$\Delta\bar{\lambda}\approx 0.27$, which is an order of magnitude smaller than the first-order error.
 %% \cos kH \sim 1-k^2H^2/2+k^4H^4/24-O(k^6H^6).
 %% -2(1-\cos kH) \sim -k^2H^2+k^4H^4/12-...
 %% 1/(2+\cos kH) \sim 1/3(1-k^2H^2/6+...) = (1/3)*(1+k^2H^2/6-...)
 %% -6(1-\cos kH)/(2+\cos kH) \sim (-k^2H^2+k^4H^4/12+...)*(1+k^2H^2/6+...)  = -k^2H^2-k^4H^4/6+k^2H^2/12+...
 %%  = -k^2H^2-k^4H^4/12+...
+%\begin{figure}[hbt]
+%\centering
+%\includegraphics[width=0.8\textwidth]{figures/second-order-spectrum.png}
+%\begin{tikzpicture}
+%\begin{axis}[ xlabel={$k$}, ylabel={$\lambda$}
+% ,axis x line=middle,axis y line=middle
+% ,thick,grid,no marks,samples=101
+% ,domain=0:20,ymax=50
+% ,xtick={3.1416,6.2832,9.4248,12.5664,15.7080,18.8496}
+% ,xticklabels={$\pi$,$2\pi$,$3\pi$,$4\pi$,$5\pi$,$6\pi$}
+% ,legend pos=outer north east
+% ] 
+%\addplot  {0-(x^2)}; 
+%\addlegendentry{exact};
+%\addplot %{-1/5/0.4^2*(96+27*cos(deg(x*0.4))-72*cos(deg(x*0.4))^2-51*cos(deg(x*0.4))^3)/(8+12*cos(deg(x*0.4))+6*cos(deg(x*0.4))^2+cos(deg(x*0.4))^3)}; 
+%\addlegendentry{$H=0.4$};
+%\addplot %{-1/5/0.2^2*(96+27*cos(deg(x*0.2))-72*cos(deg(x*0.2))^2-51*cos(deg(x*0.2))^3)/(8+12*cos(deg(x*0.2))+6*cos(deg(x*0.2))^2+cos(deg(x*0.2))^3)}; 
+%\addlegendentry{$H=0.2$};
+%\end{axis}
+%\end{tikzpicture}
+%\caption{The exact spectrum ($\lambda$ versus $k$) of the linear diffusion equation, compared to a second-order approximation with $H=0.4$ %and $H=0.2$ for $\gamma=1$.}
+%\label{fig:spec:2nd-order}
+%\end{figure}
 \begin{figure}[hbt]
 \centering
-%\includegraphics[width=0.8\textwidth]{figures/second-order-spectrum.png}
 \begin{tikzpicture}
-\begin{axis}[ xlabel={$k$}, ylabel={$\lambda$}
+\begin{axis}[ xlabel={$\kappa$}, ylabel={$\bar{\lambda}$}
   ,axis x line=middle,axis y line=middle
   ,thick,grid,no marks,samples=101
-  ,domain=0:20,ymax=50
-  ,xtick={3.1416,6.2832,9.4248,12.5664,15.7080,18.8496}
-  ,xticklabels={$\pi$,$2\pi$,$3\pi$,$4\pi$,$5\pi$,$6\pi$}
+  ,domain=0:4,ymax=3
+  ,xtick={0.62832,1.25664,1.88496,2.51328,3.1416,3.76992}
+  ,xticklabels={$\frac{\pi}{5}$,$\frac{2\pi}{5}$,$\frac{3\pi}{5}$,$\frac{4\pi}{5}$,$\pi$,$\frac{6\pi}{5}$}
   ,legend pos=outer north east
   ] 
 \addplot  {0-(x^2)}; 
 \addlegendentry{exact};
-\addplot {-1/5/0.4^2*(96+27*cos(deg(x*0.4))-72*cos(deg(x*0.4))^2-51*cos(deg(x*0.4))^3)/(8+12*cos(deg(x*0.4))+6*cos(deg(x*0.4))^2+cos(deg(x*0.4))^3)}; 
-\addlegendentry{$H=0.4$};
-\addplot {-1/5/0.2^2*(96+27*cos(deg(x*0.2))-72*cos(deg(x*0.2))^2-51*cos(deg(x*0.2))^3)/(8+12*cos(deg(x*0.2))+6*cos(deg(x*0.2))^2+cos(deg(x*0.2))^3)}; 
-\addlegendentry{$H=0.2$};
+\addplot {-6*(1-cos(deg(x)))/(2+cos(deg(x)))}; 
+\addlegendentry{1st order};
+\addplot {-1/5*(96+27*cos(deg(x))-72*cos(deg(x))^2-51*cos(deg(x))^3)/(8+12*cos(deg(x))+6*cos(deg(x))^2+cos(deg(x))^3)}; 
+\addlegendentry{2nd order};
 \end{axis}
 \end{tikzpicture}
-\caption{The exact spectrum ($\lambda$ versus $k$) of the linear diffusion equation, compared to a second-order approximation with $H=0.4$ and $H=0.2$ for $\gamma=1$.}
-\label{fig:spec:2nd-order}
+\caption{The  non-dimensionalised spectrum ($\bar{\lambda}$ versus~$\kappa$) of the linear diffusion equation, contrasting the 
+continuum dynamics against the first two discrete approximations (for $\gamma=1$).}
+\label{fig:spec:2nd-order:nd}
 \end{figure}
 
 \section{Linear Advection}
 The addition of linear advection of speed $C$ to the diffusion equation~\eqref{eq:diff} leads to the
 linear diffusion--advection equation
 \begin{eqnarray}
-	\D tu = \DD xu - C\D xu\,,
+	\D tu = \DD xu - C\D xu\,.
 	\label{eq:diff-adv}
 \end{eqnarray}
-which has the spectrum $\lambda=-k^2-ikC$ for a general eigenmode $\tilde{u}(x,t)=e^{\lambda t+ikx}$.
 Now, recalling that ${\cal L}=\DD{x}{}$ and $\vec{g}=\dot{\vec{U}}$, let equation~\eqref{eq:diff-adv} be rewritten in the form
 \begin{eqnarray}
 {\cal M}(u,g) & := & {\cal L}u-C\D xu-\D{\vec{U}}{u}\cdot\vec{g}~=~0\,.
@@ -578,53 +626,43 @@ Next,  after finding $\hat{u}_1$ (not shown here), the approximate solution is r
 \nonumber\\&&
 {}-\frac{C^2}{20}(S-1)^2(2S-1)U_j+ {\cal O}(\gamma^3+C^3)
 \,.
+\label{eq:Udot:adv:2}
 \end{eqnarray}
-Observe that choosing a time-scale of $H^2$ naturally leads to an advection parameterisation in terms of $CH$.
+Observe that choosing a time-scale of $H^2$, as before, leads naturally to an advection parameterisation in terms of $\bar{C}:=CH$.
+The spectrum of equation~\eqref{eq:diff-adv} is then $\bar{\lambda}=-\kappa^2-i\kappa\bar{C}$.
+In contrast, the spectrum (for $\gamma=1$) of approximation~\eqref{eq:Udot:adv:2} is given by
+\begin{eqnarray}
+\end{eqnarray}
+recalling that $\bcurs{c}+i\fcurs{s}:=e^{i\kappa}$ and $\delta^2\tilde{u}=-2(1-\bcurs{c})\tilde{u}$, as before,
+and observing hat $\mu\delta\tilde{u}=i\fcurs{s}\tilde{u}$.
 
 ****
-%\setfont{frc}{This is frcursive font.}\\
-%\setfont{calligra}{This is Calligra font.}
-This is a \bcurs{c} did you know?
-What about \fcurs{c} versus \fcurs{s}? Also in math mode, $\bcurs{c}:=\cos kH, \fcurs{s}:=\sin kH$?
-$\mathscr{c} and \mathscr{s}$ symbol
-
-****
-Recalling that the eigenmode $\tilde{u}$ obeys $\delta^2\tilde{u}=-2(1-c)\tilde{u}$, 
-and noting that $\mu\delta\tilde{u}=is\tilde{u}$ where $s:=\sin kH$,
-observe that the sawtooth mode (with $c=-1$, $s=0$, $\delta^2\rightarrow-4$ and $S\rightarrow3$) 
-now has an approximate rate of $\lambda=-\frac{48}{5H^2}-C^2$, in contrast to the true rate of
-$\lambda=-\frac{\pi^2}{H^2}-i\frac{\pi}{H}C$.
 
 To see that the $C^2$ term is an artifact of the expansion of $\hat{g}_j$, higher order terms in $\gamma$ are found,
 and $S$ is replaced by its asymptotic expansion
 \begin{eqnarray}
 S & \sim & 1-\frac{1}{6}\delta^2+\frac{1}{36}\delta^4-\frac{1}{216}\delta^6+\frac{1}{1296}\delta^8-\frac{1}{7776}\delta^{10}+\cdots\,.
 \end{eqnarray}
-The resulting coefficients of terms like $\gamma^p C^2\delta^qU_j$ are summarised in Table~\ref{tab:terms}.
-Observe that terms for each fixed $q$ cancel out when summed over $p$ (in the limit as $\gamma\rightarrow 1$).
+The resulting coefficients of the partial sums $\sum_{p=0}^{n}\gamma^p C^2\delta^qU_j$ are summarised in Table~\ref{tab:terms}.
+Observe that terms for each fixed $q$ cancel out (at $\gamma=1$) for a sufficiently high truncation order $n$.
 \begin{table}[hbt]
 \centering
 \begin{tabular}{|c|c|c|c|c|c|}
 \hline
-& \multicolumn{5}{|c|}{$q$}\\
-\cline{2-6}
-$p$ & 4 & 6 & 8 & 10 & 12\\
+$n\backslash q$ & 4 & 6 & 8 & 10 & 12\\
 \hline
 &&&&&\\[-2ex]
-0 & $-\frac{1}{720}$ & $\frac{1}{1080}$ & $-\frac{1}{2880}$ & $\frac{1}{9720}$ & $-\frac{5}{186624}$\\[1ex]
-1 & $\frac{1}{360}$ & $-\frac{1}{504}$ & $\frac{59}{75600}$ & $-\frac{307}{1360800}$ & $\frac{19}{362880}$\\[1ex]
-2 & $-\frac{1}{720}$ & $\frac{1}{840}$ & $-\frac{79}{151200}$ & $\frac{47}{340200}$ & $-\frac{1}{57600}$\\[1ex]
-3 & - & $-\frac{1}{7560}$ & $\frac{1}{10800}$ & $-\frac{31}{2993760}$ & $-\frac{5311}{314344800}$\\[1ex]
-4 & - & - & $-\frac{1}{302400}$ & $-\frac{43}{7484400}$ & $\frac{1271}{121080960}$\\[1ex]
-5 & - & - & - & $\frac{1}{1496880}$ & $-\frac{1039}{544864320}$\\[1ex]
-6 & - & - & - & - & $\frac{541}{5448643200}$\\[1ex]
-\hline
-&&&&&\\[-2ex]
-$\sum$ & 0 & 0 & 0 & 0 & 0\\
+0 & $-\frac{1}{720}$ & $\frac{1}{1080}$ & $-\frac{1}{2880}$        & $\frac{1}{9720}$            & $-\frac{5}{186624}$\\[1ex]
+1 & $\frac{1}{720}$  & $-\frac{1}{945}$  & $\frac{131}{302400}$ & $-\frac{167}{1360800}$ & $\frac{167}{6531840}$\\[1ex]
+2 & 0                          & $\frac{1}{7560}$  & $-\frac{1}{11200}$     & $\frac{1}{64800}$           & $\frac{67}{8164800}$\\[1ex]
+3 & 0                          & 0                            & $\frac{1}{302400}$     & $\frac{19}{3742200}$     & $-\frac{607}{69854400}$\\[1ex]
+4 & 0                          & 0                            & 0                                   & $-\frac{1}{1496880}$      & $\frac{67}{37065600}$\\[1ex]
+5 & 0                          & 0                            & 0                                   & 0                                        & $-\frac{541}{544864320}$\\[1ex]
+6 & 0                          & 0                            & 0                                   & 0                                        & 0\\[1ex]
 \hline
 \end{tabular}
-\caption{The coefficients of $\gamma^pC^2\delta^q U_j$ terms in the expansion of $\hat{\vec{g}}$ for leading 
-values of $p$ and $q$.}
+\caption{The coefficients of the partial sums $\sum_{p=0}^{n}\gamma^pC^2\delta^q U_j$ in the 
+asymptotic expansion of $\hat{g}_j$ for leading values of $n$ and $q$.}
 \label{tab:terms}
 \end{table}
 
