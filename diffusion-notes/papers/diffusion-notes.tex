@@ -21,13 +21,19 @@
   \pdfcomment[author=AJR,color={1 1 0},subject={#1}]{#1}}
 \newcommand{\gaj}[1]{%
   \pdfcomment[author=GAJ,color={0 1 1},subject={#1}]{#1}}
+\renewcommand\Re{\operatorname{\mathfrak{Re}}}
+\renewcommand\Im{\operatorname{\mathfrak{Im}}}
+
 \AtBeginDocument{\listofpdfcomments}
 
 \title{Notes on the Diffusion Equation}
+\author{G. Jarrad and A. Roberts}
 
 \begin{document}
 \maketitle
 \numberwithin{equation}{section}
+\numberwithin{figure}{section}
+\numberwithin{table}{section}
 \section{Introduction}\label{sec:intro}
 Consider an arbitrary solution $u:\XX\times \TT\mapsto \RR$ to the simple diffusion equation 
 \begin{eqnarray}
@@ -632,20 +638,72 @@ Observe that choosing a time-scale of $H^2$, as before, leads naturally to an ad
 The spectrum of equation~\eqref{eq:diff-adv} is then $\bar{\lambda}=-\kappa^2-i\kappa\bar{C}$.
 In contrast, the spectrum (for $\gamma=1$) of approximation~\eqref{eq:Udot:adv:2} is given by
 \begin{eqnarray}
+\Re\bar{\lambda} & = & -\frac{3(1-\bcurs{c})(32+41\bcurs{c}+17\bcurs{c}^2)}{5(2+\bcurs{c})^3}
+-\frac{\bar{C}^2}{20}\frac{(1-\bcurs{c})^2(4-\bcurs{c})}{(2+\bcurs{c})^3}\,,
+\\
+\Im\bar{\lambda} & = & 
+-\bar{C}\frac{3\fcurs{s}}{2+\bcurs{c}}\left[1+\frac{2(1-\bcurs{c})^2}{5(2+\bcurs{c})^2}\right]\,,
 \end{eqnarray}
-recalling that $\bcurs{c}+i\fcurs{s}:=e^{i\kappa}$ and $\delta^2\tilde{u}=-2(1-\bcurs{c})\tilde{u}$, as before,
-and observing hat $\mu\delta\tilde{u}=i\fcurs{s}\tilde{u}$.
+recalling that $\bcurs{c}+i\fcurs{s}:=e^{i\kappa}$ and observing that $\mu\delta\tilde{u}=i\fcurs{s}\tilde{u}$.
+Some plots of the real and imaginary parts of this spectrum are shown in 
+Figures~\ref{fig:spec:adv:re:2nd-order:nd}--\ref{fig:spec:adv:im:2nd-order:nd}.
+\begin{figure}[hbt]
+\centering
+\begin{tikzpicture}
+\begin{axis}[ xlabel={$\kappa$}, ylabel={$\Re\bar{\lambda}$}
+  ,axis x line=middle,axis y line=middle
+  ,thick,grid,no marks,samples=101
+  ,domain=0:4,ymax=3
+  ,xtick={0.62832,1.25664,1.88496,2.51328,3.1416,3.76992}
+  ,xticklabels={$\frac{\pi}{5}$,$\frac{2\pi}{5}$,$\frac{3\pi}{5}$,$\frac{4\pi}{5}$,$\pi$,$\frac{6\pi}{5}$}
+  ,legend pos=outer north east
+  ] 
+\addplot  {0-(x^2)}; 
+\addlegendentry{exact};
+\addplot {-3/5*(1-cos(deg(x)))*(32+41*cos(deg(x))+17*cos(deg(x))^2)/(2+cos(deg(x)))^3};
+\addlegendentry{$\bar{C}=0$};
+\addplot {-3/5*(1-cos(deg(x)))*(32+41*cos(deg(x))+17*cos(deg(x))^2)/(2+cos(deg(x)))^3
+-1^2/20*(1-cos(deg(x)))^2*(4-cos(deg(x)))/(2+cos(deg(x)))^3};
+\addlegendentry{$\bar{C}=1$};
+\addplot {-3/5*(1-cos(deg(x)))*(32+41*cos(deg(x))+17*cos(deg(x))^2)/(2+cos(deg(x)))^3
+-2^2/20*(1-cos(deg(x)))^2*(4-cos(deg(x)))/(2+cos(deg(x)))^3};
+\addlegendentry{$\bar{C}=2$};
+\end{axis}
+\end{tikzpicture}
+\caption{The  real--part of the non-dimensionalised spectrum ($\bar{\lambda}$ versus~$\kappa$) of the linear diffusion--advection equation, contrasting the continuum dynamics against the 2nd-order discrete approximation (for $\gamma=1$), for various
+values of non-dimensionalised advection speed $\bar{C}$.}
+\label{fig:spec:adv:re:2nd-order:nd}
+\end{figure}
+\begin{figure}[hbtp]
+\centering
+\begin{tikzpicture}
+\begin{axis}[ xlabel={$\kappa$}, ylabel={$\Im\bar{\lambda}/\bar{C}$}
+  ,axis x line=middle,axis y line=middle
+  ,thick,grid,no marks,samples=101
+  ,domain=0:4,ymax=3
+  ,xtick={0.62832,1.25664,1.88496,2.51328,3.1416,3.76992}
+  ,xticklabels={$\frac{\pi}{5}$,$\frac{2\pi}{5}$,$\frac{3\pi}{5}$,$\frac{4\pi}{5}$,$\pi$,$\frac{6\pi}{5}$}
+  ,legend pos=outer north east
+  ] 
+\addplot  {0-(x)}; 
+\addlegendentry{exact};
+\addplot {-3*sin(deg(x))/(2+cos(deg(x)))*(1+2/5*(1-cos(deg(x)))^2/(2+cos(deg(x)))^2)};
+\addlegendentry{2nd order};
+\end{axis}
+\end{tikzpicture}
+\caption{The  imaginary--part of the non-dimensionalised spectrum ($\bar{\lambda}$ versus~$\kappa$) of the linear diffusion--advection equation, contrasting the continuum dynamics against the 2nd-order discrete approximation (for $\gamma=1$).}
+\label{fig:spec:adv:im:2nd-order:nd}
+\end{figure}
 
-****
-
-To see that the $C^2$ term is an artifact of the expansion of $\hat{g}_j$, higher order terms in $\gamma$ are found,
-and $S$ is replaced by its asymptotic expansion
+In order to see that the $C^2$ term is an artifact of the expansion of $\hat{g}_j$, 
+higher order terms in $\gamma$ are first found, and then $S$ is replaced by its asymptotic expansion
 \begin{eqnarray}
 S & \sim & 1-\frac{1}{6}\delta^2+\frac{1}{36}\delta^4-\frac{1}{216}\delta^6+\frac{1}{1296}\delta^8-\frac{1}{7776}\delta^{10}+\cdots\,.
 \end{eqnarray}
-The resulting coefficients of the partial sums $\sum_{p=0}^{n}\gamma^p C^2\delta^qU_j$ are summarised in Table~\ref{tab:terms}.
-Observe that terms for each fixed $q$ cancel out (at $\gamma=1$) for a sufficiently high truncation order $n$.
-\begin{table}[hbt]
+The resulting coefficients of the partial sums $\sum_{p=0}^{n}C^2\gamma^p \delta^qU_j$ are summarised in Table~\ref{tab:terms}.
+Observe that terms for each fixed $q$ cancel out (at $\gamma=1$) for a sufficiently high truncation order $n$,
+indicating that the expansion of the coarse dynamics approximation is consistent with the continuum dynamics.
+\begin{table}[hbtp]
 \centering
 \begin{tabular}{|c|c|c|c|c|c|}
 \hline
@@ -661,43 +719,80 @@ $n\backslash q$ & 4 & 6 & 8 & 10 & 12\\
 6 & 0                          & 0                            & 0                                   & 0                                        & 0\\[1ex]
 \hline
 \end{tabular}
-\caption{The coefficients of the partial sums $\sum_{p=0}^{n}\gamma^pC^2\delta^q U_j$ in the 
+\caption{The coefficients of the partial sums $\sum_{p=0}^{n}C^2\gamma^p\delta^q U_j$ in the 
 asymptotic expansion of $\hat{g}_j$ for leading values of $n$ and $q$.}
 \label{tab:terms}
 \end{table}
 
-\begin{figure}[hbt]
-\centering
-%\includegraphics[width=0.8\textwidth]{figures/second-order-spectrum.png}
-\begin{tikzpicture}
-\begin{axis}[ xlabel={$k$}, ylabel={$\lambda$}
-  ,axis x line=middle,axis y line=middle
-  ,thick,grid,no marks,samples=101
-  ,domain=0:20,ymax=50
-  ,xtick={3.1416,6.2832,9.4248,12.5664,15.7080,18.8496}
-  ,xticklabels={$\pi$,$2\pi$,$3\pi$,$4\pi$,$5\pi$,$6\pi$}
-  ,legend pos=outer north east
-  ] 
-\addplot  {0-(x^2)}; 
-\addlegendentry{exact};
-\addplot {-2/0.2^2*(1-cos(deg(x*0.2))}; 
-\addlegendentry{$q=2$};
-\addplot {(-7+8*cos(deg(x*0.2))-cos(deg(x*0.2))^2)/3/0.2^2}; 
-\addlegendentry{$q=4$};
-\addplot {(-109+132*cos(deg(x*0.2))-27*cos(deg(x*0.2))^2+4*cos(deg(x*0.2))^3)/45/0.2^2}; 
-\addlegendentry{$q=6$};
-\addplot {(-772+960*cos(deg(x*0.2))-243*cos(deg(x*0.2))^2+64*cos(deg(x*0.2))^3-9*cos(deg(x*0.2))^4)/315/0.2^2}; 
-\addlegendentry{$q=8$};
-\addplot {(-3876+4880*cos(deg(x*0.2))-1375*cos(deg(x*0.2))^2+480*cos(deg(x*0.2))^3-125*cos(deg(x*0.2))^4+16*cos(deg(x*0.2))^5)/1575/0.2^2}; 
-\addlegendentry{$q=10$};
-\end{axis}
-\end{tikzpicture}
-\caption{The real-part of the approximate spectrum truncated at ${\cal O}(\gamma^7)$, using $\gamma=1$ and $H=0.2$, 
-for various localisations obtained by neglecting ${\cal O}(\delta^{q+2}U_j)$ terms.}
-\label{fig:spec:qs}
-\end{figure}
+In order to invesigate the stability of these higher-order approximations, we instead utilise the
+McLaurin series expansion of $S$ in terms of $\kappa$, namely
+\begin{eqnarray}
+S\tilde{u} & \sim & \tilde{u}\left(1+\frac{1}{6}\kappa^2+\frac{1}{72}\kappa^4
++\frac{1}{2160}\kappa^6-\frac{17}{362880}\kappa^8+\cdots\right)\,,
+\end{eqnarray}
+and consider the partial sums $\sum_{p=0}^{n}\gamma^p\kappa^q$ of terms in the real part of the
+subsequent expansion for $\dot{\tilde{u}}$.
 
+
+\begin{table}[hbtp]
+\centering
+\begin{tabular}{|c|c|c|c|c|c|c|}
+\hline
+$n\backslash q$ & 2 & 4 & 6 & 8 & 10 & 12\\
+\hline
+&&&&&&\\[-2ex]
+0 & 0 & $-\frac{\bar{C}^2}{720}$ & $-\frac{\bar{C}^2}{1440}$ & $-\frac{23\bar{C}^2}{172800}$        
+   & $-\frac{97\bar{C}^2}{7257600}$            & $-\frac{137\bar{C}^2}{435456000}$
+\\[1ex]
+1 & -1 & $\frac{\bar{C}^2-60}{720}$ & $\frac{25\bar{C}^2-84}{30240}$
+   & $\frac{45\bar{C}^2+68}{241920}$  & $\frac{61\bar{C}^2+396}{7257600}$
+   & $\frac{-494857\bar{C}^2+458180}{100590336000}$
+\\[1ex]
+2 & -1 & 0 & $\frac{-\bar{C}^2+42}{7560}$ & $\frac{-17\bar{C}^2-20}{302400}$
+   & $\frac{19\bar{C}^2-210}{1814400}$ & $\frac{256597\bar{C}^2-354480}{25147584000}$
+\\[1ex]
+3 & -1 & 0 & 0 & $\frac{\bar{C}^2-80}{302400}$ & $\frac{-185\bar{C}^2+1716}{29937600}$
+   & $\frac{-160931\bar{C}^2+421680}{25147584000}$
+\\[1ex]
+4 & -1 & 0 & 0 & 0 & $\frac{5\bar{C}^2+33}{7484400}$ 
+   & $\frac{3571\bar{C}^2-18330}{2335132800}$
+\\[1ex]
+5 & -1 & 0 & 0 & 0 & 0  & $\frac{-541\bar{C}^2+3640}{5448643200}$
+\\[1ex]
+6 & -1 & 0 & 0 & 0 & 0 & 0\\[1ex]
+\hline
+\end{tabular}
+\caption{The coefficients of the partial sums $\sum_{p=0}^{n}\gamma^p\kappa^q$ in the 
+asymptotic expansion of $\Re\bar{\lambda}$ for leading values of $n$ and $q$.}
+\label{tab:partial:kappa}
+\end{table}
+
+\begin{table}[hbtp]
+\centering
+\begin{tabular}{|c|c|c|c|}
+\hline
+%&&&&\\[-2ex]
+$n$ & 1 & 2 & 3\\
+\hline
+&&&\\[-2ex]
+$\bar{\lambda}$ & $-\frac{11\bar{C}^2+60}{5}$ & $-\frac{604\bar{C}^2+1680}{175}$
+ & $-\frac{820\bar{C}^2+1728}{175}$
+\\[1ex]\hline
+%&&&&\\[-2ex]
+$n$ & 4 & 5 & 6\\
+\hline
+&&&\\[-2ex]
+$\bar{\lambda}$  & $-\frac{398752\bar{C}^2+665280}{67375}$
+ & $-\frac{156609952\bar{C}^2+216103680}{21896875}$ 
+ & $-\frac{918126656\bar{C}^2+1080552960}{109484375}$\\[1ex]
+\hline
+\end{tabular}
+\caption{Stability of the sawtooth mode for ${\cal O}(\gamma^{n+1},\bar{C}^3)$ truncations of $\hat{g}_j$,
+for various values of $n$.}
+\end{table}
+ 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\clearpage
 \newpage
 \appendix
 \Alph{section}
