@@ -22,11 +22,8 @@ write
 	resd:=df(u,t)-u*df(u,x,2);
 	ux:=df(u,x)$
 write
-%	resb:=sub(x=0,(ux where xpos)-(ux where xneg))*(1+gamma)
-%		-(1-gamma)*(sub(x=+1,ux)-sub(x=-1,ux));
-	resb:=sub(x=0,(ux where xpos)-(ux where xneg))
-		+2*(1-gamma)*sub(x=0,u);
-	
+    resb := sub(x=0,(ux where xpos)-(ux where xneg))
+        -(1-gamma)*sub(x=0,-2*u);	
 	g:=g+(gd:=-int(resd,x,-1,1)*dd+resb*a);
 	write
 	u:=u+int(int(resd*sign(x)/x+gd,x),x)/a$
