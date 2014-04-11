@@ -1,10 +1,10 @@
-Comment derive slow manifold model for the dynamics of
-nonlinear diffusion on interval [-1,1].  Here ensure
-continuity at mid-point but form basis with discontinuous
-derivative at the mid-point. For simplicity use the int()
-function.  Parameter dd does not make any difference in this
-problem, so far.  But the derivative coupling is not what we
-are using now?  Tony Roberts, Mar 2014;
+%Comment derive slow manifold model for the dynamics of
+%nonlinear diffusion on interval [-1,1].  Here ensure
+%continuity at mid-point but form basis with discontinuous
+%derivative at the mid-point. For simplicity use the int()
+%function.  Parameter dd does not make any difference in this
+%problem, so far.  But the derivative coupling is not what we
+%are using now?  Tony Roberts, Mar 2014;
 on div; off allfac; on revpri;
 factor gamma,a;
 let { df(sign(x),x)=>0, sign(~x)^2=>1 };
@@ -22,10 +22,12 @@ write
 	resd:=df(u,t)-u*df(u,x,2);
 	ux:=df(u,x)$
 write
-	resb:=sub(x=0,(ux where xpos)-(ux where xneg))*(1+gamma)
-		-(1-gamma)*(sub(x=+1,ux)-sub(x=-1,ux));
+%	resb:=sub(x=0,(ux where xpos)-(ux where xneg))*(1+gamma)
+%		-(1-gamma)*(sub(x=+1,ux)-sub(x=-1,ux));
+	resb:=sub(x=0,(ux where xpos)-(ux where xneg))
+		+2*(1-gamma)*sub(x=0,u);
 	
-	g:=g+(gd:=-int(resd,x,-1,1)*dd+resb*a/2);
+	g:=g+(gd:=-int(resd,x,-1,1)*dd+resb*a);
 	write
 	u:=u+int(int(resd*sign(x)/x+gd,x),x)/a$
 	u:=u-x*sign(x)*sub(x=+1,u);
