@@ -21,8 +21,8 @@
   \pdfcomment[author=AJR,color={1 1 0},subject={#1}]{#1}}
 \newcommand{\gaj}[1]{%
   \pdfcomment[author=GAJ,color={0 1 1},subject={#1}]{#1}}
-\renewcommand\Re{\operatorname{\mathfrak{Re}}}
-\renewcommand\Im{\operatorname{\mathfrak{Im}}}
+%\renewcommand\Re{\operatorname{\mathfrak{Re}}}
+%\renewcommand\Im{\operatorname{\mathfrak{Im}}}
 
 \AtBeginDocument{\listofpdfcomments}
 
@@ -724,15 +724,19 @@ asymptotic expansion of $\hat{g}_j$ for leading values of $n$ and $q$.}
 \label{tab:terms}
 \end{table}
 
-In order to invesigate the stability of these higher-order approximations, we instead utilise the
-McLaurin series expansion of $S$ in terms of $\kappa$, namely
+In order to invesigate the stability of these higher-order approximations, we first expand $S$ around $\kappa=0$, namely
 \begin{eqnarray}
 S\tilde{u} & \sim & \tilde{u}\left(1+\frac{1}{6}\kappa^2+\frac{1}{72}\kappa^4
 +\frac{1}{2160}\kappa^6-\frac{17}{362880}\kappa^8+\cdots\right)\,,
 \end{eqnarray}
-and consider the partial sums $\sum_{p=0}^{n}\gamma^p\kappa^q$ of terms in the real part of the
-subsequent expansion for $\dot{\tilde{u}}$.
-
+and then consider the partial sums $\sum_{p=0}^{n}\gamma^p\kappa^q$ of terms in the real part of the
+subsequent expansion for $\dot{\tilde{u}}$. The relevant coefficients are listed in Table~\ref{tab:partial:kappa}.
+Alternatively, we can expand $S$ about $\kappa=\pi$ via $\kappa=\pi-\grave{\kappa}$, whereupon
+\begin{eqnarray}
+S\tilde{u} & \sim & \tilde{u}\left(3-\frac{3}{2}\grave{\kappa}^2+\frac{7}{8}\grave{\kappa}^4
+-\frac{121}{240}\grave{\kappa}^6+\frac{3907}{13440}\grave{\kappa}^8+\cdots\right)\,.
+\end{eqnarray}
+ The relevant coefficients are listed in Table~\ref{tab:partial:kappa:pi}.
 
 \begin{table}[hbtp]
 \centering
@@ -763,8 +767,56 @@ $n\backslash q$ & 2 & 4 & 6 & 8 & 10 & 12\\
 \hline
 \end{tabular}
 \caption{The coefficients of the partial sums $\sum_{p=0}^{n}\gamma^p\kappa^q$ in the 
-asymptotic expansion of $\Re\bar{\lambda}$ for leading values of $n$ and $q$.}
+asymptotic expansion of $\Re\bar{\lambda}$ about $\kappa=0$ for leading values of $n$ and $q$.}
 \label{tab:partial:kappa}
+\end{table}
+
+\begin{table}[hbtp]
+\centering
+\[
+\begin{array}{|c|c|c|c|c|}
+\hline
+n\backslash q & 0 & 2 & 4 & 6\\ % & 8 & 10 & 12\\
+\hline
+&&&&\\[-2ex]
+0 & -\bar{C}^2 & \frac{21\bar{C}^2}{10} & -\frac{43\bar{C}^2}{16}
+ & \frac{6599\bar{C}^2}{2400} 
+ %& -\frac{9517\bar{C}^2}{3840} & \frac{24915959\bar{C}^2}{12096000}
+ %& -\frac{103353911\bar{C}^2}{63866880}
+\\[1ex]
+1 & -\frac{11\bar{C}^2+60}{5} 
+  & \frac{3693\bar{C}^2+3150}{350}
+  & -\frac{68651\bar{C}^2+14700}{2800}
+  & \frac{3363527\bar{C}^2+254100}{84000}
+%  & -\frac{8204700+249114731\bar{C}^2+}{4704000}
+%  & \frac{28963}{28800}+\frac{25766963567}{423360000}\bar{C}^2
+%  & -\frac{15430207}{26611200}-\frac{3536439836411}{55883520000}\bar{C}^2
+\\[1ex]
+2  & -\frac{1680+604\bar{C}^2}{175}
+ & \frac{2205+5238\bar{C}^2}{175}
+ & -\frac{5880+38457\bar{C}^2}{350}
+ & \frac{135170+1835907\bar{C}^2}{7000}
+\\[1ex]
+3 & -\frac{1728+820\bar{C}^2}{175}
+ & \frac{1195425+4365684\bar{C}^2}{67375}
+ & -\frac{5266800+46516941\bar{C}^2}{134750}
+ & \frac{23827650+381546717\bar{C}^2}{336875}
+\\[1ex]
+4 & -\frac{665280+398752\bar{C}^2}{67375}
+  & \frac{14189175+74897568\bar{C}^2}{625625}
+  & -\frac{46718100+546237738\bar{C}^2}{625625}
+  & \frac{606434400+11781610899\bar{C}^2}{3128125}
+\\[1ex]
+% & \frac{\bar{C}^2}{}
+% & \frac{\bar{C}^2}{}
+% & \frac{\bar{C}^2}{}
+\hline
+\end{array}
+\]
+\caption{The coefficients of the partial sums $\sum_{p=0}^{n}\gamma^p\grave{\kappa}^q$ in the 
+asymptotic expansion of $\Re\bar{\lambda}$ about $\grave{\kappa}=0$ (or $\kappa=\pi$) 
+for leading values of $n$ and $q$. The special case of $q=0$ gives the stability of the sawtooth mode.}
+\label{tab:partial:kappa:pi}
 \end{table}
 
 \begin{table}[hbtp]
