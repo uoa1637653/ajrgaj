@@ -695,8 +695,10 @@ values of non-dimensionalised advection speed $\bar{C}$.}
 \label{fig:spec:adv:im:2nd-order:nd}
 \end{figure}
 
-In order to see that the $C^2$ term is an artifact of the expansion of $\hat{g}_j$, 
-higher order terms in $\gamma$ are first found, and then $S$ is replaced by its asymptotic expansion
+In order to see that the $\bar{C}^2$ term is an artifact of the expansion of $\dot{U}_j$, 
+higher order terms in $\gamma$ are first found\footnote{Changing, for computational convenience, to the use of rectangular truncation
+${\cal O}(\gamma^n,\bar{C}^3)$, 
+in place of the previous circular truncation ${\cal O}(\gamma^3+\bar{C}^3)$.}, and then $S$ is replaced by its asymptotic expansion
 \begin{eqnarray}
 S & \sim & 1-\frac{1}{6}\delta^2+\frac{1}{36}\delta^4-\frac{1}{216}\delta^6+\frac{1}{1296}\delta^8-\frac{1}{7776}\delta^{10}+\cdots\,.
 \end{eqnarray}
@@ -729,46 +731,85 @@ In order to invesigate the stability of these higher-order approximations, we fi
 S\tilde{u} & \sim & \tilde{u}\left(1+\frac{1}{6}\kappa^2+\frac{1}{72}\kappa^4
 +\frac{1}{2160}\kappa^6-\frac{17}{362880}\kappa^8+\cdots\right)\,,
 \end{eqnarray}
-and then consider the partial sums $\sum_{p=0}^{n}\gamma^p\kappa^q$ of terms in the real part of the
-subsequent expansion for $\dot{\tilde{u}}$. The relevant coefficients are listed in Table~\ref{tab:partial:kappa}.
+and then consider the partial sums $\sum_{p=0}^{n}\gamma^p\kappa^q$ of terms of the
+subsequent expansion for $\dot{\tilde{u}}$. The relevant coefficients of the
+real and imaginary parts of the spectrum are listed in Tables~\ref{tab:partial:kappa}
+and~\ref{tab:partial:kappa:im}.
 Alternatively, we can expand $S$ about $\kappa=\pi$ via $\kappa=\pi-\grave{\kappa}$, whereupon
 \begin{eqnarray}
 S\tilde{u} & \sim & \tilde{u}\left(3-\frac{3}{2}\grave{\kappa}^2+\frac{7}{8}\grave{\kappa}^4
 -\frac{121}{240}\grave{\kappa}^6+\frac{3907}{13440}\grave{\kappa}^8+\cdots\right)\,.
 \end{eqnarray}
- The relevant coefficients are listed in Table~\ref{tab:partial:kappa:pi}.
+ The relevant coefficients are listed in Tables~\ref{tab:partial:kappa:pi} and~\ref{tab:partial:kappa:pi:im}.
 
 \begin{table}[hbtp]
 \centering
-\begin{tabular}{|c|c|c|c|c|c|c|}
+\begin{tabular}{|c|c|c|c|c|c|c|c|}
 \hline
-$n\backslash q$ & 2 & 4 & 6 & 8 & 10 & 12\\
+$n\backslash q$ & 0 & 2 & 4 & 6 & 8 & 10 & 12\\
 \hline
-&&&&&&\\[-2ex]
-0 & 0 & $-\frac{\bar{C}^2}{720}$ & $-\frac{\bar{C}^2}{1440}$ & $-\frac{23\bar{C}^2}{172800}$        
+&&&&&&&\\[-2ex]
+0 & 0 & 0 & $-\frac{\bar{C}^2}{720}$ & $-\frac{\bar{C}^2}{1440}$ & $-\frac{23\bar{C}^2}{172800}$        
    & $-\frac{97\bar{C}^2}{7257600}$            & $-\frac{137\bar{C}^2}{435456000}$
 \\[1ex]
-1 & -1 & $\frac{\bar{C}^2-60}{720}$ & $\frac{25\bar{C}^2-84}{30240}$
+1 & 0 & -1 & $\frac{\bar{C}^2-60}{720}$ & $\frac{25\bar{C}^2-84}{30240}$
    & $\frac{45\bar{C}^2+68}{241920}$  & $\frac{61\bar{C}^2+396}{7257600}$
    & $\frac{-494857\bar{C}^2+458180}{100590336000}$
 \\[1ex]
-2 & -1 & 0 & $\frac{-\bar{C}^2+42}{7560}$ & $\frac{-17\bar{C}^2-20}{302400}$
+2 & 0 & -1 & 0 & $\frac{-\bar{C}^2+42}{7560}$ & $\frac{-17\bar{C}^2-20}{302400}$
    & $\frac{19\bar{C}^2-210}{1814400}$ & $\frac{256597\bar{C}^2-354480}{25147584000}$
 \\[1ex]
-3 & -1 & 0 & 0 & $\frac{\bar{C}^2-80}{302400}$ & $\frac{-185\bar{C}^2+1716}{29937600}$
+3 & 0 & -1 & 0 & 0 & $\frac{\bar{C}^2-80}{302400}$ & $\frac{-185\bar{C}^2+1716}{29937600}$
    & $\frac{-160931\bar{C}^2+421680}{25147584000}$
 \\[1ex]
-4 & -1 & 0 & 0 & 0 & $\frac{5\bar{C}^2+33}{7484400}$ 
+4 & 0 & -1 & 0 & 0 & 0 & $\frac{5\bar{C}^2+33}{7484400}$ 
    & $\frac{3571\bar{C}^2-18330}{2335132800}$
 \\[1ex]
-5 & -1 & 0 & 0 & 0 & 0  & $\frac{-541\bar{C}^2+3640}{5448643200}$
+5 & 0 & -1 & 0 & 0 & 0 & 0  & $\frac{-541\bar{C}^2+3640}{5448643200}$
 \\[1ex]
-6 & -1 & 0 & 0 & 0 & 0 & 0\\[1ex]
+6 & 0 & -1 & 0 & 0 & 0 & 0 & 0\\[1ex]
 \hline
 \end{tabular}
 \caption{The coefficients of the partial sums $\sum_{p=0}^{n}\gamma^p\kappa^q$ in the 
-asymptotic expansion of $\Re\bar{\lambda}$ about $\kappa=0$ for leading values of $n$ and $q$.}
+asymptotic expansion of $\Re\bar{\lambda}$ about $\kappa=0$ for leading values of $n$ and $q$, up to 
+${\cal O}(\gamma^{n+1},\bar{C}^3)$.}
 \label{tab:partial:kappa}
+\end{table}
+
+\begin{table}
+\centering
+\[
+\begin{array}{|c|c|c|c|c|c|c|c|}
+\hline
+n\backslash q & 1 & 3 & 5 & 7 & 9 & 11 & 13\\
+\hline
+&&&&&&&\\[-2ex]
+0 & -\bar{C} & 0 & \frac{\bar{C}}{180} & \frac{\bar{C}}{1512} & \frac{\bar{C}}{25920}
+   & -\frac{\bar{C}}{3991680} & -\frac{269\bar{C}}{849139200}
+\\[1ex]
+1 & -\bar{C} & 0 & -\frac{\bar{C}}{180} & -\frac{\bar{C}}{840} & -\frac{\bar{C}}{25920}
+   & \frac{41\bar{C}}{2217600} & \frac{1063\bar{C}}{283046400}
+\\[1ex]
+2 & -\bar{C} & 0 & 0 & \frac{\bar{C}}{1890} & \frac{\bar{C}}{75600}
+   & -\frac{169\bar{C}}{4989600} & -\frac{8237\bar{C}}{1061424000}
+\\[1ex]
+3 & -\bar{C} & 0 & 0 & 0 & -\frac{\bar{C}}{75600}
+   & \frac{137\bar{C}}{7484400} & \frac{6947\bar{C}}{1061424000}
+\\[1ex]
+4 & -\bar{C} & 0 & 0 & 0 & 0
+   & -\frac{\bar{C}}{374220} & -\frac{10709\bar{C}}{4086482400}
+\\[1ex]
+5 & -\bar{C} & 0 & 0 & 0 & 0 & 0 & \frac{541\bar{C}}{1362160800}
+\\[1ex]
+6 & -\bar{C} & 0 & 0 & 0 & 0 & 0 & 0
+\\[1ex]
+\hline
+\end{array}
+\]
+\caption{The coefficients of the partial sums $\sum_{p=0}^{n}\gamma^p\kappa^q$ in the 
+asymptotic expansion of $\Im\bar{\lambda}$ about $\kappa=0$ 
+for leading values of $n$ and $q$, up to ${\cal O}(\gamma^{n+1},\bar{C}^3)$.}
+\label{tab:partial:kappa:im}
 \end{table}
 
 \begin{table}[hbtp]
@@ -779,49 +820,46 @@ asymptotic expansion of $\Re\bar{\lambda}$ about $\kappa=0$ for leading values o
 n\backslash q & 0 & 2 & 4 & 6\\ % & 8 & 10 & 12\\
 \hline
 &&&&\\[-2ex]
-0 & -\bar{C}^2 & \frac{21\bar{C}^2}{10} & -\frac{43\bar{C}^2}{16}
- & \frac{6599\bar{C}^2}{2400} 
+0 & -\bar{C}^2 & 2.1\bar{C}^2 & -2.688\bar{C}^2
+ & 2.75\bar{C}^2
  %& -\frac{9517\bar{C}^2}{3840} & \frac{24915959\bar{C}^2}{12096000}
  %& -\frac{103353911\bar{C}^2}{63866880}
 \\[1ex]
-1 & -\frac{11\bar{C}^2+60}{5} 
-  & \frac{3693\bar{C}^2+3150}{350}
-  & -\frac{68651\bar{C}^2+14700}{2800}
-  & \frac{3363527\bar{C}^2+254100}{84000}
-%  & -\frac{8204700+249114731\bar{C}^2+}{4704000}
-%  & \frac{28963}{28800}+\frac{25766963567}{423360000}\bar{C}^2
-%  & -\frac{15430207}{26611200}-\frac{3536439836411}{55883520000}\bar{C}^2
+1 & -12-2.2\bar{C}^2 
+  & 9+10.55\bar{C}^2
+  & -5.25-24.52\bar{C}^2
+  & 3.025+40.04\bar{C}^2
 \\[1ex]
-2  & -\frac{1680+604\bar{C}^2}{175}
- & \frac{2205+5238\bar{C}^2}{175}
- & -\frac{5880+38457\bar{C}^2}{350}
- & \frac{135170+1835907\bar{C}^2}{7000}
+2  & -9.6-3.451\bar{C}^2
+ & 12.6+29.93\bar{C}^2
+ & -16.8-10.09\bar{C}^2
+ & 19.31+262.3\bar{C}^2
 \\[1ex]
-3 & -\frac{1728+820\bar{C}^2}{175}
- & \frac{1195425+4365684\bar{C}^2}{67375}
- & -\frac{5266800+46516941\bar{C}^2}{134750}
- & \frac{23827650+381546717\bar{C}^2}{336875}
+3 & -9.874-4.686\bar{C}^2
+ & 17.74+64.8\bar{C}^2
+ & -39.09-345.2\bar{C}^2
+ & 70.73+1133.0\bar{C}^2
 \\[1ex]
-4 & -\frac{665280+398752\bar{C}^2}{67375}
-  & \frac{14189175+74897568\bar{C}^2}{625625}
-  & -\frac{46718100+546237738\bar{C}^2}{625625}
-  & \frac{606434400+11781610899\bar{C}^2}{3128125}
+4 & -9.874-5.918\bar{C}^2
+  & 22.68+119.7\bar{C}^2
+  & -74.67-873.1\bar{C}^2
+  & 193.9+3766.0\bar{C}^2
 \\[1ex]
-5 & -\frac{216103680+156609952\bar{C}^2}{21896875}
- & \frac{3022662825+21815533008\bar{C}^2}{109484375}
- & -\frac{554731632+8348803326\bar{C}^2}{4379375}
- & \frac{243110649600+5723868640599\bar{C}^2}{547421875}
+5 & -9.869-7.152\bar{C}^2
+ & 27.61+199.3\bar{C}^2
+ & -126.7-1906.0\bar{C}^2
+ & 444.1+10460.0\bar{C}^2
 \\[1ex]
-6 & -\frac{1080552960+918126656\bar{C}^2}{109484375}
-  & \frac{?+?\bar{C}^2}{846015625}
-  & -\frac{?+?\bar{C}^2}{9306171876}
-  & \frac{?+?\bar{C}^2}{6647265625}
+6 & -9.869-8.386\bar{C}^2
+  & 32.54+308.0\bar{C}^2
+  & -198.1-3742.0\bar{C}^2
+  & 899.3+25420.0\bar{C}^2
 \\[1ex]
 \hline
 \end{array}
 \]
 \caption{The coefficients of the partial sums $\sum_{p=0}^{n}\gamma^p\grave{\kappa}^q$ in the 
-asymptotic expansion of $\Re\bar{\lambda}$ about $\grave{\kappa}=0$ (or $\kappa=\pi$) 
+asymptotic expansion of $\Re\bar{\lambda}$ about $\grave{\kappa}=\pi-\kappa=0$ 
 for leading values of $n$ and $q$, up to ${\cal O}(\gamma^{n+1},\bar{C}^3)$.
  The special case of $q=0$ gives the stability of the sawtooth mode.}
 \label{tab:partial:kappa:pi}
@@ -830,32 +868,30 @@ for leading values of $n$ and $q$, up to ${\cal O}(\gamma^{n+1},\bar{C}^3)$.
 \begin{table}
 \centering
 \[
-\begin{array}{|c|c|c|c|c|}
+\begin{array}{|c|c|c|c|c|c|}
 \hline
-n\backslash q & 1 & 3 & 5 & 7\\
+n\backslash q & 1 & 3 & 5 & 7 & 9\\
 \hline
-&&&&\\[-2ex]
-0 & -3\bar{C} & 2\bar{C} & -\frac{23\bar{C}}{20} & \frac{557\bar{C}}{840}
+&&&&&\\[-2ex]
+0 & -3\bar{C} & 2\bar{C} & -1.15\bar{C} & 0.6631\bar{C} & -0.3823\bar{C}
 \\[1ex]
-1 & -\frac{39\bar{C}}{5} & \frac{62\bar{C}}{5} & -\frac{1469\bar{C}}{100} & \frac{61547\bar{C}}{4200}
+1 & -7.8\bar{C} & 12.4\bar{C} & -14.69\bar{C} & 14.65\bar{C} & -13.07\bar{C}
 \\[1ex]
-2 & -\frac{2241\bar{C}}{175} & \frac{936\bar{C}}{25} & -\frac{65034\bar{C}}{875} & \frac{1391541\bar{C}}{12250}
+2 & -12.81\bar{C} & 37.44\bar{C} & -74.32\bar{C} & 113.6\bar{C} & -145.3\bar{C}
 \\[1ex]
-3 & -\frac{621\bar{C}}{35} & \frac{14544\bar{C}}{175} & -\frac{8658\bar{C}}{35} & \frac{3276876\bar{C}}{6125}
+3 & -17.74\bar{C} & 83.11\bar{C} & -247.4\bar{C} & 535.0\bar{C} & -927.0\bar{C}
 \\[1ex]
-4 & -\frac{1527633\bar{C}}{67375} & \frac{2095488\bar{C}}{13475} & -\frac{217646712\bar{C}}{336875} & \frac{882964668\bar{C}}{471625}
+4 & -22.67\bar{C} & 155.5\bar{C} & -646.1\bar{C} & 1872.0\bar{C} & -4211.0\bar{C}
 \\[1ex]
-5 & -\frac{604542933\bar{C}}{21896875} & \frac{519037632\bar{C}}{1990625} & -\frac{157533957432\bar{C}}{109484375} 
-  & \frac{4115715199668\bar{C}}{766390625}
+5 & -27.61\bar{C} & 260.7\bar{C} & -1439.0\bar{C}  & 5370.0\bar{C} & -15190.0\bar{C}
 \\[1ex]
-6 & -\frac{3563022249\bar{C}}{109484375} & \frac{44328943872\bar{C}}{109484375} & -\frac{1566522576576\bar{C}}{547421875} 
-  & \frac{51162484117968\bar{C}}{3831953125}
+6 & -32.54\bar{C} & 404.9\bar{C} & -2862.0\bar{C}  & 13350.0\bar{C} & -46300.0\bar{C}
 \\[1ex]
 \hline
 \end{array}
 \]
 \caption{The coefficients of the partial sums $\sum_{p=0}^{n}\gamma^p\grave{\kappa}^q$ in the 
-asymptotic expansion of $\Im\bar{\lambda}$ about $\grave{\kappa}=0$ (or $\kappa=\pi$) 
+asymptotic expansion of $\Im\bar{\lambda}$ about $\grave{\kappa}=\pi-\kappa=0$ 
 for leading values of $n$ and $q$, up to ${\cal O}(\gamma^{n+1},\bar{C}^3)$.}
 \label{tab:partial:kappa:pi:im}
 \end{table}

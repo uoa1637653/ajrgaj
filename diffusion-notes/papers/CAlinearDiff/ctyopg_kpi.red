@@ -29,29 +29,29 @@ for it:=1:99 do begin
 end;
 
 let kappa^16 => 0;
-%% Expansion of S\tilde{u}=\tilde{u} about kappa=0.
-%% see taylor(3/(2+cos(kappa)),kappa,0,10); etc.
-%% for higher terms, use taylor(3/(2+cos(kappa))-lower_terms, ...);
-ssk := 1+kappa^2/6+kappa^4/72+kappa^6/2160-17*kappa^8/362880-11*kappa^10/1209600
-       -1079*kappa^12/1437004800-18197*kappa^14/784604620800;
-%% Expansion of sin(kappa) about kappa=0 where \mu\delta\tilde{u}=is\tilde{u} 
-sk := kappa-kappa^3/6+kappa^5/120-kappa^7/5040+kappa^9/362880-kappa^11/39916800+kappa^13/6227020800-kappa^15/1307674368000;
+%% Expansion of S\tilde{u}=\tilde{u} * series in kappa=pi-kappa'.
+%% see taylor(3/(2-cos(kappa)),kappa,0,14); etc.
+sspimk := 3-3*kappa^2/2+7*kappa^4/8-121*kappa^6/240+3907*kappa^8/13440
+		-28963*kappa^10/172800+15430207*kappa^12/159667200
+		-1619195761*kappa^14/29059430400;
+%% Expansion of sin(kappa) about kappa=\pi-kappa' where \mu\delta\tilde{u}=is\tilde{u} 
+spimk := kappa-kappa^3/6+kappa^5/120-kappa^7/5040+kappa^9/362880-kappa^11/39916800+kappa^13/6227020800-kappa^15/1307674368000;
 %% Partial sums
 pg := (1+gamma+gamma^2+gamma^3+gamma^4+gamma^5+gamma^6)*g;
 factor i;
 %% Expand about kappa=0 with dimensionalisation adjustment.
-pgk0 := sub(ss=ssk,delta=i,mu=sk,hh=1,uu=1,pg);
+pgk0 := sub(ss=sspimk,delta=i,mu=spimk,hh=1,uu=1,pg);
 
 for n:=0:6 do begin;
 	write n;
 	write coeffn(pgk0,gamma,n);
 end;
-%on rounded;
-%print_precision 4;
-%for n:=0:6 do begin;
-%	write n;
-%	write coeffn(pgk0,gamma,n);
-%end;
+on rounded;
+print_precision 4;
+for n:=0:6 do begin;
+	write n;
+	write coeffn(pgk0,gamma,n);
+end;
 
 %% End script.
 end;
