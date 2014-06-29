@@ -237,11 +237,11 @@ of the system about the equilibrium.
 
 
 \section{Linear Dual Space}
-Assume for convenience that there are $|\JJ|\ge 3$ discrete grid-points, and thus $|\JJ^+|\ge 2$ intervals.
+Assume for convenience that there are at least $|\JJ|\ge 3$ discrete grid-points, and thus $|\JJ^+|\ge 2$ intervals.
 Then an appropriate inner product for spatially square-integrable fields $u$ and $v$ is given by
 \begin{eqnarray}
 \langle u,v\rangle = \int_{X_{\underline{J}}}^{X_{\bar{J}}}uv\;dx
-= \sum_{j\in\JJ^+}\int_{\II_j}uv\;dx\,.
+= \sum_{j\in\JJ^+}\int_{\II_j}uv\;dx := \sum_{j\in\JJ^+}{\cal I}_j uv\,.
 \label{eq:inner}
 \end{eqnarray}
 It can then be shown, for twice-differentiable fields, that
@@ -547,7 +547,7 @@ continuum dynamics against the first two discrete approximations (for $\gamma=1$
 \label{fig:spec:2nd-order:nd}
 \end{figure}
 
-\section{Linear Advection}
+\section{Linear Advection}\label{sec:lin-adv}
 The addition of linear advection of speed $C$ to the diffusion equation~\eqref{eq:diff} leads to the
 linear diffusion--advection equation
 \begin{eqnarray}
@@ -564,11 +564,11 @@ linear dual solution $\hat{v}_0^{[j]}$, from equation~\eqref{eq:vhat0}.} into th
 \begin{eqnarray}
        {\cal S}(u,g) & := & 
           \frac{\gamma}{H}\delta^2u|_{X_j} - \frac{C}{H}(\sigma-1){\cal I}_j u
-	-\left\langle\D {\vec U}u,\hat{v}_0^{[j]}\right\rangle\cdot\vec{g}~=~0 \,,
+	-{\cal I}_j\left(\D {\vec U}u\hat{v}_0^{[j]}\right)\cdot\vec{g}~=~0 \,,
 \label{eq:Sug}
 \end{eqnarray}
-where ${\cal I}_j u := \int_{X^+_{j-1}}^{X^-_j}u\,dx$
-from equation~\eqref{eq:iop}, and
+where ${\cal I}_j u := \int_{\II_j}u\,dx$
+from equation~\eqref{eq:inner}, and
 use has been made of results~\eqref{eq:udd:vhat0} and~\eqref{eq:ud:vhat0}.
 
 Next, recall the initial continuum approximation of $u\approx\hat{u}_0$, from equation~\eqref{eq:uhat0},
@@ -593,7 +593,7 @@ where\footnote{Alternative schemes will differ in the definition of $\hat{u}_n$ 
 $\hat{u}_n=\sum_{p,q|p+q=n}a_{p,q}\gamma^p C^q$, and similarly for $\hat{\vec{g}}_n$. 
 Then, it can be shown that substitution of these expansions into the solvability condition~\eqref{eq:Sug} gives
 \begin{eqnarray}
-\left\langle\D {\vec U}{\hat{u}_0},\hat{v}_0^{[j]}\right\rangle\cdot\vec{g}_n & = &
+{\cal I}_j\left(\D {\vec U}{u_0}\hat{v}_0^{[j]}\right)\cdot\vec{g}_n & = &
 {\cal S}(\hat{u}_0+\cdots+\hat{u}_{n-1},
 \hat{\vec{g}}_0+\cdots+\hat{\vec{g}}_{n-1})
 \nonumber\\
@@ -899,7 +899,39 @@ n\backslash q & 1 & 3 & 5 & 7 & 9\\
 
 \ajr{check that the radius of convergence of these series is consistent with the zero of S operator.}
 
+\section{Nonlinear Advection}
+Following Section~\ref{sec:lin-adv}, consider now the effect of nonlinear rather than linear advection,
+leading to the nonlinear advection-diffusion equation
+\begin{eqnarray}
+	\D tu = \DD xu - u\D xu\,,
+	\label{eq:AD}
+\end{eqnarray}
+which can, in turn, be rewritten in operator form as
+\begin{eqnarray}
+{\cal M}(u,g) & := & {\cal L}u-u\D xu-\D{\vec{U}}{u}\cdot\vec{g}~=~0\,.
+\label{eq:Mug:AD}
+\end{eqnarray}
+Observe now that, unlike for the linear advective system~\eqref{eq:Mug}, the point $(u,\vec{g})=(u_0,\vec{0})$ is not an equilibrium of 
+the nonlinear system~\eqref{eq:Mug:AD}, since $u_0u'_0\ne 0$ in general. %$u_0\D xu_0\ne 0$ in general.
 
+Given that $u$ obeys the continuity condition~\eqref{eq:cont-cond} and the smoothness condition~\eqref{eq:smooth-cond}, taking inner products with $\hat{v}_0^{[j]}$ leads to the solvability condition
+\begin{eqnarray}
+       {\cal S}(u,g) & := & 
+          \frac{\gamma}{H}\delta^2u|_{X_j} - \frac{1}{2H}(\sigma-1){\cal I}_j u^2
+	-{\cal I}_j\left(\D {\vec U}u\hat{v}_0^{[j]}\right)\cdot\vec{g}~=~0 \,,
+\label{eq:Sug}
+\end{eqnarray}
+since $uu'=(u^2/2)'$. %$u\D xu=\D{x}{(u^2/2)}$. 
+Hence, using $\hat{u}_0$ from
+equation~\eqref{eq:uhat0} and solving for $\hat{\vec{g}}_0$ gives
+\begin{eqnarray}
+	\hat{g}_{0,j} & = & 
+- \frac{S}{3H}\left(\mu\delta U^2_j+U_j\mu\delta U_j\right)\,,
+\end{eqnarray}
+since it can be shown that
+\begin{eqnarray}
+{\cal I}_j\hat{u}_0^2 & = & \frac{H}{3}\left(U_j^2+U_jU_{j-1}+U_{j-1}^2\right)\,.
+\end{eqnarray}
 
 \section{Nonlinear PDE of some sort}
 
