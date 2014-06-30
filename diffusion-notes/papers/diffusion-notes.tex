@@ -922,16 +922,22 @@ Given that $u$ obeys the continuity condition~\eqref{eq:cont-cond} and the smoot
 \label{eq:Sug}
 \end{eqnarray}
 since $uu'=(u^2/2)'$. %$u\D xu=\D{x}{(u^2/2)}$. 
-Hence, using $\hat{u}_0$ from
-equation~\eqref{eq:uhat0} and solving for $\hat{\vec{g}}_0$ gives
+Hence, assuming $u\sim\hat{u}_0$ from
+equation~\eqref{eq:uhat0} and solving for $\dot{\vec{U}}\sim\hat{\vec{g}}_0$ gives
 \begin{eqnarray}
-	\hat{g}_{0,j} & = & 
-- \frac{S}{3H}\left(\mu\delta U^2_j+U_j\mu\delta U_j\right)\,,
+	\dot{U}_j & = & 
+- \frac{S}{3H}\left(\mu\delta U^2_j+U_j\mu\delta U_j\right)+{\cal O}(\gamma)\,,
 \end{eqnarray}
 since it can be shown that
 \begin{eqnarray}
 {\cal I}_j\hat{u}_0^2 & = & \frac{H}{3}\left(U_j^2+U_jU_{j-1}+U_{j-1}^2\right)\,.
 \end{eqnarray}
+Observe that of the two likely discretisations of the advective term, namely
+\begin{eqnarray}
+u\D xu = U_j\frac{U_{j+1}-U_{j-1}}{2H}+{\cal O}(H^2)\,,\;
+\frac{1}{2}\D x{u^2} = \frac{U_{j+1}^2-U_{j-1}^2}{4H}+{\cal O}(H^2)\,,
+\end{eqnarray}
+the holistic approach used above has naturally combined them in the 1:2 ratio proposed by Fornberg.
 
 \section{Nonlinear PDE of some sort}
 
