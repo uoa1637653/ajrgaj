@@ -901,33 +901,41 @@ n\backslash q & 1 & 3 & 5 & 7 & 9\\
 
 \section{Nonlinear Advection}
 Following Section~\ref{sec:lin-adv}, consider now the effect of nonlinear rather than linear advection,
-leading to the nonlinear advection-diffusion equation
+in the form of a nonlinear advection-diffusion equation
 \begin{eqnarray}
 	\D tu = \DD xu - u\D xu\,,
+\end{eqnarray}
+which is just the viscous Burgers' equation with unit viscosity.
+Observe that, unlike for the linear advective system~\eqref{eq:diff-adv}, 
+the approximation $u\sim u_0$ from equation~\eqref{eq:uhat0} is not a stationary solution of 
+the nonlinear system, since $u_0u'_0\ne 0$ in general.
+This problem may be addressed by introducing a new expansion parameter $\varepsilon$ by which to modify the nonlinear term,
+in much the same way that the parameter $\gamma$ was introduced in Section~\ref{sec:???}
+to handle discontinuity. Consequently, the modified system is
+\begin{eqnarray}
+	\D tu = \DD xu - \varepsilon u\D xu\,,
 	\label{eq:AD}
 \end{eqnarray}
-which is a form of viscous Burgers' equation with unit viscosity.
-In turn, this system be rewritten in operator form as
+such that $(u,\gamma,\varepsilon)=(u_0,0,0)$ is an equilibrium solution.
+
+In turn, this system can be rewritten in operator form as
 \begin{eqnarray}
-{\cal M}(u,g) & := & {\cal L}u-u\D xu-\D{\vec{U}}{u}\cdot\vec{g}~=~0\,.
+{\cal M}(u,g) & := & {\cal L}u-\varepsilon u\D xu-\D{\vec{U}}{u}\cdot\vec{g}~=~0\,,
 \label{eq:Mug:AD}
 \end{eqnarray}
-Observe now that, unlike for the linear advective system~\eqref{eq:Mug}, the point $(u,\vec{g})=(u_0,\vec{0})$ is not an equilibrium of 
-the nonlinear system~\eqref{eq:Mug:AD}, since $u_0u'_0\ne 0$ in general. %$u_0\D xu_0\ne 0$ in general.
-
-Given that $u$ obeys the continuity condition~\eqref{eq:cont-cond} and the smoothness condition~\eqref{eq:smooth-cond}, taking inner products with $\hat{v}_0^{[j]}$ leads to the solvability condition
+%Given that $u$ obeys the continuity condition~\eqref{eq:cont-cond} and the smoothness condition~\eqref{eq:smooth- cond}, taking inner products with $\hat{v}_0^{[j]}$ leads
+leading to the solvability condition
 \begin{eqnarray}
        {\cal S}(u,g) & := & 
-          \frac{\gamma}{H}\delta^2u|_{X_j} - \frac{1}{2H}(\sigma-1){\cal I}_j u^2
+          \frac{\gamma}{H}\delta^2u|_{X_j} - \frac{\varepsilon}{2H}(\sigma-1){\cal I}_j u^2
 	-{\cal I}_j\left(\D {\vec U}u\hat{v}_0^{[j]}\right)\cdot\vec{g}~=~0 \,,
 \label{eq:Sug}
 \end{eqnarray}
-since $uu'=(u^2/2)'$. %$u\D xu=\D{x}{(u^2/2)}$. 
-Hence, assuming $u\sim\hat{u}_0$ from
-equation~\eqref{eq:uhat0} and solving for $\dot{\vec{U}}\sim\hat{\vec{g}}_0$ gives
+since $uu'=(u^2/2)'$.
+Hence, assuming $u\sim\hat{u}_0$ and solving for $\dot{\vec{U}}\sim\hat{\vec{g}}_1$ gives
 \begin{eqnarray}
-	\dot{U}_j & = & 
-- \frac{S}{3H}\left(\mu\delta U^2_j+U_j\mu\delta U_j\right)+{\cal O}(\gamma)\,,
+	\dot{U}_j & = & \frac{\gamma}{H^2}S\delta^2 U_j
+- \frac{\varepsilon}{3H}S\left(U_j\mu\delta U_j+\mu\delta U^2_j\right)+{\cal O}(\gamma^2+\varepsilon^2)\,,
 \end{eqnarray}
 since it can be shown that
 \begin{eqnarray}
