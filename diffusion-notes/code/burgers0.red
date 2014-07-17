@@ -18,6 +18,9 @@ depend g, j;
 operator p, m, d2, md, ss;
 linear p, m, d2, md, ss;
 
+% Independent
+let p(1,j) => 1;
+
 % Inverses
 let p(m(~z,j),j) => z;
 let m(p(~z,j),j) => z;
@@ -33,11 +36,12 @@ let md(d2(~z,j),j) => d2(md(z,j),j);
 % Simplification, using S delta^2 = 6(1-S):
 let ss(d2(d2(~z,j),j),j) => 6*(d2(z,j)-ss(d2(z,j),j));
 let ss(d2(md(~z,j),j),j) => 6*(md(z,j)-ss(md(z,j),j));
+let ss(md(md(~z,j),j),j) => (3*d2(z,j)-ss(d2(z,j),j))/2;
 
 % Temporal composition
 let df(uu,t) => g;
-let df(p(uu,j),t) => p(g,j);
-let df(m(uu,j),t) => m(g,j);
+operator !~f;
+let df(~f(~~z,j),t) => f(df(z,t),j);
 
 u0 := xi*uu + (1-xi)*m(uu,j);
 
