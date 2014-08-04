@@ -9,7 +9,7 @@
 %% md := mu*delta = (p - m)/2
 
 on div; off allfac; on revpri;
-factor hh, xi, epsilon, gamma;
+factor hh, epsilon, gamma;
 
 depend xi, j;
 depend uu, j, t;
@@ -50,7 +50,7 @@ let df(uu,t) => g;
 operator !~f;
 let df(~f(~~z,j),t) => f(df(z,t),j);
 
-on list;
+%on list;
 
 % Initiate approximations:
 u0 := xi*uu + (1-xi)*m(uu,j);
