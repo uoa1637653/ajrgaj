@@ -35,6 +35,11 @@ let md(d2(~z,j),j) => d2(md(z,j),j);
 % Simplification
 let md(md(~z,j),j) => d2(z,j) + d2(d2(z,j),j)/4;
 let ss(d2(~z,j),j) => 6*(z-ss(z,j));
+% Next follows from expanding mu*delta z^2:
+let d2(~y,j)*md(~z,j) => md(z^2,j) - 2*z*md(z,j) when y=z;
+% Next two follow from p(y*m(z)) = p(y)*z and m(y*p(z)) = m(y)*z:
+let md(~y*md(~z,j),j) => 1/2*(1/2*d2(y*d2(z,j),j) + y*d2(z,j) - z*d2(y,j) + d2(y*z,j));
+let md(~y*d2(~z,j),j) => d2(y*md(z,j),j) + 2*(y*md(z,j) + z*md(y,j) - md(y*z,j));
 
 % Temporal composition
 let df(uu,t) => g;
