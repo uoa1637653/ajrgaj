@@ -9,7 +9,7 @@
 %% md := mu*delta = (p - m)/2
 
 on div; off allfac; on revpri;
-factor hh, xi, epsilon, gamma, ss;
+factor hh, xi, epsilon, gamma;
 
 depend xi, j;
 depend uu, j, t;
@@ -23,8 +23,8 @@ let p(~z,j) => z + md(z,j) + d2(z,j)/2,
     m(~z,j) => z - md(z,j) + d2(z,j)/2;
 
 % Independent
-let md(1,j) => 1,
-    d2(1,j) => 1,
+let md(1,j) => 0,
+    d2(1,j) => 0,
 	ss(1,j) => 1;
 
 % Canonical ordering
@@ -32,9 +32,9 @@ let md(ss(~z,j),j) => ss(md(z,j),j);
 let d2(ss(~z,j),j) => ss(d2(z,j),j);
 let md(d2(~z,j),j) => d2(md(z,j),j);
 
-% Simplification, using S delta^2 = 6(1-S):
+% Simplification
 let md(md(~z,j),j) => d2(z,j) + d2(d2(z,j),j)/4;
-let ss(d2(d2(~z,j),j),) => 6*(d2(z,j)-ss(d2(z,j),j));
+let ss(d2(~z,j),j) => 6*(z-ss(z,j));
 
 % Temporal composition
 let df(uu,t) => g;
