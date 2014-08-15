@@ -83,4 +83,13 @@ un := un - sub(xi=1,un)*xi;
 u := u + un;
 g := g + gn;
 
+% Check internal boundary conditions:
+epsilon:=eps*small; gamma:=gam*small; let small^2=>0;
+amp := sub(xi=1,u) - uu;                  % u|X_j = U_j
+cty := sub(xi=0,p(u,j)) - sub(xi=1,u);    % [u]_j = 0
+ux := df(u,xi)/hh$
+jmp := sub(xi=0,p(ux,j)) - sub(xi=1,ux)
+       - (1-gamma)*sub(xi=1,d2(u,j))/hh;  % [u']_j = (1-gamma)/H*delta^2 U_j
+pde := -df(u,t) + df(ux,xi)/hh - epsilon*u*ux;
+
 end;
