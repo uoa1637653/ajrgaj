@@ -45,10 +45,12 @@ let md(~y*d2(~z,j),j) => d2(y*md(z,j),j) + 2*(y*md(z,j) + z*md(y,j) - md(y*z,j))
 % Next follows from either m(z)^2 = m(z^2) or p(z)^2 = p(z^2):
 let md(~z,j)^2 => 1/2*d2(z^2,j) - 1/4*d2(z,j)^2 - z*d2(z,j);
 
-% Temporal composition
+% Temporo-spatial composition:
 let df(uu,t) => g;
 operator !~f;
 let df(~f(~~z,j),t) => f(df(z,t),j);
+let df(~z,x) => df(z,xi)/hh;
+let df(~z,x,2) => df(z,xi,2)/hh^2;
 
 %on list;
 
@@ -114,9 +116,26 @@ g := g + gn;
 let gamma^2 => 0, epsilon^2 => 0;
 amp := sub(xi=1,u) - uu;                  % u|X_j = U_j
 cty := sub(xi=0,p(u,j)) - sub(xi=1,u);    % [u]_j = 0
-ux := df(u,xi)/hh$
+ux := df(u,x)$
 jmp := sub(xi=0,p(ux,j)) - sub(xi=1,ux)
        - (1-gamma)*sub(xi=1,d2(u,j))/hh;  % [u']_j = (1-gamma)/H*delta^2 U_j
-pde := -df(u,t) + df(ux,xi)/hh - epsilon*u*ux;
+pde := -df(u,t) + df(ux,x) - epsilon*u*ux;
+
+% Break apart the solution:
+u00 := coeffn(coeffn(u,gamma,0),epsilon,0);
+u10 := coeffn(coeffn(u,gamma,1),epsilon,0);
+u01 := coeffn(coeffn(u,gamma,0),epsilon,1);
+u11 := coeffn(coeffn(u,gamma,1),epsilon,1);
+ures := u-u00-gamma*u10-epsilon*u01-gamma*epsilon*u11;
+g10 := coeffn(coeffn(g,gamma,1),epsilon,0);
+g01 := coeffn(coeffn(g,gamma,0),epsilon,1);
+g11 := coeffn(coeffn(g,gamma,1),epsilon,1);
+gres := g-gamma*g10-epsilon*g01-gamma*epsilon*g11;
+
+pde00 := df(u00,x,2);
+pde10 := df(u10,x,2)-df(u00,uu)*g10;
+pde01 := df(u01,x,2)-df(u00,uu)*g01-u00*df(u00,x);
+pde11 := df(u11,x,2)-df(u00,uu)*g11-df(u10,uu)*g01-df(u01,uu)*g10
+                    -u10*df(u00,x)-u00*df(u10,x);
 
 end;
