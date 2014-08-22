@@ -64,6 +64,10 @@ let df(~z,x,2) => df(z,xi,2)/hh^2;
 	
 %on list;
 
+
+
+
+
 % Initiate approximations:
 u0 := xi*uu + (1-xi)*m(uu,j);
 u := u0;
@@ -95,8 +99,14 @@ un := un - sub(xi=1,un)*xi;
 u := u + un;
 g := g + gn;
 
+
+
+
+
+
 % Check internal boundary conditions:
 let gamma^2 => 0, epsilon^2 => 0;
+%for it:=1:3 do begin
 amp := sub(xi=1,u) - uu;                  % u|X_j = U_j
 cty := sub(xi=0,p(u,j)) - sub(xi=1,u);    % [u]_j = 0
 ux := df(u,x)$
@@ -104,10 +114,11 @@ jmp := sub(xi=0,p(ux,j)) - sub(xi=1,ux)
        - (1-gamma)*sub(xi=1,d2(u,j))/hh;  % [u']_j = (1-gamma)/H*delta^2 U_j
 pde := -sub(gg=g,df(u,t)) + df(ux,x) - epsilon*u*ux;
 
+
 % Satisfy solvability condition, <v0,pde> = 0, for g := g + g_n, 
 % where v0 := xi + p(1-xi,j):
 tmp_j := pde*xi$         % Use temporary variables to avoid
-tmp_jp1 := pde - tmp_j$  % weird error in integration.
+tmp_jp1 := (1-xi)*pde$   % weird error in integration.
 slv := (int(tmp_j,xi,0,1) + p(int(tmp_jp1,xi,0,1),j))*hh;
 % Recover term <v0,d^2u/dx^2>, lost due to u0 being piecewise linear.
 slv := slv + jmp;
@@ -117,13 +128,14 @@ gn := ss(slv,j)/hh;
 tn := xi*gn + (1-xi)*m(gn,j) - pde;
 un := hh^2*int(int(tn,xi),xi);
 % Impose integration constants to satsify u_n|X_{j-1} = 0, u_n|X_j = 0:
-un := un - sub(xi=1,un)*xi;
+un := un - sub(xi=1,un)*xi -sub(xi=0,un)*(1-xi);
 % Update iteration:
 u := u + un;
 g := g + gn;
+%end;
+
 
 % Check internal boundary conditions:
-let gamma^2 => 0, epsilon^2 => 0;
 amp := sub(xi=1,u) - uu;                  % u|X_j = U_j
 cty := sub(xi=0,p(u,j)) - sub(xi=1,u);    % [u]_j = 0
 ux := df(u,x)$
@@ -131,6 +143,11 @@ jmp := sub(xi=0,p(ux,j)) - sub(xi=1,ux)
        - (1-gamma)*sub(xi=1,d2(u,j))/hh;  % [u']_j = (1-gamma)/H*delta^2 U_j
 pde := -sub(gg=g,df(u,t)) + df(ux,x) - epsilon*u*ux;
 
+jmp11 := (coeffn(coeffn(jmp,gamma,1),epsilon,1)
+  where { ss(~a,j)=>a-d2(a,j)/6+d2(d2(a,j),j)/6^2
+        , md(~a,j)=>a+d2(a,j)/8-d2(d2(a,j),j)/128 
+        });
+end;%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Break apart the solution:
 u00 := coeffn(coeffn(u,gamma,0),epsilon,0);
 ux := df(u00,x); jmp00 := sub(xi=0,p(ux,j)) - sub(xi=1,ux)
