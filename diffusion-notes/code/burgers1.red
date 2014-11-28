@@ -143,22 +143,29 @@ jmp := sub(xi=0,p(ux,j)) - sub(xi=1,ux)
        - (1-gamma)*sub(xi=1,d2(u,j))/hh;  % [u']_j = (1-gamma)/H*delta^2 U_j
 pde := -sub(gg=g,df(u,t)) + df(ux,x) - epsilon*u*ux;
 
-%on rounded; print_precision 4$
-%jmps:=(jmp where ss(~a,j)=>a-d2(a-d2(a-d2(a-d2(a,j)/6,j)/6,j)/6,j)/6 );
 
 procedure sinv(z); z+d2(z,j)/6;
-%jmpy:=sinv(jmp);
-%jmpyy:=sinv(jmpy);
-%jmpyyy:=sinv(jmpyy);
 
+epsilon:=gamma:=1; % omit these from expressions
+factor uu; % group like uu's
 operator uu;
 jmpy:=(jmp where { uu=>uu(k) })$
 operator uu;
-on rounded; print_precision 4$
+on rounded; print_precision 4$ % possibly numerical
 jmpy:=(jmpy where {md(~a,j)=>(sub(k=k+1,a)-sub(k=k-1,a))/2
-    , d2(~a,j)=>sub(k=k+1,a)-2*a+sub(k=k-1,a) });
-jmpys:=(jmpy where { ss(~a,j)=>a-d2(a-d2(a-d2(a-d2(a,j)/6,j)/6,j)/6,j)/6
-    , d2(~a,j)=>sub(k=k+1,a)-2*a+sub(k=k-1,a) });
+    , d2(~a,j)=>sub(k=k+1,a)-2*a+sub(k=k-1,a) })$
+showtime;
+% label the new d2() with z to keep track of the expansion
+jmpys:=(jmpy where { d2(~a,j)=>z*(sub(k=k+1,a)-2*a+sub(k=k-1,a))
+    , ss(~a,j)=>a-d2( a-d2( a-d2( a-d2( a-d2( a-d2( a
+    ,j)/6 ,j)/6 ,j)/6 ,j)/6 ,j)/6 ,j)/6
+    })$
+% compute the cumulative sums
+let z^7=>0; % order of ss-expansion plus 1
+jmpys:=jmpys*(for n:=0:15 sum z^n);
+showtime;
+egcoeffn:=coeffn(coeffn(jmpys,uu(k),1),uu(k+1),1);
+eqcoeff2:=coeffn(jmpys,uu(k),2);
 end;%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 jmp11 := (coeffn(coeffn(jmp,gamma,1),epsilon,1)
