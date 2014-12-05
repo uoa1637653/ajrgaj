@@ -151,10 +151,34 @@ factor uu; % group like uu's
 operator uu;
 jmpy:=(jmp where { uu=>uu(k) })$
 operator uu;
-on rounded; print_precision 4$ % possibly numerical
+%%%% assume periodicity ll
+ll:=6;
+let { uu(k+~d)=>uu(k+d-ll) when d>ll/2
+    , uu(k-~d)=>uu(k-d+ll) when d>=ll/2 };
+matrix ssm(ll,ll);
+for i:=1:ll do begin
+  ssm(i,i):=4/6;
+  if i<ll then ssm(i,i+1):=ssm(i+1,i):=1/6;
+  if i=ll then ssm(1,i):=ssm(i,1):=1/6;
+end;
+ssm:=1/ssm; % get the matrix of the ss operator
+checkEquals6uuk:=(ss(uu(k-1)+4*uu(k)+uu(k+1),j) where
+    ss(~a,j)=>ssm(1,1)*a+(for i:=1:ll/2 sum (ssm(i+1,1)*sub(k=k+i,a)))
+                      +(for i:=1:(ll-1)/2 sum (ssm(i+1,1)*sub(k=k-i,a)))
+    );
+
 jmpy:=(jmpy where {md(~a,j)=>(sub(k=k+1,a)-sub(k=k-1,a))/2
-    , d2(~a,j)=>sub(k=k+1,a)-2*a+sub(k=k-1,a) })$
+    , d2(~a,j)=>sub(k=k+1,a)-2*a+sub(k=k-1,a) 
+    , ss(~a,j)=>ssm(1,1)*a+(for i:=1:ll/2 sum (ssm(i+1,1)*sub(k=k+i,a)))
+                      +(for i:=1:(ll-1)/2 sum (ssm(i+1,1)*sub(k=k-i,a)))
+    });
 showtime;
+end;
+
+
+
+
+
 % label the new d2() with z to keep track of the expansion
 jmpys:=(jmpy where { d2(~a,j)=>z*(sub(k=k+1,a)-2*a+sub(k=k-1,a))
     , ss(~a,j)=>a-d2( a-d2( a-d2( a-d2( a-d2( a-d2( a
