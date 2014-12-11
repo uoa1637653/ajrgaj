@@ -52,18 +52,6 @@ let df(~f(~~z,j),t) => f(df(z,t),j);
 let df(~z,x) => df(z,xi)/hh;
 let df(~z,x,2) => df(z,xi,2)/hh^2;
 
-% Spatial consistency (functions shifted in j take same form):
-%%let md(xi,j) => xi*md(1,j),
-%%    md(~z*xi,j) => xi*md(z,j),
-%%    md(xi^~n,j) => xi^n*md(1,j),
-%%	md(~~z*xi^~n,j) => xi^n*md(z,j);
-%%let d2(xi,j) => xi*d2(1,j),
-%%    d2(~z*xi,j) => xi*d2(z,j),
-%%    d2(xi^~n,j) => xi^n*d2(1,j),
-%%	d2(~~z*xi^~n,j) => xi^n*d2(z,j);
-	
-%on list;
-
 % Initiate approximations:
 u0 := xi*uu + (1-xi)*m(uu,j);
 u := u0;
@@ -108,9 +96,66 @@ jmp := sub(xi=0,p(ux,j)) - sub(xi=1,ux)
 pde := -sub(gg=g,df(u,t)) + df(ux,x) - epsilon*u*ux;
 
 % Debugging...
-u11 := coeffn(coeffn(u,gamma,1),epsilon,1)$
-u11x := df(u11,x)$
-jmp11 := sub(xi=0,p(u11x,j)) - sub(xi=1,u11x);
-jmp - epsilon*gamma*jmp11;
+% Start with previous terms (which have been checked via computer and by hand):
+u00 := coeffn(coeffn(u,gamma,0),epsilon,0)$
+u10 := coeffn(coeffn(u,gamma,1),epsilon,0)$
+g10 := coeffn(coeffn(g,gamma,1),epsilon,0)$
+u01 := coeffn(coeffn(u,gamma,0),epsilon,1)$
+g01 := coeffn(coeffn(g,gamma,0),epsilon,1)$
+% Computer help with 'hand' solution:
+depend g11, uu;
+u11dd_g := sub(gg=g11,df(u00,t))+sub(gg=g10,df(u01,t))+sub(gg=g01,df(u10,t))+u00*df(u10,x)+u10*df(u00,x)$
+depend c11, uu;
+u11d_cg := hh*int(u11dd_g,xi)+c11$
+u11_cg := hh*int(u11d_cg,xi)$
+% Compute c11 that makes u11=0 at xi=1:
+c11_g := c11-sub(xi=1,u11_cg)/hh;
+u11d_g := sub(c11=c11_g,u11d_cg);
+u11_g := sub(c11=c11_g,u11_cg);
+% Check identity:
+df(u11_g,x)-u11d_g;
+% Compute g11 that makes [u']=0:
+jmp11_g := p(sub(xi=0,u11d_g),j)-sub(xi=1,u11d_g)$
+g11h := ss(sub(g11=0,jmp11_g),j)/hh$
+% Check identity:
+sub(g11=g11h,jmp11_g);
+u11h := sub(g11=g11h,u11_g)$
+u11dh := sub(g11=g11h,u11d_g)$
+df(u11h,x)-u11dh;
+% Check hand solution matches computer:
+g11c := coeffn(coeffn(g,gamma,1),epsilon,1)$
+g11h-g11c;
+u11c := coeffn(coeffn(u,gamma,1),epsilon,1)$
+u11h-u11c;
+
+% Determine why jump condition is seemingly not satisfied...
+% Recheck jump:
+jmp11h := p(sub(xi=0,u11dh),j)-sub(xi=1,u11dh);
+sub(xi=1,u11dh)-sub(g11=g11h,xi=1,u11d_g);
+sub(xi=0,u11dh)-sub(g11=g11h,xi=0,u11d_g);
+p(sub(xi=0,u11dh),j)-p(sub(g11=g11h,xi=0,u11d_g),j);
+p(sub(g11=g11h,xi=0,u11d_g),j)-sub(g11=g11h,p(sub(xi=0,u11d_g),j));
+u11d_g_only := u11d_g - sub(g11=0,u11d_g)$
+p(sub(g11=g11h,xi=0,u11d_g_only),j)-sub(g11=g11h,p(sub(xi=0,u11d_g_only),j));
+% Noted that sub(xi=0,u11d_g_only) has only 3 terms: g11, md(g11) and d2(g11):
+p(g11h,j)-sub(g11=g11h,p(g11,j));
+p(d2(g11h,j),j)-sub(g11=g11h,p(d2(g11,j),j));
+p(md(g11h,j),j)-sub(g11=g11h,p(md(g11,j),j)); %% Non-zero!!!
+% Noted that only p(md()) difference is non-zero:
+md(g11h,j)-sub(g11=g11h,md(g11,j));
+% Test g11h term by term:
+depend z,uu;
+n:= 1$ zh:=uu^2$ p(md(zh,j),j)-sub(z=zh,p(md(z,j),j));
+n:= 2$ zh:=uu*ss(uu,j)$ p(md(zh,j),j)-sub(z=zh,p(md(z,j),j));
+n:= 3$ zh:=ss(uu*ss(uu,j),j)$ p(md(zh,j),j)-sub(z=zh,p(md(z,j),j));
+n:= 4$ zh:=ss(uu*ss(md(uu,j),j),j)$ p(md(zh,j),j)-sub(z=zh,p(md(z,j),j));
+n:= 5$ zh:=ss(uu*md(uu,j),j)$ p(md(zh,j),j)-sub(z=zh,p(md(z,j),j));
+n:= 6$ zh:=ss(md(uu,j)*ss(uu,j),j)$ p(md(zh,j),j)-sub(z=zh,p(md(z,j),j)); %% Non-zero!!!
+n:= 7$ zh:=ss(md(uu,j)*ss(md(uu,j),j),j)$ p(md(zh,j),j)-sub(z=zh,p(md(z,j),j)); %% Non-zero!!
+n:= 8$ zh:=ss(uu*d2(uu,j),j)$ p(md(zh,j),j)-sub(z=zh,p(md(z,j),j));
+n:= 9$ zh:=ss(d2(uu,j)*ss(md(uu,j),j),j)$ p(md(zh,j),j)-sub(z=zh,p(md(z,j),j)); %% Non-zero!!
+n:=10$ zh:=ss(ss(uu*ss(uu,j),j),j)$ p(md(zh,j),j)-sub(z=zh,p(md(z,j),j));
+n:=11$ zh:=ss(ss(uu*ss(md(uu,j),j),j),j)$ p(md(zh,j),j)-sub(z=zh,p(md(z,j),j));
+n:=12$ zh:=ss(ss(uu*md(uu,j),j),j)$ p(md(zh,j),j)-sub(z=zh,p(md(z,j),j));
 
 end;
