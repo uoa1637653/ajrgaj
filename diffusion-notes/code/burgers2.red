@@ -150,12 +150,28 @@ n:= 2$ zh:=uu*ss(uu,j)$ p(md(zh,j),j)-sub(z=zh,p(md(z,j),j));
 n:= 3$ zh:=ss(uu*ss(uu,j),j)$ p(md(zh,j),j)-sub(z=zh,p(md(z,j),j));
 n:= 4$ zh:=ss(uu*ss(md(uu,j),j),j)$ p(md(zh,j),j)-sub(z=zh,p(md(z,j),j));
 n:= 5$ zh:=ss(uu*md(uu,j),j)$ p(md(zh,j),j)-sub(z=zh,p(md(z,j),j));
-n:= 6$ zh:=ss(md(uu,j)*ss(uu,j),j)$ p(md(zh,j),j)-sub(z=zh,p(md(z,j),j)); %% Non-zero!!!
-n:= 7$ zh:=ss(md(uu,j)*ss(md(uu,j),j),j)$ p(md(zh,j),j)-sub(z=zh,p(md(z,j),j)); %% Non-zero!!
+n:= 6$ zh:=ss(md(uu,j)*ss(uu,j),j)$ diff6:=p(md(zh,j),j)-sub(z=zh,p(md(z,j),j)); %% Non-zero!!!
+n:= 7$ zh:=ss(md(uu,j)*ss(md(uu,j),j),j)$ diff7:=p(md(zh,j),j)-sub(z=zh,p(md(z,j),j)); %% Non-zero!!
 n:= 8$ zh:=ss(uu*d2(uu,j),j)$ p(md(zh,j),j)-sub(z=zh,p(md(z,j),j));
-n:= 9$ zh:=ss(d2(uu,j)*ss(md(uu,j),j),j)$ p(md(zh,j),j)-sub(z=zh,p(md(z,j),j)); %% Non-zero!!
+n:= 9$ zh:=ss(d2(uu,j)*ss(md(uu,j),j),j)$ diff9:=p(md(zh,j),j)-sub(z=zh,p(md(z,j),j)); %% Non-zero!!
 n:=10$ zh:=ss(ss(uu*ss(uu,j),j),j)$ p(md(zh,j),j)-sub(z=zh,p(md(z,j),j));
 n:=11$ zh:=ss(ss(uu*ss(md(uu,j),j),j),j)$ p(md(zh,j),j)-sub(z=zh,p(md(z,j),j));
 n:=12$ zh:=ss(ss(uu*md(uu,j),j),j)$ p(md(zh,j),j)-sub(z=zh,p(md(z,j),j));
+n:=13$ zh:=ss(ss(ss(uu,j)*md(uu,j),j),j)$ diff13:=p(md(zh,j),j)-sub(z=zh,p(md(z,j),j)); %% Non-zero!!
+n:=14$ zh:=ss(ss(ss(uu,j)*d2(uu,j),j),j)$ diff14:=p(md(zh,j),j)-sub(z=zh,p(md(z,j),j)); %% Non-zero!!
+n:=15$ zh:=ss(ss(ss(uu*md(uu,j),j),j),j)$ p(md(zh,j),j)-sub(z=zh,p(md(z,j),j));
+n:=16$ zh:=ss(ss(ss(md(uu^2,j),j),j),j)$ p(md(zh,j),j)-sub(z=zh,p(md(z,j),j));
+n:=17$ zh:=ss(ss(md(uu*ss(uu,j),j),j),j)$ p(md(zh,j),j)-sub(z=zh,p(md(z,j),j));
+n:=18$ zh:=ss(ss(md(uu*ss(md(uu,j),j),j),j),j)$ p(md(zh,j),j)-sub(z=zh,p(md(z,j),j));
+n:=19$ zh:=ss(ss(md(uu^2,j),j),j)$ p(md(zh,j),j)-sub(z=zh,p(md(z,j),j));
+n:=20$ zh:=ss(ss(uu^2,j),j)$ p(md(zh,j),j)-sub(z=zh,p(md(z,j),j));
+n:=21$ zh:=uu*ss(md(uu,j),j)$ p(md(zh,j),j)-sub(z=zh,p(md(z,j),j));
+n:=22$ zh:=ss(md(uu*ss(uu,j),j),j)$ p(md(zh,j),j)-sub(z=zh,p(md(z,j),j));
+n:=23$ zh:=ss(md(uu*ss(md(uu,j),j),j),j)$ p(md(zh,j),j)-sub(z=zh,p(md(z,j),j));
+n:=24$ zh:=ss(md(uu^2,j),j)$ p(md(zh,j),j)-sub(z=zh,p(md(z,j),j));
+n:=25$ zh:=ss(uu^2,j)$ p(md(zh,j),j)-sub(z=zh,p(md(z,j),j));
+
+% Accumulate terms across all potential invariants:
+terms := diff6+diff7+diff9+diff13+diff14;
 
 end;
