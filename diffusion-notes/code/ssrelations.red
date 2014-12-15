@@ -7,22 +7,32 @@ operator md;
 operator d2;
 operator uu; 
 %jmp:=a0*uu+a1*ss(uu,j)+a2*d2(uu,j)+a3*md(uu,j)+a4*ss(d2(uu,j),j);
-nas:=13;
-jmp:=a0*ss(ss(md(uu,j),j)*uu,j)
-    +a1*ss(md(uu,j)*ss(uu,j),j)
-    +a2*ss(md(uu,j),j)*uu
-    +a3*ss(md(ss(uu,j)*uu,j),j)
-    +a4*ss(md(uu^2,j),j)
-    +a5*uu^2
-    +a6*ss(uu,j)*uu
-    +a7*ss(ss(uu,j)*uu,j)
-    +a8*ss(md(uu,j)*ss(md(uu,j),j),j)
-    +a9*ss(d2(uu,j)*uu,j)
-    +a10*ss(md(ss(md(uu,j),j)*uu,j),j)
-    +a11*ss(uu^2,j)
-    +a12*ss(md(uu,j)*uu,j)
-    +a13*ss(d2(uu,j)*ss(md(uu,j),j),j);
-jmpy:=(jmp where { uu=>uu(k) });
+nas:=21;
+jmp:=a0*ss(ss(md(uu(k),j),j)*uu(k),j)
+    +a1*ss(md(uu(k),j)*ss(uu(k),j),j)
+    +a2*ss(md(uu(k),j),j)*uu(k)
+    +a3*ss(md(ss(uu(k),j)*uu(k),j),j)
+    +a4*ss(md(uu(k)^2,j),j)
+    +a5*uu(k)^2
+    +a6*ss(uu(k),j)*uu(k)
+    +a7*ss(ss(uu(k),j)*uu(k),j)
+    +a8*ss(md(uu(k),j)*ss(md(uu(k),j),j),j)
+    +a9*ss(d2(uu(k),j)*uu(k),j)
+    +a10*ss(md(ss(md(uu(k),j),j)*uu(k),j),j)
+    +a11*ss(uu(k)^2,j)
+    +a12*ss(md(uu(k),j)*uu(k),j)
+    +a13*ss(d2(uu(k),j)*ss(md(uu(k),j),j),j)
+    +a14*ss(ss(ss(uu(k),j)*uu(k),j),j)
+    +a15*ss(ss(ss(md(uu(k),j),j)*uu(k),j),j)
+    +a16*ss(ss(md(uu(k),j)*ss(uu(k),j),j),j)
+    +a17*ss(ss(d2(uu(k),j)*ss(uu(k),j),j),j)
+    +a18*ss(ss(md(ss(uu(k),j)*uu(k),j),j),j)
+    +a19*ss(ss(md(ss(md(uu(k),j),j)*uu(k),j),j),j)
+    +a20*ss(ss(md(uu(k)^2,j),j),j)
+    +a21*ss(ss(uu(k)^2,j),j)
+    ;
+%jmpy:=(jmp where { uu=>uu(k) });
+jmpy:=jmp;
 
 %%%% assume periodicity ll (should be even for now)
 ll:=6;
