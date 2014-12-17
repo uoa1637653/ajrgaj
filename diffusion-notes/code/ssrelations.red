@@ -66,4 +66,16 @@ factor arbcomplex; on list;
 jmp:=sub(soln,jmp);
 
 showtime;
+
+off list;
+
+% Check invariants reduce jmp to zero:
+i1h := ss(md(ss(uu(k),j)*uu(k),j),j)
+  - ss(ss(md(uu(k),j),j)*uu(k),j)
+  + 1/2*ss(md(uu(k),j)*ss(uu(k),j),j)
+  + 3/2*ss(md(uu(k),j),j)*uu(k)
+  - 3/2*ss(md(uu(k)^2,j),j);
+i1c := coeffn(jmp,arbcomplex(1),1);
+i1c-i1h;
+
 end;
