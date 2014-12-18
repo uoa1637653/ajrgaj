@@ -78,4 +78,22 @@ i1h := ss(md(ss(uu(k),j)*uu(k),j),j)
 i1c := coeffn(jmp,arbcomplex(1),1);
 i1c-i1h;
 
+jmps := (jmp where 
+ss(md(ss(uu(k),j)*uu(k),j),j) =>
+  ss(ss(md(uu(k),j),j)*uu(k),j)
+  - 1/2*ss(md(uu(k),j)*ss(uu(k),j),j)
+  - 3/2*ss(md(uu(k),j),j)*uu(k)
+  + 3/2*ss(md(uu(k)^2,j),j)
+);
+
+i2c := coeffn(jmp,arbcomplex(2),1);
+i2h := -18*uu(k)^2
+  + 9*ss(uu(k),j)*uu(k)
+  - 6*ss(ss(uu(k),j)*uu(k),j)
+  + ss(md(uu(k),j)*ss(md(uu(k),j),j),j)
+  + 3/2*ss(d2(uu(k),j)*uu(k),j)
+  + 2*ss(md(ss(md(uu(k),j),j)*uu(k),j),j)
+  + 15*ss(uu(k)^2,j);
+i2c-i2h;
+
 end;
