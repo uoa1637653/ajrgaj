@@ -174,4 +174,32 @@ n:=25$ zh:=ss(uu^2,j)$ p(md(zh,j),j)-sub(z=zh,p(md(z,j),j));
 % Accumulate terms across all potential invariants:
 terms := diff6+diff7+diff9+diff13+diff14;
 
+% Apply invariants from ssrelations.red:
+let ss(md(ss(uu,j)*uu,j),j) =>
+  ss(ss(md(uu,j),j)*uu,j)
+  - 1/2*ss(md(uu,j)*ss(uu,j),j)
+  - 3/2*ss(md(uu,j),j)*uu
+  + 3/2*ss(md(uu^2,j),j);
+
+let ss(md(uu,j)*ss(md(uu,j),j),j) =>
+  18*uu**2 
+  - 9*ss(uu,j)*uu 
+  + 6*ss(ss(uu,j)*uu,j) 
+  - 3/2*ss(d2(uu,j)*uu,j) 
+  - 2*ss(md(ss(md(uu,j),j)*uu,j),j) 
+  - 15*ss(uu**2,j);
+
+let ss(d2(uu,j)*ss(md(uu,j),j),j) =>
+  - 6*ss(md(uu,j)*uu,j) 
+  + 3*ss(md(uu,j)*ss(uu,j),j) 
+  - 3*ss(md(uu,j),j)*uu 
+  + 3*ss(md(uu**2,j),j);
+
+let ss(ss(md(ss(md(uu,j),j)*uu,j),j),j) =>
+  - 6*ss(ss(uu,j)*uu,j) 
+  + 3*ss(ss(ss(uu,j)*uu,j),j) 
+  - 1/2*ss(ss(d2(uu,j)*ss(uu,j),j),j) 
+  - 6*ss(ss(uu**2,j),j) 
+  + 9*ss(uu**2,j);
+
 end;

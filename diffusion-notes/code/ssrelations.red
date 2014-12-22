@@ -152,13 +152,11 @@ ss(ss(md(ss(md(uu(k),j),j)*uu(k),j),j),j) =>
   - 6*ss(ss(uu(k)**2,j),j) 
   + 9*ss(uu(k)**2,j)
 );
-%% 5: erk!!
-%jmps := (jmps where 
-%ss(ss(md(ss(uu(k),j)*uu(k),j),j),j) =>
-%  - 3/2*ss(ss(md(uu(k),j),j)*uu(k),j) 
-%  + ss(ss(ss(md(uu(k),j),j)*uu(k),j),j) 
-%  - 1/2*ss(ss(md(uu(k),j)*ss(uu(k),j),j),j) 
-%  + 3/2*ss(ss(md(uu(k)**2,j),j),j)
-%);
+
+jmps := (jmps where k => j);
+linear ss;
+linear md;
+linear d2;
+jmps;
 
 end;
