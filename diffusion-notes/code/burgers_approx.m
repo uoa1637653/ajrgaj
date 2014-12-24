@@ -29,16 +29,23 @@ global S
 S=inv(eye(L,L)+d2/6);
 %----------------------------------------------------------------
 % Solve PDE from t=0 to t=T:
+global A
+A = 10;
 T=0.5;
 [t,u]=ode15s(@dudt,[0 T],u0());
+u=[u(:,L) u]; % Add j=0 point from j=L
+surf(x,t,u);
 %----------------------------------------------------------------
 % Initialisation of u(x,t) at t=0:
 function u=u0()
-global L x
-u=sin(2*pi*x(2:L+1));
+global A L x
+u=A*sin(2*pi*x(2:L+1));
 %----------------------------------------------------------------
-% Temporal derivative:
+% Temporal derivative of u(x,t):
 function u_t=dudt(t,u)
-global H S md
+%display(t)
+%display(u)
+global H d2 md
 u_t=d2*u/H^2-u.*(md*u/H);
+display(u_t)
 %----------------------------------------------------------------
