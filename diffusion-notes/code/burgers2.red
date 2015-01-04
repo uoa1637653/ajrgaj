@@ -195,11 +195,11 @@ let ss(d2(uu,j)*ss(md(uu,j),j),j) =>
   - 3*ss(md(uu,j),j)*uu 
   + 3*ss(md(uu**2,j),j);
 
-let ss(ss(md(ss(md(uu,j),j)*uu,j),j),j) =>
-  - 6*ss(ss(uu,j)*uu,j) 
-  + 3*ss(ss(ss(uu,j)*uu,j),j) 
-  - 1/2*ss(ss(d2(uu,j)*ss(uu,j),j),j) 
-  - 6*ss(ss(uu**2,j),j) 
-  + 9*ss(uu**2,j);
+let ss(md(ss(md(uu,j),j)*uu,j),j) =>
+  - 6*ss(uu,j)*uu
+  + 3*ss(ss(uu,j)*uu,j)
+  - 1/2*ss(d2(uu,j)*ss(uu,j),j) 
+  - 6*ss(uu**2,j) 
+  + 9*uu**2;
 
 end;
