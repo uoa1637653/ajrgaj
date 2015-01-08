@@ -1,4 +1,4 @@
-function [v,lam]=burgers_eigs_std
+function [vec,lam]=burgers_eigs_std
 %----------------------------------------------------------------
 % GAJ 05/01/2015
 % Checks stability of
@@ -10,12 +10,7 @@ function [v,lam]=burgers_eigs_std
 init_domain;
 %----------------------------------------------------------------
 % Find eigenvalues/vectors by perturbing equilibrium at t=0:
-global L;
-small=1e-6;
-fun=@(v) burgers_dudt_std(0,small*v)/small;
-% Note: Ignore error generated (randomly) by complex values.
-[vec,d]=eigs(fun,L,L);
-lam=diag(d);
+[vec,lam]=calc_eigs(u0_zero(), @burgers_dudt_std);
 %----------------------------------------------------------------
 % Plot eigenvectors versus domain, grouped by wavenumbers.
 plot_eigs(vec,lam);
