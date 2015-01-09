@@ -2,7 +2,7 @@ function [vec,lam]=calc_eigs(u0,dudt)
 %----------------------------------------------------------------
 % GAJ 07/01/2015
 % Checks the stability of an initial solution to a dynamical eq.
-% on a [0,1] periodic, discretised domain (pre-initialised
+% on a periodic, discretised domain (pre-initialised
 % by init_domain()).
 %----------------------------------------------------------------
 % Find eigenvalues/vectors by perturbing u0 at t=0:

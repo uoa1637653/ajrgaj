@@ -1,16 +1,16 @@
-function [vec,lam]=burgers_eigs_std
+function [vec,lam]=burgers_eigs_std_sin(period,amp)
 %----------------------------------------------------------------
 % GAJ 05/01/2015
 % Checks stability of
 % Burgers' eq. with unit viscosity, u_t=u_xx-uu_x.
 % Uses standard finite difference approximations for u_x and u_xx.
-% Solves on a [0,1] periodic, discretised domain.
+% Solves on a periodic, discretised domain.
 %----------------------------------------------------------------
 % Set up domain and operators:
-init_domain;
+init_domain(period);
 %----------------------------------------------------------------
-% Find eigenvalues/vectors by perturbing equilibrium at t=0:
-[vec,lam]=calc_eigs(u0_zero(), @burgers_dudt_std);
+% Find eigenvalues/vectors by perturbing u0 at t=0:
+[vec,lam]=calc_eigs(amp*u0_sin(), @burgers_dudt_std);
 %----------------------------------------------------------------
 % Plot eigenvectors versus domain, grouped by wavenumbers.
 plot_eigs(vec,lam);
