@@ -30,7 +30,7 @@ S=inv(eye(L,L)+d2/6);
 %----------------------------------------------------------------
 % Solve PDE from t=0 to t=T:
 global A
-A = 10;
+A = 50;
 T=2;
 if 0, [t,u]=ode15s(@dudt,[0 T],u0());
 else opts=odeset('Events',@largey);
@@ -40,7 +40,9 @@ ye=ye
 ie=ie
 end
 u=[u(:,L) u]; % Add j=0 point from j=L
-surf(x,t,u);
+surf(x,t,asinh(u));
+v=sum(abs(diff(sign(diff(u')))))/4;
+display(v);
 %----------------------------------------------------------------
 % Initialisation of u(x,t) at t=0:
 function u=u0()
@@ -51,8 +53,8 @@ u=A*sin(x(2:L+1));
 function u_t=dudt(t,u)
 %display(t)
 %display(u)
-global H d2 md
-u_t=d2*u/H^2-u.*(md*u/H);
+global H d2 md S
+u_t=S*(d2*u/H^2-1/3*(u.*(md*u)+md*(u.*u))/H);
 display(u_t)
 %----------------------------------------------------------------
 function [val,isfin,dirn]=largey(t,y)

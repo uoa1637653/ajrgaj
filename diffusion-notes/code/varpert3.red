@@ -50,7 +50,7 @@ uhat:=u1;
 ghat:=0;
 hhat := 0;
 
-let { a^6=>0, b^6=>0, aa^11=>0 };
+let { a^5=>0, b^5=>0, aa^9=>0 };
 maxN:=6;
 maxK:=2^maxN;
 for i:=1:maxN do
