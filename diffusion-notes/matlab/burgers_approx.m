@@ -54,8 +54,15 @@ function u_t=dudt(t,u)
 %display(t)
 %display(u)
 global H d2 md S
+switch 'forn'
+case 'std' 
+u_t=d2*u/H^2-(u.*(md*u))/H;
+case 'forn'
+u_t=d2*u/H^2-1/3*(u.*(md*u)+md*(u.*u))/H;
+case 'holi'
 u_t=S*(d2*u/H^2-1/3*(u.*(md*u)+md*(u.*u))/H);
-display(u_t)
+end
+%display(u_t)
 %----------------------------------------------------------------
 function [val,isfin,dirn]=largey(t,y)
 isfin=1;
