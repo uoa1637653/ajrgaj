@@ -1,7 +1,7 @@
 function burgers_approx
 % GAJ 24/12/2014
 % Burgers' eq. with unit viscosity, u_t=u_xx-uu_x.
-% Solve on a [0,1] periodic domain.
+% Solve on a [0,2pi] periodic domain.
 % Use finite difference approximations for u_x and u_xx.
 %----------------------------------------------------------------
 % Set up domain:
@@ -30,7 +30,7 @@ S=inv(eye(L,L)+d2/6);
 %----------------------------------------------------------------
 % Solve PDE from t=0 to t=T:
 global A
-A = 50;
+A = 20;
 T=2;
 if 0, [t,u]=ode15s(@dudt,[0 T],u0());
 else opts=odeset('Events',@largey);
@@ -41,8 +41,6 @@ ie=ie
 end
 u=[u(:,L) u]; % Add j=0 point from j=L
 surf(x,t,asinh(u));
-v=sum(abs(diff(sign(diff(u')))))/4;
-display(v);
 %----------------------------------------------------------------
 % Initialisation of u(x,t) at t=0:
 function u=u0()
@@ -54,7 +52,7 @@ function u_t=dudt(t,u)
 %display(t)
 %display(u)
 global H d2 md S
-switch 'forn'
+switch 'std'
 case 'std' 
 u_t=d2*u/H^2-(u.*(md*u))/H;
 case 'forn'
@@ -65,6 +63,7 @@ end
 %display(u_t)
 %----------------------------------------------------------------
 function [val,isfin,dirn]=largey(t,y)
-isfin=1;
-val=-max(abs(y))+1e3;
-dirn=0;
+isfin=[1, 1];
+v=sum(abs(diff(sign(diff(y)))))/4;
+val=[1.01-v, 1e3-max(abs(y))];
+dirn=[0, 0];
