@@ -25,26 +25,32 @@ function v=search(A)
 end
 %----------------------------------------------------------------
 % Temporal derivatives of u(x,t):
-function u_t=dudt_std(t,u)
+function u_t=dudt_adv(t,u)
     global H D2 MD
     u_t=D2*u/H^2-(u.*(MD*u))/H;
+end
+function u_t=dudt_cons(t,u)
+    global H D2 MD
+    u_t=D2*u/H^2-MD*(u.*u/2)/H;
 end
 function u_t=dudt_forn(t,u)
     global H D2 MD
     u_t=D2*u/H^2-1/3*(u.*(MD*u)+MD*(u.*u))/H;
 end
-function u_t=dudt_holi(t,u)
+function u_t=dudt_hol(t,u)
     global H D2 MD S
     u_t=S*(D2*u/H^2-1/3*(u.*(MD*u)+MD*(u.*u))/H);
 end
 function dudt=which_dudt(sel)
     switch sel
-    case 'std'
-        dudt = @dudt_std;
+    case 'adv'
+        dudt = @dudt_adv;
+    case 'cons'
+        dudt = @dudt_cons;
     case 'forn'
         dudt = @dudt_forn;
-    case 'holi'
-        dudt = @dudt_holi;
+    case 'hol'
+        dudt = @dudt_hol;
     end
 end
 %----------------------------------------------------------------
@@ -52,7 +58,7 @@ end
 % Stop early if an extreme event occurs.
 function [t,u,ie] = integ(T, A, dudt)
     opts=odeset('Events',@events);
-    [t,u,te,ye,ie]=ode15s(dudt,[0 T],u0(A),opts);
+    [t,u,~,~,ie]=ode15s(dudt,[0 T],u0(A),opts);
 end
 %----------------------------------------------------------------
 % Initialisation of u(x,t) at t=0:
