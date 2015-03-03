@@ -1,26 +1,28 @@
-function [Acrit,iem,ie,iep] = burgers_stability(selection,period)
+function [Acrit,Tcrit,ie] = burgers_stability(selection,period)
 % GAJ 26/02/2015
 % Burgers' eq. with unit viscosity, u_t=u_xx-uu_x.
 % Solve on a [0,2pi] periodic domain.
 % Use finite difference approximations for u_x and u_xx.
 %----------------------------------------------------------------
-% Set up domain:
-init_domain(period);
-global T Dt
-T=10;
-Dt=which_dudt(selection);
-% Run search:
-Acrit=fzero(@search, [1 50]);
-iem=0.5-search(Acrit-0.01);
-ie=0.5-search(Acrit-0.01);
-iep=0.5-search(Acrit+0.01);
+    % Set up domain:
+    init_domain(period);
+    global T Dt
+    T = 10;
+    Dt = which_dudt(selection);
+    % Run search:
+    Acrit = fzero(@search, [1 50]);
+    [t, ~, ie] = integ(T, Acrit, Dt);
+    if ie == 0
+        Acrit = Acrit + 1e-3;
+        [t, ~, ie] = integ(T, Acrit, Dt);
+    end
+    Tcrit = t(end);
 end
 %----------------------------------------------------------------
 % Search function:
 function v=search(A)
     global T Dt
     [~,~,ie] = integ(T,A,Dt);
-    if isempty(ie), ie=0; end
     v=0.5-ie;
 end
 %----------------------------------------------------------------
@@ -33,7 +35,7 @@ function u_t=dudt_cons(t,u)
     global H D2 MD
     u_t=D2*u/H^2-MD*(u.*u/2)/H;
 end
-function u_t=dudt_forn(t,u)
+function u_t=dudt_mix(t,u)
     global H D2 MD
     u_t=D2*u/H^2-1/3*(u.*(MD*u)+MD*(u.*u))/H;
 end
@@ -41,16 +43,22 @@ function u_t=dudt_hol(t,u)
     global H D2 MD S
     u_t=S*(D2*u/H^2-1/3*(u.*(MD*u)+MD*(u.*u))/H);
 end
+function u_t=dudt_hol2(t,u)
+    global H MD S SD2 II
+    u_t=SD2*(II+(7*II-2*S)*SD2/60)*u/H^2-1/3*S*(u.*(MD*u)+MD*(u.*u))/H;
+end
 function dudt=which_dudt(sel)
     switch sel
     case 'adv'
         dudt = @dudt_adv;
     case 'cons'
         dudt = @dudt_cons;
-    case 'forn'
-        dudt = @dudt_forn;
+    case 'mix'
+        dudt = @dudt_mix;
     case 'hol'
         dudt = @dudt_hol;
+    case 'hol2'
+        dudt = @dudt_hol2;
     end
 end
 %----------------------------------------------------------------
@@ -59,6 +67,7 @@ end
 function [t,u,ie] = integ(T, A, dudt)
     opts=odeset('Events',@events);
     [t,u,~,~,ie]=ode15s(dudt,[0 T],u0(A),opts);
+    if isempty(ie), ie=0; end
 end
 %----------------------------------------------------------------
 % Initialisation of u(x,t) at t=0:

@@ -6,21 +6,24 @@ function burgers_stab_plot(Ls)
     hold on
     plot_it('adv', Ls);
     plot_it('cons', Ls);
-    plot_it('forn', Ls);
+    plot_it('mix', Ls);
     plot_it('hol', Ls);
+    plot_it('hol2', Ls);
     xlabel('#intervals, L')
     ylabel('critical amplitude, A')
-    legend('advective','conservative','mixture','holistic')
+    legend('advective','conservative','mixture','holistic','holistic2')
 end
 
 function plot_it(selection,Ls)
     N = length(Ls);
     As = zeros(1, N);
+    Ts = zeros(1, N);
     ies = zeros(1, N);
     for i = 1:N
-        [Acrit,~,~,iep] = burgers_stability(selection, Ls(i));
+        [Acrit, Tcrit, ie] = burgers_stability(selection, Ls(i));
         As(i) = Acrit;
-        ies(i) = iep;
+        Ts(i) = Tcrit;
+        ies(i) = ie;
     end
     if sum(ies == 1) == N
         sym = '+-';
