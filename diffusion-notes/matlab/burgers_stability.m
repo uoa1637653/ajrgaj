@@ -40,8 +40,8 @@ function u_t=dudt_mix(t,u)
     u_t=D2*u/H^2-1/3*(u.*(MD*u)+MD*(u.*u))/H;
 end
 function u_t=dudt_hol(t,u)
-    global H D2 MD S
-    u_t=S*(D2*u/H^2-1/3*(u.*(MD*u)+MD*(u.*u))/H);
+    global H D2 MD Sinv
+    u_t=Sinv\(D2*u/H^2-1/3*(u.*(MD*u)+MD*(u.*u))/H);
 end
 function u_t=dudt_hol2(t,u)
     global H MD S SD2 II

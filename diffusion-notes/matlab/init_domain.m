@@ -29,8 +29,8 @@ for k=1:L
   D2(k,mod(L+k-2,L)+1)=1;
 end
 % Set up holistic operator S=(1+delta^2/6)^(-1) as a matrix:
-global S II
+global Sinv II
 II=eye(L,L);
-S=inv(II+D2/6);
+Sinv=(II+D2/6);
 global SD2
-SD2=6*(II-S);
+SD2=6*(II-Sinv);
