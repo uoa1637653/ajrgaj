@@ -1,0 +1,27 @@
+The fidelity of numerical simulations of a dynamical system is constrained by
+the chosen discretisation of the PDE. The holistic approach described in this paper
+applies centre manifold theory to derive an asymptotically accurate
+representation of the microscale dynamics by suitably constraining the macroscale dynamics
+according to internal boundary conditions imposed at the end-points of each discrete interval.
+
+
+This [holistic] approach is demonstrated on the one-dimensional Burgers' equation, chosen for its
+known properties such as having unconditionally stable solutions.
+
+In contrast to similar approaches that start with a leading approximation that is piecewise constant and hence
+discontinuous, 
+the approach taken here is to start with a leading approximation that is piecewise linear but continuous,
+and to induce suitable internal boundary conditions on the spatial derivative of the asymtoptotic approximation.
+Collectively, these conditions lead uniquely to a temporal evolution formulation of the macroscale dynamics,
+informed by the underlying microscale dynamics. Unlike for arbitrary discretisation approaches, this approach
+precludes any choice needing to be made as to which finite-element forms the various spatial derivatives may take. 
+
+...
+give burgers u_t = u_xx - alpha u. u_x and mention cole-hopf leads to solution which is unconditionally stable.
+Indeed, any piecewise constant solution is an equilibrium, leading to its frequent use as an initial approximation.
+[cite]
+Such an approximation is discontinuous in u and hence is typically coupled with a continuity condition on u_x,
+subject to a smoothing parameter, gamma.
+In contrast, the approach taken here is to start with a continuous, piecewise linear approximation 
+(which is an equilibrium of the linearised system obtained with alpha=0) 
+and to induce a suitable condition on u_x.
