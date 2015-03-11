@@ -1,3 +1,5 @@
+Abstract
+--------
 The fidelity of numerical simulations of a dynamical system is constrained by
 the chosen discretisation of the PDE. The holistic approach described in this paper
 applies centre manifold theory to derive an asymptotically accurate
@@ -16,6 +18,8 @@ Collectively, these conditions lead uniquely to a temporal evolution formulation
 informed by the underlying microscale dynamics. Unlike for arbitrary discretisation approaches, this approach
 precludes any choice needing to be made as to which finite-element forms the various spatial derivatives may take. 
 
+Intro
+-----
 ...
 give burgers u_t = u_xx - alpha u. u_x and mention cole-hopf leads to solution which is unconditionally stable.
 Indeed, any piecewise constant solution is an equilibrium, leading to its frequent use as an initial approximation.
@@ -25,3 +29,19 @@ subject to a smoothing parameter, gamma.
 In contrast, the approach taken here is to start with a continuous, piecewise linear approximation 
 (which is an equilibrium of the linearised system obtained with alpha=0) 
 and to induce a suitable condition on u_x.
+
+Note that although the IBCs appear to be arbitrary, they are not quite so, but are in fact governed by the placement of the grid-points and the 
+form of the leading discrete approximation.
+
+Numerical results
+-----------------
+u(x,0)=Asin x
+It should be cautioned that these results are indicative rather than definitive.
+[figures]
+Observe that all of the various discretisation schemes become more stable as the number of intervals L increases, or,
+equivalently, the spatial grid-size H decreases.
+Also observe that, as popular wisdom holds/asserts, the advective formulation is the least numerically stable
+of all the schemes, and is outperformed by the conservative formulation.
+More surprisingly, both the mixture and holistic formulations are less stable than the conservative formulation for small H
+(large L). This is despite both former schemes utilising the same ratio of conservative to advective terms as predicted by
+Fornberg to be necessary for the stability of the advection equation (nu=0).
