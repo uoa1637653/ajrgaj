@@ -1,0 +1,87 @@
+\documentclass[12pt,a4paper]{article}
+
+\title{An application of piecewise-linear holistic discretisation}
+\author{G.A. Jarrad and A.J. Roberts}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+The fidelity of numerical simulation of a spatio-temporal dynamical system is 
+laregely constrained by the chosen discretisation of the PDE. 
+In particular, the modeller is typically free to choose
+arbitrary finite-element forms for the various spatial derivatives,
+without necessarily having knowledge of the accuracy of the resulting numerical schemes.
+The holistic discretisation approach described in this paper obviates the problem of arbitration. % mediation?
+
+Centre manifold theory is applied to derive an asymptotically accurate
+representation of the microscale dynamics of the one-dimensional Burgers' equation. 
+In the process, the corresponding macroscale dynamics 
+are constrained to match the microscale solution at discrete grid-points.
+The resulting representation of macroscale evolution provides an unambiguous discretisation of the PDE,
+suitable for numerical simulation. 
+
+The iterative process starts with a choice of the leading, macroscale approximation to the linearised system.
+Suitable internal boundary conditions are then induced on the spatial derivatives 
+at the end-points of each discrete interval.
+Although the choice of IBCs might appear to be arbitrary, they are in fact governed by the placement of the grid-points and the 
+form of the leading discrete approximation.
+The particular approach taken here is to start with a piecewise linear but continuous approximation,
+in contrast to similar analyses that use piecewise constant, discontinuous approximations.
+This is motivated by the principle that a more accurate leading approximation should lead to faster
+convergence of the asymtoptic solution, via the Rayleigh-Ritz theorem.
+
+Further iterations of the centre manifold process lead inexorably to a temporal evolution formulation of the macroscale dynamics,
+holistically informed by the underlying microscale dynamics.  
+We examine the accuracy and stability of the resulting numerical scheme, in comparison to
+the behaviours of several other typical approximations.
+\end{abstract}
+
+\numberwithin{equation}{section}
+\numberwithin{figure}{section}
+\numberwithin{table}{section}
+\section{Introduction}\label{sec:intro}
+
+give burgers u_t = nu u_xx - alpha u. u_x and mention cole-hopf leads to known solution which is unconditionally stable.
+
+mention problem of two obvious/textbook choices of finite-element approximation of spatial derivative
+
+give 1st order holistic solution and discuss.
+
+\section{Motivation}\label{sec:motiv}
+
+Consider a general dynamical system of the form
+\[
+\dot{\vec{u}} = {\cal L}\vec{u}+{\cal N}(\vec{u})\,,
+\]
+where it is pre-supposed for convenience that ${\cal N}(\vec{0})=\vec{0}$. 
+The slow manifold approximation to the dynamics of the linearised system
+$\dot{\vec{u}}={\cal L}\vec{u}$ about $\vec{u}=\vec{0}$ is then given by
+\[
+\vec{u} = V\vec{s}\,, \dot{\vec{s}} = G\vec{s}\,,
+\] 
+whereupon $VG\vec{s}=\{\cal L}V\vec{s}$ for arbitrary $\vec{s}$.
+Observe now that the particular choice of $G=\mbox{diag}(\left[\lambda_j\right])$ uncouples this relation into the components
+${\cal L}\vec{v}_j=\lambda\vec{v}_j$, where $V=\left[\vec{v}_j\right]$.
+Hence, under the strong assumption that ${\cal L}$ is self-adjoint, the Rayleigh-Ritz theorem indicates that
+\[
+\lambda_j = R(\vec{v}_j)\,, R(\vec{x}) = \frac{\langle\vec{x,{\cal L}\vec{x}\rangle}{\||\vec{x}\||^2}\,.
+\]
+
+\section{Linear analysis}
+
+Indeed, any piecewise constant solution is an equilibrium, leading to its frequent use as an initial approximation.
+[cite]
+Such an approximation is discontinuous in u and hence is typically coupled with a continuity condition on u_x,
+subject to a homotopic smoothing parameter, gamma.
+In contrast, the approach taken here is to start with a continuous, piecewise linear approximation 
+(which is an equilibrium of the linearised system obtained with alpha=0) 
+and to induce a suitable condition on u_x.
+
+\section{Nonlinear analysis}
+
+\section{Numerical stability}
+
+\section{Conclusion}
+
+\end{document}
