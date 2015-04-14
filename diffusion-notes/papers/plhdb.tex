@@ -1,4 +1,13 @@
 \documentclass[12pt,a4paper]{article}
+\usepackage{graphicx,subcaption}
+\usepackage{amsmath,amsfonts,defns}
+\usepackage{pgfplots}
+
+\newcommand{\Bb}[1]{%
+  \expandafter\def\csname#1#1\endcsname%
+  {\ensuremath{\mathbb #1}}}
+\Bb X\Bb T\Bb R\Bb I\Bb J
+\newcommand{\secref}[1]{\ref{sec:#1}}
 
 \title{An application of piecewise-linear holistic discretisation}
 \author{G.A. Jarrad and A.J. Roberts}
@@ -41,46 +50,101 @@ the behaviours of several other typical approximations.
 \numberwithin{figure}{section}
 \numberwithin{table}{section}
 \section{Introduction}\label{sec:intro}
+As an application of holistic discretisation, consider the numerical simulation of
+an arbitrary solution $u:\XX\times \TT\mapsto \RR$ to the advection--diffusion (Burgers') equation
+\begin{eqnarray}
+	\D tu = \nu\DD xu - \alpha u\D xu\,.
+\label{eq:burgers}
+\end{eqnarray}
+%Mention cole-hopf leads to known solution which is unconditionally stable.
+The first step is to spatially discretise $\XX$ into a sequence of $L$ intervals bounded by $N=L+1$  grid-points,
+ ${\vec X}=[X_j]_{j=0}^{L}$, 
+whereupon the continuum dynamics $u$ are summarised by the coarse dynamics
+${\vec U}=[U_j]_{j=0}^{L}$, for $U_j(t):=u(X_j,t)$ for all $t\in \TT$.
+For convenience, it may be supposed henceforth that the grid spacing is regular,
+namely $X_{j+1}-X_j=H$ for all $j=0,1,\ldots,L-1$.
 
-give burgers u_t = nu u_xx - alpha u. u_x and mention cole-hopf leads to known solution which is unconditionally stable.
+The next step is to specify the explicit form of the coarse temporal evolution
+\begin{eqnarray}
+	\dot{\vec U}(t) = {\vec g}({\vec U}(t))\,.
+\label{eq:temporal}
+\end{eqnarray}
+The traditional approach is to use centred approximations, e.g.\ $\delta^2 U_j/H^2$ for $\DD xu$
+and $U_j\mu\delta U_j/H$ for $u\D xu$, 
+where $\delta=\sigma^{\frac{1}{2}}-\sigma^{-\frac{1}{2}}$,
+$\mu=(\sigma^{\frac{1}{2}}+\sigma^{-\frac{1}{2}})/2$,
+and $\sigma U_j=U_{j+1}$.
+However, the advection term has another plausible representation, namely the
+conservative form $\mu\delta U_j^2/2H$.
+For illustrative purposes, a mixture of the two latter representations will be used for comparison,
+namely
+\begin{eqnarray}
+	\dot{U}_j = \nu\frac{\delta^2 U_j}{H^2}-(1-\theta)\alpha\frac{U_j\mu\delta U_j}{H}
+-\theta\alpha\frac{\mu\delta U_j^2}{2H}\,.
+\label{eq:mixture}
+\end{eqnarray}
+In contrast, the holistic approach has no such representational ambiguity, and, 
+as shown in Section~\secref{nonlin}, gives rise at first-order to the model
+\begin{eqnarray}
+	\dot{U}_j = S\left(\nu\frac{\delta^2 U_j}{H^2}-\alpha\frac{U_j\mu\delta U_j}{3H}
+-\alpha\frac{\mu\delta U_j^2}{3H}\right)\,,
+\label{eq:holistic1}
+\end{eqnarray}
+where $S=(1+\delta^2/6)^{-1}$. Observe that, apart from the non-local corrective operator $S$,
+this holistic model matches the mixture model~\eqref{eq:mixture} for $\theta=\frac{2}{3}$.
+This parameter value is exactly the critical value predicted by Fornberg \cite{} 
+to be necessary for stable simulation (with $\nu=0$ and $\alpha=1$) for a selection of numerical integration schemes.
+Further comparisons of the numerical behaviours of the holistic and mixture models are given in Section~\secref{numeric}.
 
-mention problem of two obvious/textbook choices of finite-element approximation of spatial derivative
-
-give 1st order holistic solution and discuss.
-
-\section{Motivation}\label{sec:motiv}
-
+\section{Motivation}\label{sec:motive}
+The choice of a piecewise linear leading approximation, in contrast to the usual piecewise constant one
+(citations), is motivated by an application of the Rayleigh--Ritz theorem.
 Consider a general dynamical system of the form
-\[
-\dot{\vec{u}} = {\cal L}\vec{u}+{\cal N}(\vec{u})\,,
-\]
-where it is pre-supposed for convenience that ${\cal N}(\vec{0})=\vec{0}$. 
+\begin{eqnarray}
+\dot{\vec u} = {\cal L}{\vec u}+{\cal N}({\vec u})\,,
+\label{eq:nonlin:gen}
+\end{eqnarray}
+where it is pre-supposed for convenience that ${\cal N}({\vec 0})={\vec 0}$. 
 The slow manifold approximation to the dynamics of the linearised system
-$\dot{\vec{u}}={\cal L}\vec{u}$ about $\vec{u}=\vec{0}$ is then given by
-\[
-\vec{u} = V\vec{s}\,, \dot{\vec{s}} = G\vec{s}\,,
-\] 
-whereupon $VG\vec{s}=\{\cal L}V\vec{s}$ for arbitrary $\vec{s}$.
-Observe now that the particular choice of $G=\mbox{diag}(\left[\lambda_j\right])$ uncouples this relation into the components
-${\cal L}\vec{v}_j=\lambda\vec{v}_j$, where $V=\left[\vec{v}_j\right]$.
-Hence, under the strong assumption that ${\cal L}$ is self-adjoint, the Rayleigh-Ritz theorem indicates that
-\[
-\lambda_j = R(\vec{v}_j)\,, R(\vec{x}) = \frac{\langle\vec{x,{\cal L}\vec{x}\rangle}{\||\vec{x}\||^2}\,.
-\]
+$\dot{{\vec u}}={\cal L}{\vec u}$ about ${\vec u}={\vec 0}$ is then given by
+\begin{eqnarray}
+{\vec u} = V{\vec s}\,, && \dot{{\vec s}} = \Lambda{\vec s}\,,
+\end{eqnarray}
+whereupon $V\Lambda{\vec s}={\cal L}V{\vec s}$ for arbitrary ${\vec s}$.
+Observe now that a particular choice of $\Lambda=\mbox{diag}(\left[\lambda_j\right])$ uncouples this relation into the components
+${\cal L}{\vec v}_j=\lambda{\vec v}_j$, where $V=\left[{\vec v}_j\right]$.
 
-\section{Linear analysis}
+Hence, under the strong assumption that ${\cal L}$ is self-adjoint, the Rayleigh--Ritz theorem indicates that
+$\lambda_j = R({\vec v}_j)$ for the Rayleigh quotient 
+\[ R({\vec v}) = \frac{\langle{\vec v},{\cal L}{\vec v}\rangle}{\|{\vec v}\|^2}\,.\]
+Now, upon perturbing ${\vec v}_j$, e.g.\ choosing ${\vec u}={\vec v}_j+\epsilon{\vec w}$, it can be shown
+that $R({\vec u})=\lambda_j+O(\epsilon)$ for arbitrary ${\vec w}$, and further that
+ $R({\vec u})=\lambda_j+O(\epsilon^2)$ in the special case that ${\vec w}\perp{\vec v}_j$.
+This provides support for the general expansions
+\begin{eqnarray}
+{\vec u} \sim V{\vec s}+\epsilon{\vec w}_1+\epsilon^2{\vec w}_2+\ldots\,,
+&& 
+\dot{\vec u} \sim V\Lambda{\vec s}+\epsilon{\vec g}_1+\epsilon^2{\vec g}_2+\ldots\,,
+\end{eqnarray}
+for the nonlinear dynamical system~\eqref{eq:nonlin:gen}.
 
+\section{Linear analysis}\label{sec:lin}
+The linearisation of equation~\eqref{eq:burgers} takes the form $\dot{\vec u}={\cal L}{\vec u}$ for the linear operator
+${\cal L}=\nu\DD x{}$. It can be shown that ${\cal L}$ is self-adjoint under any of these boundary conditions:
+periodic ($U_L=U_0$); Dirichlet ($U_0=U_L=0$); or Neuman ($U'_0=U'_L=0$).
+
+***
 Indeed, any piecewise constant solution is an equilibrium, leading to its frequent use as an initial approximation.
 [cite]
-Such an approximation is discontinuous in u and hence is typically coupled with a continuity condition on u_x,
+Such an approximation is discontinuous in u and hence is typically coupled with a continuity condition on $u_x$,
 subject to a homotopic smoothing parameter, gamma.
 In contrast, the approach taken here is to start with a continuous, piecewise linear approximation 
 (which is an equilibrium of the linearised system obtained with alpha=0) 
-and to induce a suitable condition on u_x.
+and to induce a suitable condition on $u_x$.
 
-\section{Nonlinear analysis}
+\section{Nonlinear analysis}\label{sec:nonlin}
 
-\section{Numerical stability}
+\section{Numerical stability}\label{sec:numeric}
 
 \section{Conclusion}
 
