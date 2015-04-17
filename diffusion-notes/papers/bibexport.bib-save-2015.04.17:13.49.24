@@ -1,0 +1,13 @@
+
+
+@article{Fornberg73,
+  author =        {B. Fornberg},
+  journal =       {Maths of Comput.},
+  pages =         {45--57},
+  title =         {On the instability of the leap-frog and
+                   {Crank--Nicolson} approximations of a nonlinear
+                   partial differential equation},
+  volume =        {27},
+  year =          {1973},
+}
+

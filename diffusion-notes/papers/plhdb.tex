@@ -1,4 +1,10 @@
-\documentclass[12pt,a4paper]{article}
+\IfFileExists{ajr.sty}
+{\documentclass[12pt]{article}
+\usepackage[a5paper,margin=5mm]{geometry}}
+{\documentclass[12pt,a4paper]{article}}
+
+\usepackage{url,natbib}
+\let\harvardurl\url
 \usepackage{graphicx,subcaption}
 \usepackage{amsmath,amsfonts,defns}
 \usepackage{pgfplots}
@@ -10,14 +16,14 @@
 \newcommand{\secref}[1]{\ref{sec:#1}}
 
 \title{An application of piecewise-linear holistic discretisation}
-\author{G.A. Jarrad and A.J. Roberts}
+\author{G.~A. Jarrad and A.~J. Roberts}
 
 \begin{document}
 \maketitle
 
 \begin{abstract}
 The fidelity of numerical simulation of a spatio-temporal dynamical system is 
-laregely constrained by the chosen discretisation of the PDE. 
+largely constrained by the chosen discretisation of the PDE. 
 In particular, the modeller is typically free to choose
 arbitrary finite-element forms for the various spatial derivatives,
 without necessarily having knowledge of the accuracy of the resulting numerical schemes.
@@ -38,7 +44,7 @@ form of the leading discrete approximation.
 The particular approach taken here is to start with a piecewise linear but continuous approximation,
 in contrast to similar analyses that use piecewise constant, discontinuous approximations.
 This is motivated by the principle that a more accurate leading approximation should lead to faster
-convergence of the asymtoptic solution, via the Rayleigh-Ritz theorem.
+convergence of the asymptotic solution, via the Rayleigh-Ritz theorem.
 
 Further iterations of the centre manifold process lead inexorably to a temporal evolution formulation of the macroscale dynamics,
 holistically informed by the underlying microscale dynamics.  
@@ -50,26 +56,23 @@ the behaviours of several other typical approximations.
 \numberwithin{figure}{section}
 \numberwithin{table}{section}
 \section{Introduction}\label{sec:intro}
-As an application of holistic discretisation, consider the numerical simulation of
-an arbitrary solution $u:\XX\times \TT\mapsto \RR$ to the advection--diffusion (Burgers') equation
+As an application of holistic discretisation, consider the numerical simulation of a field~\(u(x,t)\) to the nonlinear advection--diffusion Burgers' \pde
 \begin{eqnarray}
 	\D tu = \nu\DD xu - \alpha u\D xu\,.
 \label{eq:burgers}
 \end{eqnarray}
 %Mention cole-hopf leads to known solution which is unconditionally stable.
-The first step is to spatially discretise $\XX$ into a sequence of $L$ intervals bounded by $N=L+1$  grid-points,
- ${\vec X}=[X_j]_{j=0}^{L}$, 
-whereupon the continuum dynamics $u$ are summarised by the coarse dynamics
-${\vec U}=[U_j]_{j=0}^{L}$, for $U_j(t):=u(X_j,t)$ for all $t\in \TT$.
-For convenience, it may be supposed henceforth that the grid spacing is regular,
-namely $X_{j+1}-X_j=H$ for all $j=0,1,\ldots,L-1$.
+The spatial domain~\(\XX\) is of length~\(L\), \(0\leq x\leq L\)\,, and we consider solutions \(L\)-periodic in space.
+The first step is to spatially discretise $\XX$ into $N$ equi-spaced intervals bounded by $N$~grid-points~\(X_j\), \({j=1,\ldots,N}\), spacing~\(H\).
+Whereupon the continuum dynamics of field~$u(x,t)$ are summarised by the coarse dynamics
+${\vec U}=(U_1,U_2,\ldots,U_N)$, for $U_j(t):=u(X_j,t)$ for all $t\in \TT$.
 
 The next step is to specify the explicit form of the coarse temporal evolution
 \begin{eqnarray}
 	\dot{\vec U}(t) = {\vec g}({\vec U}(t))\,.
 \label{eq:temporal}
 \end{eqnarray}
-The traditional approach is to use centred approximations, e.g.\ $\delta^2 U_j/H^2$ for $\DD xu$
+The traditional approach is to use centred approximations, for example, $\delta^2 U_j/H^2$ for $\DD xu$
 and $U_j\mu\delta U_j/H$ for $u\D xu$, 
 where $\delta=\sigma^{\frac{1}{2}}-\sigma^{-\frac{1}{2}}$,
 $\mu=(\sigma^{\frac{1}{2}}+\sigma^{-\frac{1}{2}})/2$,
@@ -92,13 +95,13 @@ as shown in Section~\secref{nonlin}, gives rise at first-order to the model
 \end{eqnarray}
 where $S=(1+\delta^2/6)^{-1}$. Observe that, apart from the non-local corrective operator $S$,
 this holistic model matches the mixture model~\eqref{eq:mixture} for $\theta=\frac{2}{3}$.
-This parameter value is exactly the critical value predicted by Fornberg \cite{} 
+This parameter value is exactly the critical value predicted by \cite{Fornberg73}
 to be necessary for stable simulation (with $\nu=0$ and $\alpha=1$) for a selection of numerical integration schemes.
 Further comparisons of the numerical behaviours of the holistic and mixture models are given in Section~\secref{numeric}.
 
 \section{Motivation}\label{sec:motive}
 The choice of a piecewise linear leading approximation, in contrast to the usual piecewise constant one
-(citations), is motivated by an application of the Rayleigh--Ritz theorem.
+ \cite[]{Roberts98a, Roberts00a, Roberts2011a}, is motivated by an application of the Rayleigh--Ritz theorem.
 Consider a general dynamical system of the form
 \begin{eqnarray}
 \dot{\vec u} = {\cal L}{\vec u}+{\cal N}({\vec u})\,,
@@ -114,24 +117,25 @@ whereupon $V\Lambda{\vec s}={\cal L}V{\vec s}$ for arbitrary ${\vec s}$.
 Observe now that a particular choice of $\Lambda=\mbox{diag}(\left[\lambda_j\right])$ uncouples this relation into the components
 ${\cal L}{\vec v}_j=\lambda{\vec v}_j$, where $V=\left[{\vec v}_j\right]$.
 
-Hence, under the strong assumption that ${\cal L}$ is self-adjoint, the Rayleigh--Ritz theorem indicates that
-$\lambda_j = R({\vec v}_j)$ for the Rayleigh quotient 
+Hence, when ${\cal L}$ is self-adjoint, the Rayleigh--Ritz theorem is that $\lambda_j = R({\vec v}_j)$ for the Rayleigh quotient 
 \[ R({\vec v}) = \frac{\langle{\vec v},{\cal L}{\vec v}\rangle}{\|{\vec v}\|^2}\,.\]
-Now, upon perturbing ${\vec v}_j$, e.g.\ choosing ${\vec u}={\vec v}_j+\epsilon{\vec w}$, it can be shown
-that $R({\vec u})=\lambda_j+O(\epsilon)$ for arbitrary ${\vec w}$, and further that
- $R({\vec u})=\lambda_j+O(\epsilon^2)$ in the special case that ${\vec w}\perp{\vec v}_j$.
-This provides support for the general expansions
-\begin{eqnarray}
-{\vec u} \sim V{\vec s}+\epsilon{\vec w}_1+\epsilon^2{\vec w}_2+\ldots\,,
-&& 
-\dot{\vec u} \sim V\Lambda{\vec s}+\epsilon{\vec g}_1+\epsilon^2{\vec g}_2+\ldots\,,
-\end{eqnarray}
-for the nonlinear dynamical system~\eqref{eq:nonlin:gen}.
+Further, upon perturbing ${\vec v}_j$ to ${\vec u}={\vec v}_j+\epsilon{\vec w}$, it can be shown
+that $R({\vec u})=\lambda_j+O(\epsilon^2)$.
+%This provides support for the general expansions
+%\begin{eqnarray}
+%{\vec u} \sim V{\vec s}+\epsilon{\vec w}_1+\epsilon^2{\vec w}_2+\ldots\,,
+%&& 
+%\dot{\vec u} \sim V\Lambda{\vec s}+\epsilon{\vec g}_1+\epsilon^2{\vec g}_2+\ldots\,,
+%\end{eqnarray}
+%for the nonlinear dynamical system~\eqref{eq:nonlin:gen}.
+The slow manifold is based upon the slow subspace spanned by the slow eigenvectors, and the evolution on the slow manifold corresponds to eigenvalues of the linearisation.
+Hence the Rayleigh--Ritz quotient suggests that the more accurate we make a linear subspace approximation to the field~\(u(x,t)\), the more accurate the evolution on the slow manifold.
+Consequently, Section~\ref{sec:lin} develops a piecewise linear and continuous subspace approximation to the field, instead of the piecewise constant and discontinuous approximation developed previously \cite[]{Roberts98a, Roberts00a, Roberts2011a}.
 
 \section{Linear analysis}\label{sec:lin}
 The linearisation of equation~\eqref{eq:burgers} takes the form $\dot{\vec u}={\cal L}{\vec u}$ for the linear operator
 ${\cal L}=\nu\DD x{}$. It can be shown that ${\cal L}$ is self-adjoint under any of these boundary conditions:
-periodic ($U_L=U_0$); Dirichlet ($U_0=U_L=0$); or Neuman ($U'_0=U'_L=0$).
+\(L\)-periodic; Dirichlet ($u(0,t)=u(L,t)=0$); or Neuman ($u_x(0,t)=u_x(L,t)=0$).
 
 ***
 Indeed, any piecewise constant solution is an equilibrium, leading to its frequent use as an initial approximation.
@@ -147,5 +151,12 @@ and to induce a suitable condition on $u_x$.
 \section{Numerical stability}\label{sec:numeric}
 
 \section{Conclusion}
+
+
+\bibliographystyle{agsm}
+\IfFileExists{ajr.sty}
+{\bibliography{bibexport,bib,ajr}}
+{\bibliography{bibexport,yourbibfile}}
+
 
 \end{document}

@@ -1,0 +1,29 @@
+\begin{thebibliography}{xx}
+
+\harvarditem{Fornberg}{1973}{Fornberg73}
+Fornberg, B.  \harvardyearleft 1973\harvardyearright , `On the instability of
+  the leap-frog and {Crank--Nicolson} approximations of a nonlinear partial
+  differential equation', {\em Maths of Comput.} {\bf 27},~45--57.
+
+\harvarditem{Roberts}{2001}{Roberts98a}
+Roberts, A.~J.  \harvardyearleft 2001\harvardyearright , `Holistic
+  discretisation ensures fidelity to {Burgers'} equation', {\em Applied
+  Numerical Modelling} {\bf 37},~371--396.
+\newblock \doi{10.1016/S0168-9274(00)00053-2}.
+\newline\harvardurl{http://arXiv.org/abs/chao-dyn/9901011}
+
+\harvarditem{Roberts}{2003}{Roberts00a}
+Roberts, A.~J.  \harvardyearleft 2003\harvardyearright , `A holistic finite
+  difference approach models linear dynamics consistently', {\em Mathematics of
+  Computation} {\bf 72},~247--262.
+\newline\harvardurl{http://www.ams.org/mcom/2003-72-241/S0025-5718-02-01448-5}
+
+\harvarditem[Roberts et~al.]{Roberts, MacKenzie \harvardand\
+  Bunder}{2014}{Roberts2011a}
+Roberts, A.~J., MacKenzie, T. \harvardand\ Bunder, J.  \harvardyearleft
+  2014\harvardyearright , `A dynamical systems approach to simulating
+  macroscale spatial dynamics in multiple dimensions', {\em J.~Engineering
+  Mathematics} {\bf 86}(1),~175--207.
+\newline\harvardurl{http://arxiv.org/abs/1103.1187}
+
+\end{thebibliography}
