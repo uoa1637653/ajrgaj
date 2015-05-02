@@ -56,16 +56,16 @@ the behaviours of several other typical approximations.
 \numberwithin{figure}{section}
 \numberwithin{table}{section}
 \section{Introduction}\label{sec:intro}
-As an application of holistic discretisation, consider the numerical simulation of a field~\(u(x,t)\) to the nonlinear advection--diffusion Burgers' \pde
+As an application of holistic discretisation, consider the numerical simulation of a field~\(u(x,t)\) of the nonlinear advection--diffusion Burgers' \pde
 \begin{eqnarray}
 	\D tu = \nu\DD xu - \alpha u\D xu\,.
 \label{eq:burgers}
 \end{eqnarray}
 %Mention cole-hopf leads to known solution which is unconditionally stable.
 The spatial domain~\(\XX\) is of length~\(L\), \(0\leq x\leq L\)\,, and we consider solutions \(L\)-periodic in space.
-The first step is to spatially discretise $\XX$ into $N$ equi-spaced intervals bounded by $N$~grid-points~\(X_j\), \({j=1,\ldots,N}\), spacing~\(H\).
-Whereupon the continuum dynamics of field~$u(x,t)$ are summarised by the coarse dynamics
-${\vec U}=(U_1,U_2,\ldots,U_N)$, for $U_j(t):=u(X_j,t)$ for all $t\in \TT$.
+The first step is to discretise $\XX$ into $N$ equi-spaced intervals bounded by $N+1$~grid-points~\(X_j\), \({j=0,\ldots,N}\), with spacing~\(H\).
+The continuum dynamics of the field~$u(x,t)$ are now summarised by the coarse dynamics
+${\vec U}=(U_1,U_2,\ldots,U_N)$, where $U_j(t):=u(X_j,t)$ for all $t\in \TT$.
 
 The next step is to specify the explicit form of the coarse temporal evolution
 \begin{eqnarray}
@@ -99,6 +99,15 @@ This parameter value is exactly the critical value predicted by \cite{Fornberg73
 to be necessary for stable simulation (with $\nu=0$ and $\alpha=1$) for a selection of numerical integration schemes.
 Further comparisons of the numerical behaviours of the holistic and mixture models are given in Section~\secref{numeric}.
 
+The final step in the simulation process is to interpolate  from the coarse solution ${\vec U}(t)$ 
+back to the continuum field $u(x,t)$ via some approximate spatial mapping of the form
+\begin{eqnarray}
+	u(x,t)  \sim \hat{u}(x,{\vec U}(t)).
+	\label{eq:spatial}
+\end{eqnarray}
+We show in Section~\secref{nonlin} how this mapping is holistically constructed  by use of centre manifold theory.
+**TODO show equation.
+
 \section{Motivation}\label{sec:motive}
 The choice of a piecewise linear leading approximation, in contrast to the usual piecewise constant one
  \cite[]{Roberts98a, Roberts00a, Roberts2011a}, is motivated by an application of the Rayleigh--Ritz theorem.
@@ -109,17 +118,21 @@ Consider a general dynamical system of the form
 \end{eqnarray}
 where it is pre-supposed for convenience that ${\cal N}({\vec 0})={\vec 0}$. 
 The slow manifold approximation to the dynamics of the linearised system
-$\dot{{\vec u}}={\cal L}{\vec u}$ about ${\vec u}={\vec 0}$ is then given by
+\begin{eqnarray}
+ \dot{{\vec u}}={\cal L}{\vec u}
+\label{eq:lin:gen}
+\end{eqnarray}
+about ${\vec u}={\vec 0}$ is then parameterised as
 \begin{eqnarray}
 {\vec u} = V{\vec s}\,, && \dot{{\vec s}} = \Lambda{\vec s}\,,
 \end{eqnarray}
 whereupon $V\Lambda{\vec s}={\cal L}V{\vec s}$ for arbitrary ${\vec s}$.
-Observe now that a particular choice of $\Lambda=\mbox{diag}(\left[\lambda_j\right])$ uncouples this relation into the components
-${\cal L}{\vec v}_j=\lambda{\vec v}_j$, where $V=\left[{\vec v}_j\right]$.
+Observe now that a particular choice of $\Lambda=\mbox{diag}(\lambda_1,\lambda_2,\ldots)$ uncouples this relation into the components
+${\cal L}{\vec v}_j=\lambda{\vec v}_j$, where $V=\left[{\vec v}_1,{\vec v}_2,\ldots\right]$.
 
-Hence, when ${\cal L}$ is self-adjoint, the Rayleigh--Ritz theorem is that $\lambda_j = R({\vec v}_j)$ for the Rayleigh quotient 
+Now, when ${\cal L}$ is self-adjoint, the Rayleigh--Ritz theorem is that $\lambda_j = R({\vec v}_j)$ for the Rayleigh quotient 
 \[ R({\vec v}) = \frac{\langle{\vec v},{\cal L}{\vec v}\rangle}{\|{\vec v}\|^2}\,.\]
-Further, upon perturbing ${\vec v}_j$ to ${\vec u}={\vec v}_j+\epsilon{\vec w}$, it can be shown
+ It can further be shown, upon perturbing ${\vec v}_j$ to ${\vec u}={\vec v}_j+\epsilon{\vec w}$,
 that $R({\vec u})=\lambda_j+O(\epsilon^2)$.
 %This provides support for the general expansions
 %\begin{eqnarray}
@@ -133,18 +146,143 @@ Hence the Rayleigh--Ritz quotient suggests that the more accurate we make a line
 Consequently, Section~\ref{sec:lin} develops a piecewise linear and continuous subspace approximation to the field, instead of the piecewise constant and discontinuous approximation developed previously \cite[]{Roberts98a, Roberts00a, Roberts2011a}.
 
 \section{Linear analysis}\label{sec:lin}
-The linearisation of equation~\eqref{eq:burgers} takes the form $\dot{\vec u}={\cal L}{\vec u}$ for the linear operator
-${\cal L}=\nu\DD x{}$. It can be shown that ${\cal L}$ is self-adjoint under any of these boundary conditions:
-\(L\)-periodic; Dirichlet ($u(0,t)=u(L,t)=0$); or Neuman ($u_x(0,t)=u_x(L,t)=0$).
+Burgers' equation~\eqref{eq:burgers} linearises to equation~\eqref{eq:lin:gen} for $\alpha=0$, with the linear operator
+${\cal L}=\nu\DD x{}$. It can be shown that ${\cal L}$ is self-adjoint under any of these external boundary conditions:
+\(L\)-periodic; Dirichlet ($u(0,t)=u(L,t)=0$); or Neuman ($u_x(0,t)=u_x(L,t)=0$). We have chosen the first
+condition for convenience.
+The linear system has two eigenmodes corresponding to eigenvalue $\lambda=0$, namely
+\begin{eqnarray}
+  v = 1\,, && v = x\,, 
+\end{eqnarray}
+and general eigenmodes for $\lambda=-\nu k^2<0$ of the form
+\begin{eqnarray}
+ v = e^{-\nu k^2 t\pm ikx}\,.&&
+\end{eqnarray}
+Hence, any peicewise--linear approximation to $u$ is an equilibrium solution of the linearised system.
+We choose a continuous approximation that is aligned at the internal grid-points $X_j=jH$, $j=1,2,\ldots,N-1$, namely
+\begin{eqnarray}
+     \hat{u}_0 = \sum_{j=1}^{N}\chi_j(\xi_j U_j+(1-\xi_j)U_{j-1})
+% = \sum_{j=1}^{N}\chi_j(\xi_j+(1-\xi_j)\sigma^{-1})U_j
+\,,
+\label{eq:uhat0}
+\end{eqnarray}
+with indicator $\chi_j(x)=1$ (else 0) for $X_{j-1}\le x\le X_j$, and linear interpolator
+$\xi_j(x)=(x-X_{j-1})/H$. This enforced continuity is represented by internal boundary conditions
+(IBCs) of the form 
+\begin{eqnarray}
+   [u]_j = 0 && \mbox{for } j=1,2,\ldots,N-1\,,
+\label{eq:cont-cond}
+\end{eqnarray}
+where $ [u]_j := \lim_{\epsilon\rightarrow 0^{+}} u(X_j+\epsilon,t)-u(X_j-\epsilon,t)$
+represents the spatial jump in $u$ across the boundary between the $j$-th and $(j+1)$-th intervals.
 
-***
-Indeed, any piecewise constant solution is an equilibrium, leading to its frequent use as an initial approximation.
-[cite]
-Such an approximation is discontinuous in u and hence is typically coupled with a continuity condition on $u_x$,
-subject to a homotopic smoothing parameter, gamma.
-In contrast, the approach taken here is to start with a continuous, piecewise linear approximation 
-(which is an equilibrium of the linearised system obtained with alpha=0) 
-and to induce a suitable condition on $u_x$.
+Unfortunately, this continuity does not hold for the first spatial derivative, since it can be shown that
+$[\D x{\hat{u}_0}]_j=\delta^2U_j/H$. Hence, we introduce a homotopic smoothing parameter $\gamma$
+($0\le\gamma\le 1$),
+and enforce the additional IBCs: %smoothness condition that
+\begin{eqnarray}
+   [u_x]_j = \frac{1-\gamma}{H}\left.u\right|_{X_j} && \mbox{for } j=1,2,\ldots,N-1\,,
+\label{eq:smooth-cond}
+\end{eqnarray}
+such that smooth approximations are found in the limit as $\gamma\rightarrow 1$.
+Consequently, the state-space is now extended to $(u,\alpha,\gamma)$, for which $(\hat{u}_0,0,0)$ is
+an equilibrium of equation~\eqref{eq:burgers}.  
+
+We now demonstrate that the system will be robust to nonlinear perturbations about this equilibrium.
+We seek the spatial stability over $\XX$, allowing for discretisation, of the eigenmode
+\begin{eqnarray}
+v = \sum_{j=1}^{N}\chi_j \Re\left(a_j e^{i\kappa\xi_j}\right)\,,
+\end{eqnarray}
+for some fixed, nondimensionalised wavenumber $\kappa=kH$, and 
+arbitrary, time--varying coefficients $a_j=A_j+iB_j$. 
+The continuity condition~(\ref{eq:cont-cond}) now implies that
+\begin{eqnarray}
+\Re\left(a_{j+1} - a_j e^{i\kappa}\right) = 0\,.
+\end{eqnarray}
+Similarly, the smoothness condition~(\ref{eq:smooth-cond}) implies that 
+\begin{eqnarray}
+-\kappa \Im\left(a_{j+1} - a_j e^{i\kappa}\right) =  
+(1-\gamma)\Re\left(a_{j+1} e^{i\kappa} + a_j - 2 a_j e^{i\kappa}\right)\,.
+\end{eqnarray}
+In coefficient form, the update from the $j$-th to $(j+1)$-th interval is
+\begin{eqnarray}
+\left[\begin{array}{cc}
+1 & 0\\
+fc & 1-fs\\
+\end{array}\right]
+\left[\begin{array}{c}
+A_{j+1}\\
+B_{j+1}\\
+\end{array}\right]
+=
+\left[\begin{array}{cc}
+c & -s\\
+s+f(2c-1) & c-2fs\\
+\end{array}\right]
+\left[\begin{array}{c}
+A_{j}\\
+B_{j}\\
+\end{array}\right]\,,
+\end{eqnarray}
+where $c+is=e^{i\kappa}$ and $f=(1-\gamma)/\kappa$.
+Putting $a_{j+1}=\mu a_j$ then leads to the characteristic equation
+\begin{eqnarray}
+\mu^2-2\frac{c-fs}{1-fs}\mu+1 = 0\,,
+\end{eqnarray}
+with characteristic roots given by
+\begin{eqnarray}
+\mu & = & \beta\pm\sqrt{\beta^2-1}
+\hspace*{5mm}\mbox{for } 
+\beta~=~\frac{c-fs}{1-fs}\le 1\,.
+\end{eqnarray}
+Consequently, there are three distinct stability regimes governed by $\beta$:
+\begin{enumerate}
+\item $|\beta|<1$, which gives rise to complex roots with $|\mu|=1$ ({\em stable}). 
+This includes the limiting case of $\gamma=1$ ($f=0$), for which
+$\mu=c\pm is=e^{\pm i\kappa}$.
+
+\item $\beta=\pm 1$, corresponding to $\kappa=n\pi$, $n=0,1,2,\ldots$, 
+which gives rise to a repeated, real root of $\mu=\pm 1$ ({\em stable}).
+
+\item $\beta<-1$, which gives rise to the two real roots $\mu<-1$ and $-1<\mu<0$
+({\em saddle unstable}).
+\end{enumerate}
+The $\beta<-1$ regime comprises small regions of instability near $\kappa=(2n+1)\pi$,
+$n=0,1,2,\ldots$, for which the eigenmode cannot persist unattenuated throughout space.
+It can be shown that these forbidden regions obey
+\begin{eqnarray}
+\frac{\kappa}{2} <(1-\gamma)\tan\frac{\kappa}{2}\,, && \kappa\ne n\pi\,.
+\label{eq:leaforbid}
+\end{eqnarray}
+Thus, at equilibrium ($\gamma=0$) there is an initial forbidden gap $\kappa\in(0,\pi)$ adjacent to the centre manifold
+wavenumber $\kappa=0$ (see Figure~\ref{fig:leaspec}), indicating that transient solutions decay
+ to the centre manifold at a rate of at least
+$\lambda=-\nu k^2=-\frac{\nu\pi^2}{H^2}$. It is this gap that provides robustness to nonlinear perturbations
+about the equilibrium within some suitable region in state-space.
+\begin{figure}[hbt]
+\centering
+\begin{tikzpicture}
+\begin{axis}[ xlabel={$\kappa$}
+  ,axis x line=middle,axis y line=middle
+  ,thick,grid,samples=101
+  ,ymin=-1,ymax=8 ,domain=0:17
+  ,xtick={3.1416,6.2832,9.4248,12.5664,15.7080}
+  ,xticklabels={$\pi$,$2\pi$,$3\pi$,$4\pi$,$5\pi$}
+  ,legend pos=outer north east
+  ] 
+\addplot [blue,no marks] {tan(deg(x)/2)}; 
+\addlegendentry{$\tan(\kappa/2)$};
+\addplot [red,no marks,samples=2] {x/2}; 
+\addlegendentry{$\kappa/2$};
+\addplot [brown,only marks,mark=*] {0-99*(x/2<tan(deg(x)/2))};
+\addlegendentry{spectrum};
+\end{axis}
+\end{tikzpicture}
+\caption{The equilibrium ($\gamma=0$) spectrum determined by the forbidding condition~\eqref{eq:leaforbid}.
+The thick lines along the $\kappa$ axis indicate regions of stability.}
+\label{fig:leaspec}
+\end{figure}
+
 
 \section{Nonlinear analysis}\label{sec:nonlin}
 
