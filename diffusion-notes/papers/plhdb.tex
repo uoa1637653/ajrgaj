@@ -100,13 +100,21 @@ to be necessary for stable simulation (with $\nu=0$ and $\alpha=1$) for a select
 Further comparisons of the numerical behaviours of the holistic and mixture models are given in Section~\secref{numeric}.
 
 The final step in the simulation process is to interpolate  from the coarse solution ${\vec U}(t)$ 
-back to the continuum field $u(x,t)$ via some approximate spatial mapping of the form
+back to the continuum field $u(x,t)$ via a spatial mapping of the form
 \begin{eqnarray}
-	u(x,t)  \sim \hat{u}(x,{\vec U}(t)).
+	u(x,t)  = \hat{u}(x,{\vec U}(t))\,.
 	\label{eq:spatial}
 \end{eqnarray}
-We show in Section~\secref{nonlin} how this mapping is holistically constructed  by use of centre manifold theory.
-**TODO show equation.
+The complete holistic framework comprises equations~\eqref{eq:temporal} and \eqref{eq:spatial},  along with the addition of suitable boundary conditions that are discussed in Section~\ref{sec:lin}.
+We show in Section~\secref{nonlin} that, to first-order, the holistic mapping $\hat{u}$ takes the form
+\begin{eqnarray}
+\hat{u} = \sum_{j=1}^{N}\chi_j\left({\cal I}_{0}U_j+\frac{H^2}{6}{\cal I}_{1}\dot{U}_j
++\alpha\frac{H}{6}{\cal I}_{1}U_j\cdot (1-\sigma^{-1})U_j\right)\,,
+\end{eqnarray}
+using the interpolation operators ${\cal I}_{0}=\xi+(1-\xi)\sigma^{-1}$
+and ${\cal I}_{1}=\xi^3+(1-\xi)^{3}\sigma^{-1}-\xi(1-\sigma^{-1})-\sigma^{-1}$,
+where $\xi=\sum_{j=1}^{N}\chi_j\xi_j$ with $\xi_j(x)=(x-X_{j-1})/H$ 
+and $\chi_j(x)=1$ (else $0$) for $X_{j-1}\le x<X_j$.
 
 \section{Motivation}\label{sec:motive}
 The choice of a piecewise linear leading approximation, in contrast to the usual piecewise constant one
@@ -161,37 +169,37 @@ and general eigenmodes for $\lambda=-\nu k^2<0$ of the form
 Hence, any peicewise--linear approximation to $u$ is an equilibrium solution of the linearised system.
 We choose a continuous approximation that is aligned at the internal grid-points $X_j=jH$, $j=1,2,\ldots,N-1$, namely
 \begin{eqnarray}
-     \hat{u}_0 = \sum_{j=1}^{N}\chi_j(\xi_j U_j+(1-\xi_j)U_{j-1})
-% = \sum_{j=1}^{N}\chi_j(\xi_j+(1-\xi_j)\sigma^{-1})U_j
+     \hat{u}^{[0]} = \sum_{j=1}^{N}\chi_j(\xi U_j+(1-\xi)U_{j-1})
+% = \sum_{j=1}^{N}\chi_j(\xi+(1-\xi)\sigma^{-1})U_j
 \,,
 \label{eq:uhat0}
 \end{eqnarray}
-with indicator $\chi_j(x)=1$ (else 0) for $X_{j-1}\le x\le X_j$, and linear interpolator
-$\xi_j(x)=(x-X_{j-1})/H$. This enforced continuity is represented by internal boundary conditions
+with indicator $\chi_j(x)=1$ (else 0) for $X_{j-1}\le x<X_j$, and dimensionless coordinate
+$\xi(x)=\sum_{j=1}^{N}\chi_j(x)(x-X_{j-1})/H$. This enforced continuity is represented by internal boundary conditions
 (IBCs) of the form 
 \begin{eqnarray}
-   [u]_j = 0 && \mbox{for } j=1,2,\ldots,N-1\,,
+   [\hat{u}]_j = 0 && \mbox{for } j=1,2,\ldots,N-1\,,
 \label{eq:cont-cond}
 \end{eqnarray}
 where $ [u]_j := \lim_{\epsilon\rightarrow 0^{+}} u(X_j+\epsilon,t)-u(X_j-\epsilon,t)$
 represents the spatial jump in $u$ across the boundary between the $j$-th and $(j+1)$-th intervals.
 
 Unfortunately, this continuity does not hold for the first spatial derivative, since it can be shown that
-$[\D x{\hat{u}_0}]_j=\delta^2U_j/H$. Hence, we introduce a homotopic smoothing parameter $\gamma$
+$[\D x{\hat{u}^{[0]}}]_j=\delta^2U_j/H$. Hence, we introduce a homotopic smoothing parameter $\gamma$
 ($0\le\gamma\le 1$),
 and enforce the additional IBCs: %smoothness condition that
 \begin{eqnarray}
-   [u_x]_j = \frac{1-\gamma}{H}\left.u\right|_{X_j} && \mbox{for } j=1,2,\ldots,N-1\,,
+   [\hat{u}_x]_j = \frac{1-\gamma}{H}\left.\delta^2\hat{u}\right|_{X_j} && \mbox{for } j=1,2,\ldots,N-1\,,
 \label{eq:smooth-cond}
 \end{eqnarray}
 such that smooth approximations are found in the limit as $\gamma\rightarrow 1$.
-Consequently, the state-space is now extended to $(u,\alpha,\gamma)$, for which $(\hat{u}_0,0,0)$ is
+Consequently, the state-space is now extended to $(u,\alpha,\gamma)$, for which $(\hat{u}^{[0]},0,0)$ is
 an equilibrium of equation~\eqref{eq:burgers}.  
 
 We now demonstrate that the system will be robust to nonlinear perturbations about this equilibrium.
-We seek the spatial stability over $\XX$, allowing for discretisation, of the eigenmode
+We seek the spatial stability over $\XX$ of the eigenmode
 \begin{eqnarray}
-v = \sum_{j=1}^{N}\chi_j \Re\left(a_j e^{i\kappa\xi_j}\right)\,,
+v = \sum_{j=1}^{N}\chi_j \Re\left(a_j e^{i\kappa\xi}\right)\,,
 \end{eqnarray}
 for some fixed, nondimensionalised wavenumber $\kappa=kH$, and 
 arbitrary, time--varying coefficients $a_j=A_j+iB_j$. 
@@ -278,8 +286,10 @@ about the equilibrium within some suitable region in state-space.
 \addlegendentry{spectrum};
 \end{axis}
 \end{tikzpicture}
-\caption{The equilibrium ($\gamma=0$) spectrum determined by the forbidding condition~\eqref{eq:leaforbid}.
-The thick lines along the $\kappa$ axis indicate regions of stability.}
+\caption{The equilibrium ($\gamma=0$, $\alpha=0$) spectrum
+determined by the forbidding condition~\eqref{eq:leaforbid}.
+The thick lines along the $\kappa$-axis indicate regions of wavenumbers
+for which the corresponding eigenmodes are stable.}
 \label{fig:leaspec}
 \end{figure}
 
