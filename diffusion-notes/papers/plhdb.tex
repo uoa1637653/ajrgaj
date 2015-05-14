@@ -169,7 +169,7 @@ and general eigenmodes for $\lambda=-\nu k^2<0$ of the form
 Hence, any peicewise--linear approximation to $u$ is an equilibrium solution of the linearised system.
 We choose a continuous approximation that is aligned at the internal grid-points $X_j=jH$, $j=1,2,\ldots,N-1$, namely
 \begin{eqnarray}
-     \hat{u}^{[0]} = \sum_{j=1}^{N}\chi_j(\xi U_j+(1-\xi)U_{j-1})
+     \hat{u}_{0} = \sum_{j=1}^{N}\chi_j(\xi U_j+(1-\xi)U_{j-1})
 % = \sum_{j=1}^{N}\chi_j(\xi+(1-\xi)\sigma^{-1})U_j
 \,,
 \label{eq:uhat0}
@@ -185,7 +185,7 @@ where $ [u]_j := \lim_{\epsilon\rightarrow 0^{+}} u(X_j+\epsilon,t)-u(X_j-\epsil
 represents the spatial jump in $u$ across the boundary between the $j$-th and $(j+1)$-th intervals.
 
 Unfortunately, this continuity does not hold for the first spatial derivative, since it can be shown that
-$[\D x{\hat{u}^{[0]}}]_j=\delta^2U_j/H$. Hence, we introduce a homotopic smoothing parameter $\gamma$
+$[\D x{\hat{u}_{0}}]_j=\delta^2U_j/H$. Hence, we introduce a homotopic smoothing parameter $\gamma$
 ($0\le\gamma\le 1$),
 and enforce the additional IBCs: %smoothness condition that
 \begin{eqnarray}
@@ -193,7 +193,7 @@ and enforce the additional IBCs: %smoothness condition that
 \label{eq:smooth-cond}
 \end{eqnarray}
 such that smooth approximations are found in the limit as $\gamma\rightarrow 1$.
-Consequently, the state-space is now extended to $(u,\alpha,\gamma)$, for which $(\hat{u}^{[0]},0,0)$ is
+Consequently, the state-space is now extended to $(u,\alpha,\gamma)$, for which $(\hat{u}_{0},0,0)$ is
 an equilibrium of equation~\eqref{eq:burgers}.  
 
 We now demonstrate that the system will be robust to nonlinear perturbations about this equilibrium.
@@ -295,6 +295,47 @@ for which the corresponding eigenmodes are stable.}
 
 
 \section{Nonlinear analysis}\label{sec:nonlin}
+
+With the aid of the holistic equations~\eqref{eq:temporal} and \eqref{eq:spatial}, 
+viz $u=\hat{u}$ and $\dot{\vec{U}}=\vec{g}$, we rewrite
+Burgers' equation~\eqref{eq:burgers} in the form
+\begin{eqnarray}
+ {\cal M}(\hat{u},\vec{g}) = {\cal L}\hat{u}-\D {\vec{U}}{\hat{u}}\cdot\vec{g}-\alpha\hat{u}\hat{u}_{x} = 0\,,
+\label{eq:man}
+\end{eqnarray}
+where ${\cal L}=\nu\DD {x}{}$ from Section~\ref{sec:lin}. The linear analysis of that section is now extended
+by considering perturbations about the equilibrium $(\hat{u},\gamma,\alpha)=(\hat{u}_{0},0,0)$, where
+$\hat{u}_{0}=\sum_{j=1}^{N}\chi_j{\cal I}_0 U_j$ with
+${\cal I}_0=\xi+(1-\xi)\sigma^{-1}$.
+In particular, we consider the power series
+\begin{eqnarray}
+  \hat{u} \sim \sum_{p=0}^{\infty}\sum_{q=0}^{\infty}\gamma^{p}\alpha^{q}\hat{u}^{(p,q)}\,,
+&&
+  \vec{g} \sim \sum_{p=0}^{\infty}\sum_{q=0}^{\infty}\gamma^{p}\alpha^{q}\vec{g}^{(p,q)}\,,
+\label{eq:power}
+\end{eqnarray}
+where $\hat{u}^{(0,0)}=\hat{u}_{0}$ 
+and $\vec{g}^{(0,0)}=0$.
+Substituting these expansions into
+equation~\eqref{eq:man},  the terms $\hat{u}^{(p,q)}$ and $\vec{g}^{(p,q)}$ are computed
+subject to the IBCs \eqref{eq:cont-cond} and \eqref{eq:smooth-cond}.
+
+To simplify this process  algebraically, we follow the approach of Jarrad, 
+and consider finite truncations of\eqref{eq:power}.
+For example, if we define
+\begin{eqnarray}
+   \hat{u}^{<n>} = \sum_{p=0}^{n}\sum_{q=0}^{n-p}\gamma^{p}\alpha^{q}\hat{u}^{(p,q)}\,,
+&&
+   \hat{u}_n = \sum_{p=0}^{n}\gamma^{p}\alpha^{n-p}\hat{u}^{(p,n-p)}\,;
+\end{eqnarray}
+then $\hat{u}=\hat{u}^{<n>}+O(\gamma^{n+1}+\alpha^{n+1})$ and
+$\hat{u}^{<n>}=\hat{u}^{<n-1>}+\hat{u}_{n}$; 
+likewise for $\vec{g}^{<n>}$ and $\vec{g}_n$.
+
+\begin{eqnarray}
+\end{eqnarray}
+\begin{eqnarray}
+\end{eqnarray}
 
 \section{Numerical stability}\label{sec:numeric}
 
