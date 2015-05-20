@@ -296,7 +296,7 @@ for which the corresponding eigenmodes are stable.}
 
 \section{Nonlinear analysis}\label{sec:nonlin}
 
-With the aid of the holistic equations~\eqref{eq:temporal} and \eqref{eq:spatial}, 
+With the aid of  holistic equations~\eqref{eq:temporal} and \eqref{eq:spatial}, 
 viz $u=\hat{u}$ and $\dot{\vec{U}}=\vec{g}$, we rewrite
 Burgers' equation~\eqref{eq:burgers} in the form
 \begin{eqnarray}
@@ -304,10 +304,9 @@ Burgers' equation~\eqref{eq:burgers} in the form
 \label{eq:man}
 \end{eqnarray}
 where ${\cal L}=\nu\DD {x}{}$ from Section~\ref{sec:lin}. The linear analysis of that section is now extended
-by considering perturbations about the equilibrium $(\hat{u},\gamma,\alpha)=(\hat{u}_{0},0,0)$, where
-$\hat{u}_{0}=\sum_{j=1}^{N}\chi_j{\cal I}_0 U_j$ with
-${\cal I}_0=\xi+(1-\xi)\sigma^{-1}$.
-In particular, we consider the power series
+by considering perturbations about the equilibrium $(\hat{u},\gamma,\alpha)=(\hat{u}_{0},0,0)$.
+%, where$\hat{u}_{0}=\sum_{j=1}^{N}\chi_j{\cal I}_0 U_j$ with ${\cal I}_0=\xi+(1-\xi)\sigma^{-1}$.
+In particular, consider the power series
 \begin{eqnarray}
   \hat{u} \sim \sum_{p=0}^{\infty}\sum_{q=0}^{\infty}\gamma^{p}\alpha^{q}\hat{u}^{(p,q)}\,,
 &&
@@ -320,21 +319,102 @@ Substituting these expansions into
 equation~\eqref{eq:man},  the terms $\hat{u}^{(p,q)}$ and $\vec{g}^{(p,q)}$ are computed
 subject to the IBCs \eqref{eq:cont-cond} and \eqref{eq:smooth-cond}.
 
-To simplify this process  algebraically, we follow the approach of Jarrad, 
-and consider finite truncations of\eqref{eq:power}.
-For example, if we define
+To simplify this process  algebraically, we follow the approach of Jarrad:
+without loss of generality, consider finite truncations of the power series subject to $p+q\le n$,
+namely\footnote{In practice, other truncation schemes may be used;
+for example, rectangular truncation: $p\le n$, $q\le m$.}
 \begin{eqnarray}
    \hat{u}^{<n>} = \sum_{p=0}^{n}\sum_{q=0}^{n-p}\gamma^{p}\alpha^{q}\hat{u}^{(p,q)}\,,
 &&
-   \hat{u}_n = \sum_{p=0}^{n}\gamma^{p}\alpha^{n-p}\hat{u}^{(p,n-p)}\,;
+   \hat{u}_n = \sum_{p=0}^{n}\gamma^{p}\alpha^{n-p}\hat{u}^{(p,n-p)}\,.
 \end{eqnarray}
-then $\hat{u}=\hat{u}^{<n>}+O(\gamma^{n+1}+\alpha^{n+1})$ and
+Letting $\varepsilon^2=\gamma^2+\alpha^2$ for convenience\footnote{
+This is merely an algebraic device; in practice, $\gamma$ and $\alpha$ need not be commensurate}, we obtain
+ $\hat{u}=\hat{u}^{<n>}+O(\varepsilon^{n+1})$ and
 $\hat{u}^{<n>}=\hat{u}^{<n-1>}+\hat{u}_{n}$; 
 likewise for $\vec{g}^{<n>}$ and $\vec{g}_n$.
-
+It can then be shown that
 \begin{eqnarray}
+ {\cal M}(\hat{u}^{<n>},\vec{g}^{<n>}) = 
+  {\cal L}\hat{u}_n-\D {\vec{U}}{\hat{u}_0}\cdot\vec{g}_n+{\cal M}(\hat{u}^{<n-1>},\vec{g}^{<n-1>})
++O(\varepsilon^{n+1})\,,
 \end{eqnarray}
+and hence the process is to iteratively solve
 \begin{eqnarray}
+ {\cal M}(\hat{u}^{<n>},\vec{g}^{<n>}) = 0+O(\varepsilon^{n+1})\,,
+\end{eqnarray}
+or, equivalently,
+\begin{eqnarray}
+{\cal L}\hat{u}_n = \D {\vec{U}}{\hat{u}_0}\cdot\vec{g}_n-{\cal M}(\hat{u}^{<n-1>},\vec{g}^{<n-1>})
++O(\varepsilon^{n+1})\,.
+\end{eqnarray}
+
+Given $\hat{u}_0=\sum_{j=1}^{N}\chi_j(\xi+(1-\xi)\sigma^{-1})U_j$ 
+where $\xi=\sum_{j=1}^{N}\chi_j(x-X_{j-1})/H$, the first-order pertubation terms 
+can now be computed for $n=1$. Defining $\Delta=1-\sigma^{-1}$, observe that
+\begin{eqnarray}
+\nu\hat{u}_{1}'' = \sum_{j=1}^{N}\chi_j\left[(\xi+(1-\xi)\sigma^{-1})g_{1,j}
+   +\alpha(\xi+(1-\xi)\sigma^{-1})U_j.\frac{1}{H}\Delta U_j\right]\,.
+\end{eqnarray}
+Hence, spatially integrating twice gives
+%\begin{eqnarray}
+%\nu\hat{u}_{1}' & = & \sum_{j=1}^{N}\chi_j\left[c_j+ \frac{H}{2}(\xi^2-(1-\xi)^2\sigma^{-1})g_{1,j}
+%\right.
+%\nonumber\\
+%&&  \left.{}+\frac{\alpha}{2}(\xi^2-(1-\xi)^2\sigma^{-1})U_j.\Delta U_j\right]
+%\end{eqnarray}
+\begin{eqnarray}
+\nu\hat{u}_{1} & = &  \sum_{j=1}^{N}\chi_j\left[d_j+H\xi c_j+\frac{H^2}{6}(\xi^3+(1-\xi)^3\sigma^{-1})g_{1,j}
+\right.\nonumber\\
+&& \left.{}+\frac{\alpha H}{6}(\xi^3+(1-\xi)^3\sigma^{-1})U_j.\Delta U_j\right]\,.
+\end{eqnarray}
+Now, the continuity condition~\eqref{eq:cont-cond} ensures that $\hat{u}_n(X_j,t)=0$ for $n>0$,
+since $\hat{u}_{0}(X_j,t)=U_j(t)=u(X_j,t)$. Hence, we solve for $d_j$ at $\xi=0$ and
+$c_j$ at $\xi=1$, giving
+\begin{eqnarray}
+\nu\hat{u}_{1} & = &  \sum_{j=1}^{N}\chi_j\left[\frac{H^2}{6}(\xi^3+(1-\xi)^3\sigma^{-1}
+-\xi\Delta-\sigma^{-1})g_{1,j}
+\right.\nonumber\\
+&& \left.{}+\frac{\alpha H}{6}(\xi^3+(1-\xi)^3\sigma^{-1}-\xi\Delta-\sigma^{-1})U_j.\Delta U_j\right]\,.
+\end{eqnarray}
+%%It is convenient here to introduce interpolation operators, ${\cal I}_0=\xi+(1-\xi)\sigma^{-1}$ and
+%%${\cal I}_1=\xi^3+(1-\xi)^3\sigma^{-1}-\xi\Delta-\sigma^{-1}$ (observe that ${\cal I}_1''=6{\cal I}_0/H^2$),
+%%whence
+%%\begin{eqnarray}
+%% \hat{u} = \sum_{j=1}^{N}\chi_j\left[{\cal I}_0 U_j+\frac{H^2}{6\nu}{\cal I}_1\dot{U}_j
+%%+\frac{\alpha H}{6\nu}{\cal I}_1 U_j.\Delta U_j\right]+O(\gamma^2+\alpha^2)\,,
+%%\end{eqnarray}
+%%since $\dot{U}_j=g_{1,j}+O(\gamma^2+\alpha^2)$. 
+The value for $g_{1,j}$ can likewise be found
+from the smoothness condition~\eqref{eq:smooth-cond}, namely
+\begin{eqnarray}
+\nu[\hat{u}_{1}']_{j} = -H\left(1+\frac{1}{6}\delta^2\right)g_{1,j} 
+-\alpha\left(1+\frac{1}{6}\delta^2\right)U_j.\Delta U_j
+= -\frac{\nu\gamma}{H}\delta^2 U_j\,,
+\end{eqnarray}
+giving
+\begin{eqnarray}
+  g_{1,j}  = \frac{\nu\gamma}{H^2}S\delta^2 U_j
+-\frac{\alpha}{H} U_j.\Delta U_j\,,
+\end{eqnarray}
+where $S^{-1}=1+\delta^2/6$.
+
+such that 
+\begin{eqnarray}
+\frac{H^2}{6}\sigma(-\frac{3}{H}\sigma^{-1}-\frac{1}{H}(1-\sigma^{-1})g
+-\frac{H^2}{6}(\frac{3}{H}-\frac{1}{H}(1-\sigma^{-1}))g
+\\
+= \frac{H}{2}\sigma(-\sigma^{-1}-\frac{1}{3}(1-\sigma^{-1})g
+-\frac{H}{2}(1-\frac{1}{3}(1-\sigma^{-1}))g
+\\
+= \frac{H}{2}(-1-\frac{1}{3}(\sigma-1)g
+-\frac{H}{2}(1-\frac{1}{3}(1-\sigma^{-1}))g
+\\
+= \frac{H}{2}(-2+\frac{2}{3}-\frac{1}{3}\sigma-\frac{1}{3}\sigma^{-1})g
+\\
+= \frac{H}{2}(-2-\frac{1}{3}\delta^2)g
+\\
+= -H(1+\frac{1}{6}\delta^2)g
 \end{eqnarray}
 
 \section{Numerical stability}\label{sec:numeric}
