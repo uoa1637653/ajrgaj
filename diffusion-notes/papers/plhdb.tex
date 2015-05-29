@@ -424,7 +424,72 @@ rise to the solvability condition
 \left.\frac{\nu\gamma}{H}\delta^2\hat{u}_{n-1}\right|_{X_j} = HS^{-1}g_{n,j}
 -\langle {\cal M}(\hat{u}^{<n-1>},\vec{g}^{<n-1>}), \hat{v}_0 \rangle\,.
 \end{eqnarray}
-For $n=1$, note that this just reduces to equation~\eqref{eq:g1}.
+Note that for $n=1$, this  reduces to equation~\eqref{eq:g1}, and
+for $n>1$, the left-hand side is zero.
+
+The higher order advection terms in $\alpha$ and the interactions between $\alpha$ and $\gamma$
+rapidly become more complex. For example, the $\gamma\alpha$ terms are given by
+\begin{eqnarray}
+	g^{(1,1)}_{j} & = & \frac{1}{H}\left\{
+  - \frac{1}{10}S\left(U_{j} S\mu\delta U_{j}\right)
+  - \frac{1}{6}S\left(U_{j} \mu\delta U_{j}\right)
+  + \frac{1}{10}S\left(SU_{j} \mu\delta U_{j}\right)
+  \right.
+\nonumber\\  
+&& \left.- \frac{1}{5}S^{2}\left(U_{j} S\mu\delta U_{j}\right)
+  + \frac{13}{30}S^{2}\left(U_{j} \mu\delta U_{j}\right)
+  - \frac{1}{15}S^{3}\left(U_{j} \mu\delta U_{j}\right)
+  \right.
+\nonumber\\
+&& \left.
+  - \frac{1}{15}S^{3}\mu\delta U_{j}^2
+  + \frac{7}{30}S^{2}\mu\delta U_{j}^2
+  + \frac{2}{5}U_{j} S\mu\delta U_{j}
+  - \frac{11}{30}S\mu\delta U_{j}^2
+\right\}
+\,.
+\end{eqnarray}
+In contrast, the terms purely in the homotopic parameter $\gamma$ represent smoothing corrections to the
+diffusion; for example,
+the coarse dynamics of the diffusion equation ($\alpha=0$)  obey 
+\begin{eqnarray}
+	\dot{U}_j & = & \frac{\nu\gamma}{H^2}S\delta^2 U _j
++ \frac{\nu\gamma^2}{60H^2}(7-2S)S^2\delta^4 U_j
+\nonumber\\
+&&{}+ \frac{\nu\gamma^3}{6300H^2}(94-73S+14S^2)S^3\delta^{6}U_j
++ {\cal O}(\gamma^4)\,.
+\end{eqnarray}
+As shown in Figure~\ref{fig:diff:spectrum}, each additional term provides a better approximation to the
+continuum dynamics.
+\begin{figure}[hbt]
+\centering
+\begin{tikzpicture}
+\begin{axis}[ xlabel={$\kappa$}, ylabel={$\bar{\lambda}$}
+  ,axis x line=middle,axis y line=middle
+  ,thick,grid,no marks,samples=101
+  ,domain=0:4,ymax=3
+  ,xtick={0.62832,1.25664,1.88496,2.51328,3.1416,3.76992}
+  ,xticklabels={$\frac{\pi}{5}$,$\frac{2\pi}{5}$,$\frac{3\pi}{5}$,$\frac{4\pi}{5}$,$\pi$,$\frac{6\pi}{5}$}
+  ,legend pos=outer north east
+  ] 
+\addplot[color=black]  {0-(x^2)}; 
+\addlegendentry{exact};
+\addplot[color=red] {-6*(1-cos(deg(x)))/(2+cos(deg(x)))}; 
+\addlegendentry{1st order};
+\addplot[color=blue] {-1/5*(96+27*cos(deg(x))-72*cos(deg(x))^2-51*cos(deg(x))^3)/(8+12*cos(deg(x))+6*cos(deg(x))^2+cos(deg(x))^3)}; 
+\addlegendentry{2nd order};
+\addplot[color=gray] {1/175*(-13824-17010*cos(deg(x))+4050*cos(deg(x))^2+15525*cos(deg(x))^3+8910*cos(deg(x))^4+2349*cos(deg(x))^5)
+/(32+80*cos(deg(x))+80*cos(deg(x))^2+40*cos(deg(x))^3+10*cos(deg(x))^4+cos(deg(x))^5)
+}; 
+\addlegendentry{3rd order};
+\end{axis}
+\end{tikzpicture}
+\caption{The  non-dimensionalised spectrum of the diffusion equation
+($\alpha~\!\!\!=~\!\!\!0$) for the mode $\tilde{u}(x,t)=e^{\nu\bar{\lambda}t/H^2+i\kappa x/H}$, 
+contrasting the continuum dynamics  against successive discrete, holistic approximations (for $\gamma=1$).}
+\label{fig:diff:spectrum}
+\end{figure}
+
 
 \section{Numerical stability}\label{sec:numeric}
 
