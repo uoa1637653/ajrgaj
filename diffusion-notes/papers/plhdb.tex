@@ -108,13 +108,13 @@ back to the continuum field $u(x,t)$ via a spatial mapping of the form
 The complete holistic framework comprises equations~\eqref{eq:temporal} and \eqref{eq:spatial},  along with the addition of suitable boundary conditions that are discussed in Section~\ref{sec:lin}.
 We show in Section~\secref{nonlin} that, to first-order, the holistic mapping $\hat{u}$ takes the form
 \begin{eqnarray}
-\hat{u} = \sum_{j=1}^{N}\chi_j\left({\cal I}_{0}U_j+\frac{H^2}{6}{\cal I}_{1}\dot{U}_j
-+\alpha\frac{H}{6}{\cal I}_{1}U_j\cdot (1-\sigma^{-1})U_j\right)\,,
+\hat{u} = \sum_{j=1}^{N}\chi_j\left({\cal I}_{0}U_j+\frac{H^2}{6\nu}{\cal I}_{1}\dot{U}_j
++\frac{\alpha H}{6\nu}{\cal I}_{1}U_j\Delta U_j\right)\,,
 \end{eqnarray}
-using the interpolation operators ${\cal I}_{0}=\xi+(1-\xi)\sigma^{-1}$
-and ${\cal I}_{1}=\xi^3+(1-\xi)^{3}\sigma^{-1}-\xi(1-\sigma^{-1})-\sigma^{-1}$,
-where $\xi=\sum_{j=1}^{N}\chi_j\xi_j$ with $\xi_j(x)=(x-X_{j-1})/H$ 
-and $\chi_j(x)=1$ (else $0$) for $X_{j-1}\le x<X_j$.
+with backward-difference $\Delta=1-\sigma^{-1}$ and interpolators ${\cal I}_{0}=\xi+(1-\xi)\sigma^{-1}$ and
+${\cal I}_{1}=\xi^3+(1-\xi)^{3}\sigma^{-1}-\xi(1-\sigma^{-1})-\sigma^{-1}$,
+using the interval indicator $\chi_j(x)=1$ (else $0$) for $X_{j-1}\le x<X_j$ and
+dimensionless coordinate $\xi(x)=\sum_{j=1}^{N}\chi_j(x).(x-X_{j-1})/H$.
 
 \section{Motivation}\label{sec:motive}
 The choice of a piecewise linear leading approximation, in contrast to the usual piecewise constant one
@@ -135,7 +135,7 @@ about ${\vec u}={\vec 0}$ is then parameterised as
 {\vec u} = V{\vec s}\,, && \dot{{\vec s}} = \Lambda{\vec s}\,,
 \end{eqnarray}
 whereupon $V\Lambda{\vec s}={\cal L}V{\vec s}$ for arbitrary ${\vec s}$.
-Observe now that a particular choice of $\Lambda=\mbox{diag}(\lambda_1,\lambda_2,\ldots)$ uncouples this relation into the components
+Observe that the particular choice of $\Lambda=\mbox{diag}(\lambda_1,\lambda_2,\ldots)$ uncouples this relation into the components
 ${\cal L}{\vec v}_j=\lambda{\vec v}_j$, where $V=\left[{\vec v}_1,{\vec v}_2,\ldots\right]$.
 
 Now, when ${\cal L}$ is self-adjoint, the Rayleigh--Ritz theorem is that $\lambda_j = R({\vec v}_j)$ for the Rayleigh quotient 
@@ -484,14 +484,40 @@ continuum dynamics.
 \addlegendentry{3rd order};
 \end{axis}
 \end{tikzpicture}
-\caption{The  non-dimensionalised spectrum of the diffusion equation
-($\alpha~\!\!\!=~\!\!\!0$) for the mode $\tilde{u}(x,t)=e^{\nu\bar{\lambda}t/H^2+i\kappa x/H}$, 
+\caption{The  non-dimensionalised spectrum 
+($\bar{\lambda}=\lambda H^2/\nu$ versus $\kappa=kH$)
+of the diffusion equation
+($\alpha=0$) for the mode $\tilde{u}(x,t)=e^{\lambda t+iik x}$, 
 contrasting the continuum dynamics  against successive discrete, holistic approximations (for $\gamma=1$).}
 \label{fig:diff:spectrum}
 \end{figure}
 
 
 \section{Numerical stability}\label{sec:numeric}
+To investigate the theoretical stability of discrete approximations to Burgers' equation~\eqref{eq:burgers}, we
+follow Falis? and consider a mostly undisturbed system where $U_j=0$ at all grid-points
+except for $M$ adjacent, internal points. For example, for $M=2$ it suffices to choose $N=3$ with
+$U_0=U_3=0$. The mixture model~\eqref{eq:mixture} then reduces to
+\begin{eqnarray}
+\dot{U}_1 & = & \frac{\nu}{H^2}(-2U_1+U_2)-\frac{\alpha(1-\theta)}{2H}U_1U_2-\frac{\alpha\theta}{4H}U_2^2\,,
+\\
+\dot{U}_2 & = & \frac{\nu}{H^2}(U_1-2U_2)+\frac{\alpha(1-\theta)}{2H}U_1U_2+\frac{\alpha\theta}{4H}U_1^2\,.
+\end{eqnarray}
+A stable critical point occur at $U_1=U_2=0$ with non-dimensionalised eigenvalues 
+$\bar{\lambda}=\lambda H^2/\nu=-1, -3$.
+An unstable critical point occurs at $U_1=-U_2=\frac{12\nu}{\alpha H(2-3\theta)}$
+with eigenvalues $\bar{\lambda}=\frac{2}{2-3\theta}
+\pm\frac{|4-9\theta|}{|2-3\theta|}$. Observe that the unstable point is removed to infinity when $\theta=\frac{2}{3}$.
+This is exactly the critical value predicted by \cite{Fornberg73} to be necessary (but not always sufficient)
+for numerical stability of the mixture model with $\nu=0, \alpha=1$.
+
+Consequently, the corresponding reduction of the holistic model~\eqref{eq:holistic1}, namely
+\begin{eqnarray}
+\dot{U}_1 & = & \frac{\nu}{4H^2}(-16U_1+11U_2)-\frac{\alpha}{24H}(2U_1^2+9U_1U_2+7U_2^2)\,,
+\\
+\dot{U}_2 & = & \frac{\nu}{4H^2}(11U_1-16U_2)+\frac{\alpha}{24H}(7U_1^2+9U_1U_2+2U_2^2)\,,
+\end{eqnarray}
+has only a stable critical point at $U_1=U_2=0$ with eigenvalues $\bar{\lambda}= -\frac{5}{4}, -\frac{27}{4}$.
 
 \section{Conclusion}
 
