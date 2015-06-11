@@ -159,7 +159,9 @@ post-fitting arbitrary curves to the discrete values.}
 
 \section{Motivation}\label{sec:motive}
 The choice of a piecewise linear leading approximation, in contrast to the usual piecewise constant one
- \cite[]{Roberts98a, Roberts00a, Roberts2011a}, is motivated by an application of the Rayleigh--Ritz theorem.
+ \cite[]{Roberts98a, Roberts00a, Roberts2011a}, is motivated by two factors: firstly, the empirical observation
+that linear approximation is frequently employed in practice as a cheap means of interpolating between grid-point values;
+and secondly, as the consequence of an application of the Rayleigh--Ritz theorem.
 Consider a general dynamical system of the form
 \begin{eqnarray}
 \dot{\vec u} = {\cal L}{\vec u}+{\cal N}({\vec u})\,,
@@ -192,7 +194,7 @@ that $R({\vec u})=\lambda_j+O(\epsilon^2)$.
 %for the nonlinear dynamical system~\eqref{eq:nonlin:gen}.
 The slow manifold is based upon the slow subspace spanned by the slow eigenvectors, and the evolution on the slow manifold corresponds to eigenvalues of the linearisation.
 Hence the Rayleigh--Ritz quotient suggests that the more accurate we make a linear subspace approximation to the field~\(u(x,t)\), the more accurate the evolution on the slow manifold.
-Consequently, Section~\secref{lin} develops a piecewise linear and continuous subspace approximation to the field, instead of the piecewise constant and discontinuous approximation developed previously \cite[]{Roberts98a, Roberts00a, Roberts2011a}.
+Consequently, Section~\secref{lin} develops a piecewise linear and continuous subspace approximation to the field.
 
 \section{Linear analysis}\label{sec:lin}
 Burgers' equation~\eqref{eq:burgers} linearises to equation~\eqref{eq:lin:gen} for $\alpha=0$, with the linear operator
