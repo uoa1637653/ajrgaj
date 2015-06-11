@@ -135,19 +135,19 @@ Figure~\ref{fig:uhat} shows an example of the holistic approximation $\hat{u}(x,
   ,legend pos=outer north east
   ] 
 \addplot [blue,no marks,domain=0:2.0944] {xi1(x)*u1(x)+(1-xi1(x))*u0(x)}; 
-\addplot [blue,no marks,domain=2.0944:4.1888] {xi2(x)*u2(x)+(1-xi2(x))*u1(x)}; 
-\addplot [blue,no marks,domain=4.1888:6.2832] {xi3(x)*u3(x)+(1-xi3(x))*u2(x)}; 
 \addlegendentry{$\hat{u}_0$};
 \addplot [red,no marks,domain=0:2.0944] {xi1(x)*u1(x)+(1-xi1(x))*u0(x)
 	+1/6*(xi1(x)^3*sd2u1(x)+(1-xi1(x))^3*sd2u0(x)-xi1(x)*(sd2u1(x)-sd2u0(x))-sd2u0(x))
 }; 
+\addlegendentry{$\hat{u}_0+\hat{u}_1$};
+\addplot [blue,no marks,domain=2.0944:4.1888] {xi2(x)*u2(x)+(1-xi2(x))*u1(x)}; 
+\addplot [blue,no marks,domain=4.1888:6.2832] {xi3(x)*u3(x)+(1-xi3(x))*u2(x)}; 
 \addplot [red,no marks,domain=2.0944:4.1888] {xi2(x)*u2(x)+(1-xi2(x))*u1(x)
 	+1/6*(xi2(x)^3*sd2u2(x)+(1-xi2(x))^3*sd2u1(x)-xi2(x)*(sd2u2(x)-sd2u1(x))-sd2u1(x))
 }; 
 \addplot [red,no marks,domain=4.1888:6.2832] {xi3(x)*u3(x)+(1-xi3(x))*u2(x)
 	+1/6*(xi3(x)^3*sd2u3(x)+(1-xi3(x))^3*sd2u2(x)-xi3(x)*(sd2u3(x)-sd2u2(x))-sd2u2(x))
 }; 
-\addlegendentry{$\hat{u}_0+\hat{u}_1$};
 \end{axis}
 \end{tikzpicture}
 \caption{An example of the interpolative smoothing provided by the holistic discretisation process,
