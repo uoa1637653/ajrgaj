@@ -105,16 +105,57 @@ back to the continuum field $u(x,t)$ via a spatial mapping of the form
 	u(x,t)  = \hat{u}(x,{\vec U}(t))\,.
 	\label{eq:spatial}
 \end{eqnarray}
-The complete holistic framework comprises equations~\eqref{eq:temporal} and \eqref{eq:spatial},  along with the addition of suitable boundary conditions that are discussed in Section~\ref{sec:lin}.
+The complete holistic framework comprises equations~\eqref{eq:temporal} and \eqref{eq:spatial},  along with the addition of suitable boundary conditions that are discussed in Section~\secref{lin}.
 We show in Section~\secref{nonlin} that, to first-order, the holistic mapping $\hat{u}$ takes the form
 \begin{eqnarray}
 \hat{u} = \sum_{j=1}^{N}\chi_j\left({\cal I}_{0}U_j+\frac{H^2}{6\nu}{\cal I}_{1}\dot{U}_j
-+\frac{\alpha H}{6\nu}{\cal I}_{1}U_j\Delta U_j\right)\,,
++\frac{\alpha H}{6\nu}{\cal I}_{1}U_j.\Delta U_j\right)\,,
 \end{eqnarray}
-with backward-difference $\Delta=1-\sigma^{-1}$ and interpolators ${\cal I}_{0}=\xi+(1-\xi)\sigma^{-1}$ and
-${\cal I}_{1}=\xi^3+(1-\xi)^{3}\sigma^{-1}-\xi(1-\sigma^{-1})-\sigma^{-1}$,
+with backward-difference $\Delta=1-\sigma^{-1}$ and interpolators ${\cal I}_{0}=\sigma^{-1}+\xi\Delta$ and
+${\cal I}_{1}=\xi^3+(1-\xi)^{3}\sigma^{-1}-\xi\Delta-\sigma^{-1}$,
 using the interval indicator $\chi_j(x)=1$ (else $0$) for $X_{j-1}\le x<X_j$ and
-dimensionless coordinate $\xi(x)=\sum_{j=1}^{N}\chi_j(x).(x-X_{j-1})/H$.
+dimensionless coordinate $\xi(x)=\sum_{j=1}^{N}\chi_j(x)\frac{x-X_{j-1}}{H}$.
+Figure~\ref{fig:uhat} shows an example of the holistic approximation $\hat{u}(x,t)$ to the true field $u(x,t)$.
+\begin{figure}[hbt]
+\centering
+\begin{tikzpicture}[declare function = { 
+	xi1(\x) = \x/2.0944; xi2(\x) = \x/2.0944-1; xi3(\x) = \x/2.0944-2; 
+	u0(\x) = 0; u1(\x) = 1; u2(\x) = -1; u3(\x) = 0;
+	sd2u0(\x) = -4.5*u0(\x)+3*u1(\x)-1.5*u2(\x)+3*u3(\x);
+	sd2u1(\x) = -4.5*u1(\x)+3*u2(\x)-1.5*u3(\x)+3*u0(\x);
+	sd2u2(\x) = -4.5*u2(\x)+3*u3(\x)-1.5*u0(\x)+3*u1(\x);
+	sd2u3(\x) = -4.5*u3(\x)+3*u0(\x)-1.5*u1(\x)+3*u2(\x);
+}]
+\begin{axis}[ xlabel={$x$}, ylabel={$u(x,t)$}
+  ,axis x line=middle,axis y line=middle
+  ,thick,grid,samples=101
+  ,ymin=-1.1,ymax=1.3 ,domain=0:6.2832,xmax=6.8
+  ,xtick={2.0944,4.1888,6.2832}
+  ,xticklabels={$\frac{2\pi}{3}$,$\frac{4\pi}{3}$,$2\pi$}
+  ,legend pos=outer north east
+  ] 
+\addplot [blue,no marks,domain=0:2.0944] {xi1(x)*u1(x)+(1-xi1(x))*u0(x)}; 
+\addplot [blue,no marks,domain=2.0944:4.1888] {xi2(x)*u2(x)+(1-xi2(x))*u1(x)}; 
+\addplot [blue,no marks,domain=4.1888:6.2832] {xi3(x)*u3(x)+(1-xi3(x))*u2(x)}; 
+\addlegendentry{$\hat{u}_0$};
+\addplot [red,no marks,domain=0:2.0944] {xi1(x)*u1(x)+(1-xi1(x))*u0(x)
+	+1/6*(xi1(x)^3*sd2u1(x)+(1-xi1(x))^3*sd2u0(x)-xi1(x)*(sd2u1(x)-sd2u0(x))-sd2u0(x))
+}; 
+\addplot [red,no marks,domain=2.0944:4.1888] {xi2(x)*u2(x)+(1-xi2(x))*u1(x)
+	+1/6*(xi2(x)^3*sd2u2(x)+(1-xi2(x))^3*sd2u1(x)-xi2(x)*(sd2u2(x)-sd2u1(x))-sd2u1(x))
+}; 
+\addplot [red,no marks,domain=4.1888:6.2832] {xi3(x)*u3(x)+(1-xi3(x))*u2(x)
+	+1/6*(xi3(x)^3*sd2u3(x)+(1-xi3(x))^3*sd2u2(x)-xi3(x)*(sd2u3(x)-sd2u2(x))-sd2u2(x))
+}; 
+\addlegendentry{$\hat{u}_0+\hat{u}_1$};
+\end{axis}
+\end{tikzpicture}
+\caption{An example of the interpolative smoothing provided by the holistic discretisation process,
+where the piecewise--linear initial approximation $\hat{u}$ is smoothed by the first-order correction $\hat{u}_1$  (for $\alpha=0$).
+The correction here takes the form of a cubic spline; however, it is derived directly from the dynamical equation itself, rather than obtained by 
+post-fitting arbitrary curves to the discrete values.}
+\label{fig:uhat}
+\end{figure}
 
 \section{Motivation}\label{sec:motive}
 The choice of a piecewise linear leading approximation, in contrast to the usual piecewise constant one
@@ -151,7 +192,7 @@ that $R({\vec u})=\lambda_j+O(\epsilon^2)$.
 %for the nonlinear dynamical system~\eqref{eq:nonlin:gen}.
 The slow manifold is based upon the slow subspace spanned by the slow eigenvectors, and the evolution on the slow manifold corresponds to eigenvalues of the linearisation.
 Hence the Rayleigh--Ritz quotient suggests that the more accurate we make a linear subspace approximation to the field~\(u(x,t)\), the more accurate the evolution on the slow manifold.
-Consequently, Section~\ref{sec:lin} develops a piecewise linear and continuous subspace approximation to the field, instead of the piecewise constant and discontinuous approximation developed previously \cite[]{Roberts98a, Roberts00a, Roberts2011a}.
+Consequently, Section~\secref{lin} develops a piecewise linear and continuous subspace approximation to the field, instead of the piecewise constant and discontinuous approximation developed previously \cite[]{Roberts98a, Roberts00a, Roberts2011a}.
 
 \section{Linear analysis}\label{sec:lin}
 Burgers' equation~\eqref{eq:burgers} linearises to equation~\eqref{eq:lin:gen} for $\alpha=0$, with the linear operator
@@ -245,12 +286,12 @@ with characteristic roots given by
 \end{eqnarray}
 Consequently, there are three distinct stability regimes governed by $\beta$:
 \begin{enumerate}
-\item $|\beta|<1$, which gives rise to complex roots with $|\mu|=1$ ({\em stable}). 
+\item $|\beta|<1$, which gives rise to complex roots with $|\mu|=1$ ({\em marginally stable}). 
 This includes the limiting case of $\gamma=1$ ($f=0$), for which
 $\mu=c\pm is=e^{\pm i\kappa}$.
 
 \item $\beta=\pm 1$, corresponding to $\kappa=n\pi$, $n=0,1,2,\ldots$, 
-which gives rise to a repeated, real root of $\mu=\pm 1$ ({\em stable}).
+which gives rise to a repeated, real root of $\mu=\pm 1$ ({\em marginally stable}).
 
 \item $\beta<-1$, which gives rise to the two real roots $\mu<-1$ and $-1<\mu<0$
 ({\em saddle unstable}).
@@ -286,7 +327,7 @@ about the equilibrium within some suitable region in state-space.
 \addlegendentry{spectrum};
 \end{axis}
 \end{tikzpicture}
-\caption{The equilibrium ($\gamma=0$, $\alpha=0$) spectrum
+\caption{The equilibrium ($\gamma=0$) spectrum
 determined by the forbidding condition~\eqref{eq:leaforbid}.
 The thick lines along the $\kappa$-axis indicate regions of wavenumbers
 for which the corresponding eigenmodes are stable.}
@@ -303,7 +344,7 @@ Burgers' equation~\eqref{eq:burgers} in the form
  {\cal M}(\hat{u},\vec{g}) = {\cal L}\hat{u}-\D {\vec{U}}{\hat{u}}\cdot\vec{g}-\alpha\hat{u}\hat{u}_{x} = 0\,,
 \label{eq:man}
 \end{eqnarray}
-where ${\cal L}=\nu\DD {x}{}$ from Section~\ref{sec:lin}. The linear analysis of that section is now extended
+where ${\cal L}=\nu\DD {x}{}$ from Section~\secref{lin}. The linear analysis of that section is now extended
 by considering perturbations about the equilibrium $(\hat{u},\gamma,\alpha)=(\hat{u}_{0},0,0)$.
 %, where$\hat{u}_{0}=\sum_{j=1}^{N}\chi_j{\cal I}_0 U_j$ with ${\cal I}_0=\xi+(1-\xi)\sigma^{-1}$.
 In particular, consider the power series
@@ -319,7 +360,7 @@ Substituting these expansions into
 equation~\eqref{eq:man},  the terms $\hat{u}^{(p,q)}$ and $\vec{g}^{(p,q)}$ are computed
 subject to the IBCs \eqref{eq:cont-cond} and \eqref{eq:smooth-cond}.
 
-To simplify this process  algebraically, we follow the approach of Jarrad:
+To simplify this process algebraically, we follow the approach of \cite{Jarrad2001}:
 without loss of generality, consider finite truncations of the power series subject to $p+q\le n$,
 namely\footnote{In practice, other truncation schemes may be used;
 for example, rectangular truncation: $p\le n$, $q\le m$.}
@@ -329,7 +370,7 @@ for example, rectangular truncation: $p\le n$, $q\le m$.}
    \hat{u}_n = \sum_{p=0}^{n}\gamma^{p}\alpha^{n-p}\hat{u}^{(p,n-p)}\,.
 \end{eqnarray}
 Letting $\varepsilon^2=\gamma^2+\alpha^2$ for convenience\footnote{
-This is merely an algebraic device; in practice, $\gamma$ and $\alpha$ need not be commensurate}, we obtain
+This is merely an algebraic device; in practice, $\gamma$ and $\alpha$ need not be commensurate.}, we obtain
  $\hat{u}=\hat{u}^{<n>}+O(\varepsilon^{n+1})$ and
 $\hat{u}^{<n>}=\hat{u}^{<n-1>}+\hat{u}_{n}$; 
 likewise for $\vec{g}^{<n>}$ and $\vec{g}_n$.
@@ -495,7 +536,7 @@ contrasting the continuum dynamics  against successive discrete, holistic approx
 
 \section{Numerical stability}\label{sec:numeric}
 To investigate the theoretical stability of discrete approximations to Burgers' equation~\eqref{eq:burgers}, we
-follow Falis? and consider a mostly undisturbed system where $U_j=0$ at all grid-points
+follow \cite{Foias} and consider a mostly undisturbed system where $U_j=0$ at all grid-points
 except for $M$ adjacent, internal points. For example, for $M=2$ it suffices to choose $N=3$ with
 $U_0=U_3=0$. Hence, with the transformation $U_j=\frac{\nu}{\alpha H}V_j$, 
 the mixture model~\eqref{eq:mixture} reduces to
