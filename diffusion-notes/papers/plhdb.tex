@@ -1,6 +1,5 @@
 \IfFileExists{ajr.sty}
-{\documentclass[12pt]{article}
-\usepackage[a5paper,margin=5mm]{geometry}}
+{\documentclass[12pt]{article}\usepackage[a5paper,margin=5mm]{geometry}}
 {\documentclass[12pt,a4paper]{article}}
 
 \usepackage{url,natbib}
@@ -8,22 +7,39 @@
 \usepackage{graphicx,subcaption}
 \usepackage{amsmath,amsfonts,defns}
 \usepackage{pgfplots}
+\usepgfplotslibrary{external} %exports pdf for each tikz figure
+\tikzexternalize
+%\tikzset{external/force remake}%forces redraw of all tikz graphics
+
+\usepackage{pdfcomment}
+\newcommand{\ajr}[1]{\pdfcomment[author=AJR,color={0.8 0.8 0},subject={#1}]{#1}}
+
+
+%\numberwithin{equation}{section}
+%\numberwithin{figure}{section}
+%\numberwithin{table}{section}
+
+\newcommand{\bc}{\textsc{bc}}
 
 \newcommand{\Bb}[1]{%
   \expandafter\def\csname#1#1\endcsname%
   {\ensuremath{\mathbb #1}}}
-\Bb X\Bb T\Bb R\Bb I\Bb J
+\Bb X\Bb T\Bb R\Bb I\Bb J \Bb E
 \newcommand{\secref}[1]{\ref{sec:#1}}
 
-\title{An application of piecewise-linear holistic discretisation}
-\author{G.~A. Jarrad and A.~J. Roberts}
-
+\title{An exciting application of piecewise-linear holistic discretisation}
+\author{G.~A. Jarrad 
+\and 
+A.~J. Roberts\thanks{School of Mathematical Sciences, University of Adelaide, South Australia~5005, Australia.  
+\protect\url{mailto:anthony.roberts@adelaide.edu.au}}
+}
 \begin{document}
 \maketitle
 
 \begin{abstract}
+\ajr{Need to shorten}
 The fidelity of numerical simulation of a spatio-temporal dynamical system is 
-largely constrained by the chosen discretisation of the PDE. 
+largely constrained by the chosen discretisation of the \pde{}. 
 In particular, the modeller is typically free to choose
 arbitrary finite-element forms for the various spatial derivatives,
 without necessarily having knowledge of the accuracy of the resulting numerical schemes.
@@ -33,7 +49,7 @@ Centre manifold theory is applied to derive an asymptotically accurate
 representation of the microscale dynamics of the one-dimensional Burgers' equation. 
 In the process, the corresponding macroscale dynamics 
 are constrained to match the microscale solution at discrete grid-points.
-The resulting representation of macroscale evolution provides an unambiguous discretisation of the PDE,
+The resulting representation of macroscale evolution provides an unambiguous discretisation of the \pde{},
 suitable for numerical simulation. 
 
 The iterative process starts with a choice of the leading, macroscale approximation to the linearised system.
@@ -52,26 +68,31 @@ We examine the accuracy and stability of the resulting numerical scheme, in comp
 the behaviours of several other typical approximations.
 \end{abstract}
 
-\numberwithin{equation}{section}
-\numberwithin{figure}{section}
-\numberwithin{table}{section}
+
+
+
+
+
 \section{Introduction}\label{sec:intro}
-As an application of holistic discretisation, consider the numerical simulation of a field~\(u(x,t)\) of the nonlinear advection--diffusion Burgers' \pde
+\ajr{Can we generalise to $u_t=F(u_x)_x+\alpha G(x,u,u_x)$??}
+As an application of holistic discretisation, we consider the spatial discretisation of a field~\(u(x,t)\) of the nonlinear advection--diffusion Burgers' \pde
 \begin{eqnarray}
 	\D tu = \nu\DD xu - \alpha u\D xu\,.
 \label{eq:burgers}
 \end{eqnarray}
 %Mention cole-hopf leads to known solution which is unconditionally stable.
 The spatial domain~\(\XX\) is of length~\(L\), \(0\leq x\leq L\)\,, and we consider solutions \(L\)-periodic in space.
-The first step is to discretise $\XX$ into $N$ equi-spaced intervals bounded by $N+1$~grid-points~\(X_j\), \({j=0,\ldots,N}\), with spacing~\(H\).
-The continuum dynamics of the field~$u(x,t)$ are now summarised by the coarse dynamics
-${\vec U}=(U_1,U_2,\ldots,U_N)$, where $U_j(t):=u(X_j,t)$ for all $t\in \TT$.
+The first step is to partition~$\XX$ into $N$~equi-spaced intervals bounded by $N+1$~grid-points~\(X_j\), \({j=0,\ldots,N}\), with spacing~\(H\).
+Traditional spatial discretisation of such \pde{}s, whether finite difference, finite element, or finite volume, imposes assumed fields in each element and then derives approximate rules for the evolution in time of the parameters of the imposed fit.
 
-The next step is to specify the explicit form of the coarse temporal evolution
+Our approach is to let the \pde~\eqref{eq:burgers} determine the subgrid structures in order to remain faithful to the \pde.
+Let the dynamics of the field~$u(x,t)$ be summarised by the coarse dynamics ${\vec U}=(U_1,U_2,\ldots,U_N)$, where grid values $U_j(t):=u(X_j,t)$ for all $t\in \TT$.
+Theory to be discussed asserts that in principle and \emph{exact} closure exists: that is, there is some coarse temporal evolution 
 \begin{eqnarray}
-	\dot{\vec U}(t) = {\vec g}({\vec U}(t))\,.
+	\dot{\vec U}(t) = {\vec g}({\vec U})
 \label{eq:temporal}
 \end{eqnarray}
+that gives exact solutions of the \pde.
 The traditional approach is to use centred approximations, for example, $\delta^2 U_j/H^2$ for $\DD xu$
 and $U_j\mu\delta U_j/H$ for $u\D xu$, 
 where $\delta=\sigma^{\frac{1}{2}}-\sigma^{-\frac{1}{2}}$,
@@ -86,17 +107,16 @@ namely
 -\theta\alpha\frac{\mu\delta U_j^2}{2H}\,.
 \label{eq:mixture}
 \end{eqnarray}
-In contrast, the holistic approach has no such representational ambiguity, and, 
-as shown in Section~\secref{nonlin}, gives rise at first-order to the model
+In contrast, the holistic approach has no such representational ambiguity, and, as shown in Section~\secref{nonlin}, gives rise at first-order to the model
 \begin{eqnarray}
 	\dot{U}_j = S\left(\nu\frac{\delta^2 U_j}{H^2}-\alpha\frac{U_j\mu\delta U_j}{3H}
 -\alpha\frac{\mu\delta U_j^2}{3H}\right)\,,
 \label{eq:holistic1}
 \end{eqnarray}
-where $S=(1+\delta^2/6)^{-1}$. Observe that, apart from the non-local corrective operator $S$,
+where the nonlocal operator $S=(1+\delta^2/6)^{-1}$. 
+Observe that, apart from the nonlocal operator~$S$,
 this holistic model matches the mixture model~\eqref{eq:mixture} for $\theta=\frac{2}{3}$.
-This parameter value is exactly the critical value predicted by \cite{Fornberg73}
-to be necessary for stable simulation (with $\nu=0$ and $\alpha=1$) for a selection of numerical integration schemes.
+This parameter value is exactly the critical value predicted by \cite{Fornberg73} to be necessary for stable simulation (with $\nu=0$ and $\alpha=1$) for a selection of numerical integration schemes.
 Further comparisons of the numerical behaviours of the holistic and mixture models are given in Section~\secref{numeric}.
 
 The final step in the simulation process is to interpolate  from the coarse solution ${\vec U}(t)$ 
@@ -116,8 +136,9 @@ ${\cal I}_{1}=\xi^3+(1-\xi)^{3}\sigma^{-1}-\xi\Delta-\sigma^{-1}$,
 using the interval indicator $\chi_j(x)=1$ (else $0$) for $X_{j-1}\le x<X_j$ and
 dimensionless coordinate $\xi(x)=\sum_{j=1}^{N}\chi_j(x)\frac{x-X_{j-1}}{H}$.
 Figure~\ref{fig:uhat} shows an example of the holistic approximation $\hat{u}(x,t)$ to the true field $u(x,t)$.
-\begin{figure}[hbt]
+\begin{figure}
 \centering
+\tikzsetnextfilename{smoothInterp}
 \begin{tikzpicture}[declare function = { 
 	xi1(\x) = \x/2.0944; xi2(\x) = \x/2.0944-1; xi3(\x) = \x/2.0944-2; 
 	u0(\x) = 0; u1(\x) = 1; u2(\x) = -1; u3(\x) = 0;
@@ -157,9 +178,172 @@ post-fitting arbitrary curves to the discrete values.}
 \label{fig:uhat}
 \end{figure}
 
+
+
+
+
+\section{A basic example introduces theory and method}
+\label{sec:beitm}
+
+This section investigates the modelling of Burgers' \pde~\eqref{eq:burgers} on the specific domain \(-1<x<1\)\,, with basic Dirichlet boundary conditions that \(u(\pm 1,t)=0\)\,, and with viscosity \(\nu=1\) for definiteness.
+For introductory simplicity, the domain space is partitioned into just two intervals, \(-1<x<0\) and \(0<x<1\)\,, by a `grid point' \(X=0\)\,.
+Our aim is to model the dynamics of the whole field~\(u(x,t)\) by simply the dynamics of the `grid value' \(U(t):=u(0,t)\) of the field at this central grid point.
+
+The dynamics in the two intervals need to be coupled to each other to form a solution valid over the whole domain.
+Conventional numerical methods \emph{impose} an assumed interpolation field and then derive a corresponding model.
+In contrast, here we craft a coupling that moderates the communication between the two intervals, and then left the \pde~\eqref{eq:burgers} itself tell us the appropriate fields and model.
+The desired full coupling between the two intervals is of \(C^1\)~continuity: \([u]=[u_x]=0\) where we introduce~\([\cdot]\) to denote the jump in value across the grid point \(X=0\)\,, that is, \([u]=u|_{0^+}-u|_{0^-}\)\,.
+For reasons developed below, we embed Burgers' \pde~\eqref{eq:burgers} in a family of problems with the moderated coupling between intervals of
+\begin{equation}
+[u]=0\quad\text{and}\quad
+[u_x]+2(1-\gamma)u=0 \quad\text{at }x=0\,;
+\label{eq:cc1}
+\end{equation}
+that is, the field is continuous but the derivative has a discontinuity depending upon parameter~\(\gamma\).  
+We derive below that parameter \(\gamma=0\) provides a useful base to apply powerful centre manifold theory.
+When parameter \(\gamma=1\) the coupling~\eqref{eq:cc1} reverts to requiring \(C^1\)~continuity across \(x=0\) to restore the \pde.
+
+To show there is a useful centre manifold, we start with equilibria in the system.
+The diffusion \pde~\eqref{eq:burgers}, with nonlinearity \(\alpha=0\) and diffusivity \(\nu=1\), together with coupling conditions~\eqref{eq:cc1}, and the Dirichlet boundary conditions, has a subspace~\EE\ of equilibria: for each~\(U\),
+\begin{equation}
+u=(1-|x|)U\quad\text{and }\gamma=0\,.
+\label{eq:equil}
+\end{equation}
+The spectrum about these equilibria determine the manifold structure.
+Seek linearised solutions \(u\approx (1-|x|)U+e^{\lambda t}\hat u(x)\) for small~\(\hat u\):  the diffusion \pde~\eqref{eq:burgers} becomes the eigenproblem
+\begin{equation}
+\hat u_{xx}-\lambda\hat u=0\,,
+\quad\text{such that }[\hat u]=[\hat u_x]+2\hat u=0\text{ at }x=0\,,
+\label{eq:lindiff}
+\end{equation}
+and the homogeneous Dirichlet boundary conditions \(\hat(\pm 1)=0\)\,.
+\begin{itemize}
+\item Corresponding to eigenvalue \(\lambda=0\) is the neutral solution \(\hat u\propto1-|x|\) reflecting the direction of the subspace of equilibria.
+\item Negative eigenvalues \(\lambda=-k^2\) arise corresponding to eigenfunctions of the form \(\hat u\propto\sin[k(1-|x|)]\) by necessity from the \pde, the homogeneous Dirichlet boundary conditions, and the continuity of~\(\hat u\).
+By straightforward algebra, the jump in the derivative determines the wavenumbers from the solutions of \(k=\tan k\)\,, namely the wavenumbers \(k=4.4934,7.7253,10.9041,\ldots\)\,.
+That is,  non-zero eigenvalues of the linearised problem are \(\lambda=-20.191,-59.680,-118.900,\ldots\)\,.
+\item Negative eigenvalues also arise from eigenfunctions of the form \(\hat u\propto\sin(kx)\).  
+The boundary and coupling conditions determine that wavenumbers \(k=n\pi\) for \(n=1,2,3,\ldots\)\,.
+That is, the other non-zero eigenvalues are \(\lambda=-\pi^2, -4\pi^2, -9\pi^2, \ldots\)\,.
+\end{itemize}
+One of the beautiful properties of the coupling conditions~\eqref{eq:cc1} is that with them the diffusion operator~\(\DD x{}\) is self-adjoint.
+Hence there are only real eigenvalues of the linear problem~\eqref{eq:lindiff}, namely the ones found above.
+To confirm self-adjointness under the usual inner product, \(\left<u,v\right>=\int_{-1}^1 u(x)v(x)\,dx\)\,,
+consider
+\begin{eqnarray*}
+\left<u,v_{xx}\right>
+&=&\int_{-1}^1 uv_{xx}\,dx
+\quad(\text{then using integration by parts})
+\\&=&\left[uv_{x}-vu_{x}\right]_{-1}^{0^-}
++\left[uv_{x}-vu_{x}\right]_{0^+}^1+\int_{-1}^1 u_{xx} v\,dx
+\\&&\quad(\text{using the Dirichlet boundary conditions})
+\\&=&-\left[uv_{x}-vu_{x}\right]_{0^-}^{0^+}+\left<u_{xx},v\right>
+\\&&\quad(\text{using continuity at }x=0)
+\\&=&-u|_0[v_{x}]+v|_0[u_{x}]+\left<u_{xx},v\right>
+\\&&\quad(\text{using the jump in derivative at }x=0)
+\\&=&u|_02(1-\gamma)v|_0-v|_02(1-\gamma)u|_0+\left<u_{xx},v\right>
+\\&=&\left<u_{xx},v\right>.
+\end{eqnarray*}
+Hence it is self-adjoint.
+This useful self-adjointness is not a property of previous holistic discretisations, but is a new feature maintained for the approach of this article.
+
+Because the spectrum consists of a zero eigenvalue and all the rest negative (\(\leq -\pi^2<-9\)), centre manifold theory \cite[e.g.]{Carr81} 
+%or \cite[Chap.~4]{Roberts2014a}
+assures us that there exists a slow manifold in some neighbourhood of the subspace~\EE\ of equilibria: that is, global in amplitude~\(U\) and local in parameter~\(\gamma\).
+Also, theory guarantees that all solutions in the neighbourhood are attracted exponentially quickly, roughly like~\(e^{-9t}\), to solutions on the slow manifold.
+That is, the slow manifold and the evolution thereon emerges from general initial conditions.
+
+Lastly, a theorem also guarantees that when we approximate the slow manifold and its evolution to a residual of~\Ord{\gamma^p}, the the slow manifold and its evolution are correct to errors~\Ord{\gamma^p}.
+By straightforward machinations not detailed here~\cite[Ch.~14]{Roberts96a, Roberts2014a} we arrive at the expressions that the slow manifold and the evolution thereon are
+% see tiwdbc.tex for Reduce code
+\begin{equation}
+u\approx(1-|x|)U+\gamma(|x|-\tfrac32x^2+\tfrac12|x|^3)
+\quad\text{such that }\dot U\approx-3\gamma U\,.
+\label{eq:egsm1}
+\end{equation}
+Substituting these expressions into the heat \pde~\eqref{eq:burgers} (\(\alpha=0\)), and the boundary and coupling conditions~\eqref{eq:cc1} we find the equations are satisfied to residual~\Ord{\gamma^2} and so the approximation theorem asserts these expressions are approximations with errors~\Ord{\gamma^2}.
+
+\begin{figure}
+\centering
+\begin{tabular}{cc}
+\tikzsetnextfilename{simpleshape}
+\begin{tikzpicture}
+\begin{axis}[small,xlabel={$x$},ylabel={$u$}
+,domain=-1:1,axis x line=middle, axis y line=middle
+,ymax=1.1,xmin=-1.1,xmax=1.2]
+    \addplot+[no marks] {1-abs(x)};
+    \addplot+[no marks] {1-1.5*x^2+abs(x)^3/2};
+    \addplot+[no marks] {cos(90*x)};
+\end{axis}
+\end{tikzpicture}
+&
+\parbox[b]{0.55\linewidth}{\caption{\label{fig:simp}%
+compare approximations to the long-term, quasi-stationary, decay of the heat \pde: blue, \(u\propto 1-|x|\) is the basic linear approximation~\eqref{eq:equil}; red, the derived cubic spline~\eqref{eq:egsm1} at full coupling \(\gamma=1\); and, almost indistinguishable, brown, is the exact mode \(u\propto\cos(\pi x/2)\).
+}}
+\end{tabular}
+\end{figure}
+
+Although this approximation is based around parameter \(\gamma=0\)\,, we are interested in the physical value of the parameter \(\gamma=1\)\,.
+Evaluating the slow manifold~\eqref{eq:egsm1} at \(\gamma=1\) gives 
+\begin{equation*}
+u\approx(1-\tfrac32x^2+\tfrac12|x|^3)U
+\quad\text{such that }\dot U\approx-3 U\,.
+\end{equation*}
+The field~\(u\), plotted in Figure~\ref{fig:simp}, is an excellent cubic spline approximation to the correct~\(U\cos(\pi x/2)\) eigenfunction, also plotted in Figure~\ref{fig:simp}.
+The predicted evolution of \(U\propto e^{-3t}\) is a good approximation of the correct rate of~\(-\pi^2/4\)\,. 
+
+
+
+One key question is how can we be sure that evaluating at finite \(\gamma=1\) is within the finite neighbourhood of validity of the slow manifold?
+Here computer algebra~\cite[Ch.~14]{Roberts96a, Roberts2014a} straightforwardly computes to high order to determine, for example, the slow evolution
+\begin{equation*}
+\dot U=-\big[3\gamma-0.6\gamma^2 +0.06857\gamma^3 -0.00128\gamma^5 +0.00008\gamma^6 +0.00004\gamma^7+\Ord{\gamma^8}\big]U.
+\end{equation*}
+Evidently the series in~\(\gamma\) has a radius of convergence much larger than one.
+Hence we expect that the neighbourhood of validity around~\EE\ includes the  case of interest, \(\gamma=1\)\,.
+
+\begin{figure}
+\centering
+\begin{tabular}{cc}
+\tikzsetnextfilename{nonlinsm}
+\begin{tikzpicture}
+\def\alfa{2}
+\begin{axis}[xlabel={$x$},ylabel={$u(x,U)$}
+,domain=-1:1,axis x line=middle, axis y line=middle
+,xmin=-1.1,xmax=1.1,legend pos=north west]
+\foreach \uu in {2,1.5,1,0.5} {
+    \addplot+[no marks] {\uu*(1-6/5*abs(x)^2-1/10*abs(x)^3+3/8*abs(x)^4-3/40*abs(x)^5)+\alfa*(\uu^2)*x*(2/5-abs(x)^2+3/4*abs(x)^3-3/20*abs(x)^4)+\alfa^2*(\uu)^3*(2/15*abs(x)^2-4/15*abs(x)^3+1/6*abs(x)^4-1/30*abs(x)^5)};
+\addlegendentryexpanded{$U=\uu$};
+};
+\end{axis}
+\end{tikzpicture}
+&
+\parbox[b]{0.45\linewidth}{\caption{\label{fig:nonlinsm}%
+nonlinear slow manifold for Burgers' \pde~\eqref{eq:burgers} for viscosity \(\nu=1\) and nonlinearity \(\alpha=2\)\,.  
+Drawn is the slow manifold~\(u(x,U)\) for representative amplitudes \(U=\tfrac12,1,\tfrac32,2\) to show the increasing deformation at larger amplitudes.  
+This approximation to the slow manifold was computed to errors~\Ord{\gamma^3+\alpha^3} and evaluated at full coupling \(\gamma=1\)\,.
+}}
+\end{tabular}
+\end{figure}
+
+Centre manifold theory~\cite[Ch.~4, e.g.]{Carr81, Roberts2014a} was designed for nonlinear problems.
+Thus it also applies here to the nonlinear Burgers' \pde~\eqref{eq:burgers} similarly modelled with two intervals on the domain \(-1<x<1\)\,.
+For example, modified computer algebra~\cite[Ch.~14]{Roberts96a, Roberts2014a}  constructs the slow manifold plotted in Figure~\ref{fig:nonlinsm} on which the nonlinear evolution is
+\begin{equation*}
+\dot U=-(3\gamma+\tfrac35\gamma^2)U-\tfrac1{15}\gamma^2\alpha^2U^3
++\Ord{\gamma^3+\alpha^3}.
+\end{equation*}
+The nonlinear advection of Burgers' \pde\ generates steeper gradients (Figure~\ref{fig:nonlinsm}) that enhance the decay as expressed by the cubic nonlinearity in this evolution equation for amplitude~\(U(t)\).
+
+Key properties of this example are also exhibited in the application of the approach to the more general spatial discretisations discussed by subsequent sections: an analogous inter-element coupling engenders an emergent slow manifold; the linearised operator is self-adjoint; the first iteration constructs a cubic spline; and the resultant model at full coupling has attractive properties.
+
+
+
+
+
+
 \section{Motivation}\label{sec:motive}
-The choice of a piecewise linear leading approximation, in contrast to the usual piecewise constant one
- \cite[]{Roberts98a, Roberts00a, Roberts2011a}, is motivated by two factors: firstly, the empirical observation
+The choice of a piecewise linear leading approximation, in contrast to the usual piecewise constant one \cite[]{Roberts98a, Roberts00a, Roberts2011a}, is motivated by two factors: firstly, the empirical observation
 that linear approximation is frequently employed in practice as a cheap means of interpolating between grid-point values;
 and secondly, as the consequence of an application of the Rayleigh--Ritz theorem.
 Consider a general dynamical system of the form
@@ -310,8 +494,9 @@ wavenumber $\kappa=0$ (see Figure~\ref{fig:leaspec}), indicating that transient 
  to the centre manifold at a rate of at least
 $\lambda=-\nu k^2=-\frac{\nu\pi^2}{H^2}$. It is this gap that provides robustness to nonlinear perturbations
 about the equilibrium within some suitable region in state-space.
-\begin{figure}[hbt]
+\begin{figure}
 \centering
+\tikzsetnextfilename{spectrum}
 \begin{tikzpicture}
 \begin{axis}[ xlabel={$\kappa$}
   ,axis x line=middle,axis y line=middle
@@ -504,8 +689,9 @@ the coarse dynamics of the diffusion equation ($\alpha=0$)  obey
 \end{eqnarray}
 As shown in Figure~\ref{fig:diff:spectrum}, each additional term provides a better approximation to the
 continuum dynamics.
-\begin{figure}[hbt]
+\begin{figure}
 \centering
+\tikzsetnextfilename{decayRates}
 \begin{tikzpicture}
 \begin{axis}[ xlabel={$\kappa$}, ylabel={$\bar{\lambda}$}
   ,axis x line=middle,axis y line=middle
@@ -530,7 +716,7 @@ continuum dynamics.
 \caption{The  non-dimensionalised spectrum 
 ($\bar{\lambda}=\lambda H^2/\nu$ versus $\kappa=kH$)
 of the diffusion equation
-($\alpha=0$) for the mode $\tilde{u}(x,t)=e^{\lambda t+iik x}$, 
+($\alpha=0$) for the mode $\tilde{u}(x,t)=e^{\lambda t+ik x}$, 
 contrasting the continuum dynamics  against successive discrete, holistic approximations (for $\gamma=1$).}
 \label{fig:diff:spectrum}
 \end{figure}

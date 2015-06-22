@@ -1,0 +1,78 @@
+\documentclass[11pt,a5paper]{article}
+\IfFileExists{ajr.sty}{\usepackage{defns,ajr}}{}
+\title{Two intervals with Dirichlet BCs}
+\author{AJR}
+\date{\today}
+
+\usepackage{reducecode}
+
+\begin{document}
+
+\maketitle
+
+Let's try the simplest problem.  
+The finite domain is \(-1\leq x\leq1\), \(t\)~is time, and we seek a field~\(u(x,t)\) satisfying the heat\slash Burgers' \pde\ \(u_t=u_{xx}-\alpha uu_x\) and Dirichlet physical boundary conditions of \(u=0\) at \(x=\pm1\)\,.
+The simplest numerical approximation in our class is formed by imposing the artificial breakpoint at \(x=0\) that the field is continuous, \([u]_0=0\), but the derivative has a jump of \([u_x]_0=(1-\gamma)(0-2u|_0+0)=-2(1-\gamma)u|_0\).
+
+\begin{reduce}
+on div; off allfac; on revpri;
+factor uu,alpha;
+\end{reduce}
+The slow manifold depends upon \(\verb|uu|=U(t):=u(0,t)\).
+Its evolution is \(dU/dt=\verb|g|\).
+\begin{reduce}
+depend uu,t;
+let df(uu,t)=>g;
+\end{reduce}
+Slow subspace approximation to the slow manifold.
+\begin{reduce}
+u:=(1-xx)*uu;
+g:=0;
+\end{reduce}
+The subgrid field is expressed in terms of~\(\verb|xx|:=|x|\) so define \(\verb|sx|:=\text{sign}\,x\):
+\begin{reduce}
+depend xx,x; 
+let { df(xx,x)=>sx, sx^2=>1 };
+\end{reduce}
+
+\begin{reduce}
+operator iint;linear iint;
+let { iint(1,x)=>(xx^2-xx)/2
+    , iint(xx^~~p,x)=> (xx^(p+2)-xx)/(p+1)/(p+2) };
+\end{reduce}
+
+\begin{reduce}
+let { gamma^3=>0 };
+alpha:=alfa*gamma;
+aa:=0;% 1/6 may be useful for low orders, but only a little at high
+for it:=1:19 do begin
+\end{reduce}
+
+Compute the residual of the \pde\ and coupling condition.
+\begin{reduce}
+write
+respde:=-df(u,t)+df(u,x,x)-alpha*u*df(u,x);
+ux:=df(u,x);
+write
+rescc:=sub(xx=0,(1-aa*gamma)*(sub(sx=1,ux)-sub(sx=-1,ux))
+    +2*(1-gamma)*u);
+\end{reduce}
+Compute corrections from residuals.
+\begin{reduce}
+g:=g+(gd:=3/2*rescc+3*sub({xx=1,sx=0},int(respde*(1-xx),xx)));
+u:=u+iint(gd*(1-xx)-respde,x);
+\end{reduce}
+
+Terminate loop when residuals are zero.
+\begin{reduce}
+if {respde,rescc}={0,0} then write "success ",it:=10000+it;
+end;
+\end{reduce}
+
+
+\begin{reduce}
+end;
+\end{reduce}
+
+
+\end{document}

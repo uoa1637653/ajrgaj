@@ -1,9 +1,20 @@
 \begin{thebibliography}{xx}
 
+\harvarditem{Carr}{1981}{Carr81}
+Carr, J.  \harvardyearleft 1981\harvardyearright , {\em Applications of centre
+  manifold theory}, Vol.~35 of {\em Applied Math. Sci.}, Springer--Verlag.
+\newline\harvardurl{http://books.google.com.au/books?id=93BdN7btysoC}
+
 \harvarditem{Fornberg}{1973}{Fornberg73}
 Fornberg, B.  \harvardyearleft 1973\harvardyearright , `On the instability of
   the leap-frog and {Crank--Nicolson} approximations of a nonlinear partial
   differential equation', {\em Maths of Comput.} {\bf 27},~45--57.
+
+\harvarditem{Roberts}{1997}{Roberts96a}
+Roberts, A.~J.  \harvardyearleft 1997\harvardyearright , `Low-dimensional
+  modelling of dynamics via computer algebra', {\em Computer Phys. Comm.} {\bf
+  100},~215--230.
+\newblock \doi{10.1016/S0010-4655(96)00162-2}.
 
 \harvarditem{Roberts}{2001}{Roberts98a}
 Roberts, A.~J.  \harvardyearleft 2001\harvardyearright , `Holistic
@@ -17,6 +28,11 @@ Roberts, A.~J.  \harvardyearleft 2003\harvardyearright , `A holistic finite
   difference approach models linear dynamics consistently', {\em Mathematics of
   Computation} {\bf 72},~247--262.
 \newline\harvardurl{http://www.ams.org/mcom/2003-72-241/S0025-5718-02-01448-5}
+
+\harvarditem{Roberts}{2014}{Roberts2014a}
+Roberts, A.~J.  \harvardyearleft 2014\harvardyearright , {\em Model emergent
+  dynamics in complex systems}, SIAM, Philadelphia.
+\newline\harvardurl{http://bookstore.siam.org/mm20/}
 
 \harvarditem[Roberts et~al.]{Roberts, MacKenzie \harvardand\
   Bunder}{2014}{Roberts2011a}
