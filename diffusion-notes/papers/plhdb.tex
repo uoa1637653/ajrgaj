@@ -4,7 +4,7 @@
 
 \usepackage{url,natbib}
 \let\harvardurl\url
-\usepackage{graphicx,subcaption}
+\usepackage{graphicx}
 \usepackage{amsmath,amsfonts,defns}
 \usepackage{pgfplots}
 \usepgfplotslibrary{external} %exports pdf for each tikz figure
@@ -20,11 +20,33 @@
 %\numberwithin{table}{section}
 
 \newcommand{\bc}{\textsc{bc}}
+\newcommand{\cc}{\textsc{cc}}
+
+\def\ajrSplit#1#2\ajrEndSplit{\def\ajrcar{#1}\def\ajrcdr{#2}}
+\def\Vec{}
+\renewcommand{\Vec}[1]{%
+  \typeout{**** Command  \ #1v denotes vector #1}%
+  \expandafter\ajrSplit#1\ajrEndSplit%
+  \ifx\ajrcdr\empty % single character
+    \expandafter\def\csname#1v\endcsname%
+    {\ensuremath{\vec #1}}%
+  \else % multicharacter e.g. greek
+    \expandafter\def\csname#1v\endcsname%
+    {\ensuremath{\vec{\csname#1\endcsname}}}%
+  \fi%
+  }
+\Vec U \Vec g \Vec v \Vec u \Vec s
 
 \newcommand{\Bb}[1]{%
   \expandafter\def\csname#1#1\endcsname%
   {\ensuremath{\mathbb #1}}}
 \Bb X\Bb T\Bb R\Bb I\Bb J \Bb E
+
+\newcommand{\Cal}[1]{%
+  \expandafter\def\csname c#1\endcsname%
+  {\ensuremath{\mathcal #1}}}
+\Cal L \Cal I \Cal N \Cal M
+
 \newcommand{\secref}[1]{\ref{sec:#1}}
 
 \title{An exciting application of piecewise-linear holistic discretisation}
@@ -74,65 +96,82 @@ the behaviours of several other typical approximations.
 
 
 \section{Introduction}\label{sec:intro}
-\ajr{Can we generalise to $u_t=F(u_x)_x+\alpha G(x,u,u_x)$??}
-As an application of holistic discretisation, we consider the spatial discretisation of a field~\(u(x,t)\) of the nonlinear advection--diffusion Burgers' \pde
+
+This article's scope is the accurate spatial discretisation of nonlinear \pde{}s for a field~\(u(x,t)\) satisfying reaction-advection-diffusion \pde{}s in the general form
+\begin{equation}
+u_t=F(u_x)_x+\alpha G(x,u,u_x)
+\label{eq:genpde}
+\end{equation}
+where subscript \(x\) and~\(t\) denote derivatives, and for smooth functions \(F\) and~\(G\).
+Given \(N\)~discrete points in space, \(x=X_j\) for \(j=1,\ldots,N\)\,, we define grid values \(U_j(t)=u(X_j,t)\)\,.
+Then the aims are to: firstly, establish that in principle there exists an \emph{exact} closure of the dynamics of the \pde~\eqref{eq:genpde} in terms of these grid values, \(d\\Uv/dt=\gv(\Uv)\); secondly,  establish that such a closure is emergent from general initial conditions; thirdly, show how to construct systematic approximations to the in-principle closure; and fourthly, evaluate its performance for the classic example of the nonlinear advection--diffusion Burgers' \pde
 \begin{eqnarray}
 	\D tu = \nu\DD xu - \alpha u\D xu\,.
 \label{eq:burgers}
 \end{eqnarray}
+Generalisation of the approach to two or more spatial dimensions remain for further research.
+
 %Mention cole-hopf leads to known solution which is unconditionally stable.
-The spatial domain~\(\XX\) is of length~\(L\), \(0\leq x\leq L\)\,, and we consider solutions \(L\)-periodic in space.
+The spatial domain~\(\XX\) is of length~\(L\), \(0\leq x\leq L\)\,, and we mostly restrict attention to solutions~\(u(x,t)\) which are \(L\)-periodic in space, but occasionally comment on the cases of Dirichlet boundary conditions, \(u(0,t)=u(L,t)=0\)\,, and Neumann boundary conditions, \(u_x(0,t)=u_x(L,t)=0\)\,.
 The first step is to partition~$\XX$ into $N$~equi-spaced intervals bounded by $N+1$~grid-points~\(X_j\), \({j=0,\ldots,N}\), with spacing~\(H\).
 Traditional spatial discretisation of such \pde{}s, whether finite difference, finite element, or finite volume, imposes assumed fields in each element and then derives approximate rules for the evolution in time of the parameters of the imposed fit.
 
 Our approach is to let the \pde~\eqref{eq:burgers} determine the subgrid structures in order to remain faithful to the \pde.
-Let the dynamics of the field~$u(x,t)$ be summarised by the coarse dynamics ${\vec U}=(U_1,U_2,\ldots,U_N)$, where grid values $U_j(t):=u(X_j,t)$ for all $t\in \TT$.
+Let the dynamics of the field~$u(x,t)$ be summarised by the coarse dynamics ${\Uv}=(U_1,U_2,\ldots,U_N)$, where grid values \begin{equation}
+U_j(t):=u(X_j,t)\text{ for all }t\in \TT.
+\label{eq:gridval}
+\end{equation}
 Theory to be discussed asserts that in principle and \emph{exact} closure exists: that is, there is some coarse temporal evolution 
 \begin{eqnarray}
-	\dot{\vec U}(t) = {\vec g}({\vec U})
+	\dot{\Uv}(t) = {\gv}({\Uv})
 \label{eq:temporal}
 \end{eqnarray}
 that gives exact solutions of the \pde.
-The traditional approach is to use centred approximations, for example, $\delta^2 U_j/H^2$ for $\DD xu$
-and $U_j\mu\delta U_j/H$ for $u\D xu$, 
-where $\delta=\sigma^{\frac{1}{2}}-\sigma^{-\frac{1}{2}}$,
-$\mu=(\sigma^{\frac{1}{2}}+\sigma^{-\frac{1}{2}})/2$,
-and $\sigma U_j=U_{j+1}$.
-However, the advection term has another plausible representation, namely the
-conservative form $\mu\delta U_j^2/2H$.
-For illustrative purposes, a mixture of the two latter representations will be used for comparison,
-namely
+The traditional approach is to use centred approximations, for two examples,  
+\begin{eqnarray*}
+\DD xu&\approx& \frac1{H^2}(U_{j+1}-2U_j+U_{j-1})=\delta^2 U_j/H^2;
+\\
+u\D xu&\approx&\frac1{2H}U_j(U_{j+1}-U_{j-1})=U_j\mu\delta U_j/H\,;
+\end{eqnarray*}
+where the centred difference $\delta=\sigma^{1/2}-\sigma^{-1/2}$,
+centred mean $\mu=(\sigma^{1/2}+\sigma^{-1/2})/2$,
+and the shift operator $\sigma U_j=U_{j+1}$.
+However, the nonlinear advection term has another plausible representation, namely the conservative form~$\mu\delta (U_j^2)/2H$.
+For illustrative purposes, a convex combination of the two  representations will be used for comparison; that is, we will compare results with Burgers' \pde~\eqref{eq:burgers} discretised to
 \begin{eqnarray}
-	\dot{U}_j = \nu\frac{\delta^2 U_j}{H^2}-(1-\theta)\alpha\frac{U_j\mu\delta U_j}{H}
--\theta\alpha\frac{\mu\delta U_j^2}{2H}\,.
+	\dot{U}_j = \nu\frac{\delta^2 U_j}{H^2}
+	-(1-\theta)\alpha\frac{U_j\mu\delta U_j}{H}
+    -\theta\alpha\frac{\mu\delta (U_j^2)}{2H}\,.
 \label{eq:mixture}
 \end{eqnarray}
-In contrast, the holistic approach has no such representational ambiguity, and, as shown in Section~\secref{nonlin}, gives rise at first-order to the model
+In contrast, Section~\secref{nonlin} shows our holistic approach has no such representational ambiguity, and constructs at first-order the specific model
 \begin{eqnarray}
-	\dot{U}_j = S\left(\nu\frac{\delta^2 U_j}{H^2}-\alpha\frac{U_j\mu\delta U_j}{3H}
--\alpha\frac{\mu\delta U_j^2}{3H}\right)\,,
+	\dot{U}_j = S\left[\nu\frac{\delta^2 U_j}{H^2}
+	-\alpha\frac{U_j\mu\delta U_j}{3H}
+    -\alpha\frac{\mu\delta (U_j^2)}{3H}\right],
 \label{eq:holistic1}
 \end{eqnarray}
 where the nonlocal operator $S=(1+\delta^2/6)^{-1}$. 
 Observe that, apart from the nonlocal operator~$S$,
-this holistic model matches the mixture model~\eqref{eq:mixture} for $\theta=\frac{2}{3}$.
+this holistic model matches the mixture model~\eqref{eq:mixture} for parameter $\theta=\frac{2}{3}$.
 This parameter value is exactly the critical value predicted by \cite{Fornberg73} to be necessary for stable simulation (with $\nu=0$ and $\alpha=1$) for a selection of numerical integration schemes.
-Further comparisons of the numerical behaviours of the holistic and mixture models are given in Section~\secref{numeric}.
+Section~\secref{numeric} further compares the numerical behaviour of the holistic and mixture models.
 
-The final step in the simulation process is to interpolate  from the coarse solution ${\vec U}(t)$ 
-back to the continuum field $u(x,t)$ via a spatial mapping of the form
+The final part of the process is to express the physical field~\(u(x,t)\) in terms of the coarse solution~${\Uv}(t)$. 
+That is, we construct the field
 \begin{eqnarray}
-	u(x,t)  = \hat{u}(x,{\vec U}(t))\,.
+	u  = {u}(x,{\Uv}),
 	\label{eq:spatial}
 \end{eqnarray}
+where the time evolution of~\(u\) comes via the evolving coarse variable~\(\Uv\).
 The complete holistic framework comprises equations~\eqref{eq:temporal} and \eqref{eq:spatial},  along with the addition of suitable boundary conditions that are discussed in Section~\secref{lin}.
-We show in Section~\secref{nonlin} that, to first-order, the holistic mapping $\hat{u}$ takes the form
+Section~\secref{nonlin} shows that, to first-order, the holistic mapping $\hat{u}$ takes the form
 \begin{eqnarray}
-\hat{u} = \sum_{j=1}^{N}\chi_j\left({\cal I}_{0}U_j+\frac{H^2}{6\nu}{\cal I}_{1}\dot{U}_j
-+\frac{\alpha H}{6\nu}{\cal I}_{1}U_j.\Delta U_j\right)\,,
+\hat{u} = \sum_{j=1}^{N}\chi_j\left({\cI}_{0}U_j+\frac{H^2}{6\nu}{\cI}_{1}\dot{U}_j
++\frac{\alpha H}{6\nu}{\cI}_{1}U_j\,\Delta U_j\right)\,,
 \end{eqnarray}
-with backward-difference $\Delta=1-\sigma^{-1}$ and interpolators ${\cal I}_{0}=\sigma^{-1}+\xi\Delta$ and
-${\cal I}_{1}=\xi^3+(1-\xi)^{3}\sigma^{-1}-\xi\Delta-\sigma^{-1}$,
+with backward-difference $\nabla=1-\sigma^{-1}$ and interpolators ${\cI}_{0}=\sigma^{-1}+\xi\nabla$ and
+${\cI}_{1}=\xi^3+(1-\xi)^{3}\sigma^{-1}-\xi\nabla-\sigma^{-1}$,
 using the interval indicator $\chi_j(x)=1$ (else $0$) for $X_{j-1}\le x<X_j$ and
 dimensionless coordinate $\xi(x)=\sum_{j=1}^{N}\chi_j(x)\frac{x-X_{j-1}}{H}$.
 Figure~\ref{fig:uhat} shows an example of the holistic approximation $\hat{u}(x,t)$ to the true field $u(x,t)$.
@@ -150,10 +189,10 @@ Figure~\ref{fig:uhat} shows an example of the holistic approximation $\hat{u}(x,
 \begin{axis}[ xlabel={$x$}, ylabel={$u(x,t)$}
   ,axis x line=middle,axis y line=middle
   ,thick,grid,samples=101
-  ,ymin=-1.1,ymax=1.3 ,domain=0:6.2832,xmax=6.8
+  ,ymin=-1.1,ymax=1.3 ,domain=0:6.2832,xmax=7
   ,xtick={2.0944,4.1888,6.2832}
-  ,xticklabels={$\frac{2\pi}{3}$,$\frac{4\pi}{3}$,$2\pi$}
-  ,legend pos=outer north east
+  ,xticklabels={$X_1=\frac{2\pi}{3}$,$X_2=\frac{4\pi}{3}$,$X_3=2\pi$}
+  ,legend pos=north east
   ] 
 \addplot [blue,no marks,domain=0:2.0944] {xi1(x)*u1(x)+(1-xi1(x))*u0(x)}; 
 \addlegendentry{$\hat{u}_0$};
@@ -169,12 +208,17 @@ Figure~\ref{fig:uhat} shows an example of the holistic approximation $\hat{u}(x,
 \addplot [red,no marks,domain=4.1888:6.2832] {xi3(x)*u3(x)+(1-xi3(x))*u2(x)
 	+1/6*(xi3(x)^3*sd2u3(x)+(1-xi3(x))^3*sd2u2(x)-xi3(x)*(sd2u3(x)-sd2u2(x))-sd2u2(x))
 }; 
+\addplot [blue,only marks,mark=*] coordinates 
+{(0,0)(2.0944,1)(4.1888,-1)(6.2832,0)};
+\node[right] at (axis cs:2.0944,1) {$U_1$};
+\node[left] at (axis cs: 4.1888,-1) {$U_2$};
+\node[above] at (axis cs: 6.2832,0) {$U_3\ $};
 \end{axis}
 \end{tikzpicture}
-\caption{An example of the interpolative smoothing provided by the holistic discretisation process,
-where the piecewise--linear initial approximation $\hat{u}$ is smoothed by the first-order correction $\hat{u}_1$  (for $\alpha=0$).
-The correction here takes the form of a cubic spline; however, it is derived directly from the dynamical equation itself, rather than obtained by 
-post-fitting arbitrary curves to the discrete values.}
+\caption{An example of the smooth subgrid field provided by the holistic discretisation process,
+where the piecewise-linear initial approximation~$\hat{u}_0$ is smoothed by the first-order correction~$\hat{u}_1$  (for nonlinearity $\alpha=0$).
+The correction takes the form of a cubic spline; however, it is derived directly from the \pde\ itself, rather than obtained by 
+imposing an interpolation.}
 \label{fig:uhat}
 \end{figure}
 
@@ -257,7 +301,7 @@ Lastly, a theorem also guarantees that when we approximate the slow manifold and
 By straightforward machinations not detailed here~\cite[Ch.~14]{Roberts96a, Roberts2014a} we arrive at the expressions that the slow manifold and the evolution thereon are
 % see tiwdbc.tex for Reduce code
 \begin{equation}
-u\approx(1-|x|)U+\gamma(|x|-\tfrac32x^2+\tfrac12|x|^3)
+u\approx\left[1-|x|+\gamma(|x|-\tfrac32x^2+\tfrac12|x|^3)\right]U
 \quad\text{such that }\dot U\approx-3\gamma U\,.
 \label{eq:egsm1}
 \end{equation}
@@ -270,7 +314,7 @@ Substituting these expressions into the heat \pde~\eqref{eq:burgers} (\(\alpha=0
 \begin{tikzpicture}
 \begin{axis}[small,xlabel={$x$},ylabel={$u$}
 ,domain=-1:1,axis x line=middle, axis y line=middle
-,ymax=1.1,xmin=-1.1,xmax=1.2]
+,ymax=1.1,xmin=-1.1,xmax=1.2,thick]
     \addplot+[no marks] {1-abs(x)};
     \addplot+[no marks] {1-1.5*x^2+abs(x)^3/2};
     \addplot+[no marks] {cos(90*x)};
@@ -290,7 +334,7 @@ u\approx(1-\tfrac32x^2+\tfrac12|x|^3)U
 \quad\text{such that }\dot U\approx-3 U\,.
 \end{equation*}
 The field~\(u\), plotted in Figure~\ref{fig:simp}, is an excellent cubic spline approximation to the correct~\(U\cos(\pi x/2)\) eigenfunction, also plotted in Figure~\ref{fig:simp}.
-The predicted evolution of \(U\propto e^{-3t}\) is a good approximation of the correct rate of~\(-\pi^2/4\)\,. 
+The predicted evolution \(U\propto e^{-3t}\) is a good approximation to the correct decay rate of~\(-\pi^2/4\)\,. 
 
 
 
@@ -310,7 +354,7 @@ Hence we expect that the neighbourhood of validity around~\EE\ includes the  cas
 \def\alfa{2}
 \begin{axis}[xlabel={$x$},ylabel={$u(x,U)$}
 ,domain=-1:1,axis x line=middle, axis y line=middle
-,xmin=-1.1,xmax=1.1,legend pos=north west]
+,xmin=-1.1,xmax=1.1,legend pos=north west,thick]
 \foreach \uu in {2,1.5,1,0.5} {
     \addplot+[no marks] {\uu*(1-6/5*abs(x)^2-1/10*abs(x)^3+3/8*abs(x)^4-3/40*abs(x)^5)+\alfa*(\uu^2)*x*(2/5-abs(x)^2+3/4*abs(x)^3-3/20*abs(x)^4)+\alfa^2*(\uu)^3*(2/15*abs(x)^2-4/15*abs(x)^3+1/6*abs(x)^4-1/30*abs(x)^5)};
 \addlegendentryexpanded{$U=\uu$};
@@ -320,7 +364,7 @@ Hence we expect that the neighbourhood of validity around~\EE\ includes the  cas
 &
 \parbox[b]{0.45\linewidth}{\caption{\label{fig:nonlinsm}%
 nonlinear slow manifold for Burgers' \pde~\eqref{eq:burgers} for viscosity \(\nu=1\) and nonlinearity \(\alpha=2\)\,.  
-Drawn is the slow manifold~\(u(x,U)\) for representative amplitudes \(U=\tfrac12,1,\tfrac32,2\) to show the increasing deformation at larger amplitudes.  
+Drawn is the slow manifold~\(u(x,U)\) for representative amplitudes \(U=\tfrac12,1,\tfrac32,2\) to show the larger deformation at larger amplitudes.  
 This approximation to the slow manifold was computed to errors~\Ord{\gamma^3+\alpha^3} and evaluated at full coupling \(\gamma=1\)\,.
 }}
 \end{tabular}
@@ -328,7 +372,7 @@ This approximation to the slow manifold was computed to errors~\Ord{\gamma^3+\al
 
 Centre manifold theory~\cite[Ch.~4, e.g.]{Carr81, Roberts2014a} was designed for nonlinear problems.
 Thus it also applies here to the nonlinear Burgers' \pde~\eqref{eq:burgers} similarly modelled with two intervals on the domain \(-1<x<1\)\,.
-For example, modified computer algebra~\cite[Ch.~14]{Roberts96a, Roberts2014a}  constructs the slow manifold plotted in Figure~\ref{fig:nonlinsm} on which the nonlinear evolution is
+For example, modified computer algebra~\cite[Ch.~14]{Roberts96a, Roberts2014a} \ajr{Code needs to be checked??} constructs the slow manifold plotted in Figure~\ref{fig:nonlinsm} on which the nonlinear evolution is
 \begin{equation*}
 \dot U=-(3\gamma+\tfrac35\gamma^2)U-\tfrac1{15}\gamma^2\alpha^2U^3
 +\Ord{\gamma^3+\alpha^3}.
@@ -348,41 +392,243 @@ that linear approximation is frequently employed in practice as a cheap means of
 and secondly, as the consequence of an application of the Rayleigh--Ritz theorem.
 Consider a general dynamical system of the form
 \begin{eqnarray}
-\dot{\vec u} = {\cal L}{\vec u}+{\cal N}({\vec u})\,,
+\dot{\uv} = {\cL}{\uv}+{\cN}({\uv})\,,
 \label{eq:nonlin:gen}
 \end{eqnarray}
-where it is pre-supposed for convenience that ${\cal N}({\vec 0})={\vec 0}$. 
+where it is pre-supposed for convenience that ${\cN}({\vec 0})={\vec 0}$. 
 The slow manifold approximation to the dynamics of the linearised system
 \begin{eqnarray}
- \dot{{\vec u}}={\cal L}{\vec u}
+ \dot{{\uv}}={\cL}{\uv}
 \label{eq:lin:gen}
 \end{eqnarray}
-about ${\vec u}={\vec 0}$ is then parameterised as
+about ${\uv}={\vec 0}$ is then parameterised as
 \begin{eqnarray}
-{\vec u} = V{\vec s}\,, && \dot{{\vec s}} = \Lambda{\vec s}\,,
+{\uv} = V{\sv}\,, && \dot{{\sv}} = \Lambda{\sv}\,,
 \end{eqnarray}
-whereupon $V\Lambda{\vec s}={\cal L}V{\vec s}$ for arbitrary ${\vec s}$.
+whereupon $V\Lambda{\sv}={\cL}V{\sv}$ for arbitrary ${\sv}$.
 Observe that the particular choice of $\Lambda=\mbox{diag}(\lambda_1,\lambda_2,\ldots)$ uncouples this relation into the components
-${\cal L}{\vec v}_j=\lambda{\vec v}_j$, where $V=\left[{\vec v}_1,{\vec v}_2,\ldots\right]$.
+${\cL}{\vv}_j=\lambda{\vv}_j$, where $V=\begin{bmatrix} {\vv}_1&{\vv}_2&\cdots \end{bmatrix}$.
 
-Now, when ${\cal L}$ is self-adjoint, the Rayleigh--Ritz theorem is that $\lambda_j = R({\vec v}_j)$ for the Rayleigh quotient 
-\[ R({\vec v}) = \frac{\langle{\vec v},{\cal L}{\vec v}\rangle}{\|{\vec v}\|^2}\,.\]
- It can further be shown, upon perturbing ${\vec v}_j$ to ${\vec u}={\vec v}_j+\epsilon{\vec w}$,
-that $R({\vec u})=\lambda_j+O(\epsilon^2)$.
+Now, when ${\cL}$ is self-adjoint, the Rayleigh--Ritz theorem is that $\lambda_j = R({\vv}_j)$ for the Rayleigh quotient 
+\[ R({\vv}) = \frac{\langle{\vv},{\cL}{\vv}\rangle}{\|{\vv}\|^2}\,.\]
+ It can further be shown, upon perturbing ${\vv}_j$ to ${\uv}={\vv}_j+\epsilon{\vec w}$,
+that $R({\uv})=\lambda_j+\Ord{\epsilon^2}$.
 %This provides support for the general expansions
 %\begin{eqnarray}
-%{\vec u} \sim V{\vec s}+\epsilon{\vec w}_1+\epsilon^2{\vec w}_2+\ldots\,,
+%{\uv} \sim V{\sv}+\epsilon{\vec w}_1+\epsilon^2{\vec w}_2+\ldots\,,
 %&& 
-%\dot{\vec u} \sim V\Lambda{\vec s}+\epsilon{\vec g}_1+\epsilon^2{\vec g}_2+\ldots\,,
+%\dot{\uv} \sim V\Lambda{\sv}+\epsilon{\gv}_1+\epsilon^2{\gv}_2+\ldots\,,
 %\end{eqnarray}
 %for the nonlinear dynamical system~\eqref{eq:nonlin:gen}.
 The slow manifold is based upon the slow subspace spanned by the slow eigenvectors, and the evolution on the slow manifold corresponds to eigenvalues of the linearisation.
 Hence the Rayleigh--Ritz quotient suggests that the more accurate we make a linear subspace approximation to the field~\(u(x,t)\), the more accurate the evolution on the slow manifold.
 Consequently, Section~\secref{lin} develops a piecewise linear and continuous subspace approximation to the field.
 
-\section{Linear analysis}\label{sec:lin}
+
+
+
+
+
+\section{Linearisation establishes the existence of a closure}\label{sec:lin}
+
+We use centre manifold theory \cite[e.g.]{Carr81, Haragus2011} to establish the in-principle existence and emergence of an exact closure to the dynamics of  \pde{}s in the class~\eqref{eq:genpde}.
+Centre manifold theory is based upon an equilibrium or subspace of equilibria, and follows primarily from the spectrum of the linearised dynamics \cite[e.g.]{Roberts2014a}.
+
+To find useful equilibria we embed the \pde~\eqref{eq:genpde} in a wider class of problems.
+First partition the spatial domain into the \(N\)~intervals between the grid points \(x=X_j\)\,: let the interval \(\XX_j=\{x\mid X_{j-1}<x<X_j\}\) and denote the punctured domain \(\tilde\XX:=\XX\backslash\{X_0,X_1,\ldots,X_N\}\).
+For definiteness take the boundary conditions on the field~\(u(x,t)\) to be that it is \(L\)-periodic in space.
+Then use \(u_j(x,t)\)~to denote solutions of the \pde~\eqref{eq:genpde} on the interval~\(\XX_j\), and reserve \(u(x,t)\), over~\XX\ or~\(\tilde\XX\) as appropriate, to denote the union over all intervals of such solutions.
+To restore the original \pde~\eqref{eq:genpde} over the whole domain~\XX\ we couple the fields on each interval together.
+By controlling the information flow between intervals, we embed the original \pde\ over the whole domain to a useful base problem.
+The coupling conditions are  
+\begin{subequations}\label{eqs:cc}%
+\begin{eqnarray}
+&&[u]_{X_j^-}^{X_j^+}=0
+\quad\text{and }
+\label{eq:ccc}
+\\&&
+[\nu u_x]_{X_j^-}^{X_j^+}=\frac{c(\gamma)}H\left[
+(\nu u)|_{X_{j+1}^-} -(\nu u)|_{X_{j}^+}
++(\nu u)|_{X_{j-1}^+} -(\nu u)|_{X_{j}^-}\right],\qquad
+\label{eq:ccj}
+\end{eqnarray}
+\end{subequations}
+where coefficient \(\nu(x)=F'(u_x)\) is the effective diffusivity at each point in~\(\tilde\XX\), via the gradient~\(u_x\),
+and where the factor~\(c(\gamma)\) is some smooth function such that \(c(0)=1\) and \(c(1)=0\) (for example, we often use \(c(\gamma)=1-\gamma\)\,.
+
+\begin{lemma}[equilibria] \label{thm:equil}
+The \pde~\eqref{eq:genpde} on domain~\(\tilde\XX\) with coupling conditions~\eqref{eqs:cc} possesses an \(N\)-dimensional subspace~\EE\ of equilibria, parametrised by \(\Uv=(U_1,U_2,\ldots,U_N)\), for parameters \(\alpha=\gamma=0\) of piecewise linear solutions~\(u^*(x)\) such that on the \(j\)th~interval the field 
+\begin{equation}
+u_j^*(x)=(1-\xi)U_{j-1}+\xi U_j
+\quad\text{where }\xi=(x-X_{j-1})/H
+\label{eq:equil}
+\end{equation}
+is a local scaled space variable.
+\end{lemma}
+
+\begin{proof} 
+With nonlinearity \(\alpha=0\) the \pde~\eqref{eq:genpde} takes the form \(u_t=F(u_x)_x\)\,.
+For the piecewise linear field~\eqref{eq:equil}, the gradient \(u^*_x=(U_j-U_{j-1})/H\) is constant on each~\(\XX_j\). 
+Hence \(F(u^*_x)\) is constant on each~\(\XX_j\).
+Consequently, \(F(u^*_x)_x=0\) on~\(\tilde\XX\), giving an equilibria of the \pde\ on~\(\tilde\XX\).
+
+From the field~\eqref{eq:equil},  \(u^*_j(X_j^-)=U_j=u^*_{j+1}(X_j^+)\) and hence \(u^*(x)\)~is continuous at~\(X_j\) to satisfy the coupling condition~\eqref{eq:ccc}.
+
+Lastly, consider the condition~\eqref{eq:ccj} on the jump in the derivative.
+For the field~\eqref{eq:equil}, the gradient is \(u^*_x=(U_j-U_{j-1})/H\) so, in terms of the constants 
+\begin{equation}
+\nu_j:=F'(u^*_{jx})=F'\big(\tfrac{U_j-U_{j-1}}H\big),
+\label{eq:nuj}
+\end{equation} 
+the jump in gradient 
+\begin{eqnarray*}
+[\nu u^*_x]_{X_j^-}^{X_j^+}
+&=&\nu_{j+1}\frac{U_{j+1}-U_j}H-\nu_j\frac{U_j-U_{j-1}}H
+\\&=&\frac1H(\nu_{j+1}U_{j+1}-\nu_{j+1}U_j+\nu_jU_{j-1}-\nu_jU_j)
+\\&=&\frac1H\left(\nu|_{X_{j+1}^-}u^*|_{X_{j+1}^-}
+-\nu|_{X_{j}^+}u^*|_{X_{j}^+}
++\nu|_{X_{j-1}^+}u^*|_{X_{j-1}^+}
+-\nu|_{X_{j}^-}u^*|_{X_{j}^-}\right)
+\end{eqnarray*}
+which is the required right-hand side of~\eqref{eq:ccj} for coupling parameter \(\gamma=0\) (as \(c(0)=1\)).
+Hence, the piecewise linear fields~\eqref{eq:equil}, with \(\alpha=\gamma=0\), are equilibria for all~\Uv, and clearly form an \(N\)-D~subspace.
+\end{proof}
+
+The spectrum comes from the linearised dynamics around each of the equilibria~\EE.
+Seek solutions \(u=u^*(x)+\hat u(xt)\) of the general \pde~\eqref{eq:genpde} where \(\hat u(x,t)\)~denotes a small perturbation to the equilibrium~\eqref{eq:equil}. 
+Use \(\hat u_j(x,t)\) as a synonym for~\(\hat u(x,t)\) on the \(j\)th~interval~\(\XX_j\).
+Then for parameters \(\alpha=\gamma=0\) and small~\(\hat u\), the \pde~\eqref{eq:genpde} linearises to
+\begin{subequations}\label{eqs:lin}%
+\begin{equation}
+\hat u_t=F'(u^*_x)\hat u_{xx}=\nu(x)\hat u_{xx}\quad\text{on }\tilde\XX; 
+\quad\text{that is,}\quad 
+\hat u_{jt}=\nu_j\hat u_{jxx}\quad\text{on }\XX_j.
+\label{eq:pdelin}
+\end{equation}
+The coupling conditions~\eqref{eqs:cc} are linear so they are 
+\([\hat u]_{X_j^-}^{X_j^+}=0\) and \([\nu\hat u_x]_{X_j^-}^{X_j^+}=\frac1H\big[
+(\nu\hat  u)|_{X_{j+1}^-} -(\nu\hat  u)|_{X_{j}^+}
++(\nu\hat  u)|_{X_{j-1}^+} -(\nu\hat  u)|_{X_{j}^-}\big]\);
+%\begin{eqnarray*}
+%&&[\hat u]_{X_j^-}^{X_j^+}=0
+%\quad\text{and }
+%%\label{eq:ccc}
+%\\&&
+%[\nu\hat u_x]_{X_j^-}^{X_j^+}=\frac1H\left[
+%(\nu\hat  u)|_{X_{j+1}^-} -(\nu\hat  u)|_{X_{j}^+}
+%+(\nu\hat  u)|_{X_{j-1}^+} -(\nu\hat  u)|_{X_{j}^-}\right],
+%%\label{eq:ccj}
+%\end{eqnarray*}
+that is,
+\begin{eqnarray}
+&&\hat u_{j+1}(X_j)=\hat u_j(X_j)
+\quad\text{and }
+\label{eq:ccclin}
+\\&&
+\nu_{j+1}\hat u_{j+1,x}(X_j)-\nu_j\hat u_{jx}(X_j)
+\nonumber\\&&{}
+=\frac1H\left[
+\nu_{j+1}\hat u_{j+1}(X_{j+1}) -\nu_{j+1}\hat u_{j+1}(X_{j})
++\nu_j\hat  u_j(X_{j-1}) -\nu_j\hat  u_j(X_{j})\right].
+\qquad\label{eq:ccjlin}
+\end{eqnarray}
+\end{subequations}
+The next lemma certifies that this linearised system is self-adjoint and so we need only seek real eigenvalues in the spectrum.
+
+\begin{lemma}[self-adjoint] \label{thm:sa}
+The differential operator appearing in~\eqref{eqs:lin}, namely \(\cL=\nu\DD x{}\) on~\(\tilde\XX\) subject to~\eqref{eq:ccclin}--\eqref{eq:ccjlin} and for \(L\)-periodic solutions, is self-adjoint upon using the usual inner product \(\left<v,u\right>:=\int_{\tilde\XX} vu\,dx\)\,.
+\end{lemma}
+
+\begin{proof} 
+Straightforwardly use integration by parts (remembering that \(\nu\)~is piecewise constant):
+\begin{eqnarray*}
+\left<v,\cL u\right>
+&=&\int_{\tilde\XX}v\nu u_{xx}\,dx
+\\&=&\sum_j \left[\nu v u_x-\nu u v_x\right]_{X_{j-1}^+}^{X_j^-}
++\int_{\tilde\XX}\nu v_{xx}u\,dx
+\\&=&\sum_j \left[ 
+\nu_j v_j(X_j^-) u_{jx}(X_j^-)
+-\nu_j u_j(X_j^-) v_{jx}(X_j^-) 
+\right.\\&&\quad\left.{}
+-\nu_j v_j(X_{j-1}^+) u_{jx}(X_{j-1}^+)
++\nu_j u_j(X_{j-1}^+) v_{jx}(X_{j-1}^+) \right]
++\left<\cL v, u\right>
+\\&&(\text{using the continuity~\eqref{eq:ccclin} and }U_j:=u(X_j^\pm),\ V_j:=v(X_j^\pm)\,)
+\\&=&\sum_j \left[ 
+\nu_j V_j u_{jx}(X_j^-)
+-\nu_j U_j v_{jx}(X_j^-) 
+\right.\\&&\quad\left.{}
+-\nu_j V_{j-1} u_{jx}(X_{j-1}^+)
++\nu_j U_{j-1} v_{jx}(X_{j-1}^+) \right]
++\left<\cL v, u\right>
+\\&&(\text{reindexing the last two terms in the sum, }j\mapsto j+1)
+\\&=&\sum_j \left[ 
+V_j \nu_j u_{jx}(X_j^-)
+-U_j \nu_j v_{jx}(X_j^-) 
+\right.\\&&\quad\left.{}
+- V_{j} \nu_{j+1} u_{j+1,x}(X_{j}^+)
++ U_{j} \nu_{j+1} v_{j+1,x}(X_{j}^+) \right]
++\left<\cL v, u\right>
+\\&&(\text{replacing two pairs of terms via coupling~\eqref{eq:ccjlin}})
+\\&=&\sum_j \left\{ 
+-V_j \tfrac1H\left[ \nu_{j+1}U_{j+1} -\nu_{j+1}U_{j}
++\nu_jU_{j-1} -\nu_jU_j \right]
+\right.\\&&\quad\left.{}
++ U_{j}\tfrac1H \left[ \nu_{j+1}V_{j+1} -\nu_{j+1}V_{j}
++\nu_jV_{j-1} -\nu_jV_j \right] \right\}
++\left<\cL v, u\right>
+\\&&(\text{cancelling all terms in }U_jV_j)
+\\&=&\sum_j \tfrac1H\left\{ 
+-V_j\nu_{j+1}U_{j+1} 
+-V_j\nu_jU_{j-1} 
++ U_{j} \nu_{j+1}V_{j+1} 
++U_j\nu_jV_{j-1}   \right\}
+\\&&\quad{}
++\left<\cL v, u\right>
+\\&&(\text{reindexing 2nd and 4th terms in the sum, }j\mapsto j+1)
+\\&=&\sum_j 0
++\left<\cL v, u\right> =\left<\cL v, u\right>.
+\end{eqnarray*}
+Hence, as required, the linear operator in the linearised system~\eqref{eqs:lin} is self-adjoint.
+\end{proof}
+
+We turn to determining the spectrum of the general linearised system~\eqref{eqs:lin}: first, the zero eigenvalues; and second, the non-zero eigenvalues.
+Because of the \(N\)-D~subspace of equilibria~\EE\ the linearised system must have \(N\)~eigenvalues of zero.
+Corresponding basis eigenfunctions may be chosen to be 
+\begin{equation*}
+\phi_j(x)=\max(0,1-|x-X_j|/H)
+\end{equation*}
+so the equilibria~\eqref{eq:equil} may be written \(u^*=\sum_j \phi_j(x)U_j\)\,.
+The localised triangular shape of these basis functions, incidentally,  many will recognise as the fundamental ``shape function'' often invoked in the finite element method \cite[e.g.]{OLeary08, ??}.
+For the linearised \pde~\eqref{eq:pdelin} any eigenfunction corresponding to an eigenvalue of zero must be linear on each~\(\XX_j\), and the continuity~\eqref{eq:ccclin} then guarantees there are no other eigenfunctions than those identified.
+By self-adjointness, there are no generalised eigenfunctions.
+Thus the slow subspace of the system~\eqref{eqs:lin} is \(N\)-D, namely~\EE.
+
+For rigorous theory we notionally adjoin the two trivial dynamical equations \(\alpha_t=\gamma_t=0\) to the linearised system~\eqref{eqs:lin}.
+Then the equilibria~\eqref{eq:equil} are~\((0,0,u^*(x))\) as \(\alpha=\gamma=0\)\,.
+Thus strictly there are two extra zero eigenvalues associated with the trivial \(\alpha_t=\gamma_t=0\)\,, and the corresponding slow subspace of each equilibria is \((N+2)\)-D.
+Except for issues associated with the domain of validity, for simplicity we do not explicitly include these two trivial dynamical equations nor their eigenvalues in the following, but leave them implicit.
+
+\begin{lemma}[exponential dichotomy] \label{thm:dicho}
+Provided function~\(F\) in the \pde~\eqref{eq:genpde} is monotonic increasing with \(F'\geq\nu_{\min}>0\)\,, then
+about every equilibria~\eqref{eq:equil} in~\EE, the linearised system~\eqref{eqs:lin} has \(N\)~zero eigenvalues and all the other eigenvalues are negative and bounded away from zero by \(\lambda\leq-\nu_{\min}\pi^2/H^2\).
+\end{lemma}
+
+\begin{proof} 
+The \(N\)~zero eigenvalues are established in the two paragraphs before the statement of the lemma.
+
+??
+\end{proof}
+
+
+
+
+
+
+
+\subsection*{Reconsider the following??}
 Burgers' equation~\eqref{eq:burgers} linearises to equation~\eqref{eq:lin:gen} for $\alpha=0$, with the linear operator
-${\cal L}=\nu\DD x{}$. It can be shown that ${\cal L}$ is self-adjoint under any of these external boundary conditions:
+${\cL}=\nu\DD x{}$. It can be shown that ${\cL}$ is self-adjoint under any of these external boundary conditions:
 \(L\)-periodic; Dirichlet ($u(0,t)=u(L,t)=0$); or Neuman ($u_x(0,t)=u_x(L,t)=0$). We have chosen the first
 condition for convenience.
 The linear system has two eigenmodes corresponding to eigenvalue $\lambda=0$, namely
@@ -396,14 +642,14 @@ and general eigenmodes for $\lambda=-\nu k^2<0$ of the form
 Hence, any peicewise--linear approximation to $u$ is an equilibrium solution of the linearised system.
 We choose a continuous approximation that is aligned at the internal grid-points $X_j=jH$, $j=1,2,\ldots,N-1$, namely
 \begin{eqnarray}
-     \hat{u}_{0} = \sum_{j=1}^{N}\chi_j(\xi U_j+(1-\xi)U_{j-1})
+     \hat{u}_{0} = \sum_{j=1}^{N}\chi_j(x)(\xi U_j+(1-\xi)U_{j-1})
 % = \sum_{j=1}^{N}\chi_j(\xi+(1-\xi)\sigma^{-1})U_j
 \,,
 \label{eq:uhat0}
 \end{eqnarray}
 with indicator $\chi_j(x)=1$ (else 0) for $X_{j-1}\le x<X_j$, and dimensionless coordinate
-$\xi(x)=\sum_{j=1}^{N}\chi_j(x)(x-X_{j-1})/H$. This enforced continuity is represented by internal boundary conditions
-(IBCs) of the form 
+$\xi(x)=\sum_{j=1}^{N}\chi_j(x)(x-X_{j-1})/H$. This enforced continuity is represented by internal coupling conditions
+(\cc{}s) of the form 
 \begin{eqnarray}
    [\hat{u}]_j = 0 && \mbox{for } j=1,2,\ldots,N-1\,,
 \label{eq:cont-cond}
@@ -414,7 +660,7 @@ represents the spatial jump in $u$ across the boundary between the $j$-th and $(
 Unfortunately, this continuity does not hold for the first spatial derivative, since it can be shown that
 $[\D x{\hat{u}_{0}}]_j=\delta^2U_j/H$. Hence, we introduce a homotopic smoothing parameter $\gamma$
 ($0\le\gamma\le 1$),
-and enforce the additional IBCs: %smoothness condition that
+and enforce the additional \cc{}s: %smoothness condition that
 \begin{eqnarray}
    [\hat{u}_x]_j = \frac{1-\gamma}{H}\left.\delta^2\hat{u}\right|_{X_j} && \mbox{for } j=1,2,\ldots,N-1\,,
 \label{eq:smooth-cond}
@@ -525,27 +771,27 @@ for which the corresponding eigenmodes are stable.}
 \section{Nonlinear analysis}\label{sec:nonlin}
 
 With the aid of  holistic equations~\eqref{eq:temporal} and \eqref{eq:spatial}, 
-viz $u=\hat{u}$ and $\dot{\vec{U}}=\vec{g}$, we rewrite
+viz $u=\hat{u}$ and $\dot{\Uv}=\gv$, we rewrite
 Burgers' equation~\eqref{eq:burgers} in the form
 \begin{eqnarray}
- {\cal M}(\hat{u},\vec{g}) = {\cal L}\hat{u}-\D {\vec{U}}{\hat{u}}\cdot\vec{g}-\alpha\hat{u}\hat{u}_{x} = 0\,,
+ {\cM}(\hat{u},\gv) = {\cL}\hat{u}-\D {\Uv}{\hat{u}}\cdot\gv-\alpha\hat{u}\hat{u}_{x} = 0\,,
 \label{eq:man}
 \end{eqnarray}
-where ${\cal L}=\nu\DD {x}{}$ from Section~\secref{lin}. The linear analysis of that section is now extended
+where ${\cL}=\nu\DD {x}{}$ from Section~\secref{lin}. The linear analysis of that section is now extended
 by considering perturbations about the equilibrium $(\hat{u},\gamma,\alpha)=(\hat{u}_{0},0,0)$.
-%, where$\hat{u}_{0}=\sum_{j=1}^{N}\chi_j{\cal I}_0 U_j$ with ${\cal I}_0=\xi+(1-\xi)\sigma^{-1}$.
+%, where$\hat{u}_{0}=\sum_{j=1}^{N}\chi_j{\cI}_0 U_j$ with ${\cI}_0=\xi+(1-\xi)\sigma^{-1}$.
 In particular, consider the power series
 \begin{eqnarray}
   \hat{u} \sim \sum_{p=0}^{\infty}\sum_{q=0}^{\infty}\gamma^{p}\alpha^{q}\hat{u}^{(p,q)}\,,
 &&
-  \vec{g} \sim \sum_{p=0}^{\infty}\sum_{q=0}^{\infty}\gamma^{p}\alpha^{q}\vec{g}^{(p,q)}\,,
+  \gv \sim \sum_{p=0}^{\infty}\sum_{q=0}^{\infty}\gamma^{p}\alpha^{q}\gv^{(p,q)}\,,
 \label{eq:power}
 \end{eqnarray}
 where $\hat{u}^{(0,0)}=\hat{u}_{0}$ 
-and $\vec{g}^{(0,0)}=0$.
+and $\gv^{(0,0)}=0$.
 Substituting these expansions into
-equation~\eqref{eq:man},  the terms $\hat{u}^{(p,q)}$ and $\vec{g}^{(p,q)}$ are computed
-subject to the IBCs \eqref{eq:cont-cond} and \eqref{eq:smooth-cond}.
+equation~\eqref{eq:man},  the terms $\hat{u}^{(p,q)}$ and $\gv^{(p,q)}$ are computed
+subject to the \cc{}s \eqref{eq:cont-cond} and \eqref{eq:smooth-cond}.
 
 To simplify this process algebraically, we follow the approach of \cite{Jarrad2001}:
 without loss of generality, consider finite truncations of the power series subject to $p+q\le n$,
@@ -558,63 +804,64 @@ for example, rectangular truncation: $p\le n$, $q\le m$.}
 \end{eqnarray}
 Letting $\varepsilon^2=\gamma^2+\alpha^2$ for convenience\footnote{
 This is merely an algebraic device; in practice, $\gamma$ and $\alpha$ need not be commensurate.}, we obtain
- $\hat{u}=\hat{u}^{<n>}+O(\varepsilon^{n+1})$ and
+ $\hat{u}=\hat{u}^{<n>}+\Ord{\varepsilon^{n+1}}$ and
 $\hat{u}^{<n>}=\hat{u}^{<n-1>}+\hat{u}_{n}$; 
-likewise for $\vec{g}^{<n>}$ and $\vec{g}_n$.
+likewise for $\gv^{<n>}$ and $\gv_n$.
 It can then be shown that
 \begin{eqnarray}
- {\cal M}(\hat{u}^{<n>},\vec{g}^{<n>}) = 
-  {\cal L}\hat{u}_n-\D {\vec{U}}{\hat{u}_0}\cdot\vec{g}_n+{\cal M}(\hat{u}^{<n-1>},\vec{g}^{<n-1>})
-+O(\varepsilon^{n+1})\,,
+ {\cM}(\hat{u}^{<n>},\gv^{<n>}) = 
+  {\cL}\hat{u}_n-\D {\Uv}{\hat{u}_0}\cdot\gv_n+{\cM}(\hat{u}^{<n-1>},\gv^{<n-1>})
++\Ord{\varepsilon^{n+1}}\,,
 \end{eqnarray}
 and hence the process is to iteratively solve
 \begin{eqnarray}
- {\cal M}(\hat{u}^{<n>},\vec{g}^{<n>}) = 0+O(\varepsilon^{n+1})\,,
+ {\cM}(\hat{u}^{<n>},\gv^{<n>}) = 0+\Ord{\varepsilon^{n+1}}\,,
 \end{eqnarray}
 or, equivalently,
 \begin{eqnarray}
-{\cal L}\hat{u}_n = \D {\vec{U}}{\hat{u}_0}\cdot\vec{g}_n-{\cal M}(\hat{u}^{<n-1>},\vec{g}^{<n-1>})
-%+O(\varepsilon^{n+1})
+{\cL}\hat{u}_n = \D {\Uv}{\hat{u}_0}\cdot\gv_n-{\cM}(\hat{u}^{<n-1>},\gv^{<n-1>})
+%+\Ord{\varepsilon^{n+1}}
 \,.
 \label{eq:order-n}
 \end{eqnarray}
 
 Given $\hat{u}_0=\sum_{j=1}^{N}\chi_j(\xi+(1-\xi)\sigma^{-1})U_j$ 
 where $\xi=\sum_{j=1}^{N}\chi_j(x-X_{j-1})/H$, the first-order pertubation terms 
-can now be computed for $n=1$. Defining $\Delta=1-\sigma^{-1}$, observe that
+can now be computed for $n=1$. 
+Defining the backward difference $\nabla=1-\sigma^{-1}$, observe that
 \begin{eqnarray}
 \nu\hat{u}_{1}'' = \sum_{j=1}^{N}\chi_j\left[(\xi+(1-\xi)\sigma^{-1})g_{1,j}
-   +\alpha(\xi+(1-\xi)\sigma^{-1})U_j.\frac{1}{H}\Delta U_j\right]\,.
+   +\alpha(\xi+(1-\xi)\sigma^{-1})U_j.\frac{1}{H}\nabla U_j\right]\,.
 \end{eqnarray}
 Hence, spatially integrating twice gives
 %\begin{eqnarray}
 %\nu\hat{u}_{1}' & = & \sum_{j=1}^{N}\chi_j\left[c_j+ \frac{H}{2}(\xi^2-(1-\xi)^2\sigma^{-1})g_{1,j}
 %\right.
 %\nonumber\\
-%&&  \left.{}+\frac{\alpha}{2}(\xi^2-(1-\xi)^2\sigma^{-1})U_j.\Delta U_j\right]
+%&&  \left.{}+\frac{\alpha}{2}(\xi^2-(1-\xi)^2\sigma^{-1})U_j\,\nabla U_j\right]
 %\end{eqnarray}
 \begin{eqnarray}
 \nu\hat{u}_{1} & = &  \sum_{j=1}^{N}\chi_j\left[d_j+H\xi c_j+\frac{H^2}{6}(\xi^3+(1-\xi)^3\sigma^{-1})g_{1,j}
 \right.\nonumber\\
-&& \left.{}+\frac{\alpha H}{6}(\xi^3+(1-\xi)^3\sigma^{-1})U_j.\Delta U_j\right]\,.
+&& \left.{}+\frac{\alpha H}{6}(\xi^3+(1-\xi)^3\sigma^{-1})U_j\,\nabla U_j\right]\,.
 \end{eqnarray}
 Now, the continuity condition~\eqref{eq:cont-cond} ensures that $\hat{u}_n(X_j,t)=0$ for $n>0$,
 since $\hat{u}_{0}(X_j,t)=U_j(t)=u(X_j,t)$. Hence, we solve for $d_j$ at $\xi=0$ and
 $c_j$ at $\xi=1$, giving
 \begin{eqnarray}
 \nu\hat{u}_{1} & = &  \sum_{j=1}^{N}\chi_j\left[\frac{H^2}{6}(\xi^3+(1-\xi)^3\sigma^{-1}
--\xi\Delta-\sigma^{-1})g_{1,j}
+-\xi\nabla-\sigma^{-1})g_{1,j}
 \right.\nonumber\\
-&& \left.{}+\frac{\alpha H}{6}(\xi^3+(1-\xi)^3\sigma^{-1}-\xi\Delta-\sigma^{-1})U_j.\Delta U_j\right]\,.
+&& \left.{}+\frac{\alpha H}{6}(\xi^3+(1-\xi)^3\sigma^{-1}-\xi\nabla-\sigma^{-1})U_j\,\nabla U_j\right]\,.
 \end{eqnarray}
-It is convenient here to introduce interpolation operators, ${\cal I}_0=\xi+(1-\xi)\sigma^{-1}$ and
-${\cal I}_1=\xi^3+(1-\xi)^3\sigma^{-1}-\xi\Delta-\sigma^{-1}$ (observe that ${\cal I}_1''=6{\cal I}_0/H^2$),
+It is convenient here to introduce interpolation operators, ${\cI}_0=\xi+(1-\xi)\sigma^{-1}$ and
+${\cI}_1=\xi^3+(1-\xi)^3\sigma^{-1}-\xi\nabla-\sigma^{-1}$ (observe that ${\cI}_1''=6{\cI}_0/H^2$),
 whence
 \begin{eqnarray}
- \hat{u} = \sum_{j=1}^{N}\chi_j\left[{\cal I}_0 U_j+\frac{H^2}{6\nu}{\cal I}_1\dot{U}_j
-+\frac{\alpha H}{6\nu}{\cal I}_1 U_j.\Delta U_j\right]+O(\gamma^2+\alpha^2)\,,
+ \hat{u} = \sum_{j=1}^{N}\chi_j\left[{\cI}_0 U_j+\frac{H^2}{6\nu}{\cI}_1\dot{U}_j
++\frac{\alpha H}{6\nu}{\cI}_1 U_j\,\nabla U_j\right]+\Ord{\gamma^2+\alpha^2}\,,
 \end{eqnarray}
-since $\dot{U}_j=g_{1,j}+O(\gamma^2+\alpha^2)$. 
+since $\dot{U}_j=g_{1,j}+\Ord{\gamma^2+\alpha^2}$. 
 
 Next, the value for $g_{1,j}$ can likewise be found
 from the smoothness condition~\eqref{eq:smooth-cond}, namely
@@ -628,7 +875,7 @@ giving
 \begin{eqnarray}
   \dot{U}_j  = S\left[\frac{\nu\gamma}{H^2}\delta^2 U_j
 -\frac{\alpha}{3H}U_j.\mu\delta U_j-\frac{\alpha}{3H}\mu\delta U_j^2
-\right]+O(\gamma^2+\alpha^2)\,,
+\right]+\Ord{\gamma^2+\alpha^2}\,,
 \end{eqnarray}
 where $S=(1+\delta^2/6)^{-1}$ is a non-local smoothing operator.
 Observe that, apart $S$, this is just the mixture model~\eqref{eq:mixture}
@@ -637,10 +884,10 @@ to be a necessary condition for the stability of numerical integration of the mi
 We demonstrate in Section~\secref{numeric} how this stability arises in low-dimensional models.
 
 Higher order terms in $\hat{u}_n$  may be systematically computed by iteratively solving equation~\eqref{eq:order-n} after
-having first computed $\vec{g}_n$. The latter can be found by applying the weak solvability condition 
+having first computed $\gv_n$. The latter can be found by applying the weak solvability condition 
 (see \cite{Jarrad2001}),
 namely that the right-hand side of equation~\eqref{eq:order-n} must be orthogonal to the null-space of the adjoint
-operator ${\cal L}^{\dagger}$. Since ${\cal L}$ is self-adjoint in this example, we can isolate the boundary between the
+operator ${\cL}^{\dagger}$. Since ${\cL}$ is self-adjoint in this example, we can isolate the boundary between the
 $j$-th and $(j+1)$-th intervals using the linear approximation
 \begin{eqnarray}
   \hat{v}_0 = \chi_j\xi + \chi_{j+1}(1-\xi)\,,
@@ -650,7 +897,7 @@ which satisfies both the continuity condition~\eqref{eq:cont-cond} and the smoot
 rise to the solvability condition
 \begin{eqnarray}
 \left.\frac{\nu\gamma}{H}\delta^2\hat{u}_{n-1}\right|_{X_j} = HS^{-1}g_{n,j}
--\langle {\cal M}(\hat{u}^{<n-1>},\vec{g}^{<n-1>}), \hat{v}_0 \rangle\,.
+-\langle {\cM}(\hat{u}^{<n-1>},\gv^{<n-1>}), \hat{v}_0 \rangle\,.
 \end{eqnarray}
 Note that for $n=1$, this  reduces to equation~\eqref{eq:g1}, and
 for $n>1$, the left-hand side is zero.
@@ -685,10 +932,9 @@ the coarse dynamics of the diffusion equation ($\alpha=0$)  obey
 + \frac{\nu\gamma^2}{60H^2}(7-2S)S^2\delta^4 U_j
 \nonumber\\
 &&{}+ \frac{\nu\gamma^3}{6300H^2}(94-73S+14S^2)S^3\delta^{6}U_j
-+ {\cal O}(\gamma^4)\,.
++ \Ord{\gamma^4}.
 \end{eqnarray}
-As shown in Figure~\ref{fig:diff:spectrum}, each additional term provides a better approximation to the
-continuum dynamics.
+Figure~\ref{fig:diff:spectrum} shows that each additional term provides a better approximation to the continuum dynamics.
 \begin{figure}
 \centering
 \tikzsetnextfilename{decayRates}

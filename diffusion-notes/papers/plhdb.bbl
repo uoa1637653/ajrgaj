@@ -10,6 +10,17 @@ Fornberg, B.  \harvardyearleft 1973\harvardyearright , `On the instability of
   the leap-frog and {Crank--Nicolson} approximations of a nonlinear partial
   differential equation', {\em Maths of Comput.} {\bf 27},~45--57.
 
+\harvarditem{Haragus \harvardand\ Iooss}{2011}{Haragus2011}
+Haragus, M. \harvardand\ Iooss, G.  \harvardyearleft 2011\harvardyearright ,
+  {\em Local Bifurcations, Center Manifolds, and Normal Forms in
+  Infinite-Dimensional Dynamical Systems}, Springer.
+\newblock \doi{10.1007/978-0-85729-112-7}.
+
+\harvarditem{O'Leary}{2008}{OLeary08}
+O'Leary, D.~P.  \harvardyearleft 2008\harvardyearright , {\em Scientific
+  Computing with Case Studies}, SIAM, Philadelphia.
+\newline\harvardurl{http://www.ec-securehost.com/SIAM/OT109.html}
+
 \harvarditem{Roberts}{1997}{Roberts96a}
 Roberts, A.~J.  \harvardyearleft 1997\harvardyearright , `Low-dimensional
   modelling of dynamics via computer algebra', {\em Computer Phys. Comm.} {\bf
