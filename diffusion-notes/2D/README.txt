@@ -1,0 +1,1 @@
+A first problem in 2D may be to use this configuration from Strang.

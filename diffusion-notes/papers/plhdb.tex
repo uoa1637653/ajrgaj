@@ -2,10 +2,12 @@
 {\documentclass[12pt]{article}\usepackage[a5paper,margin=5mm]{geometry}}
 {\documentclass[12pt,a4paper]{article}}
 
+
+
 \usepackage{url,natbib}
 \let\harvardurl\url
-\usepackage{graphicx}
-\usepackage{amsmath,amsfonts,defns}
+\usepackage{graphicx,amsmath,amsfonts,defns}
+\allowdisplaybreaks
 \usepackage{pgfplots}
 \usepgfplotslibrary{external} %exports pdf for each tikz figure
 \tikzexternalize
@@ -254,21 +256,44 @@ u=(1-|x|)U\quad\text{and }\gamma=0\,.
 \label{eq:equil}
 \end{equation}
 The spectrum about these equilibria determine the manifold structure.
-Seek linearised solutions \(u\approx (1-|x|)U+e^{\lambda t}\hat u(x)\) for small~\(\hat u\):  the diffusion \pde~\eqref{eq:burgers} becomes the eigenproblem
+Seek linearised solutions \(u\approx (1-|x|)U+e^{\lambda t}v(x)\) for small~\(v\):  the diffusion \pde~\eqref{eq:burgers} becomes the eigenproblem
 \begin{equation}
-\hat u_{xx}-\lambda\hat u=0\,,
-\quad\text{such that }[\hat u]=[\hat u_x]+2\hat u=0\text{ at }x=0\,,
+-v_{xx}+\lambda v=0\,,
+\quad\text{such that }[v]=[v_x]+2v=0\text{ at }x=0\,,
 \label{eq:lindiff}
 \end{equation}
-and the homogeneous Dirichlet boundary conditions \(\hat(\pm 1)=0\)\,.
+and the homogeneous Dirichlet boundary conditions \(v(\pm 1)=0\)\,.
 \begin{itemize}
-\item Corresponding to eigenvalue \(\lambda=0\) is the neutral solution \(\hat u\propto1-|x|\) reflecting the direction of the subspace of equilibria.
-\item Negative eigenvalues \(\lambda=-k^2\) arise corresponding to eigenfunctions of the form \(\hat u\propto\sin[k(1-|x|)]\) by necessity from the \pde, the homogeneous Dirichlet boundary conditions, and the continuity of~\(\hat u\).
+\item Corresponding to eigenvalue \(\lambda=0\) is the neutral solution \(v\propto1-|x|\) reflecting the direction of the subspace of equilibria.
+\begin{figure}
+\centering
+\begin{tabular}{cc}
+\tikzsetnextfilename{simpevec}
+\begin{tikzpicture}
+\begin{axis}[xlabel={$x$},ylabel={$v(x)$}
+,domain=-1:1,axis x line=middle, axis y line=middle
+,ymax=1.2,xmin=-1.1,xmax=1.2,thick,smooth]
+    \addplot+[dashed,no marks] {sin(180*x)};
+    \addplot+[no marks] {sin(4.4934*180/3.1416*(1-abs(x))};
+    \addplot+[dashed,no marks] {sin(360*x)};
+    \addplot+[no marks] {sin(7.7253*180/3.1416*(1-abs(x))};
+\end{axis}
+\end{tikzpicture}
+&
+\parbox[b]{0.45\linewidth}{\caption{\label{fig:simpevec}\sloppy%
+eigenfunctions~\(v(x)\) of the linearised problem~\eqref{eq:lindiff} corresponding to negative eigenvalues: blue dashed,~\(-\pi^2\); red solid,~\(-20.191\); brown dashed,~\(-4\pi^2\); and black solid,~\(-59.680\).}}
+\end{tabular}
+\end{figure}
+
+\item Negative eigenvalues \(\lambda=-k^2\) arise corresponding to eigenfunctions of the form \(v\propto\sin[k(1-|x|)]\) by necessity from the \pde, the homogeneous Dirichlet boundary conditions, and the continuity of~\(v\).
 By straightforward algebra, the jump in the derivative determines the wavenumbers from the solutions of \(k=\tan k\)\,, namely the wavenumbers \(k=4.4934,7.7253,10.9041,\ldots\)\,.
 That is,  non-zero eigenvalues of the linearised problem are \(\lambda=-20.191,-59.680,-118.900,\ldots\)\,.
-\item Negative eigenvalues also arise from eigenfunctions of the form \(\hat u\propto\sin(kx)\).  
+Figure~\ref{fig:simpevec} plots (solid) the corresponding eigenfunctions for the two smallest magnitude of these eigenvalues.
+
+\item Negative eigenvalues also arise from eigenfunctions of the form \(v\propto\sin(kx)\).  
 The boundary and coupling conditions determine that wavenumbers \(k=n\pi\) for \(n=1,2,3,\ldots\)\,.
 That is, the other non-zero eigenvalues are \(\lambda=-\pi^2, -4\pi^2, -9\pi^2, \ldots\)\,.
+Figure~\ref{fig:simpevec} plots (dashed) the corresponding eigenfunctions for the two smallest magnitude of these eigenvalues.
 \end{itemize}
 One of the beautiful properties of the coupling conditions~\eqref{eq:cc1} is that with them the diffusion operator~\(\DD x{}\) is self-adjoint.
 Hence there are only real eigenvalues of the linear problem~\eqref{eq:lindiff}, namely the ones found above.
@@ -354,7 +379,7 @@ Hence we expect that the neighbourhood of validity around~\EE\ includes the  cas
 \def\alfa{2}
 \begin{axis}[xlabel={$x$},ylabel={$u(x,U)$}
 ,domain=-1:1,axis x line=middle, axis y line=middle
-,xmin=-1.1,xmax=1.1,legend pos=north west,thick]
+,xmin=-1.1,xmax=1.1,legend pos=north west,thick,smooth]
 \foreach \uu in {2,1.5,1,0.5} {
     \addplot+[no marks] {\uu*(1-6/5*abs(x)^2-1/10*abs(x)^3+3/8*abs(x)^4-3/40*abs(x)^5)+\alfa*(\uu^2)*x*(2/5-abs(x)^2+3/4*abs(x)^3-3/20*abs(x)^4)+\alfa^2*(\uu)^3*(2/15*abs(x)^2-4/15*abs(x)^3+1/6*abs(x)^4-1/30*abs(x)^5)};
 \addlegendentryexpanded{$U=\uu$};
@@ -447,14 +472,14 @@ The coupling conditions are
 \quad\text{and }
 \label{eq:ccc}
 \\&&
-[\nu u_x]_{X_j^-}^{X_j^+}=\frac{c(\gamma)}H\left[
+[\nu u_x]_{X_j^-}^{X_j^+}=\frac{C(\gamma)}H\left[
 (\nu u)|_{X_{j+1}^-} -(\nu u)|_{X_{j}^+}
 +(\nu u)|_{X_{j-1}^+} -(\nu u)|_{X_{j}^-}\right],\qquad
 \label{eq:ccj}
 \end{eqnarray}
 \end{subequations}
 where coefficient \(\nu(x)=F'(u_x)\) is the effective diffusivity at each point in~\(\tilde\XX\), via the gradient~\(u_x\),
-and where the factor~\(c(\gamma)\) is some smooth function such that \(c(0)=1\) and \(c(1)=0\) (for example, we often use \(c(\gamma)=1-\gamma\)\,.
+and where the factor~\(C(\gamma)\) is some smooth function such that \(C(0)=1\) and \(C(1)=0\) (typically \(C(\gamma):=1-\gamma\)).
 
 \begin{lemma}[equilibria] \label{thm:equil}
 The \pde~\eqref{eq:genpde} on domain~\(\tilde\XX\) with coupling conditions~\eqref{eqs:cc} possesses an \(N\)-dimensional subspace~\EE\ of equilibria, parametrised by \(\Uv=(U_1,U_2,\ldots,U_N)\), for parameters \(\alpha=\gamma=0\) of piecewise linear solutions~\(u^*(x)\) such that on the \(j\)th~interval the field 
@@ -490,7 +515,7 @@ the jump in gradient
 +\nu|_{X_{j-1}^+}u^*|_{X_{j-1}^+}
 -\nu|_{X_{j}^-}u^*|_{X_{j}^-}\right)
 \end{eqnarray*}
-which is the required right-hand side of~\eqref{eq:ccj} for coupling parameter \(\gamma=0\) (as \(c(0)=1\)).
+which is the required right-hand side of~\eqref{eq:ccj} for coupling parameter \(\gamma=0\) (as \(C(0)=1\)).
 Hence, the piecewise linear fields~\eqref{eq:equil}, with \(\alpha=\gamma=0\), are equilibria for all~\Uv, and clearly form an \(N\)-D~subspace.
 \end{proof}
 
@@ -605,21 +630,163 @@ By self-adjointness, there are no generalised eigenfunctions.
 Thus the slow subspace of the system~\eqref{eqs:lin} is \(N\)-D, namely~\EE.
 
 For rigorous theory we notionally adjoin the two trivial dynamical equations \(\alpha_t=\gamma_t=0\) to the linearised system~\eqref{eqs:lin}.
-Then the equilibria~\eqref{eq:equil} are~\((0,0,u^*(x))\) as \(\alpha=\gamma=0\)\,.
+Then,  as \(\alpha=\gamma=0\)\,, the equilibria~\eqref{eq:equil} are~\((0,0,u^*(x))\).
 Thus strictly there are two extra zero eigenvalues associated with the trivial \(\alpha_t=\gamma_t=0\)\,, and the corresponding slow subspace of each equilibria is \((N+2)\)-D.
-Except for issues associated with the domain of validity, for simplicity we do not explicitly include these two trivial dynamical equations nor their eigenvalues in the following, but leave them implicit.
+Except for issues associated with the domain of validity, for simplicity we do not explicitly include these two trivial dynamical equations nor their eigenvalues in the following, but consider them implicit.
 
 \begin{lemma}[exponential dichotomy] \label{thm:dicho}
-Provided function~\(F\) in the \pde~\eqref{eq:genpde} is monotonic increasing with \(F'\geq\nu_{\min}>0\)\,, then
-about every equilibria~\eqref{eq:equil} in~\EE, the linearised system~\eqref{eqs:lin} has \(N\)~zero eigenvalues and all the other eigenvalues are negative and bounded away from zero by \(\lambda\leq-\nu_{\min}\pi^2/H^2\).
+Provided function~\(F\) in the \pde~\eqref{eq:genpde} is monotonic increasing with \(F'\geq\nu_{\min}>0\)\,, then  the operator\(\cL=\nu\DD x{}\) on~\(\tilde\XX\) subject to~\eqref{eq:ccclin}--\eqref{eq:ccjlin} and for \(L\)-periodic solutions has \(N\)~zero eigenvalues and all other eigenvalues are negative and bounded away from zero by \(\lambda\leq-\nu_{\min}\pi^2/H^2\).
 \end{lemma}
 
 \begin{proof} 
-The \(N\)~zero eigenvalues are established in the two paragraphs before the statement of the lemma.
+The precisely \(N\)~zero eigenvalues are established in the two paragraphs before the statement of the lemma.
 
-??
+The Self-adjoint Lemma~\ref{thm:sa} establishes all eigenvalues of~\(\cL\) are real. 
+Let \(\lambda\)~be a non-zero eigenvalue and \(v(x)\)~be a corresponding eigenfunction.
+Then \(v\perp\EE\) by self-adjointness of~\cL, and, as usual,
+\begin{equation*}
+(-\lambda)\|v\|^2
+=-\lambda\left<v,v\right>
+=\left<v,-\lambda v\right>
+=\left<v,-\cL v\right>.
+\end{equation*}
+Decompose the eigenfunction into \(v(x)=\tilde v(x)+\check v(x)\) where \(\check v(x)\)~is piecewise linear, continuous, and satisfies \(\check v(X_j)=v(X_j)\), so that \(\tilde v\)~is also continuous and \(\tilde v(X_j)=0\)\,.
+Since \(\check v\in\EE\), so \(\cL\check v=0\) (the check accent is to remind us of the piecewise linear nature of~\(\check v\)).
+Consequently, 
+\(-\lambda\|v\|^2
+=\left<v,-\cL v\right>
+=\left<\tilde v+\check v,-\cL\tilde v-\cL\check v\right>
+=\left<\tilde v,-\cL\tilde v\right>
++\left<\check v,-\cL\tilde v\right>
++\left<\tilde v,-\cL\check v\right>
++\left<\check v,-\cL\check v\right>\);
+but \(\cL\check v=0\) so the last two terms in this sum are zero; and
+by self-adjointness \(\left<\check v,-\cL\tilde v\right>=\left<\cL\check v,-\tilde v\right>=\left<0,-\tilde v\right>=0\) so the second term is also zero.
+Thus we proceed to derive the inequality
+\begin{eqnarray*}
+-\lambda\|v\|^2&=&\left<\tilde v,-\cL\tilde v\right>
+=\int_{\tilde\XX}-\nu\tilde v\tilde v_{xx}\,dx
+\\&=&\sum_j\left[-\nu\tilde v\tilde v_x\right]_{X_{j-1}^+}^{X_j^-}
++\int_{\tilde\XX}\nu\tilde v_x^2\,dx
+\quad(\text{integrating by parts})
+\\&=&\sum_j 0
++\int_{\tilde\XX}\nu\tilde v_x^2\,dx
+\quad(\text{using }\tilde v(X_j^-)=\tilde v(X_j^+)=0)
+\ajr{I have an uncomfortable feeling about this as we have not used the jump in derivative condition---unless we have implicitly in check v component??}
+\\&\geq&\nu_{\min}\int_{\tilde\XX}\tilde v_x^2\,dx
+\quad(\text{as }\nu(x)\geq \nu_{\min}>0).
+\end{eqnarray*}
+
+Now relate this inequality to the spatially homogeneous problem.
+Let \(\cL_1=\DD x{}\)~denote the linear operator with coupling conditions appearing in~\eqref{eqs:lin} for the special case of \(\nu(x)=\nu_j=1\) for all~\(x\) and~\(j\).
+Then by the reverse of the argument of the previous paragraph,
+\begin{equation*}
+\int_{\tilde\XX}\tilde v_x^2\,dx
+=\cdots=\left<\tilde v,-\cL_1\tilde v\right>
+=\cdots=\left< v,-\cL_1 v\right>
+\geq -\lambda_1\|v\|^2.
+\end{equation*}
+where \(\lambda_1\)~denotes the smallest magnitude, non-zero, eigenvalue of~\(\cL_1\).
+The inequality is justified by the Rayleigh--Ritz theorem which asserts \(-\lambda_1=\min_{w\perp\EE} \left<w,-\cL_1w\right>/\|w\|^2\).
+By the next Lemma~\ref{lem:hs}, \(-\lambda_1\geq\pi^2/H^2\), and hence all eigenvalues satisfy \(-\lambda\geq\nu_{\min}(-\lambda_1)\geq\nu_{\min}\pi^2/H^2\) as required.
 \end{proof}
 
+
+
+\begin{lemma}[spatially homogeneous spectrum] \label{lem:hs}
+The non-zero eigenvalues of the differential operator \(\DD x{}\) on~\(\tilde\XX\) with coupling conditions~\eqref{eq:ccclin}--\eqref{eq:ccjlin} when \(\nu_j=1\) all satisfy \(\lambda\leq-\pi^2/H^2\).
+\end{lemma}
+
+\begin{proof} 
+For the spatially homogeneous problem~\eqref{eqs:lin}, set \(\nu(x)=\nu_j=1\)\,. 
+Seeking solutions \(e^{\lambda t}v(x)\) leads to the \ode\ \(\lambda v=v''\) on~\(\tilde\XX\).
+As a constant coefficient \ode, and for eigenvalues \(\lambda=-\kappa^2/H^2\) for some nondimensional wavenumber~\(\kappa\geq0\) to be determined, its general solutions are of the form \(v_j=A_j\cos[\kappa(x-X_{j-1})/H]+B_j\sin[\kappa(x-X_{j-1})/H]\) for coefficients~\(A_j\) and~\(B_j\) determined by the coupling conditions~\eqref{eq:ccclin}--\eqref{eq:ccjlin}. 
+Consequently, the derivative \(v_{jx}=-\frac{A_j\kappa}H\sin[\kappa(x-X_{j-1})/H]+\frac{B_j\kappa}H\cos[\kappa(x-X_{j-1})/H]\).
+
+Let's consider the spatial map \((A_j,B_j)\mapsto(A_{j+1},B_{j+1})\).
+Continuity~\eqref{eq:ccclin} at \(x=X_j\) requires 
+\begin{equation*}
+A_{j+1}=A_j\cos\kappa+B_j\sin\kappa=cA_j+sB_j
+\end{equation*}
+where for brevity in this proof, let \(c:=\cos\kappa\) and \(s:=\sin\kappa \)\,.
+The derivative jump~\eqref{eq:ccjlin} at \(x=X_j\) requires
+\begin{equation*}
+\frac\kappa H B_{j+1}+A_j\frac\kappa H s-B_j\frac\kappa H c
+=\frac{C(\gamma)}H\left[cA_{j+1}+sB_{j+1} -2A_{j+1} +A_j \right],
+\end{equation*}
+where we include the factor~\(C(\gamma)\) for a little more generality;
+that is,
+\begin{equation*}
+(c-2)CA_{j+1}+(Cs-\kappa)B_{j+1}+(C-s\kappa)A_j+c\kappa B_j=0\,.
+\end{equation*}
+Dividing by~\(C\), and in terms of \(\kappa'=\kappa/C\)\,, gives the equivalent
+\begin{equation*}
+(c-2)A_{j+1}+(s-\kappa')B_{j+1}+(1-s\kappa')A_j+c\kappa'B_j=0\,.
+\end{equation*}
+Considering together the two equations, this spatial map has solutions \((A_j,B_j)\propto \mu^j\) for some multiplier~\(\mu\) only if the determinant
+\begin{eqnarray}&&
+\det\begin{bmatrix} \mu-c&-s\\
+\mu (c-2)+1-s\kappa'&\mu(s-\kappa')+c\kappa' \end{bmatrix}=0\,;
+\nonumber
+\\&&\text{that is,}\quad
+\mu^2-2\frac{c\kappa'-s}{\kappa'-s}\mu+1=0\,.
+\end{eqnarray}
+%Hence the two possible multipliers must have product one, which reflects the left-right spatial symmetry in the linear problem~\eqref{eqs:lin}.
+Hence the two possible multipliers of the spatial map are 
+\begin{equation*}
+\mu=\beta\pm\sqrt{\beta^2-1}\quad\text{for }\beta=\frac{s-c\kappa'}{s-\kappa'}\,.
+\end{equation*}
+Consequently, \(|\beta|>1\) is not possible as then there are two (real) multipliers: one of which has magnitude greater than one representing structures growing exponentially quickly to the right; and one of which has magnitude less than one representing structures growing exponentially quickly to the left.
+The only allowable cases occur for \(|\beta|\leq1\) when the multipliers are complex of magnitude \(|\mu|=1\) and so characterise periodic structures in space.
+Since \(\kappa'-s=\kappa/C(\gamma)-\sin\kappa\geq0\)\,, the requirement \(|\beta|\leq1\) becomes \(s-\kappa'\leq c\kappa'-s\leq\kappa'-s\)\,; that is, \(2s-\kappa'\leq c\kappa'\leq\kappa'\).
+But the right-hand inequality is always satisfied as \(c=\cos\kappa\)\,, but the left-hand inequality requires \(2s\leq(1+c)\kappa'\), that is, \(s/(1+c)\leq\kappa'/2\)\,.
+Recalling \(s=\sin\kappa\) and \(c=\cos\kappa\) this requirement becomes
+\begin{equation}
+\tan\frac\kappa2\leq\frac\kappa{2C}\,.
+\label{eq:kappa}
+\end{equation}
+\begin{figure}
+\centering
+\begin{tabular}{cc}
+\tikzsetnextfilename{spectrum}
+\begin{tikzpicture}
+\begin{axis}[ xlabel={$\kappa$}
+  ,axis x line=middle,axis y line=middle
+  ,thick,grid,samples=101
+  ,ymin=-1,ymax=8 ,domain=0:17
+  ,xtick={3.1416,6.2832,9.4248,12.5664,15.7080}
+  ,xticklabels={$\pi$,$2\pi$,$3\pi$,$4\pi$,$5\pi$}
+%  ,legend pos=outer north east
+  ,legend pos=north west
+  ] 
+\addplot [blue,no marks] {tan(deg(x)/2)}; 
+\addlegendentry{$\tan(\kappa/2)$};
+\addplot [red,no marks,samples=2] {x/2}; 
+\addlegendentry{$\kappa/2$};
+\addplot [brown,only marks,mark=*] {0-99*(x/2<tan(deg(x)/2))};
+\addlegendentry{wavenumber};
+\end{axis}
+\end{tikzpicture}
+&
+\parbox[b]{0.4\linewidth}{\caption{\label{fig:leaspec}%
+The linearised ($\gamma=0$, \(C=1\)) spectrum determined by the spectral requirement~\eqref{eq:kappa}.
+The thick lines along the $\kappa$-axis indicate regions of spatial wavenumbers for which the corresponding spatial structures are bounded for all space.}}
+\end{tabular}
+\end{figure}%
+As illustrated by Figure~\ref{fig:leaspec}, for the specific case of the linearised problem~\eqref{eqs:lin} for which \(C(0)=1\)\,, the smallest allowable nonzero nondimensional wavenumber is \(\kappa=\pi\)\,.
+Hence the smallest magnitude nonzero eigenvalue is\({}\leq-\pi^2/H^2\) as required.
+\end{proof}
+
+Comment on filling the gap as \(C\)~decreases??
+
+
+\begin{theorem}[slow manifold]
+In a neighbourhood of the subspace~\EE\ there exists an \(N\)-D slow manifold that is emergent with transients roughly\({}\propto\exp(-\nu_{\min}\pi^2/H^2\,t)\).
+\end{theorem}
+
+\begin{proof} 
+??
+\end{proof}
 
 
 
@@ -655,7 +822,7 @@ $\xi(x)=\sum_{j=1}^{N}\chi_j(x)(x-X_{j-1})/H$. This enforced continuity is repre
 \label{eq:cont-cond}
 \end{eqnarray}
 where $ [u]_j := \lim_{\epsilon\rightarrow 0^{+}} u(X_j+\epsilon,t)-u(X_j-\epsilon,t)$
-represents the spatial jump in $u$ across the boundary between the $j$-th and $(j+1)$-th intervals.
+represents the spatial jump in $u$ across the boundary between the $j$th and $(j+1)$th intervals.
 
 Unfortunately, this continuity does not hold for the first spatial derivative, since it can be shown that
 $[\D x{\hat{u}_{0}}]_j=\delta^2U_j/H$. Hence, we introduce a homotopic smoothing parameter $\gamma$
@@ -685,7 +852,7 @@ Similarly, the smoothness condition~(\ref{eq:smooth-cond}) implies that
 -\kappa \Im\left(a_{j+1} - a_j e^{i\kappa}\right) =  
 (1-\gamma)\Re\left(a_{j+1} e^{i\kappa} + a_j - 2 a_j e^{i\kappa}\right)\,.
 \end{eqnarray}
-In coefficient form, the update from the $j$-th to $(j+1)$-th interval is
+In coefficient form, the update from the $j$th to $(j+1)$th interval is
 \begin{eqnarray}
 \left[\begin{array}{cc}
 1 & 0\\
@@ -740,32 +907,6 @@ wavenumber $\kappa=0$ (see Figure~\ref{fig:leaspec}), indicating that transient 
  to the centre manifold at a rate of at least
 $\lambda=-\nu k^2=-\frac{\nu\pi^2}{H^2}$. It is this gap that provides robustness to nonlinear perturbations
 about the equilibrium within some suitable region in state-space.
-\begin{figure}
-\centering
-\tikzsetnextfilename{spectrum}
-\begin{tikzpicture}
-\begin{axis}[ xlabel={$\kappa$}
-  ,axis x line=middle,axis y line=middle
-  ,thick,grid,samples=101
-  ,ymin=-1,ymax=8 ,domain=0:17
-  ,xtick={3.1416,6.2832,9.4248,12.5664,15.7080}
-  ,xticklabels={$\pi$,$2\pi$,$3\pi$,$4\pi$,$5\pi$}
-  ,legend pos=outer north east
-  ] 
-\addplot [blue,no marks] {tan(deg(x)/2)}; 
-\addlegendentry{$\tan(\kappa/2)$};
-\addplot [red,no marks,samples=2] {x/2}; 
-\addlegendentry{$\kappa/2$};
-\addplot [brown,only marks,mark=*] {0-99*(x/2<tan(deg(x)/2))};
-\addlegendentry{spectrum};
-\end{axis}
-\end{tikzpicture}
-\caption{The equilibrium ($\gamma=0$) spectrum
-determined by the forbidding condition~\eqref{eq:leaforbid}.
-The thick lines along the $\kappa$-axis indicate regions of wavenumbers
-for which the corresponding eigenmodes are stable.}
-\label{fig:leaspec}
-\end{figure}
 
 
 \section{Nonlinear analysis}\label{sec:nonlin}
@@ -888,7 +1029,7 @@ having first computed $\gv_n$. The latter can be found by applying the weak solv
 (see \cite{Jarrad2001}),
 namely that the right-hand side of equation~\eqref{eq:order-n} must be orthogonal to the null-space of the adjoint
 operator ${\cL}^{\dagger}$. Since ${\cL}$ is self-adjoint in this example, we can isolate the boundary between the
-$j$-th and $(j+1)$-th intervals using the linear approximation
+$j$th and $(j+1)$th intervals using the linear approximation
 \begin{eqnarray}
   \hat{v}_0 = \chi_j\xi + \chi_{j+1}(1-\xi)\,,
 \end{eqnarray}
