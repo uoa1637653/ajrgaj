@@ -1,5 +1,26 @@
 \begin{thebibliography}{xx}
 
+\harvarditem{Aulbach \harvardand\ Wanner}{1996}{Aulbach96}
+Aulbach, B. \harvardand\ Wanner, T.  \harvardyearleft 1996\harvardyearright ,
+  Integral manifolds for {Caratheodory} type differential equations in {Banach}
+  spaces, {\em in} B.~Aulbach \harvardand\ F.~Colonius, eds, `Six Lectures on
+  Dynamical Systems', World Scientific, Singapore, pp.~45--119.
+
+\harvarditem{Aulbach \harvardand\ Wanner}{1999}{Aulbach99}
+Aulbach, B. \harvardand\ Wanner, T.  \harvardyearleft 1999\harvardyearright ,
+  Invariant foliations for {Caratheodory} type differential equations in
+  {Banach} spaces, {\em in} V.~Lakshmikantham \harvardand\ A.~A. Martynyuk,
+  eds, `Advances of Stability Theory at the End of XX Century', Gordon \&
+  Breach Publishers.
+\newblock
+  \url{http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.45.5229&rep=rep1&type=pdf}.
+
+\harvarditem{Aulbach \harvardand\ Wanner}{2000}{Aulbach2000}
+Aulbach, B. \harvardand\ Wanner, T.  \harvardyearleft 2000\harvardyearright ,
+  `The {Hartman--Grobman} theorem for {Caratheodory}-type differential
+  equations in {Banach} spaces', {\em Nonlinear Analysis} {\bf 40},~91--104.
+\newblock \doi{10.1016/S0362-546X(00)85006-3}.
+
 \harvarditem{Carr}{1981}{Carr81}
 Carr, J.  \harvardyearleft 1981\harvardyearright , {\em Applications of centre
   manifold theory}, Vol.~35 of {\em Applied Math. Sci.}, Springer--Verlag.
@@ -16,10 +37,23 @@ Haragus, M. \harvardand\ Iooss, G.  \harvardyearleft 2011\harvardyearright ,
   Infinite-Dimensional Dynamical Systems}, Springer.
 \newblock \doi{10.1007/978-0-85729-112-7}.
 
+\harvarditem{Mercer \harvardand\ Roberts}{1990}{Mercer90}
+Mercer, G.~N. \harvardand\ Roberts, A.~J.  \harvardyearleft
+  1990\harvardyearright , `A centre manifold description of contaminant
+  dispersion in channels with varying flow properties', {\em SIAM J.~Appl.
+  Math.} {\bf 50},~1547--1565.
+\newblock \url{http://link.aip.org/link/?SMM/50/1547/1}.
+
 \harvarditem{O'Leary}{2008}{OLeary08}
 O'Leary, D.~P.  \harvardyearleft 2008\harvardyearright , {\em Scientific
   Computing with Case Studies}, SIAM, Philadelphia.
 \newline\harvardurl{http://www.ec-securehost.com/SIAM/OT109.html}
+
+\harvarditem{Potzsche \harvardand\ Rasmussen}{2006}{Potzsche2006}
+Potzsche, C. \harvardand\ Rasmussen, M.  \harvardyearleft 2006\harvardyearright
+  , `Taylor approximation of integral manifolds', {\em Journal of Dynamics and
+  Differential Equations} {\bf 18},~427--460.
+\newline\harvardurl{http://dx.doi.org/10.1007/s10884-006-9011-8}
 
 \harvarditem{Roberts}{1997}{Roberts96a}
 Roberts, A.~J.  \harvardyearleft 1997\harvardyearright , `Low-dimensional
@@ -52,5 +86,10 @@ Roberts, A.~J., MacKenzie, T. \harvardand\ Bunder, J.  \harvardyearleft
   macroscale spatial dynamics in multiple dimensions', {\em J.~Engineering
   Mathematics} {\bf 86}(1),~175--207.
 \newline\harvardurl{http://arxiv.org/abs/1103.1187}
+
+\harvarditem{Strang \harvardand\ Fix}{2008}{Strang2008}
+Strang, G. \harvardand\ Fix, G.  \harvardyearleft 2008\harvardyearright , {\em
+  An Analysis of the Finite Element Method}, 2nd edn, SIAM, Philadelphia.
+\newline\harvardurl{http://bookstore.siam.org/wc08/}
 
 \end{thebibliography}

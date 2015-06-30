@@ -1,5 +1,7 @@
 \documentclass[11pt,a5paper]{article}
 \IfFileExists{ajr.sty}{\usepackage{defns,ajr}}{}
+\usepackage{pgfplots}
+
 \title{Two intervals with Dirichlet BCs}
 \author{AJR}
 \date{\today}
@@ -14,6 +16,8 @@ Let's try the simplest problem.
 The finite domain is \(-1\leq x\leq1\), \(t\)~is time, and we seek a field~\(u(x,t)\) satisfying the heat\slash Burgers' \pde\ \(u_t=u_{xx}-\alpha uu_x\) and Dirichlet physical boundary conditions of \(u=0\) at \(x=\pm1\)\,.
 The simplest numerical approximation in our class is formed by imposing the artificial breakpoint at \(x=0\) that the field is continuous, \([u]_0=0\), but the derivative has a jump of \([u_x]_0=(1-\gamma)(0-2u|_0+0)=-2(1-\gamma)u|_0\).
 
+
+\section{Initialisation}
 \begin{reduce}
 on div; off allfac; on revpri;
 factor uu,alpha;
@@ -41,21 +45,28 @@ let { iint(1,x)=>(xx^2-xx)/2
     , iint(xx^~~p,x)=> (xx^(p+2)-xx)/(p+1)/(p+2) };
 \end{reduce}
 
+
+
+
+\section{Iterative construction}
+
 \begin{reduce}
-let { gamma^3=>0 };
-alpha:=alfa*gamma;
+let { gamma^40=>0 };
+alpha:=0*alfa*gamma;
 aa:=0;% 1/6 may be useful for low orders, but only a little at high
-for it:=1:19 do begin
+for it:=1:99 do begin
 \end{reduce}
 
 Compute the residual of the \pde\ and coupling condition.
 \begin{reduce}
-write
 respde:=-df(u,t)+df(u,x,x)-alpha*u*df(u,x);
 ux:=df(u,x);
-write
 rescc:=sub(xx=0,(1-aa*gamma)*(sub(sx=1,ux)-sub(sx=-1,ux))
     +2*(1-gamma)*u);
+\end{reduce}
+To monitor progress, write the lengths of the residual expressions:
+\begin{reduce}
+write lengthress:={length(respde),length(rescc)};
 \end{reduce}
 Compute corrections from residuals.
 \begin{reduce}
@@ -70,6 +81,63 @@ end;
 \end{reduce}
 
 
+
+
+\section{Generalised Domb--Sykes plot}
+If linear diffusion and to high order, then post-process to generate a generalised Domb--Sykes plot (Mercer \& Roberts, 1990) in tikz.
+\begin{reduce}
+if alpha=0 and deg((1+gamma)^20,gamma)>19 then begin
+on rounded; print_precision 4;
+as:=coeff(g,gamma);
+write 
+rks:=for k:=5:length(as)-2 collect 1/(k-1);
+write
+bs:=for k:=5:length(as)-2 collect sqrt(
+    (part(as,k+2)*part(as,k)-part(as,k+1)^2)
+   /(part(as,k+1)*part(as,k-1)-part(as,k)^2) );
+write
+cs:=for k:=5:length(as)-2 collect (
+    part(as,k)*part(bs,k-4)+part(as,k+2)/part(bs,k-4) 
+    )/part(as,k+1)/2;
+out "tiwdbcDS.tex";
+write "
+\begin{tikzpicture}
+\begin{axis}[axis x line=middle, axis y line=middle
+,xmin=0,ymax=0.27]
+\addplot +[only marks,mark=*] coordinates {"$
+for k:=1:length(rks) do write "(",part(rks,k),",",part(bs,k),")"$
+write "};
+\addlegendentry{\(B_k\) vs \(1/k\)};"$
+write "
+\addplot +[only marks,mark=*] coordinates {"$
+for k:=1:length(rks) do write "(",part(rks,k)^2,",",-part(cs,k),")"$
+write "};
+\addlegendentry{\(-\cos\theta_k\) vs \(1/k^2\)};
+\end{axis}
+\end{tikzpicture}
+"$
+shut "tiwdbcDS.tex";
+end;
+\end{reduce}
+
+
+\IfFileExists{tiwdbcDS.tex}{
+\begin{figure}
+\centering
+\begin{tabular}{@{}cc@{}}
+\input{tiwdbcDS}
+&
+\parbox[b]{0.3\linewidth}{\caption{\label{fig:tiwdbcDS}%
+generalised Domb--Sykes plot (Mercer \& Roberts, 1990) to show convergence for \(|\gamma|<3.8\) due to a convergence limiting singularity at angle~\(103^\circ\) to the real \(\gamma\)-axis.}}
+\end{tabular}
+\end{figure}
+}{}
+
+
+
+
+
+Fin.
 \begin{reduce}
 end;
 \end{reduce}
