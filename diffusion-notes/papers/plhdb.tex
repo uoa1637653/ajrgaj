@@ -15,7 +15,7 @@
 \pgfplotsset{compat=1.8}
 
 \usepackage{pdfcomment}
-\newcommand{\ajr}[1]{\pdfcomment[author=AJR,color={0.8 0.8 0},subject={#1}]{#1}}
+\newcommand{\ajr}[1]{\quad\pdfcomment[author=AJR,color={0.8 0.8 0},subject={#1}]{#1}\quad}
 
 \atBegin{theorem}{\vspace{2ex plus 1ex minus 1ex}}
 \atBegin{lemma}{\vspace{2ex plus 1ex minus 1ex}}
@@ -832,121 +832,148 @@ Given the existence of a slow manifold $u=u(x,\Uv)$ such that $\dot{\Uv}=\gv(\Uv
  {\cR}({u},\gv) := -\D {\Uv}{{u}}\cdot\gv+\nu\DD x{u}-\alpha{u}{u}_{x} \,.
 \label{eq:man}
 \end{equation}
+
 The initial approximation to the slow manifold is, in terms of the local space variable~\(\xi_j=(x-X_{j-1})/H\) defined by~\eqref{eq:equil}, the piecewise linear field
-\begin{equation*}
+\begin{equation}
 u^0=\sum_{j=1}^{N}\chi_j(x)\big[(1-\xi_j)U_{j-1}+\xi_jU_j\big]
 \quad\text{where }
 \chi_j(x)=\begin{cases}
 1&\text{if }x\in\XX_j\,,\\
 0&\text{if }x\not\in\XX_j\,.
 \end{cases}
-\end{equation*}
-We seek the slow manifold for the coupled and nonlinear dynamics in the multivariate power series form
+\label{eq:u0}
+\end{equation}
+We seek the slow manifold for the coupled and nonlinear dynamics in a multivariate power series in corresponding parameters~\(\gamma\) and~\(\alpha\).
+But to simplify the algebraic construction process we follow the approach of \cite{Jarrad2001} and introduce one ordering parameter \(\varepsilon=\sqrt{\gamma^2+\alpha^2}\) and label terms depending upon their order in~\(\varepsilon\).
+For example, a term in~\(\gamma^p\alpha^q\) is termed of order~\(\varepsilon^{p+q}\).
+Then we seek expressions for the slow manifold in the asymptotic series
 \begin{eqnarray}
-  {u} \sim \sum_{p=0}^{\infty}\sum_{q=0}^{\infty}\gamma^{p}\alpha^{q}{u}^{(p,q)}\,,
+  {u}(x,\Uv,\gamma,\alpha) \sim \sum_{n=0}^{\infty} {u}^{n}(x,\Uv,\gamma,\alpha),
 &&
-  \gv \sim \sum_{p=0}^{\infty}\sum_{q=0}^{\infty}\gamma^{p}\alpha^{q}\gv^{(p,q)}\,,
+  \gv(\Uv,\gamma,\alpha) \sim \sum_{n=1}^{\infty}\gv^{n}(\Uv,\gamma,\alpha),
 \label{eq:power}
 \end{eqnarray}
-where ${u}^{(0,0)}=u^0$ 
-and $\gv^{(0,0)}=0$.
-Substituting these expansions into
-equation~\eqref{eq:man},  the terms ${u}^{(p,q)}$ and $\gv^{(p,q)}$ are computed subject to the coupling conditions~\eqref{eqs:cc}.
-
-To simplify the algebraic construction process we follow the approach of \cite{Jarrad2001}:
-without loss of generality, consider finite truncations of the power series subject to $p+q\le n$,
-namely\footnote{Other truncation patterns may be used, such as,
-for example, the rectangular truncation $p\le n$\,, $q\le m$\,.}
-\ajr{I think we can reduce the plethora of symbols by introducing varepsilon a tad earlier and using it to order the sums, and it alone.}
+where \(u^n\) and~\(\gv^n\) are of order~\(n\) in the order parameter~\(\varepsilon\).
+%Substituting these expansions into
+%equation~\eqref{eq:man},  the terms ${u}^{(p,q)}$ and $\gv^{(p,q)}$ are computed subject to the coupling conditions~\eqref{eqs:cc}.
+%To simplify the algebraic construction process we follow the approach of \cite{Jarrad2001}:
+%without loss of generality, consider finite truncations of the power series subject to $p+q\le n$,
+%namely\footnote{Other truncation patterns may be used, such as,
+%for example, the rectangular truncation $p\le n$\,, $q\le m$\,.}
+%\ajr{I think we can reduce the plethora of symbols by introducing varepsilon a tad earlier and using it to order the sums, and it alone.}
+The partial sums of these series are
 \begin{eqnarray}
-   {u}^{\langle n\rangle} = \sum_{p=0}^{n}\sum_{q=0}^{n-p}\gamma^{p}\alpha^{q}{u}^{(p,q)}\,,
+   {u}^{\langle n\rangle}(x,\Uv,\gamma,\alpha) 
+   := \sum_{p=0}^{n}{u}^{p},
 &&
-   {u^n} = \sum_{p=0}^{n}\gamma^{p}\alpha^{n-p}{u}^{(p,n-p)}\,.
+  \gv^{\langle n\rangle}(\Uv,\gamma,\alpha) 
+  := \sum_{p=1}^{n}\gv^{n}.
 \end{eqnarray}
-Defining $\varepsilon=\sqrt{\gamma^2+\alpha^2}$ for convenience,\footnote{
-This is merely an algebraic device; in practice, the small parameters~$\gamma$ and~$\alpha$ need not be commensurate.} then we can write
- ${u}={u}^{\langle n\rangle}+\Ord{\varepsilon^{n+1}}$ and
+Then ${u}={u}^{\langle n\rangle}+\Ord{\varepsilon^{n+1}}$ and
 ${u}^{\langle n\rangle}={u}^{\langle n-1\rangle}+u^n$; 
-likewise for $\gv^{\langle n\rangle}$ and $\gv^n$.
-Substituting these into~\eqref{eq:man} and rearranging we can deduce
-\begin{eqnarray}
- {\cR}({u}^{\langle n\rangle},\gv^{\langle n\rangle}) = 
-  -\D {\Uv}{{u^0}}\cdot\gv^n +\nu\DD x{u^n}+{\cR}({u}^{\langle n-1\rangle},\gv^{\langle n-1\rangle})
+likewise for $\gv^{\langle n\rangle}$ and~$\gv^n$.
+Substituting these into the governing \pde~\eqref{eq:man} and rearranging we deduce
+\begin{equation*}
+ {\cR}\left({u}^{\langle n\rangle},\gv^{\langle n\rangle}\right) = 
+  -\D {\Uv}{{u^0}}\cdot\gv^n +\nu\DD x{u^n}
+  +{\cR}\left({u}^{\langle n-1\rangle},\gv^{\langle n-1\rangle}\right)
 +\Ord{\varepsilon^{n+1}}\,.
-\end{eqnarray}
-Hence to require \({\cR}({u}^{\langle n\rangle},\gv^{\langle n\rangle}) = \Ord{\varepsilon^{n+1}}\), the process is to iteratively solve
+\end{equation*}
+Hence to require \({\cR}\big({u}^{\langle n\rangle},\gv^{\langle n\rangle}\big) = \Ord{\varepsilon^{n+1}}\), the process is to iteratively solve
 \begin{equation}
-\nu\DD x{u^n} = \D {\Uv}{{u^0}}\cdot\gv^n-{\cR}({u}^{\langle n-1\rangle},\gv^{\langle n-1\rangle})
-%+\Ord{\varepsilon^{n+1}}
-\,.
+\nu\DD x{u^n} = \D {\Uv}{{u^0}}\cdot\gv^n-{\cR}\big({u}^{\langle n-1\rangle},\gv^{\langle n-1\rangle}\big).
 \label{eq:order-n}
 \end{equation}
 
-Letting $\xi=\sum_{j=1}^{N}\chi_j\xi_j$\ajr{Does not seem correct to me??} for convenience, the first-order perturbation terms 
-can now be computed for $n=1$ as
+
+
+\paragraph{First order approximation}
+
+%Letting $\xi=\sum_{j=1}^{N}\chi_j\xi_j$\ajr{Does not seem correct to me??} for convenience, 
+Obtain the first approximation by solving~\eqref{eq:order-n} for the case \(n=1\) given the initial subspace approximation~\eqref{eq:u0}.
+Equation~\eqref{eq:order-n} becomes
 \begin{eqnarray*}
-\nu\DD x{u^1} = \sum_{j=1}^{N}\chi_j\left[(\xi+(1-\xi)\sigma^{-1})g_{1,j}
-   +\alpha(\xi+(1-\xi)\sigma^{-1})U_j\frac{1}{H}\nabla U_j\right]\,,
+\nu\DD x{u^1} = \sum_{j=1}^{N}\chi_j(x)\left\{\big[\xi_j+(1-\xi_j)\sigma^{-1}\big]g^1_{j}
+   +\alpha\big[\xi_j+(1-\xi_j)\sigma^{-1}\ajr{Is this 1/sigma applied to both Uj? or only the first Uj in the product??}\big]U_j\frac{1}{H}\nabla U_j\right\},
 \end{eqnarray*}
 for backward difference $\nabla=1-\sigma^{-1}$.
 Spatially integrating twice gives
 \begin{eqnarray*}
-\nu{u^1} & = &  \sum_{j=1}^{N}\chi_j\left[d_j+H\xi c_j+\frac{H^2}{6}(\xi^3+(1-\xi)^3\sigma^{-1})g_{1,j}
+\nu{u^1} & = &  \sum_{j=1}^{N}\chi_j(x)\left\{d_j+H\xi_j c_j+\frac{H^2}{6}\big[\xi_j^3+(1-\xi_j)^3\sigma^{-1}\big]g^1_{j}
 \right.\nonumber\\
-&& \left.{}+\frac{\alpha H}{6}(\xi^3+(1-\xi)^3\sigma^{-1})U_j\,\nabla U_j\right]\,.
+&& \qquad\left.{}
++\frac{\alpha H}{6}\big[\xi_j^3+(1-\xi_j)^3\sigma^{-1}\big]U_j\,\nabla U_j\right\}.
 \end{eqnarray*}
-Now, the continuity condition~\eqref{eq:ccc} ensures that ${u^n}(X_j,t)=0$ for $n>0$,
-since ${u^0}(X_j,t)=U_j(t)=u(X_j,t)$. Hence, we solve for $d_j$ at $\xi=0$ and
-$c_j$ at $\xi=1$, giving
-\begin{eqnarray*}
-\nu{u^1} & = &  \sum_{j=1}^{N}\chi_j\left[\frac{H^2}{6}(\xi^3+(1-\xi)^3\sigma^{-1}
--\xi\nabla-\sigma^{-1})g_{1,j}
-\right.\nonumber\\
-&& \left.{}+\frac{\alpha H}{6}(\xi^3+(1-\xi)^3\sigma^{-1}-\xi\nabla-\sigma^{-1})U_j\,\nabla U_j\right]\,.
-\end{eqnarray*}
-It is convenient here to introduce interpolation operators ${\cI}_0=\xi+(1-\xi)\sigma^{-1}$ and
-${\cI}_1=\xi^3+(1-\xi)^3\sigma^{-1}-\xi\nabla-\sigma^{-1}$ (observe that ${\cI}_1''=6{\cI}_0/H^2$),
-whence
+\begin{itemize}
+\item The interelement continuity condition~\eqref{eq:ccc} requires that ${u^n}(X_j,\Uv)=0$ for $n=1,2,3,\ldots$,
+because ${u^0}(X_j,\Uv)=U_j=u(X_j,\Uv)$. 
+Hence, we solve for~$d_j$ at $\xi_j=0$ and
+$c_j$ at $\xi_j=1$, giving
 \begin{eqnarray}
- {u} = \sum_{j=1}^{N}\chi_j\left[{\cI}_0 U_j+\frac{H^2}{6\nu}{\cI}_1\dot{U}_j
-+\frac{\alpha H}{6\nu}{\cI}_1 U_j\,\nabla U_j\right]+\Ord{\gamma^2+\alpha^2}\,,
+\nu{u^1} & = &  \sum_{j=1}^{N}\chi_j(x)\left\{\frac{H^2}{6}\big[\xi_j^3+(1-\xi_j)^3\sigma^{-1}
+-\xi_j\nabla-\sigma^{-1}\big]g^1_j
+\right.\nonumber\\&& \qquad\left.{}
++\frac{\alpha H}{6}\big[\xi_j^3+(1-\xi_j)^3\sigma^{-1}-\xi_j\nabla-\sigma^{-1}\big]U_j\,\nabla U_j\right\}
+\nonumber\\
+& = &  \sum_{j=1}^{N}\chi_j(x)\left\{\frac{H^2}{6}\cI_1g^1_j
++\frac{\alpha H}{6}\cI_1U_j\,\nabla U_j\right\},
+\qquad\label{eq:u1g1}
 \end{eqnarray}
-since $\dot{U}_j=g_{1,j}+\Ord{\gamma^2+\alpha^2}$. 
+where it is convenient to introduce interpolation operators ${\cI}_0(\xi_j):=\xi_j+(1-\xi_j)\sigma^{-1}$ and
+${\cI}_1(\xi_j):=\xi_j^3+(1-\xi_j)^3\sigma^{-1}-\xi_j\nabla-\sigma^{-1}$ (observe that ${\cI}_1''=6{\cI}_0/H^2$).
 
-Next, the value of $g_{1,j}$ can be found
-from the smoothness condition~\eqref{eq:ccj}, namely
-\begin{eqnarray*}
-\nu[{u^1_x}]_{j} = -H\left(1+\frac{1}{6}\delta^2\right)g_{1,j} 
--\frac{\alpha}{3}\left(U_j\mu\delta U_j+\mu\delta U_j^2\right)
-= -\frac{\nu\gamma}{H}\delta^2 U_j\,,
-\label{eq:g1}
-\end{eqnarray*}
-giving
-\begin{eqnarray}
+\item The interelement smoothness condition~\eqref{eq:ccj} determines the value of~$g^1_j$.
+Substitute~\(u^1\) from~\eqref{eq:u1g1} into~\eqref{eq:ccj} and we require
+\begin{equation*}
+-\frac{\nu\gamma}{H}\delta^2 U_j = -H\left(1+\frac{1}{6}\delta^2\right)g^1_j 
+-\frac{\alpha}{3}\left(U_j\mu\delta U_j+\mu\delta U_j^2\right).
+\end{equation*}
+For this to be satisfied we set
+\begin{equation*}
+g^1_j=S\left[\frac{\nu\gamma}{H^2}\delta^2 U_j
+-\frac{\alpha}{3H}U_j\mu\delta U_j-\frac{\alpha}{3H}\mu\delta U_j^2
+\right],
+\end{equation*}
+where operator $S:=(1+\delta^2/6)^{-1}$.
+\end{itemize}
+Combining these with the initial approximation gives the slow manifold
+\begin{subequations}\label{eqs:}%
+\begin{eqnarray}&&
+ {u} = \sum_{j=1}^{N}\chi_j(x)\left\{{\cI}_0 U_j+\frac{H^2}{6\nu}{\cI}_1g^1_j
++\frac{\alpha H}{6\nu}{\cI}_1 U_j\,\nabla U_j\right\}+\Ord{\varepsilon^2},
+\\&&
   \dot{U}_j  = S\left[\frac{\nu\gamma}{H^2}\delta^2 U_j
 -\frac{\alpha}{3H}U_j\mu\delta U_j-\frac{\alpha}{3H}\mu\delta U_j^2
-\right]+\Ord{\gamma^2+\alpha^2}\,,
+\right]+\Ord{\varepsilon^2}.
+\label{eq:dudt1}
 \end{eqnarray}
-where $S=(1+\delta^2/6)^{-1}$.
-Observe that, apart from the nonlocal operator $S$, this is just the mixture model~\eqref{eq:mixture}
-with $\theta=\frac{2}{3}$. It turns out that this parameter value is exactly the critical value predicted by \cite{Fornberg73}
-to be a necessary condition for the stability of numerical integration of the mixture model with $\nu=0$ and $\alpha=1$.
-We demonstrate in Section~\secref{numeric} how this stability arises in low-dimensional models.
+\end{subequations}
+Apart from the nonlocal operator~$S$, this discrete closure~\eqref{eq:dudt1} is just the mixture model~\eqref{eq:mixture}
+with $\theta=\frac{2}{3}$. 
+This parameter value is exactly the critical value predicted by \cite{Fornberg73} to be necessary  for the stability of numerical integration of the mixture model with $\nu=0$ and $\alpha=1$.
+%We demonstrate in Section~\secref{numeric} how this stability arises in low-dimensional models.
 
-Higher order terms in ${u^n}$  may be systematically computed by iteratively solving equation~\eqref{eq:order-n} after
-having first computed $\gv^n$. The latter can be found by applying the weak solvability condition \cite[]{Jarrad2001},
-namely that the right-hand side of equation~\eqref{eq:order-n} must be orthogonal to the null-space of the adjoint
-operator ${\cL}^{\dagger}$. Since ${\cL}$ is self-adjoint in this example, we can isolate the boundary between the
-$j$th and $(j+1)$th intervals using the linear approximation
+\paragraph{Connect to a cubic spline}
+An intriguing property of the operator~\(S=(1+\delta^2/6)^{-1}=6(\sigma+4+\sigma^{-1})^{-1}\) is that it is precisely the operator found in constructing a cubic spline interpolation through equi-spaced data.
+\ajr{Confirm and record, or not, that this ensures the first correction forms a cubic spline??} 
+
+
+
+\paragraph{Higher order approximations}
+
+Higher order terms in the asymptotic series for~${u}$  may be systematically computed by iteratively solving equation~\eqref{eq:order-n} after
+having first computed~$\gv^n$. 
+The solvability condition determines the latter \cite[]{Jarrad2001}, namely that the right-hand side of equation~\eqref{eq:order-n} must be orthogonal to the null-space of the adjoint of~$\nu\DD x{}$. 
+Since the operator is self-adjoint, we can isolate the boundary between the $j$th and $(j+1)$th intervals using the linear approximation\ajr{Clarify what this all means??}
 \begin{eqnarray}
-  \hat{v}_0 = \chi_j\xi + \chi_{j+1}(1-\xi)\,,
+  \hat{v}_0 = \chi_j(x)\xi_j + \chi_{j+1}(x)(1-\xi_j),
 \end{eqnarray}
 which satisfies both the continuity condition~\eqref{eq:ccc} and the smoothness condition~\eqref{eq:ccj}
-(for $\gamma=0$). Thus, taking the inner product of equation~\eqref{eq:order-n} with $\hat{v}_0$ gives
-rise to the solvability condition
+(for $\gamma=0$). 
+Thus, taking the inner product of equation~\eqref{eq:order-n} with~$\hat{v}_0$ gives rise to the solvability condition
 \begin{eqnarray}
 \left.\frac{\nu\gamma}{H}\delta^2u^{n-1}\right|_{X_j} = HS^{-1}g_{n,j}
--\langle {\cR}({u}^{\langle n-1\rangle},\gv^{\langle n-1\rangle}), \hat{v}_0 \rangle\,.
+-\left< {\cR}\big({u}^{\langle n-1\rangle},\gv^{\langle n-1\rangle}\big), \hat{v}_0 \right>\,.
 \end{eqnarray}
 Note that for $n=1$, this  reduces to equation~\eqref{eq:g1}, and
 for $n>1$, the left-hand side is identically zero.
@@ -954,26 +981,25 @@ for $n>1$, the left-hand side is identically zero.
 The higher order advection terms in $\alpha$ and the interactions between $\alpha$ and $\gamma$
 rapidly become more complex. For example, the $\gamma\alpha$ terms are 
 \begin{eqnarray}
-	g^{(1,1)}_{j} & = & \frac{1}{H}\left\{
+	g^{2}_{j} & = & \frac{1}{H}\left\{
   - \frac{1}{10}S\left(U_{j} S\mu\delta U_{j}\right)
   - \frac{1}{6}S\left(U_{j} \mu\delta U_{j}\right)
   + \frac{1}{10}S\left(SU_{j} \mu\delta U_{j}\right)
-  \right.
-\nonumber\\  
-&& \left.- \frac{1}{5}S^{2}\left(U_{j} S\mu\delta U_{j}\right)
+  \right. \nonumber\\  && \left.{}
+- \frac{1}{5}S^{2}\left(U_{j} S\mu\delta U_{j}\right)
   + \frac{13}{30}S^{2}\left(U_{j} \mu\delta U_{j}\right)
   - \frac{1}{15}S^{3}\left(U_{j} \mu\delta U_{j}\right)
-  \right.
-\nonumber\\
-&& \left.
+  \right. \nonumber\\&& \left.{}
   - \frac{1}{15}S^{3}\mu\delta U_{j}^2
   + \frac{7}{30}S^{2}\mu\delta U_{j}^2
   + \frac{2}{5}U_{j} S\mu\delta U_{j}
   - \frac{11}{30}S\mu\delta U_{j}^2
 \right\}
-\,.
+\nonumber\\&&{}
++\Ord{\gamma^2,\alpha^2}.
+\qquad
 \end{eqnarray}
-In contrast, the terms purely in the homotopic parameter $\gamma$ represent smoothing corrections to the
+In contrast, the terms purely in the homotopy parameter~$\gamma$ represent smoothing corrections to the
 diffusion; for example,
 the coarse dynamics of the diffusion equation ($\alpha=0$)  obey 
 \begin{eqnarray}
@@ -983,7 +1009,7 @@ the coarse dynamics of the diffusion equation ($\alpha=0$)  obey
 &&{}+ \frac{\nu\gamma^3}{6300H^2}(94-73S+14S^2)S^3\delta^{6}U_j
 + \Ord{\gamma^4}.
 \end{eqnarray}
-Figure~\ref{fig:diff:spectrum} shows that each additional term in this expansion provides a better approximation to the continuum dynamics.
+Figure~\ref{fig:diff:spectrum} shows that each additional term in this expansion provides a better approximation to the full continuum dynamics.
 \begin{figure}
 \centering
 \tikzsetnextfilename{decayRates}
@@ -1017,7 +1043,9 @@ contrasting the continuum dynamics  against successive discrete, holistic approx
 \end{figure}
 
 
-\section{Stability of the discretisation}\label{sec:numeric}
+\section{Dynamical stability of the discretisation}
+\label{sec:numeric}
+
 To investigate the theoretical stability of discrete approximations to Burgers' equation~\eqref{eq:burgers}, we
 %follow \cite{Foias} and 
 consider a mostly undisturbed system where $U_j=0$ at all grid-points
