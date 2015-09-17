@@ -14,6 +14,8 @@
 %\tikzset{external/force remake}%forces redraw of all tikz graphics
 \pgfplotsset{compat=1.8}
 
+\usepackage{epstopdf}
+
 \usepackage{pdfcomment}
 \newcommand{\ajr}[1]{\quad\pdfcomment[author=AJR,color={0.8 0.8 0},subject={#1}]{#1}\quad}
 
@@ -1097,6 +1099,15 @@ Note that the holistic parameter value of $\theta=\frac{2}{3}$ lies in the range
 Interestingly, the purely advective form ($\theta=0$) is now also unconditionally stable.
 
 
+\begin{figure}
+\centering
+\includegraphics{figures/integ-stability-30.eps}
+\end{figure}
+
+\begin{figure}
+\centering
+\includegraphics{figures/integ-stability-60.eps}
+\end{figure}
 
 
 
