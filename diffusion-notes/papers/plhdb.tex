@@ -6,7 +6,7 @@
 
 \usepackage{url,natbib}
 \let\harvardurl\url
-\usepackage{graphicx,amsmath,amsfonts,defns}
+\usepackage{graphicx,amsmath,amsfonts,defns,moreverb}
 \allowdisplaybreaks
 \usepackage{pgfplots}
 \usepgfplotslibrary{external} %exports pdf for each tikz figure
@@ -1127,6 +1127,13 @@ AJR thanks the ARC for partial support of this project through grant DP150102385
 \IfFileExists{ajr.sty}
 {\bibliography{bibexport,bib,ajr}}
 {\bibliography{bibexport,yourbibfile}}
+
+
+
+
+\appendix
+\section{Ancillary material: computer algebra ...}
+\verbatimlisting{../code/burgers3.red}
 
 
 \end{document}
