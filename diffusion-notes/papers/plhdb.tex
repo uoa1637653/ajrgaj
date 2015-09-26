@@ -955,9 +955,14 @@ with $\theta=\frac{2}{3}$.
 This parameter value is exactly the critical value predicted by \cite{Fornberg73} to be necessary  for the stability of numerical integration of the mixture model with $\nu=0$ and $\alpha=1$.
 %We demonstrate in Section~\secref{numeric} how this stability arises in low-dimensional models.
 
-\paragraph{Connect to a cubic spline}
-An intriguing property of the operator~\(S=(1+\delta^2/6)^{-1}=6(\sigma+4+\sigma^{-1})^{-1}\) is that it is precisely the operator found in constructing a cubic spline interpolation through equi-spaced data.
-\ajr{Confirm and record, or not, that this ensures the first correction forms a cubic spline??} 
+\paragraph{Connection to a cubic spline}
+An intriguing property of the operator~\(S=(1+\delta^2/6)^{-1}=6(\sigma+4+\sigma^{-1})^{-1}\) is that it is precisely the operator found in constructing a cubic spline interpolation through equi-spaced data. For example,
+if the general cubic spline in the $j$th interval is specified as 
+\(S_j(x)=a_jH^3\xi_j^3/6+b_jH^2\xi_j^2/2+c_jH\xi_j+d_j\), 
+then its second derivative at the left-hand end of the interval
+is given by $b_j=S\delta^2 d_j/H^2$ \cite[e.g.]{BurdenFaires85}.
+As $d_j=U_{j-1}$ in our example, this gives \(\left.\DD x{U_{j}}\right|_{X_j}=S\delta^2 U_j\H^2\), and
+so the holistic approach ensures the first-order correction, derived above, forms a cubic spline. 
 
 
 
