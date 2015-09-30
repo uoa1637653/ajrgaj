@@ -8,7 +8,7 @@ function burgers_stab_plot2(M)
     plot_it('cons', 6:M, [1 1 0]*0.7);
     plot_it('mix', 5:M, [0 1 0]*0.7);
     plot_it('hol', 5:M, [0 1 1]*0.7);
-    xlabel('#intervals, L')
+    xlabel('number of intervals, N')
     ylabel('critical amplitude, A')
     legend('advective','conservative','mixture','holistic')
     hold off

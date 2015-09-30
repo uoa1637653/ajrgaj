@@ -9,7 +9,7 @@
 %% md := mu*delta = (p - m)/2
 
 on div; off allfac; on revpri;
-factor hh, epsilon, gamma, nu;
+factor hh, alpha, gamma, nu;
 
 depend xi, j;
 depend uu, j, t;
@@ -57,7 +57,7 @@ u0 := xi*uu + (1-xi)*m(uu,j);
 u := u0;
 g := 0;
 
-let gamma^4 => 0, epsilon => 0;
+let gamma^2 => 0, alpha^2 => 0;
 for iter := 1:3 do begin
 
 % Check internal boundary conditions:
@@ -66,7 +66,7 @@ cty := sub(xi=0,p(u,j)) - sub(xi=1,u);    % [u]_j = 0
 ux := df(u,x)$
 jmp := sub(xi=0,p(ux,j)) - sub(xi=1,ux)
        - (1-gamma)*sub(xi=1,d2(u,j))/hh;  % [u']_j = (1-gamma)/H*delta^2 U_j
-pde := -sub(gg=g,df(u,t)) + nu*df(ux,x) - epsilon*u*ux;
+pde := -sub(gg=g,df(u,t)) + nu*df(ux,x) - alpha*u*ux;
 
 % Satisfy solvability condition, <v0,pde> = 0, where v0 := xi + p(1-xi,j), to obtain g_n;
 % ensure internal boundary conditions are met.
@@ -78,7 +78,7 @@ slv := (int(pde_xi,xi,0,1) + p(int(pde_1mxi,xi,0,1),j))*hh + nu*jmp;
 gn := ss(slv,j)/hh;
 % Update u by solving pde = 0 for u := u + u_n:
 tn := xi*gn + (1-xi)*m(gn,j) - pde$
-un := hh^2*int(int(tn,xi),xi)/nu;
+un := hh^2*int(int(tn,xi),xi)/nu$
 % Impose integration constants to satsify u_n|X_{j-1} = 0, u_n|X_j = 0:
 un := un - sub(xi=1,un)*xi;
 % Update iteration:
@@ -93,9 +93,9 @@ cty := sub(xi=0,p(u,j)) - sub(xi=1,u);    % [u]_j = 0
 ux := df(u,x)$
 jmp := sub(xi=0,p(ux,j)) - sub(xi=1,ux)
        - (1-gamma)*sub(xi=1,d2(u,j))/hh;  % [u']_j = (1-gamma)/H*delta^2 U_j
-pde := -sub(gg=g,df(u,t)) + nu*df(ux,x) - epsilon*u*ux;
+pde := -sub(gg=g,df(u,t)) + nu*df(ux,x) - alpha*u*ux;
 
-% Apply invariants from ssrelations.red:
+% Apply further invariants for advection terms:
 let ss(md(ss(uu,j)*uu,j),j) =>
   ss(ss(md(uu,j),j)*uu,j)
   - 1/2*ss(md(uu,j)*ss(uu,j),j)

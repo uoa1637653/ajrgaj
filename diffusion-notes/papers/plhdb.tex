@@ -18,6 +18,7 @@
 
 \usepackage{pdfcomment}
 \newcommand{\ajr}[1]{\quad\pdfcomment[author=AJR,color={0.8 0.8 0},subject={#1}]{#1}\quad}
+\newcommand{\gaj}[1]{\quad\pdfcomment[author=GAJ,color={0 0.8 0.8},subject={#1}]{#1}\quad}
 
 \atBegin{theorem}{\vspace{2ex plus 1ex minus 1ex}}
 \atBegin{lemma}{\vspace{2ex plus 1ex minus 1ex}}
@@ -110,7 +111,7 @@ u_t=F(u_x)_x+\alpha G(x,u,u_x)
 \label{eq:genpde}
 \end{equation}
 where subscripts \(x\) and~\(t\) denote spatial and temporal derivatives, respectively, and for suitably smooth functions \(F\) and~\(G\).
-Given \(N\)~discrete points in space, \(x=X_j\) for \(j=1,\ldots,N\)\,, we define grid values \(U_j(t)=u(X_j,t)\)\,.
+Given \(N+1\)~discrete points in space, \(x=X_j\) for \(j=0,\ldots,N\)\,, we define grid values \(U_j(t)=u(X_j,t)\)\,.
 Then the aims are to: firstly, establish that in principle there exists an \emph{exact} closure of the dynamics of the \pde~\eqref{eq:genpde} in terms of these grid values, \(d\Uv/dt=\gv(\Uv)\); secondly,  establish that such a closure is emergent from general initial conditions; thirdly, show how to construct systematic approximations to the in-principle closure; and fourthly, evaluate its performance for the classic example of the nonlinear advection--diffusion Burgers' \pde
 \begin{eqnarray}
 	\D tu = \nu\DD xu - \alpha u\D xu\,.
@@ -120,7 +121,7 @@ Generalisation of the approach to two or more spatial dimensions remains for fur
 
 %Mention cole-hopf leads to known solution which is unconditionally stable.
 The spatial domain~\(\XX\) is of length~\(L\), \(0\leq x\leq L\)\,, and we mostly restrict attention to solutions~\(u(x,t)\) which are \(L\)-periodic in space, but occasionally comment on the cases of Dirichlet boundary conditions, \(u(0,t)=u(L,t)=0\)\,, and Neumann boundary conditions, \(u_x(0,t)=u_x(L,t)=0\)\,.
-The first step is to partition~$\XX$ into $N$~equi-spaced intervals bounded by $N+1$~grid-points~\(X_j\), \({j=0,\ldots,N}\), with spacing~\(H\).
+The first step is to partition~$\XX$ into $N$~equi-spaced intervals bounded by the $N+1$~grid-points $X_j$ with spacing~\(H\).
 Traditional spatial discretisation of such \pde{}s, whether finite difference, finite element, or finite volume, imposes assumed fields in each element and then derives approximate rules for the evolution in time of the parameters of the imposed fit.
 
 Our approach is to let the \pde~\eqref{eq:burgers} determine the subgrid structures in order to remain faithful to the \pde.
@@ -830,7 +831,7 @@ Burgers' \pde~\eqref{eq:burgers} is in the class~\eqref{eq:genpde} addressed by 
 Proposition~3.6 by \cite{Potzsche2006} underlies the construction as it asserts the order of error of an approximation is the same as the order of error of the residuals of the governing equations.
 Given the existence of a slow manifold $u=u(x,\Uv)$ such that $\dot{\Uv}=\gv(\Uv)$, and implicitly a function of coupling~\(\gamma\) and nonlinearity~\(\alpha\), we rewrite Burgers' \pde~\eqref{eq:burgers} in the form 
 \begin{equation}
-\cR(u,\gv)=0 \quad\text{where the residual }
+\cR(u,\gv)=0 \quad\text{with residual }
  {\cR}({u},\gv) := -\D {\Uv}{{u}}\cdot\gv+\nu\DD x{u}-\alpha{u}{u}_{x} \,.
 \label{eq:man}
 \end{equation}
@@ -896,15 +897,16 @@ Obtain the first approximation by solving~\eqref{eq:order-n} for the case \(n=1\
 Equation~\eqref{eq:order-n} becomes
 \begin{eqnarray*}
 \nu\DD x{u^1} = \sum_{j=1}^{N}\chi_j(x)\left\{\big[\xi_j+(1-\xi_j)\sigma^{-1}\big]g^1_{j}
-   +\alpha\big[\xi_j+(1-\xi_j)\sigma^{-1}\ajr{Is this 1/sigma applied to both Uj? or only the first Uj in the product??}\big]U_j\frac{1}{H}\nabla U_j\right\},
+   +\alpha\left(\big[\xi_j+(1-\xi_j)\sigma^{-1}
+\big]U_j\right)\frac{1}{H}\nabla U_j\right\},
 \end{eqnarray*}
-for backward difference $\nabla=1-\sigma^{-1}$.
+for backward difference $\nabla=1-\sigma^{-1}$.\gaj{Why not use $\Delta$?}
 Spatially integrating twice gives
 \begin{eqnarray*}
 \nu{u^1} & = &  \sum_{j=1}^{N}\chi_j(x)\left\{d_j+H\xi_j c_j+\frac{H^2}{6}\big[\xi_j^3+(1-\xi_j)^3\sigma^{-1}\big]g^1_{j}
 \right.\nonumber\\
 && \qquad\left.{}
-+\frac{\alpha H}{6}\big[\xi_j^3+(1-\xi_j)^3\sigma^{-1}\big]U_j\,\nabla U_j\right\}.
++\frac{\alpha H}{6}\left(\big[\xi_j^3+(1-\xi_j)^3\sigma^{-1}\big]U_j\right)\,\nabla U_j\right\}.
 \end{eqnarray*}
 \begin{itemize}
 \item The interelement continuity condition~\eqref{eq:ccc} requires that ${u^n}(X_j,\Uv)=0$ for $n=1,2,3,\ldots$,
@@ -915,10 +917,10 @@ $c_j$ at $\xi_j=1$, giving
 \nu{u^1} & = &  \sum_{j=1}^{N}\chi_j(x)\left\{\frac{H^2}{6}\big[\xi_j^3+(1-\xi_j)^3\sigma^{-1}
 -\xi_j\nabla-\sigma^{-1}\big]g^1_j
 \right.\nonumber\\&& \qquad\left.{}
-+\frac{\alpha H}{6}\big[\xi_j^3+(1-\xi_j)^3\sigma^{-1}-\xi_j\nabla-\sigma^{-1}\big]U_j\,\nabla U_j\right\}
++\frac{\alpha H}{6}\left(\big[\xi_j^3+(1-\xi_j)^3\sigma^{-1}-\xi_j\nabla-\sigma^{-1}\big]U_j\right)\,\nabla U_j\right\}
 \nonumber\\
 & = &  \sum_{j=1}^{N}\chi_j(x)\left\{\frac{H^2}{6}\cI_1g^1_j
-+\frac{\alpha H}{6}\cI_1U_j\,\nabla U_j\right\},
++\frac{\alpha H}{6}(\cI_1U_j)\,\nabla U_j\right\},
 \qquad\label{eq:u1g1}
 \end{eqnarray}
 where it is convenient to introduce interpolation operators ${\cI}_0(\xi_j):=\xi_j+(1-\xi_j)\sigma^{-1}$ and
@@ -957,12 +959,16 @@ This parameter value is exactly the critical value predicted by \cite{Fornberg73
 
 \paragraph{Connection to a cubic spline}
 An intriguing property of the operator~\(S=(1+\delta^2/6)^{-1}=6(\sigma+4+\sigma^{-1})^{-1}\) is that it is precisely the operator found in constructing a cubic spline interpolation through equi-spaced data. For example,
-if the general cubic spline in the $j$th interval is specified as 
+if the general cubic spline for the $j$th interval is specified as 
 \(S_j(x)=a_jH^3\xi_j^3/6+b_jH^2\xi_j^2/2+c_jH\xi_j+d_j\), 
 then its second derivative at the left-hand end of the interval
-is given by $b_j=S\delta^2 d_j/H^2$ \cite[e.g.]{BurdenFaires85}.
-As $d_j=U_{j-1}$ in our example, this gives \(\left.\DD x{U_{j}}\right|_{X_j}=S\delta^2 U_j/H^2\), and
-so the holistic approach ensures the first-order correction, derived above, forms a cubic spline. 
+is given by $b_j=S\delta^2 d_j/H^2$,
+and the corresponding first and third derivatives by
+$c_j=\nabla\sigma d_j/H-H(2+\sigma)b_j/6$
+and $a_j=\nabla\sigma b_j/H$, respectively 
+ \cite[e.g.]{BurdenFaires85}.
+As $d_j=U_{j-1}$ in our example, comparison with the first-order approximation derived above reveals that 
+the holistic approach ensures a cubic spline formulation when $\alpha=0$ and $\gamma=1$. 
 
 
 
@@ -971,19 +977,21 @@ so the holistic approach ensures the first-order correction, derived above, form
 Higher order terms in the asymptotic series for~${u}$  may be systematically computed by iteratively solving equation~\eqref{eq:order-n} after
 having first computed~$\gv^n$. 
 The solvability condition determines the latter \cite[]{Jarrad2001}, namely that the right-hand side of equation~\eqref{eq:order-n} must be orthogonal to the null-space of the adjoint of~$\nu\DD x{}$. 
-Since the operator is self-adjoint, we can isolate the boundary between the $j$th and $(j+1)$th intervals using the linear approximation\ajr{Clarify what this all means??}
+Since the operator is self-adjoint, we isolate the boundary between the $j$th and $(j+1)$th intervals with the
+triangular finite-element
 \begin{eqnarray}
   \hat{v}_0 = \chi_j(x)\xi_j + \chi_{j+1}(x)(1-\xi_j),
 \end{eqnarray}
 which satisfies both the continuity condition~\eqref{eq:ccc} and the smoothness condition~\eqref{eq:ccj}
 (for $\gamma=0$). 
-Thus, taking the inner product of equation~\eqref{eq:order-n} with~$\hat{v}_0$ gives rise to the solvability condition
+Now, recalling that $u^n(X_j,\vec{U})=0$ for $n\ge 1$,
+and hence $[\nu u^n_x]_j=0$ for $n\ge 2$, 
+taking the inner product of equation~\eqref{eq:order-n} with~$\hat{v}_0$ gives rise to the solvability condition
 \begin{eqnarray}
-\left.\frac{\nu\gamma}{H}\delta^2u^{n-1}\right|_{X_j} = HS^{-1}g_{n,j}
--\left< {\cR}\big({u}^{\langle n-1\rangle},\gv^{\langle n-1\rangle}\big), \hat{v}_0 \right>\,.
+ HS^{-1}g^n_{j}
+-\left< {\cR}\big({u}^{\langle n-1\rangle},\gv^{\langle n-1\rangle}\big), \hat{v}_0 \right>
+=0 \mbox{ for } n=2,3,\ldots\,.
 \end{eqnarray}
-Note that for $n=1$, this  reduces to equation~\eqref{eq:g1}, and
-for $n>1$, the left-hand side is identically zero.
 
 The higher order advection terms in $\alpha$ and the interactions between $\alpha$ and $\gamma$
 rapidly become more complex. For example, the $\gamma\alpha$ terms are 
@@ -1056,8 +1064,8 @@ contrasting the continuum dynamics  against successive discrete, holistic approx
 To investigate the theoretical stability of discrete approximations to Burgers' equation~\eqref{eq:burgers}, we
 %follow \cite{Foias} and 
 consider a mostly undisturbed system where $U_j=0$ at all grid-points
-except for $M$ adjacent, internal points. For example, for $M=2$ it suffices to choose $N=3$ (for a periodic domain) with
-$U_0=U_3=0$. Hence, with the transformation $U_j=\frac{\nu}{\alpha H}V_j$, 
+except for $M$ adjacent, internal points. For example, for $M=2$ it suffices to choose $N=M+1=3$ intervals with
+outer points fixed at $U_0=U_N=0$. Hence, with the transformation $U_j=\frac{\nu}{\alpha H}V_j$, 
 the mixture model~\eqref{eq:mixture} reduces to
 \begin{eqnarray*}
 \frac{H^2}{\nu}\dot{V}_1 & = & -2V_1+V_2-\frac{(1-\theta)}{2}V_1V_2-\frac{\theta}{4}V_2^2\,,
@@ -1101,18 +1109,37 @@ Observe that the coefficient of~$\mu^4$ vanishes at $\theta=0, 1$ and $\theta_c=
 It can then be shown that the trivial critical point (for $\mu=0$) is unconditionally stable, and that a pair of 
 unstable, nontrivial critical points occur when $0<\theta<\theta_c$.
 Note that the holistic parameter value of $\theta=\frac{2}{3}$ lies in the range $\theta_c\le\theta\le 1$ for which there are no nontrivial critical points.
-Interestingly, the purely advective form ($\theta=0$) is now also unconditionally stable.
+Interestingly, the purely advective form ($\theta=0$) is now also unconditionally stable for $M=3$.
 
-
+Turning now to numerical simulation, we assume a $2\pi$-periodic domain with $\nu=1$ and $\alpha=1$ for
+convenience. The initial field $u(x,0)=A\sin x$ is integrated at the $N+1$ grid-points $X_j=Hj$, $j=0,1,\ldots,N$,
+with spacing $H=\frac{2\pi}{N}$. The integration is performed for a maximum duration of $T=10$, but ceases early at the first sign of an instability, being either: a magnitude $|U_j|$ exceeding $1000$ (denoted by 'x'); or an non-monotonic 
+irregularity (denoted by '+'). The smallest value of $A$ for which an instability occurs is plotted against a selection of 
+values for the number $N$ of discretised intervals, as shown in Figures~\ref{fig:numeric1}--\ref{fig:numeric2}.
 \begin{figure}
 \centering
 \includegraphics{figures/integ-stability-30.eps}
+\caption{Stability of numerical integration of Burgers' PDE, starting from $u(x,0)=A\sin x$. The holistic model
+is contrasted with the general mixture model for $\theta=0$ (advective), $\theta=1$ (conservative) and
+$\theta=\frac{2}{3}$ (mixture). Instability is detected either when $|U_j|>1000$ (denoted by 'x'), or by the occurrence of
+non-monotonic modes (denoted by '+'). The plots show the smallest values of $A$ for which instability occurs
+in the various models for each value of $N$.}
+\label{fig:numeric1}
 \end{figure}
-
 \begin{figure}
 \centering
 \includegraphics{figures/integ-stability-60.eps}
+\caption{Hmm?}
+\label{fig:numeric2}
 \end{figure}
+
+Observe that for $N=3$ intervals, only the advective model ($\theta=0$) displays 
+an instability, corresponding to the unstable critical point deduced above for $M=2$.
+\gaj{Conservative model should also be unstable.}
+Additionally, numerical instability does not occur for the advective model for $N=4$, corresponding to the lack of unstable critical points deduced above for $M=3$.\gaj{According to theory, the conservative model should be unstable for $M=2$.}
+Overall, the onset of instability for the advective model occurs at lower amplitudes than for the other models,
+which agrees with empirical observations \cite[e.g.]{Fornberg73}.
+
 
 
 
