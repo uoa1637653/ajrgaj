@@ -1,4 +1,4 @@
-function [Acrit,Tcrit,ie] = burgers_stability(selection,period)
+function [Acrit,Tcrit,ie] = burgers_stability_neg(selection,period)
 % GAJ 26/02/2015
 % Burgers' eq. with unit viscosity, u_t=u_xx-uu_x.
 % Solve on a [0,2pi] periodic domain.
@@ -10,7 +10,7 @@ function [Acrit,Tcrit,ie] = burgers_stability(selection,period)
     T = 10;
     Dt = which_dudt(selection);
     % Run search:
-    Acrit = fzero(@search, [1 80]);
+    Acrit = fzero(@search, [-80 -1]);
     [t, ~, ie] = integ(T, Acrit, Dt);
     if ie == 0
         Acrit = Acrit + sign(Acrit) * 1e-3;
