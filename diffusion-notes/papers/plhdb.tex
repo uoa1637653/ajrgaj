@@ -67,35 +67,21 @@ A.~J. Roberts\thanks{School of Mathematical Sciences, University of Adelaide, So
 \maketitle
 
 \begin{abstract}
-\ajr{Need to shorten}
 The fidelity of numerical simulation of a spatio-temporal dynamical system is 
 largely constrained by the chosen discretisation of the \pde{}. 
-In particular, the modeller is typically free to choose
-arbitrary finite-element forms for the various spatial derivatives,
-without necessarily having knowledge of the accuracy of the resulting numerical schemes.
-The holistic discretisation approach described in this paper obviates the problem of arbitration. % mediation?
-
-Centre manifold theory is applied to derive an asymptotically accurate
-representation of the microscale dynamics of the one-dimensional Burgers' equation. 
-In the process, the corresponding macroscale dynamics 
-are constrained to match the microscale solution at discrete grid-points.
-The resulting representation of macroscale evolution provides an unambiguous discretisation of the \pde{},
-suitable for numerical simulation. 
-
-The iterative process starts with a choice of the leading, macroscale approximation to the linearised system.
-Suitable internal boundary conditions are then induced on the spatial derivatives 
-at the end-points of each discrete interval.
-Although the choice of IBCs might appear to be arbitrary, they are in fact governed by the placement of the grid-points and the 
+Typically, the modeller chooses arbitrary finite-element forms to approximate the various spatial derivatives.
+In contrast, the holistic discretisation approach described herein obviates this choice, and leads
+unambiguously to natural derivative approximations informed by the underlying microscale dynamics. 
+The form of these approximations is determined in conjunction with the imposed
+internal boundary conditions, which themselves are largely governed by the placement of the grid-points and the 
 form of the leading discrete approximation.
-The particular approach taken here is to start with a piecewise linear but continuous approximation,
-in contrast to similar analyses that use piecewise constant, discontinuous approximations.
-This is motivated by the principle that a more accurate leading approximation should lead to faster
-convergence of the asymptotic solution, via the Rayleigh-Ritz theorem.
 
-Further iterations of the centre manifold process lead inexorably to a temporal evolution formulation of the macroscale dynamics,
-holistically informed by the underlying microscale dynamics.  
-We examine the accuracy and stability of the resulting numerical scheme, in comparison to
-the behaviours of several other typical approximations.
+The approach taken here is to start with a piecewise linear but continuous approximation,
+in contrast to similar analyses that use piecewise constant, discontinuous approximations.
+We are motivated by the principle that a more accurate leading approximation should lead to faster
+convergence of the asymptotic solution, via the Rayleigh-Ritz theorem.
+The stability of the resulting holistic discretisation of Burgers' \pde{} is compared to
+that of other typical finite-element approximations.
 \end{abstract}
 
 
@@ -970,19 +956,19 @@ and $a_j=\nabla\sigma b_j/H$, respectively
 As $d_j=U_{j-1}$ in our example, comparison with the first-order approximation derived above reveals that 
 the holistic approach ensures a cubic spline formulation when $\alpha=0$ and $\gamma=1$. 
 
-\paragraph{Connection with differentiation}
-We note from the relevant Taylor series exapnsion that
-$\frac{\mu\delta}{H}u=u_x+\Ord{H^2}$,
-$\left(1-\frac{1}{6}\delta^2\right)\frac{\mu\delta}{H}u=u_x+\Ord{H^4}$ and
-$\left(1-\frac{1}{6}\delta^2+\frac{1}{30}\delta^4\right)\frac{\mu\delta}{H}u=u_x+\Ord{H^6}$;
-consequently, $S\frac{\mu\delta}{H}=\frac{\partial}{\partial x}+\Ord{H^4}$,
+\paragraph{Connection with accuracy of differentiation}
+The relevant Taylor series exapnsion gives rise to the successive approximations 
+$\mu\delta u=H u_x+\Ord{H^3}$,
+$\left(1-\frac{1}{6}\delta^2\right)\mu\delta u=H u_x+\Ord{H^5}$ and
+$\left(1-\frac{1}{6}\delta^2+\frac{1}{30}\delta^4\right)\mu\delta u=H u_x+\Ord{H^7}$.
+Consequently, $S\mu\delta=H\frac{\partial}{\partial x}+\Ord{H^5}$,
 since $S=\left(1+\frac{1}{6}\delta^2\right)^{-1}\sim 1-\frac{1}{6}\delta^2+\frac{1}{36}\delta^4-\cdots$.
 Similarly, observe that
-$\frac{\delta^2}{H^2}u=u_{xx}+\Ord{H^2}$,
-$\left(1-\frac{1}{12}\delta^2\right)\frac{\delta^2}{H^2}u=u_{xx}+\Ord{H^4}$
+$\delta^2 u=H^2 u_{xx}+\Ord{H^4}$,
+$\left(1-\frac{1}{12}\delta^2\right)\delta^2 u=H^2 u_{xx}+\Ord{H^6}$
 and
-$\left(1-\frac{1}{12}\delta^2+\frac{1}{90}\delta^4\right)\frac{\delta^2}{H^2}u=u_{xx}+\Ord{H^6}$;
-hence, $S^{\frac{1}{2}}\frac{\delta^2}{H^2}=\frac{\partial^2}{\partial x^2}+\Ord{H^4}$,
+$\left(1-\frac{1}{12}\delta^2+\frac{1}{90}\delta^4\right)\delta^2 u=H^2 u_{xx}+\Ord{H^8}$.
+Hence, $\sqrt{S}\delta^2=H^2\frac{\partial^2}{\partial x^2}+\Ord{H^6}$,
 since $S^{\frac{1}{2}}=\left(1+\frac{1}{6}\delta^2\right)^{-^{\frac{1}{2}}}
 \sim 1-\frac{1}{12}\delta^2+\frac{1}{96}\delta^4-\cdots$.
 
@@ -994,17 +980,17 @@ The solvability condition determines the latter \cite[]{Jarrad2001}, namely that
 Since the operator is self-adjoint, we isolate the boundary between the $j$th and $(j+1)$th intervals with the
 triangular finite-element
 \begin{eqnarray}
-  \hat{v}_0 = \chi_j(x)\xi_j + \chi_{j+1}(x)(1-\xi_j),
+  \hat{v}_0 = \chi_j(x)\xi_j + \chi_{j+1}(x)(1-\xi_{j+1}),
 \end{eqnarray}
 which satisfies both the continuity condition~\eqref{eq:ccc} and the smoothness condition~\eqref{eq:ccj}
 (for $\gamma=0$). 
-Now, recalling that $u^n(X_j,\vec{U})=0$ for $n\ge 1$,
-and hence $[\nu u^n_x]_j=0$ for $n\ge 2$, 
-taking the inner product of equation~\eqref{eq:order-n} with~$\hat{v}_0$ gives rise to the solvability condition
+Now, recall that $u^n(X_j,\vec{U})=0$ for $n\ge 1$,
+and hence $[\nu u^n_x]_j=0$ for $n\ge 2$.
+Thus, taking the inner product of equation~\eqref{eq:order-n} with~$\hat{v}_0$ gives rise to the solvability condition
 \begin{eqnarray}
  HS^{-1}g^n_{j}
 -\left< {\cR}\big({u}^{\langle n-1\rangle},\gv^{\langle n-1\rangle}\big), \hat{v}_0 \right>
-=0 \mbox{ for } n=2,3,\ldots\,.
+& = & 0 \hspace*{2mm}\mbox{ for } n=2,3,\ldots\,.
 \end{eqnarray}
 
 The higher order advection terms in $\alpha$ and the interactions between $\alpha$ and $\gamma$
