@@ -1115,22 +1115,16 @@ Turning now to numerical simulation, we assume a $2\pi$-periodic domain with $\n
 convenience. The initial field $u(x,0)=A\sin x$ is integrated at the $N+1$ grid-points $X_j=Hj$, $j=0,1,\ldots,N$,
 with spacing $H=\frac{2\pi}{N}$. The integration is performed for a maximum duration of $T=10$, but ceases early at the first sign of an instability, being either: a magnitude $|U_j|$ exceeding $1000$ (denoted by 'x'); or an non-monotonic 
 irregularity (denoted by '+'). The smallest value of $A$ for which an instability occurs is plotted against a selection of 
-values for the number $N$ of discretised intervals, as shown in Figures~\ref{fig:numeric1}--\ref{fig:numeric2}.
+values for the number $N$ of discretised intervals, as shown in Figure~\ref{fig:numeric1}.
 \begin{figure}
 \centering
-\includegraphics{figures/integ-stability-30.eps}
+\includegraphics{figures/burgers_stab_plot3_100.pdf}
 \caption{Stability of numerical integration of Burgers' PDE, starting from $u(x,0)=A\sin x$. The holistic model
 is contrasted with the general mixture model for $\theta=0$ (advective), $\theta=1$ (conservative) and
 $\theta=\frac{2}{3}$ (mixture). Instability is detected either when $|U_j|>1000$ (denoted by 'x'), or by the occurrence of
 non-monotonic modes (denoted by '+'). The plots show the smallest values of $A$ for which instability occurs
 in the various models for each value of $N$.}
 \label{fig:numeric1}
-\end{figure}
-\begin{figure}
-\centering
-\includegraphics{figures/integ-stability-60.eps}
-\caption{Hmm?}
-\label{fig:numeric2}
 \end{figure}
 
 Observe that for $N=3$ intervals, only the advective model ($\theta=0$) displays 
