@@ -112,12 +112,12 @@ Traditional spatial discretisation of such \pde{}s, whether finite difference, f
 
 Our approach is to let the \pde~\eqref{eq:burgers} determine the subgrid structures in order to remain faithful to the \pde.
 Let the dynamics of the field~$u(x,t)$ be summarised by the coarse variables ${\Uv}=(U_1,U_2,\ldots,U_N)$, where these are grid values \begin{equation}
-U_j(t):=u(X_j,t)\text{ for all }t\in \TT.
+U_j(t):=u(X_j,t) \quad\text{for all }t\in \TT.
 \label{eq:gridval}
 \end{equation}
 Theory to be discussed asserts that in principle an \emph{exact} closure exists: that is, there is some coarse temporal evolution 
 \begin{eqnarray}
-	\dot U_j = g_j({\Uv})\quad\text{for all }j
+	\dot U_j = g_j({\Uv}) \quad\text{for all }j
 \label{eq:temporal}
 \end{eqnarray}
 that gives exact solutions of the \pde.
@@ -880,13 +880,12 @@ Hence to require \({\cR}\big({u}^{\langle n\rangle},\gv^{\langle n\rangle}\big) 
 
 %Letting $\xi=\sum_{j=1}^{N}\chi_j\xi_j$\ajr{Does not seem correct to me??} for convenience, 
 Obtain the first approximation by solving~\eqref{eq:order-n} for the case \(n=1\) given the initial subspace approximation~\eqref{eq:u0}.
-Equation~\eqref{eq:order-n} becomes
+Defining the backward difference operator $\nabla:=1-\sigma^{-1}$, equation~\eqref{eq:order-n} becomes
 \begin{eqnarray*}
 \nu\DD x{u^1} = \sum_{j=1}^{N}\chi_j(x)\left\{\big[\xi_j+(1-\xi_j)\sigma^{-1}\big]g^1_{j}
    +\alpha\left(\big[\xi_j+(1-\xi_j)\sigma^{-1}
-\big]U_j\right)\frac{1}{H}\nabla U_j\right\},
-\end{eqnarray*}
-for backward difference $\nabla=1-\sigma^{-1}$.\gaj{Why not use $\Delta$?}
+\big]U_j\right)\frac{1}{H}\nabla U_j\right\}.
+\end{eqnarray*} 
 Spatially integrating twice gives
 \begin{eqnarray*}
 \nu{u^1} & = &  \sum_{j=1}^{N}\chi_j(x)\left\{d_j+H\xi_j c_j+\frac{H^2}{6}\big[\xi_j^3+(1-\xi_j)^3\sigma^{-1}\big]g^1_{j}
@@ -1118,7 +1117,7 @@ irregularity (denoted by '+'). The smallest value of $A$ for which an instabilit
 values for the number $N$ of discretised intervals, as shown in Figure~\ref{fig:numeric1}.
 \begin{figure}
 \centering
-\includegraphics{figures/burgers_stab_plot3_100.pdf}
+\includegraphics{figures/burgers_stab_plot3_100}
 \caption{Stability of numerical integration of Burgers' PDE, starting from $u(x,0)=A\sin x$. The holistic model
 is contrasted with the general mixture model for $\theta=0$ (advective), $\theta=1$ (conservative) and
 $\theta=\frac{2}{3}$ (mixture). Instability is detected either when $|U_j|>1000$ (denoted by 'x'), or by the occurrence of
