@@ -10,7 +10,7 @@ function [Acrit,Tcrit,ie] = burgers_stability_neg(selection,period)
     T = 10;
     Dt = which_dudt(selection);
     % Run search:
-    Acrit = fzero(@search, [-80 -1]);
+    Acrit = fzero(@search, [-50 -1]);
     [t, ~, ie] = integ(T, Acrit, Dt);
     if ie == 0
         Acrit = Acrit + sign(Acrit) * 1e-3;
