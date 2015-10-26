@@ -18,30 +18,32 @@ depend gg, j;
 operator p, m, d2, md, ss;
 linear p, m, d2, md, ss;
 
-%% Expansions
+%% Expansions:
 let p(~z,j) => z + md(z,j) + d2(z,j)/2,
     m(~z,j) => z - md(z,j) + d2(z,j)/2;
 
-%% Independence
+%% Independence:
 let md(1,j) => 0,
     d2(1,j) => 0,
 	ss(1,j) => 1;
 
-%% Canonical orderings
+%% Canonical orderings:
 let md(ss(~z,j),j) => ss(md(z,j),j);
 let d2(ss(~z,j),j) => ss(d2(z,j),j);
 let md(d2(~z,j),j) => d2(md(z,j),j);
 
 %% Invariants:
-% Next follows from direct expansion, and is required for p(m(z)) = m(p(z)) = z:
+% From direct expansion, for p(m(z)) = m(p(z)) = z:
 let md(md(~z,j),j) => d2(z,j) + d2(d2(z,j),j)/4;
 % Next follows from definition of S:
 let ss(d2(~z,j),j) => 6*(z-ss(z,j));
 % Next follows from expanding mu*delta z^2:
 let d2(~y,j)*md(~z,j) => md(z^2,j) - 2*z*md(z,j) when y=z;
 % Next two follow from p(y*m(z)) = p(y)*z and m(y*p(z)) = m(y)*z:
-let md(~y*md(~z,j),j) => 1/2*(1/2*d2(y*d2(z,j),j) + y*d2(z,j) - z*d2(y,j) + d2(y*z,j));
-let md(~y*d2(~z,j),j) => d2(y*md(z,j),j) + 2*(y*md(z,j) + z*md(y,j) - md(y*z,j));
+let md(~y*md(~z,j),j) => 
+   1/2*(1/2*d2(y*d2(z,j),j) + y*d2(z,j) - z*d2(y,j) + d2(y*z,j));
+let md(~y*d2(~z,j),j) => 
+   d2(y*md(z,j),j) + 2*(y*md(z,j) + z*md(y,j) - md(y*z,j));
 % Next follows from either m(z)^2 = m(z^2) or p(z)^2 = p(z^2):
 let md(~z,j)^2 => 1/2*d2(z^2,j) - 1/4*d2(z,j)^2 - z*d2(z,j);
 
@@ -57,18 +59,20 @@ u0 := xi*uu + (1-xi)*m(uu,j);
 u := u0;
 g := 0;
 
+% Constrain higher-order terms (adjust as desired):
 let gamma^2 => 0, alpha^2 => 0;
 for iter := 1:3 do begin
 
-% Check internal boundary conditions:
-amp := sub(xi=1,u) - uu;                  % u|X_j = U_j
-cty := sub(xi=0,p(u,j)) - sub(xi=1,u);    % [u]_j = 0
+% Compute internal boundary conditions:
+amp := sub(xi=1,u) - uu;                % u|X_j = U_j
+cty := sub(xi=0,p(u,j)) - sub(xi=1,u);  % [u]_j = 0
 ux := df(u,x)$
 jmp := sub(xi=0,p(ux,j)) - sub(xi=1,ux)
-       - (1-gamma)*sub(xi=1,d2(u,j))/hh;  % [u']_j = (1-gamma)/H*delta^2 U_j
+   - (1-gamma)*sub(xi=1,d2(u,j))/hh;    % [u']_j = (1-gamma)/H*delta^2 U_j
 pde := -sub(gg=g,df(u,t)) + nu*df(ux,x) - alpha*u*ux;
 
-% Satisfy solvability condition, <v0,pde> = 0, where v0 := xi + p(1-xi,j), to obtain g_n;
+% Satisfy solvability condition, <v0,pde> = 0, where 
+% v0 := xi + p(1-xi,j), to obtain g_n;
 % ensure internal boundary conditions are met.
 % (Note: Use temporary variables to avoid weird error in integration):
 pde_xi := pde*xi$         
@@ -87,12 +91,12 @@ g := g + gn;
 
 end;
 
-% Check internal boundary conditions:
-amp := sub(xi=1,u) - uu;                  % u|X_j = U_j
-cty := sub(xi=0,p(u,j)) - sub(xi=1,u);    % [u]_j = 0
+% Compute internal boundary conditions:
+amp := sub(xi=1,u) - uu;                % u|X_j = U_j
+cty := sub(xi=0,p(u,j)) - sub(xi=1,u);  % [u]_j = 0
 ux := df(u,x)$
 jmp := sub(xi=0,p(ux,j)) - sub(xi=1,ux)
-       - (1-gamma)*sub(xi=1,d2(u,j))/hh;  % [u']_j = (1-gamma)/H*delta^2 U_j
+   - (1-gamma)*sub(xi=1,d2(u,j))/hh;    % [u']_j = (1-gamma)/H*delta^2 U_j
 pde := -sub(gg=g,df(u,t)) + nu*df(ux,x) - alpha*u*ux;
 
 % Apply further invariants for advection terms:
@@ -122,5 +126,11 @@ let ss(md(ss(md(uu,j),j)*uu,j),j) =>
   - 1/2*ss(d2(uu,j)*ss(uu,j),j) 
   - 6*ss(uu**2,j) 
   + 9*uu**2;
+
+% Check internal boundary conditions are satisfied (all zero):
+amp;
+cty;
+jmp;
+pde;
 
 end;
