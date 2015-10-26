@@ -401,7 +401,7 @@ This approximation to the slow manifold was computed to errors~\Ord{\gamma^3+\al
 
 Centre manifold theory~\cite[Ch.~4, e.g.]{Carr81, Roberts2014a} was designed for nonlinear problems.
 Thus it also applies here to the nonlinear Burgers' \pde~\eqref{eq:burgers} now with nonlinearity parametrised by~\(\alpha\) and similarly modelled with two intervals on the domain \(-1<x<1\)\,.
-For example, modified computer algebra~\cite[Ch.~14]{Roberts96a, Roberts2014a} \ajr{Code needs to be checked??} constructs the slow manifold plotted in Figure~\ref{fig:nonlinsm} on which the nonlinear evolution is
+For example, modified computer algebra~\cite[Ch.~14]{Roberts96a, Roberts2014a} constructs the slow manifold plotted in Figure~\ref{fig:nonlinsm} on which the nonlinear evolution is
 \begin{equation*}
 \dot U=-(3\gamma+\tfrac35\gamma^2)U-\tfrac1{15}\gamma^2\alpha^2U^3
 +\Ord{\gamma^3+\alpha^3}.
@@ -640,7 +640,6 @@ Thus, we proceed to derive the inequality
 \\&=&\sum_j 0
 +\int_{\tilde\XX}\nu\tilde v_x^2\,dx
 \quad(\text{using }\tilde v(X_j^-)=\tilde v(X_j^+)=0)
-\ajr{I have an uncomfortable feeling about this as we have not used the jump in derivative condition---unless we have implicitly in check v component??}
 \\&\geq&\nu_{\min}\int_{\tilde\XX}\tilde v_x^2\,dx
 \quad(\text{as }\nu(x)\geq \nu_{\min}>0).
 \end{eqnarray*}
@@ -785,8 +784,6 @@ Lemma~\ref{thm:dicho}, under the proviso that \(F'\geq\nu_{\min}>0\), establishe
 Because the centre eigenvalues are all zero (Lemma~\ref{thm:dicho}), they are more precisely called \emph{local slow manifolds}.
 Setting \(\cM:=\bigcup_{\Uv}\cM_{\Uv}\) and domain \(\cE:=\bigcup_{\Uv}\cE_{\Uv}\) the slow manifold~\cM\ exists in the domain~\cE\ (containing~\EE) as required.
 
-\ajr{Is all this good enough for the purists??}
-
 \item The unstable spectrum is empty (Lemma~\ref{thm:dicho}), so Theorem~3.22 of \cite{Haragus2011} applies to establish the exponentially quick emergence of the slow manifold to all solutions that remain within~\cE\ for all time.
 The rate of attraction to the slow manifold in~\cE\ is estimated by the linearised rate at~\EE\ by continuity in perturbations \cite[\S11.3, e.g.]{Roberts2014a}.
 
@@ -878,7 +875,6 @@ Hence to require \({\cR}\big({u}^{\langle n\rangle},\gv^{\langle n\rangle}\big) 
 
 \paragraph{First order approximation}
 
-%Letting $\xi=\sum_{j=1}^{N}\chi_j\xi_j$\ajr{Does not seem correct to me??} for convenience, 
 Obtain the first approximation by solving~\eqref{eq:order-n} for the case \(n=1\) given the initial subspace approximation~\eqref{eq:u0}.
 Defining the backward difference operator $\nabla:=1-\sigma^{-1}$, equation~\eqref{eq:order-n} becomes
 \begin{eqnarray*}
@@ -918,11 +914,12 @@ Substitute~\(u^1\) from~\eqref{eq:u1g1} into~\eqref{eq:ccj} and we require
 -\frac{\alpha}{3}\left(U_j\mu\delta U_j+\mu\delta U_j^2\right).
 \end{equation*}
 For this to be satisfied we set
-\begin{equation*}
+\begin{equation}
 g^1_j=S\left[\frac{\nu\gamma}{H^2}\delta^2 U_j
 -\frac{\alpha}{3H}U_j\mu\delta U_j-\frac{\alpha}{3H}\mu\delta U_j^2
 \right],
-\end{equation*}
+\label{eq:g1}
+\end{equation}
 where operator $S:=(1+\delta^2/6)^{-1}$.
 \end{itemize}
 Combining these with the initial approximation gives the slow manifold
@@ -955,21 +952,21 @@ and $a_j=\nabla\sigma b_j/H$, respectively
 As $d_j=U_{j-1}$ in our example, comparison with the first-order approximation derived above reveals that 
 the holistic approach ensures a cubic spline formulation when $\alpha=0$ and $\gamma=1$. 
 
-\paragraph{Connection with accuracy of differentiation}
-The relevant Taylor series exapnsion gives rise to the successive approximations 
-$\mu\delta u=H u_x+\Ord{H^3}$,
-$\left(1-\frac{1}{6}\delta^2\right)\mu\delta u=H u_x+\Ord{H^5}$ and
-$\left(1-\frac{1}{6}\delta^2+\frac{1}{30}\delta^4\right)\mu\delta u=H u_x+\Ord{H^7}$.
-Consequently, $S\mu\delta=H\frac{\partial}{\partial x}+\Ord{H^5}$,
-since $S=\left(1+\frac{1}{6}\delta^2\right)^{-1}\sim 1-\frac{1}{6}\delta^2+\frac{1}{36}\delta^4-\cdots$.
-Similarly, observe that
-$\delta^2 u=H^2 u_{xx}+\Ord{H^4}$,
-$\left(1-\frac{1}{12}\delta^2\right)\delta^2 u=H^2 u_{xx}+\Ord{H^6}$
-and
-$\left(1-\frac{1}{12}\delta^2+\frac{1}{90}\delta^4\right)\delta^2 u=H^2 u_{xx}+\Ord{H^8}$.
-Hence, $\sqrt{S}\delta^2=H^2\frac{\partial^2}{\partial x^2}+\Ord{H^6}$,
-since $S^{\frac{1}{2}}=\left(1+\frac{1}{6}\delta^2\right)^{-^{\frac{1}{2}}}
-\sim 1-\frac{1}{12}\delta^2+\frac{1}{96}\delta^4-\cdots$.
+%\paragraph{Connection with accuracy of differentiation}
+%The relevant Taylor series exapnsion gives rise to the successive approximations 
+%$\5mu\delta u=H u_x+\Ord{H^3}$,
+%$\left(1-\frac{1}{6}\delta^2\right)\mu\delta u=H u_x+\Ord{H^5}$ and
+%$\left(1-\frac{1}{6}\delta^2+\frac{1}{30}\delta^4\right)\mu\delta u=H u_x+\Ord{H^7}$.
+%Consequently, $S\mu\delta=H\frac{\partial}{\partial x}+\Ord{H^5}$,
+%since $S=\left(1+\frac{1}{6}\delta^2\right)^{-1}\sim 1-\frac{1}{6}\delta^2+\frac{1}{36}\delta^4-\cdots$.
+%Similarly, observe that
+%$\delta^2 u=H^2 u_{xx}+\Ord{H^4}$,
+%$\left(1-\frac{1}{12}\delta^2\right)\delta^2 u=H^2 u_{xx}+\Ord{H^6}$
+%and
+%$\left(1-\frac{1}{12}\delta^2+\frac{1}{90}\delta^4\right)\delta^2 u=H^2 u_{xx}+\Ord{H^8}$.
+%Hence, $\sqrt{S}\delta^2=H^2\frac{\partial^2}{\partial x^2}+\Ord{H^6}$,
+%since $S^{\frac{1}{2}}=\left(1+\frac{1}{6}\delta^2\right)^{-^{\frac{1}{2}}}
+%\sim 1-\frac{1}{12}\delta^2+\frac{1}{96}\delta^4-\cdots$.
 
 \paragraph{Higher order approximations}
 
@@ -1012,6 +1009,7 @@ rapidly become more complex. For example, the $\gamma\alpha$ terms are
 \nonumber\\&&{}
 +\Ord{\gamma^2,\alpha^2}.
 \qquad
+\label{eq:gamma-alpha}
 \end{eqnarray}
 In contrast, the terms purely in the homotopy parameter~$\gamma$ represent smoothing corrections to the
 diffusion; for example,
@@ -1022,8 +1020,22 @@ the coarse dynamics of the diffusion equation ($\alpha=0$)  obey
 \nonumber\\
 &&{}+ \frac{\nu\gamma^3}{6300H^2}(94-73S+14S^2)S^3\delta^{6}U_j
 + \Ord{\gamma^4}.
+\label{eq:diffusion}
 \end{eqnarray}
-Figure~\ref{fig:diff:spectrum} shows that each additional term in this expansion provides a better approximation to the full continuum dynamics.
+Figure~\ref{fig:diff:spectrum} shows that each additional term in this expansion provides a better approximation to the full continuum dynamics. In particular, since 
+$S=\left(1+\frac{1}{6}\delta^2\right)^{-1}\sim 1-\frac{1}{6}\delta^2+\frac{1}{36}\delta^4+\cdots$,
+then the first term of equation~\eqref{eq:diffusion} gives 
+$S\delta^2 u=H^2 u_{xx}+\Ord{H^4}$ from the relevant Taylor series expansion.
+Further, the addition of the second term (for $\gamma=1$) gives
+$\left(1-\frac{1}{12}\delta^2\right)\delta^2 u=H^2 u_{xx}+\Ord{H^6}$,
+and the addition of the third term gives
+$\left(1-\frac{1}{12}\delta^2+\frac{1}{90}\delta^4\right)\delta^2 u=H^2 u_{xx}+\Ord{H^8}$.
+In comparison,
+observe that $S\mu\delta u\sim\left(1-\frac{1}{6}\delta^2\right)\mu\delta u=H u_x+\Ord{H^5}$;
+hence, the conservative term in equation~\eqref{eq:g1} (for $\alpha>0$) is of a higher order approximation than the advective term,
+and the latter will require extra corrective terms to provide the same order of accuracy, as demonstrated by
+the $\gamma\alpha$ terms of equation~\eqref{eq:gamma-alpha}.
+
 \begin{figure}
 \centering
 \tikzsetnextfilename{decayRates}
@@ -1112,29 +1124,29 @@ Interestingly, the purely advective form ($\theta=0$) is now also unconditionall
 
 Turning now to numerical simulation, we assume a $2\pi$-periodic domain with $\nu=1$ and $\alpha=1$ for
 convenience. The initial field $u(x,0)=A\sin x$ is integrated at the $N+1$ grid-points $X_j=Hj$, $j=0,1,\ldots,N$,
-with spacing $H=\frac{2\pi}{N}$. The integration is performed for a maximum duration of $T=10$, but ceases early at the first sign of an instability, being either: a magnitude $|U_j|$ exceeding $1000$ (denoted by 'x'); or an non-monotonic 
-irregularity (denoted by '+'). The smallest value of $A$ for which an instability occurs is plotted against a selection of 
-values for the number $N$ of discretised intervals, as shown in Figure~\ref{fig:numeric1}.
+with spacing $H=\frac{2\pi}{N}$. The integration is performed for a maximum duration of $T=10$, but ceases early at the first sign of either: an instability, detected when $|U_j|>1000$ (denoted by 'x'); or a non-monotonic 
+irregularity (denoted by '+'). 
+For each number $N$ of discretised intervals, a search is made over values of $A$, both positive and negative,
+for which instability or irregularity first occurs, as plotted in Figure~\ref{fig:numeric1}.
 \begin{figure}
 \centering
 \includegraphics{figures/burgers_stab_plot3_100}
 \caption{Stability of numerical integration of Burgers' PDE, starting from $u(x,0)=A\sin x$. The holistic model
 is contrasted with the general mixture model for $\theta=0$ (advective), $\theta=1$ (conservative) and
-$\theta=\frac{2}{3}$ (mixture). Instability is detected either when $|U_j|>1000$ (denoted by 'x'), or by the occurrence of
-non-monotonic modes (denoted by '+'). The plots show the smallest values of $A$ for which instability occurs
-in the various models for each value of $N$.}
+$\theta=\frac{2}{3}$ (mixture). Instability (detected when $|U_j|>1000$) is denoted by 'x', and irregularity
+(the presence of non-monotonic modes) ia denoted by '+'.}
 \label{fig:numeric1}
 \end{figure}
 
-Observe that for $N=3$ intervals, only the advective model ($\theta=0$) displays 
-an instability, corresponding to the unstable critical point deduced above for $M=2$.
-\gaj{Conservative model should also be unstable.}
-Additionally, numerical instability does not occur for the advective model for $N=4$, corresponding to the lack of unstable critical points deduced above for $M=3$.\gaj{According to theory, the conservative model should be unstable for $M=2$.}
-Overall, the onset of instability for the advective model occurs at lower amplitudes than for the other models,
-which agrees with empirical observations \cite[e.g.]{Fornberg73}.
-
-
-
+The numerical results support the above theoretical results, namely that for $N=3$ intervals ($M=2$ internal points), 
+only the advective model ($\theta=0$) and conservative model ($\theta=1$) display instabilities, and
+that for $N=4$ none of the simulated models show instability, nor irregularity.
+Overall, the advective model continues to display instability for odd $N$, and shows irregularity for even $N$, 
+both of which occur for lower $|A|$ than the other models.
+In contrast, the other models are susceptible to irregularity but not instability, with the critical values
+of amplitude $A$ roughly inversely proportional to the number $N$ of intervals, 
+and thus proprtional to the grid-spacing $H$. Neither the conservative, mixture nor holistic models
+inherently outperform the others.
 
 
 \section{Conclusion}
