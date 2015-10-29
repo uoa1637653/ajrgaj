@@ -1156,7 +1156,25 @@ inherently outperforms the others.
 %Are there any other factors of relevance that impact upon the topic but fell outside the scope of the essay?
 %Are their any suggestions you can make in terms of future research? 
 
+Holistic discretisation has proved to have a number of attractive properties when applied to the general class of 
+diffusive \pde{}s described in Section~\ref{sec:intro}.
+In particular, it embodies centre manifold theory (discussed in Section~\ref{sec:lin}) to iteratively refine an initial approximation to a field $u(x,t)$ whilst
+incorporating the dynamics the relevant \pde{}. The resulting approximation is a function of the discrete grid values
+$U_j(t)$, the \pde{} parameters and an introduced homotopy parameter $\gamma$ that controls
+continuity and smoothness. As found in Section~\ref{sec:nonlin}, this iterative refinement acts to improve
+the order of approximation of spatial derivatives in terms of the discrete grid-spacing $H$.
 
+Additionally, the use of a piecewise--linear initial approximation to $u$, discussed in Section~\ref{sec:lin}, permits the diffusion operator $\cL$ to be
+self-adjoint under conventional boundary conditions (periodic, Dirichlet and Neumann). This in turn limits the possible eigenmodes to having real eigenvalues. \gaj{Not sure what I'm trying to say here.} Furthermore, 
+the piecewise--linear approximation plus its 
+first-order correction from the diffusion equation is an exact cubic spline representation of $u$ in terms of $U_j$
+(as noted in Section~\ref{sec:nonlin}). Notably, the cubic spline is defined in terms of the nonlocal operator $S$, which appears naturally in the holistic derivation of the coarse dynamics.
+
+Lastly, holistic discretisation eliminates the ambiguity inherent in choosing appropriate
+discrete approximations to the spatial derivatives in the \pde{}. As demonstrated in Section~\ref{sec:nonlin}, the induced discretisation follows directly from the \pde{}, as a function of the initial approximation. 
+Furthermore, at least in the case of Burgers' equation with a piecewise--linear initial approximation,
+the holistic discretisation appears to automatically favour numerically stable approximations, as shown
+in Section~\ref{sec:numeric}.
 
 \paragraph{Acknowledgements}
 AJR thanks the ARC for partial support of this project through grant DP150102385.
