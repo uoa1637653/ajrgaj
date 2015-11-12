@@ -58,7 +58,8 @@
 \newcommand{\secref}[1]{\ref{sec:#1}}
 
 \title{An exciting application of piecewise-linear holistic discretisation}
-\author{G.~A. Jarrad 
+\author{G.~A. Jarrad\thanks{Data Modelling Institute, University of Adelaide, South Australia~5005, Australia.  
+\protect\url{mailto:geoff.jarrad@adelaide.edu.au}}
 \and 
 A.~J. Roberts\thanks{School of Mathematical Sciences, University of Adelaide, South Australia~5005, Australia.  
 \protect\url{mailto:anthony.roberts@adelaide.edu.au}}
@@ -1107,19 +1108,22 @@ Similarly, for $M=3$ consecutive points the mixture model~\eqref{eq:mixture} red
 \frac{H^2}{\nu}\dot{V}_3 & = & V_2-2V_3+\frac{(1-\theta)}{2}V_2V_3+\frac{\theta}{4}V_2^2\,.
 \end{eqnarray*}
 Substitution of $V_1=aV_2$ and $V_3=bV_2$ then leads to
-\begin{eqnarray*}
+\begin{eqnarray}
 V_1=\frac{\mu(4-\mu\theta)}{8+2\mu(1-\theta)}\,, &
 V_2=\mu\,, & V_3=\frac{\mu(4+\mu\theta)}{8-2\mu(1-\theta)}\,,
-\end{eqnarray*}
+\label{eq:mu-crit}
+\end{eqnarray}
 where $\mu$ satisfies
 \begin{eqnarray}
 \mu[\theta(1-\theta)(\theta^2-3\theta+1)\mu^4+16(2\theta^2-4\theta+1)\mu^2-256] = 0\,.
 \end{eqnarray}
-Observe that the coefficient of~$\mu^4$ vanishes at $\theta=0, 1$ and $\theta_c=\frac{3-\sqrt{5}}{2}$.
-It can then be shown that the trivial critical point (for $\mu=0$) is unconditionally stable, and that a pair of 
-unstable, nontrivial critical points occur when $0<\theta<\theta_c$.
-Note that the holistic parameter value of $\theta=\frac{2}{3}$ lies in the range $\theta_c\le\theta\le 1$ for which there are no nontrivial critical points.
-Interestingly, the purely advective form ($\theta=0$) is now also unconditionally stable for $M=3$.
+The trivial critical point corresponding to $\mu=0$ is unconditionally stable.
+Observe that the coefficient of~$\mu^4$ vanishes at $\theta=0, 1$ and $\theta_c=\frac{3-\sqrt{5}}{2}$, and that the resulting quadratic equation only possesses real roots
+$\mu=\pm 4$ for $\theta=0$ (the purely advective model). However, the critical point~\eqref{eq:mu-crit} is removed to infinity at exactly these roots, 
+%%so the purely advective form ($\theta=0$) is now also unconditionally stable for $M=3$.
+and so there are no unstable critical points when the $\mu^4$ term vanishes. 
+In general, a pair of unstable critical points arise only when $0<\theta<\theta_c$.
+Note that this unstable regime excludes the holistic parameter value of $\theta=\frac{2}{3}$.
 
 Turning now to numerical simulation, we assume a $2\pi$-periodic domain with $\nu=1$ and $\alpha=1$ for
 convenience. The initial field $u(x,0)=A\sin x$ is integrated at the $N+1$ grid-points $X_j=Hj$, $j=0,1,\ldots,N$,
@@ -1158,23 +1162,28 @@ inherently outperforms the others.
 
 Holistic discretisation has proved to have a number of attractive properties when applied to the general class of 
 diffusive \pde{}s described in Section~\ref{sec:intro}.
-In particular, it embodies centre manifold theory (discussed in Section~\ref{sec:lin}) to iteratively refine an initial approximation to a field $u(x,t)$ whilst
+In particular, it embodies centre manifold theory, discussed in Section~\ref{sec:lin}, to iteratively refine an initial approximation to a field $u(x,t)$ whilst
 incorporating the dynamics the relevant \pde{}. The resulting approximation is a function of the discrete grid values
-$U_j(t)$, the \pde{} parameters and an introduced homotopy parameter $\gamma$ that controls
-continuity and smoothness. As found in Section~\ref{sec:nonlin}, this iterative refinement acts to improve
-the order of approximation of spatial derivatives in terms of the discrete grid-spacing $H$.
+$U_j(t)$, the \pde{} parameters, and an introduced homotopy parameter $\gamma$ that controls
+continuity and smoothness. 
 
-Additionally, the use of a piecewise--linear initial approximation to $u$, discussed in Section~\ref{sec:lin}, permits the diffusion operator $\cL$ to be
-self-adjoint under conventional boundary conditions (periodic, Dirichlet and Neumann). This in turn limits the possible eigenmodes to having real eigenvalues. \gaj{Not sure what I'm trying to say here.} Furthermore, 
-the piecewise--linear approximation plus its 
-first-order correction from the diffusion equation is an exact cubic spline representation of $u$ in terms of $U_j$
-(as noted in Section~\ref{sec:nonlin}). Notably, the cubic spline is defined in terms of the nonlocal operator $S$, which appears naturally in the holistic derivation of the coarse dynamics.
+The use of a piecewise--linear initial approximation $u^0$ to $u$, discussed in Section~\ref{sec:lin}, 
+has been shown to have the special property that it 
+preserves the self-adjointness of the diffusion operator $\cL$ under conventional periodic, Dirichlet or Neumann boundary conditions. Also of interest is the fact, noted in Section~\ref{sec:nonlin}, that
+with the addition of the first-order holistic correction $u^1$, the approximation $u^0+u^1$ for the diffusion equation ($\alpha=0$) 
+is an exact cubic spline representation of $u$ in terms of $U_j$.
+Notably, this cubic spline is defined in terms of the nonlocal operator $S$, which appears naturally in the holistic derivation of 
+the coarse dynamics.
 
-Lastly, holistic discretisation eliminates the ambiguity inherent in choosing appropriate
-discrete approximations to the spatial derivatives in the \pde{}. As demonstrated in Section~\ref{sec:nonlin}, the induced discretisation follows directly from the \pde{}, as a function of the initial approximation. 
+Another useful facet of holistic discretisation is that it eliminates the ambiguity inherent in choosing appropriate
+discrete approximations to the spatial derivatives in the \pde{}. As demonstrated in Section~\ref{sec:nonlin}, the induced discretisation follows directly from the \pde{}, as a function of the initial approximation $u^0$. 
 Furthermore, at least in the case of Burgers' equation with a piecewise--linear initial approximation,
 the holistic discretisation appears to automatically favour numerically stable approximations, as shown
-in Section~\ref{sec:numeric}.
+in Section~\ref{sec:numeric}. 
+Indeed, the iterative refinement provided by the holistic procedure acts to improve the order of approximation of spatial derivatives in terms of the discrete grid-spacing $H$,
+as discussed in Section~\ref{sec:nonlin}. ** geometric integrator?
+It would be interesting to compare the stability of the fully second-order holistic approximation against the mixture model with correspondingly higher-order 
+spatial derivative approximations.
 
 \paragraph{Acknowledgements}
 AJR thanks the ARC for partial support of this project through grant DP150102385.
