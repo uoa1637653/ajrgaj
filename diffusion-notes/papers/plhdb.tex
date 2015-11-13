@@ -58,8 +58,8 @@
 \newcommand{\secref}[1]{\ref{sec:#1}}
 
 \title{An exciting application of piecewise-linear holistic discretisation}
-\author{G.~A. Jarrad\thanks{Data Modelling Institute, University of Adelaide, South Australia~5005, Australia.  
-\protect\url{mailto:geoff.jarrad@adelaide.edu.au}}
+\author{G.~A. Jarrad\thanks{SATAC, South Australia~5000, Australia.  
+\protect\url{mailto:geoff.jarrad@satac.edu.au}}
 \and 
 A.~J. Roberts\thanks{School of Mathematical Sciences, University of Adelaide, South Australia~5005, Australia.  
 \protect\url{mailto:anthony.roberts@adelaide.edu.au}}
@@ -1168,12 +1168,18 @@ $U_j(t)$, the \pde{} parameters, and an introduced homotopy parameter $\gamma$ t
 continuity and smoothness. 
 
 The use of a piecewise--linear initial approximation $u^0$ to $u$, discussed in Section~\ref{sec:lin}, 
-has been shown to have the special property that it 
-preserves the self-adjointness of the diffusion operator $\cL$ under conventional periodic, Dirichlet or Neumann boundary conditions. Also of interest is the fact, noted in Section~\ref{sec:nonlin}, that
+has been shown to be especially effective in conjunction with the holistic approach.
+In conjunction with the inner continuity and smoothness conditions, for instance,
+the self-adjointness of the diffusion operator $\cL$ is preserved under periodic, Dirichlet or Neumann outer boundary conditions. This is true for all $\gamma\in[0,1]$, although the usual Neumann condition holds exactly only for $\gamma=1$
+and requires modification for $\gamma<1$ (governed by the chosen smoothness condition).
+Also of interest is the fact, noted in Section~\ref{sec:nonlin}, that
 with the addition of the first-order holistic correction $u^1$, the approximation $u^0+u^1$ for the diffusion equation ($\alpha=0$) 
 is an exact cubic spline representation of $u$ in terms of $U_j$.
 Notably, this cubic spline is defined in terms of the nonlocal operator $S$, which appears naturally in the holistic derivation of 
-the coarse dynamics.
+the coarse dynamics. Holistic analysis of Burgers' equation shows that the derived approximation to $u$ only achieved
+$C^2$ continuity even for high orders of $\gamma$. There remains scope for research into finding
+an alternative form of the
+smoothness condition that would lead to $C^n$ smoothness for $\Ord{\gamma^{n+1}}$ approximations.
 
 Another useful facet of holistic discretisation is that it eliminates the ambiguity inherent in choosing appropriate
 discrete approximations to the spatial derivatives in the \pde{}. As demonstrated in Section~\ref{sec:nonlin}, the induced discretisation follows directly from the \pde{}, as a function of the initial approximation $u^0$. 
@@ -1181,9 +1187,15 @@ Furthermore, at least in the case of Burgers' equation with a piecewise--linear 
 the holistic discretisation appears to automatically favour numerically stable approximations, as shown
 in Section~\ref{sec:numeric}. 
 Indeed, the iterative refinement provided by the holistic procedure acts to improve the order of approximation of spatial derivatives in terms of the discrete grid-spacing $H$,
-as discussed in Section~\ref{sec:nonlin}. ** geometric integrator?
-It would be interesting to compare the stability of the fully second-order holistic approximation against the mixture model with correspondingly higher-order 
-spatial derivative approximations.
+as discussed in Section~\ref{sec:nonlin}. This is somewhat akin to the process of deriving a geometric integration scheme, but applied spatially rather than temporally.
+It would be interesting to compare the stability of the fully second-order holistic approximation against the mixture model with correspondingly higher-order spatial derivative approximations.
+
+Finally, it should be noted that the models examined in this paper were restricted to a general class of one-dimensional reactive-advection-diffusion \pde{}s. 
+A proposed area of research 
+is to extend piecewise-linear holistic discretisation to nonlinear wave models, since the self-adjointness of $\cL$
+would still apply to ensure real-valued wave numbers. Another active research direction is the extension of
+piecewise-linear holistic discretisation to two or more spatial dimensions. In general, there is exciting scope for exploring
+many more applications of this new approach.
 
 \paragraph{Acknowledgements}
 AJR thanks the ARC for partial support of this project through grant DP150102385.
