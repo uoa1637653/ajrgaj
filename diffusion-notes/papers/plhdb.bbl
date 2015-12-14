@@ -31,10 +31,26 @@ Carr, J.  \harvardyearleft 1981\harvardyearright , {\em Applications of centre
   manifold theory}, Vol.~35 of {\em Applied Math. Sci.}, Springer--Verlag.
 \newline\harvardurl{http://books.google.com.au/books?id=93BdN7btysoC}
 
+\harvarditem{Cox \harvardand\ Roberts}{1994}{Cox93a}
+Cox, S.~M. \harvardand\ Roberts, A.~J.  \harvardyearleft 1994\harvardyearright
+  , Initialisation and the quasi-geostrophic slow manifold, Technical report,
+  \url{http://arXiv.org/abs/nlin.CD/0303011}.
+
+\harvarditem{Cox \harvardand\ Roberts}{1995}{Cox93b}
+Cox, S.~M. \harvardand\ Roberts, A.~J.  \harvardyearleft 1995\harvardyearright
+  , `Initial conditions for models of dynamical systems', {\em Physica~D} {\bf
+  85},~126--141.
+
 \harvarditem{Fornberg}{1973}{Fornberg73}
 Fornberg, B.  \harvardyearleft 1973\harvardyearright , `On the instability of
   the leap-frog and {Crank--Nicolson} approximations of a nonlinear partial
   differential equation', {\em Maths of Comput.} {\bf 27},~45--57.
+
+\harvarditem{Grcar}{2011}{Grcar2011}
+Grcar, J.~F.  \harvardyearleft 2011\harvardyearright , `John von {N}eumann's
+  analysis of {G}aussian elimination and the origins of modern numerical
+  analysis', {\em SIAM Review} {\bf 53}(4),~607--682.
+\newline\harvardurl{http://www.siam.org/journals/sirev/53-4/73471.html}
 
 \harvarditem{Haragus \harvardand\ Iooss}{2011}{Haragus2011}
 Haragus, M. \harvardand\ Iooss, G.  \harvardyearleft 2011\harvardyearright ,
@@ -45,6 +61,11 @@ Haragus, M. \harvardand\ Iooss, G.  \harvardyearleft 2011\harvardyearright ,
 \harvarditem{Jarrad}{2001}{Jarrad2001}
 Jarrad, G.~A.  \harvardyearleft 2001\harvardyearright , Perturbations, Chaos
   and Waves, PhD thesis, University of South Australia.
+
+\harvarditem{Lorenz \harvardand\ Krishnamurthy}{1987}{Lorenz87}
+Lorenz, E.~N. \harvardand\ Krishnamurthy, V.  \harvardyearleft
+  1987\harvardyearright , `On the non-existence of a slow manifold', {\em
+  J.~Atmos. Sci.} {\bf 44},~2940--2950.
 
 \harvarditem{Mercer \harvardand\ Roberts}{1990}{Mercer90}
 Mercer, G.~N. \harvardand\ Roberts, A.~J.  \harvardyearleft
@@ -70,31 +91,10 @@ Roberts, A.~J.  \harvardyearleft 1997\harvardyearright , `Low-dimensional
   100},~215--230.
 \newblock \doi{10.1016/S0010-4655(96)00162-2}.
 
-\harvarditem{Roberts}{2001}{Roberts98a}
-Roberts, A.~J.  \harvardyearleft 2001\harvardyearright , `Holistic
-  discretisation ensures fidelity to {Burgers'} equation', {\em Applied
-  Numerical Modelling} {\bf 37},~371--396.
-\newblock \doi{10.1016/S0168-9274(00)00053-2}.
-\newline\harvardurl{http://arXiv.org/abs/chao-dyn/9901011}
-
-\harvarditem{Roberts}{2003}{Roberts00a}
-Roberts, A.~J.  \harvardyearleft 2003\harvardyearright , `A holistic finite
-  difference approach models linear dynamics consistently', {\em Mathematics of
-  Computation} {\bf 72},~247--262.
-\newline\harvardurl{http://www.ams.org/mcom/2003-72-241/S0025-5718-02-01448-5}
-
-\harvarditem{Roberts}{2014}{Roberts2014a}
-Roberts, A.~J.  \harvardyearleft 2014\harvardyearright , {\em Model emergent
+\harvarditem{Roberts}{2015}{Roberts2014a}
+Roberts, A.~J.  \harvardyearleft 2015\harvardyearright , {\em Model emergent
   dynamics in complex systems}, SIAM, Philadelphia.
 \newline\harvardurl{http://bookstore.siam.org/mm20/}
-
-\harvarditem[Roberts et~al.]{Roberts, MacKenzie \harvardand\
-  Bunder}{2014}{Roberts2011a}
-Roberts, A.~J., MacKenzie, T. \harvardand\ Bunder, J.  \harvardyearleft
-  2014\harvardyearright , `A dynamical systems approach to simulating
-  macroscale spatial dynamics in multiple dimensions', {\em J.~Engineering
-  Mathematics} {\bf 86}(1),~175--207.
-\newline\harvardurl{http://arxiv.org/abs/1103.1187}
 
 \harvarditem{Strang \harvardand\ Fix}{2008}{Strang2008}
 Strang, G. \harvardand\ Fix, G.  \harvardyearleft 2008\harvardyearright , {\em
