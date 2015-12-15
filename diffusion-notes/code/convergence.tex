@@ -1,0 +1,173 @@
+\documentclass[11pt,a5paper]{article}
+\usepackage{reducecode}
+\IfFileExists{ajr.sty}{\usepackage{ajr}}{}
+\usepackage{pgfplots}
+\title{convergence of periodic linear diffusion}
+\author{AJR}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+\begin{reduce}
+on div; off allfac; on revpri;
+factor gamma,hh;
+operator uu; depend uu,t,j;
+
+%%%% assume periodicity ll (should be even for now)
+ll:=10;
+let { uu(j+~d)=>uu(j+d-ll) when d>ll/2
+    , uu(j-~d)=>uu(j-d+ll) when d>=ll/2 };
+matrix ssm(ll,ll);
+for i:=1:ll do begin
+  ssm(i,i):=4/6;
+  if i<ll then ssm(i,i+1):=ssm(i+1,i):=1/6;
+  if i=ll then ssm(1,i):=ssm(i,1):=1/6;
+end;
+ssm:=1/ssm; % get the matrix of the ss operator
+operator ss; linear ss;
+let ss(uu(~k),j)=>for i:=1:ll sum ssm(1,i)*uu(k+i-1);
+
+checkEquals6uuk:=ss(uu(j-1)+4*uu(j)+uu(j+1),j);
+
+
+let df(uu(~k),t) => sub(j=k,g);
+%% xi := xi_j = (x - X_{j-1}) / H
+depend xi,x;
+let df(xi,x)=>1/hh;
+
+u:=uu(j-1)*(1-xi)+uu(j)*xi;
+g:=0;
+
+for it:=1:99 do begin 
+if it<15 then let gamma^(it+1)=>0;
+
+amp := sub(xi=1,u) - uu(j);                  % u|X_j = U_j
+cty := sub({xi=0,j=j+1},u) - sub(xi=1,u);    % [u]_j = 0
+ux := df(u,x)$
+jmp := sub({xi=0,j=j+1},ux) - sub(xi=1,ux)
+       - (1-gamma)*sub(xi=1,sub(j=j+1,u)-2*u+sub(j=j-1,u))/hh;  
+       % [u']_j = (1-gamma)/H*delta^2 U_j
+pde := -df(u,t) + df(ux,x);
+write lengthress:=map(length(~a),{amp,cty,jmp,pde});
+
+pde_xi := pde*xi$         
+pde_1mxi := (1-xi)*pde$
+slv := (int(pde_xi,xi,0,1) + sub(j=j+1,int(pde_1mxi,xi,0,1)))*hh + jmp;
+% Update g from error in solvability:
+gn := ss(slv,j)/hh;
+% Update u by solving pde = 0 for u := u + u_n:
+tn := xi*gn + (1-xi)*sub(j=j-1,gn) - pde;
+un := hh^2*int(int(tn,xi),xi);
+% Integration constants satisfy u_n|X_{j-1} = 0, u_n|X_j = 0:
+un := un - sub(xi=1,un)*xi;
+% Update iteration:
+u := u + un;
+g := g + gn;
+
+showtime;
+if {amp,cty,jmp,pde}={0,0,0,0} then write it:=99999+it;
+end;
+
+on rounded; print_precision 4$
+write "H^2*duj/dt =",hh^2*g;
+\end{reduce}
+
+
+
+\section{Generalised Domb--Sykes plot}
+If linear diffusion and to high order, then post-process to generate a generalised Domb--Sykes plot (Mercer \& Roberts, 1990) in tikz.
+\begin{reduce}
+if deg((1+gamma)^20,gamma)>8 then begin
+on rounded; print_precision 4;
+out "convergenceds.ltx";
+write "
+\begin{tikzpicture}
+\begin{axis}[axis x line=middle, axis y line=middle
+,xmin=0,legend pos=outer north east]"$
+for i:=0:ll/2 do begin
+as:=coeff(coeffn(g,uu(j+i),1),gamma)$
+kstart:=5$
+for k:=kstart:length(as)-2 do 
+    if (part(as,k+2)*part(as,k)-part(as,k+1)^2)
+      /(part(as,k+1)*part(as,k-1)-part(as,k)^2)<0
+    then kstart:=k+1$
+%write
+bs:=for k:=kstart:length(as)-2 collect sqrt(
+    (part(as,k+2)*part(as,k)-part(as,k+1)^2)
+   /(part(as,k+1)*part(as,k-1)-part(as,k)^2) )$
+%write
+cs:=for k:=kstart:length(as)-2 collect (
+    part(as,k)*part(bs,k-kstart+1)+part(as,k+2)/part(bs,k-kstart+1) 
+    )/part(as,k+1)/2$
+%write 
+rks:=for k:=kstart:length(as)-2 collect 1/(k-1)$
+write "
+\addplot +[only marks] coordinates {"$
+for k:=1:length(rks) do write "(",part(rks,k),",",part(bs,k),")"$
+write "};
+\addlegendentry{\(B_k\) vs \(1/k\)};"$
+write "
+\addplot +[only marks] coordinates {"$
+for k:=1:length(rks) do write "(",part(rks,k)^2,",",part(cs,k),")"$
+write "};
+\addlegendentry{\(\cos\theta_k\) vs \(1/k^2\)};
+"$
+end;
+
+write "
+\end{axis}
+\end{tikzpicture}
+"$
+shut "convergenceds.ltx";
+end;
+\end{reduce}
+
+
+\begin{reduce}
+lastangles:=map(acos(~a)*180/pi,cs);
+\end{reduce}
+
+
+
+\begin{figure}
+\centering
+\caption{\label{fig:tiwdbcDS}%
+for \(L=4\), generalised Domb--Sykes plot (Mercer \& Roberts, 1990) to show convergence for \(|\gamma|<3\)ish due to a convergence limiting singularity at angle~\(103^\circ\) to the real \(\gamma\)-axis.}
+\input{convergence04.ltx}
+\end{figure}
+
+
+\begin{figure}
+\centering
+\caption{\label{fig:tiwdbcDS}%
+for \(L=6\), generalised Domb--Sykes plot (Mercer \& Roberts, 1990) to show convergence for \(|\gamma|<2\) due to a convergence limiting singularity at angle~\(79^\circ\) to the real \(\gamma\)-axis.}
+\input{convergence06.ltx}
+\end{figure}
+
+\begin{figure}
+\centering
+\caption{\label{fig:tiwdbcDS}%
+for \(L=8\), generalised Domb--Sykes plot (Mercer \& Roberts, 1990) to show convergence for \(|\gamma|<1.7\)ish due to a convergence limiting singularity at angle~\(63^\circ\) to the real \(\gamma\)-axis.}
+\input{convergence08.ltx}
+\end{figure}
+
+
+
+
+\begin{figure}
+\centering
+\caption{\label{fig:tiwdbcDS}%
+for \(L=10\), generalised Domb--Sykes plot (Mercer \& Roberts, 1990) to show convergence for \(|\gamma|<1.4\)ish due to a convergence limiting singularity at angle~\(52^\circ\) to the real \(\gamma\)-axis.}
+\input{convergence10.ltx}
+\end{figure}
+
+
+
+
+\begin{reduce}
+end;
+\end{reduce}
+
+\end{document}
