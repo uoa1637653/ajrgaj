@@ -52,7 +52,7 @@
 \newcommand{\Bb}[1]{%
   \expandafter\def\csname#1#1\endcsname%
   {\ensuremath{\mathbb #1}}}
-\Bb X\Bb T\Bb R\Bb I\Bb J \Bb E
+\Bb X\Bb T\Bb R\Bb H\Bb I\Bb J\Bb L \Bb E
 
 \newcommand{\Cal}[1]{%
   \expandafter\def\csname c#1\endcsname%
@@ -536,8 +536,11 @@ that is,
 \end{subequations}
 The next lemma certifies that this linearised system is self-adjoint and so we need only seek real eigenvalues in the spectrum.
 
+To be definite, define the Hilbert space~\HH\ to be the set of square integrable, infinitely differentiable, functions on~\(\tilde\XX\).
+Also define its subspace~\LL\ to be those which are additionally \(L\)-periodic.
+
 \begin{lemma}[self-adjoint] \label{thm:sa}
-The differential operator appearing in~\eqref{eqs:lin}, namely \(\cL=\nu\DD x{}\) on~\(\tilde\XX\) subject to~\eqref{eq:ccclin}--\eqref{eq:ccjlin} and for \(L\)-periodic solutions, is self-adjoint upon using the usual inner product \(\left<v,u\right>:=\int_{\tilde\XX} vu\,dx\)\,.
+The differential operator appearing in~\eqref{eqs:lin}, namely \(\cL=\nu\DD x{}\) on~\LL\ and subject to~\eqref{eq:ccclin}--\eqref{eq:ccjlin}, is self-adjoint upon using the usual inner product \(\left<v,u\right>:=\int_{\tilde\XX} vu\,dx\)\,.
 \end{lemma}
 
 \begin{proof} 
@@ -590,7 +593,8 @@ V_j \nu_j u_{jx}(X_j^-)
 \\&=&\sum_j 0
 +\left<\cL v, u\right> =\left<\cL v, u\right>.
 \end{eqnarray*}
-Hence, as required, the linear operator in the linearised system~\eqref{eqs:lin} is self-adjoint.
+Hence,  the linear operator in the linearised system~\eqref{eqs:lin} is symmetric.  
+Since \(\cL:\HH\to\HH\) it is self-adjoint in~\HH. 
 It can be shown that self-adjointness also holds for Dirichlet and Neumann boundary conditions.
 \end{proof}
 
@@ -612,7 +616,7 @@ Thus strictly there are two extra zero eigenvalues associated with the trivial \
 Except for issues associated with the domain of validity, for simplicity we do not explicitly include these two trivial dynamical equations nor their eigenvalues in the following, but consider them implicit.
 
 \begin{lemma}[exponential dichotomy] \label{thm:dicho}
-Provided function~\(F\) in the \pde~\eqref{eq:genpde} is monotonically increasing with \(F'\geq\nu_{\min}>0\)\,, then  the operator \(\cL=\nu\DD x{}\) on~\(\tilde\XX\) subject to~\eqref{eq:ccclin}--\eqref{eq:ccjlin} and for \(L\)-periodic solutions has \(N\)~zero eigenvalues and all other eigenvalues~\(\lambda\) are negative and bounded away from zero by \(\lambda\leq-\nu_{\min}\pi^2/H^2\).
+Provided function~\(F\) in the \pde~\eqref{eq:genpde} is monotonically increasing with \(F'\geq\nu_{\min}>0\)\,, then  the operator \(\cL=\nu\DD x{}\)  subject to~\eqref{eq:ccclin}--\eqref{eq:ccjlin} in~\LL\ has \(N\)~zero eigenvalues and all other eigenvalues~\(\lambda\) are negative and bounded away from zero by \(\lambda\leq-\nu_{\min}\pi^2/H^2\).
 \end{lemma}
 
 \begin{proof} 
@@ -669,7 +673,7 @@ By the next Lemma~\ref{lem:hs}, \(-\lambda_1\geq\pi^2/H^2\), and so all eigenval
 
 
 \begin{lemma}[spatially homogeneous spectrum] \label{lem:hs}
-The non-zero eigenvalues of the differential operator \(\DD x{}\) on~\(\tilde\XX\) with coupling conditions~\eqref{eq:ccclin}--\eqref{eq:ccjlin} when \(\nu_j=1\) all satisfy \(\lambda\leq-\pi^2/H^2\).
+The non-zero eigenvalues of the differential operator \(\DD x{}\) with coupling conditions~\eqref{eq:ccclin}--\eqref{eq:ccjlin} in~\HH\ and when \(\nu_j=1\) all satisfy \(\lambda\leq-\pi^2/H^2\).
 \end{lemma}
 
 \begin{proof} 
@@ -745,9 +749,10 @@ Recalling \(s=\sin\kappa\) and \(c=\cos\kappa\), this requirement becomes
 &
 \parbox[b]{0.4\linewidth}{\caption{\label{fig:leaspec}%
 The linearised ($\gamma=0$, \(C=1\)) spectrum determined by the spectral requirement~\eqref{eq:kappa}.
-The thick lines along the $\kappa$-axis indicate regions of spatial wavenumbers for which the corresponding spatial structures are bounded for all space.}}
+The thick lines along the $\kappa$-axis indicate regions of spatial wavenumbers for which the corresponding spatial structures are bounded for all space (the essential spectrum).}}
 \end{tabular}
 \end{figure}%
+The specific boundary conditions on the finite domain~\XX\ then constrain the allowable~\(\kappa\) to a discrete, countably infinite, set of~\(\kappa\).
 As illustrated by Figure~\ref{fig:leaspec}, for the specific case of the linearised problem~\eqref{eqs:lin} for which \(C(0)=1\)\,, the smallest allowable nonzero nondimensional wavenumber is \(\kappa=\pi\)\,.
 Hence the smallest magnitude nonzero eigenvalue is\({}\leq-\pi^2/H^2\) as required.
 \end{proof}
