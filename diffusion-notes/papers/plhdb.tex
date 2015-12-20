@@ -72,20 +72,18 @@ A.~J. Roberts\thanks{School of Mathematical Sciences, University of Adelaide, So
 \maketitle
 
 \begin{abstract}
-The fidelity of numerical simulation of a spatio-temporal dynamical system is 
+The fidelity and stability of numerical simulations of a spatio-temporal dynamical system are 
 largely constrained by the chosen discretisation of the \pde{}. 
-Typically, the modeller chooses arbitrary finite-element forms to approximate the various spatial derivatives.
-In contrast, the holistic discretisation approach described herein obviates this choice, and leads
-unambiguously to natural derivative approximations informed by the underlying microscale dynamics. 
-The form of these approximations is determined in conjunction with the imposed
-internal boundary conditions, which themselves are largely governed by the placement of the grid-points and the 
-form of the leading discrete approximation.
-The holistic process is commenced with a piecewise linear but continuous approximation,
-in contrast to similar analyses that use piecewise constant, discontinuous approximations.
-We are motivated by the principle that a more accurate leading approximation should lead to faster
-convergence of the asymptotic solution, via the Rayleigh-Ritz theorem.
-The stability of the resulting holistic discretisation of Burgers' \pde{} is compared to
-that of other typical finite-element approximations.
+Typically, the modeller chooses standard but essentially arbitrary finite-element forms to approximate the various spatial derivatives, and hopes for the best.
+The holistic discretisation approach described herein provides a natural alternative to this ad hoc methodology.
+We establish a new proof that in principle there exists an exact closure of the dynamics of 
+a general class of reaction-advection-diffusion \pde{}s, and show how to construct new systematic approximations to the in-principle closure starting from a simple, piecewise-linear, continuous approximation.
+In effect, the macroscale discretisation is fully informed by the underlying microscale dynamics. 
+In conjunction with the imposition of simple intenal boundary conditions, the holistic discretisation posseses desirable properties such as a natural cubic spline first-order approximation to the field, and the 
+self-adjointness of the diffusion operator under periodic, Dirichlet and Neumann outer boundary conditions.
+As a concrete example, we demonstrate the holistic discretisation procedure on the well-known Burgers' \pde{},
+and investigate the theoretical and numerical stability of the resulting approximate dynamical system compared to
+other typical finite-element approximations.
 \end{abstract}
 
 
@@ -959,7 +957,7 @@ Spatially integrating twice gives
 +\frac{\alpha H}{6}\left(\big[\xi_j^3+(1-\xi_j)^3\sigma^{-1}\big]U_j\right)\,\nabla U_j\right\}.
 \end{eqnarray*}
 \begin{itemize}
-\item The interelement continuity condition~\eqref{eq:ccc} requires that ${u^n}(X_j,\Uv)=0$ for $n=1,2,3,\ldots$,
+\item The inter-element continuity condition~\eqref{eq:ccc} requires that ${u^n}(X_j,\Uv)=0$ for $n=1,2,3,\ldots$,
 because ${u^0}(X_j,\Uv)=U_j=u(X_j,\Uv)$. 
 Hence, we solve for~$d_j$ at $\xi_j=0$ and~$c_j$ at $\xi_j=1$, giving
 \begin{eqnarray}
@@ -975,7 +973,7 @@ Hence, we solve for~$d_j$ at $\xi_j=0$ and~$c_j$ at $\xi_j=1$, giving
 where it is convenient to introduce interpolation operators ${\cI}_0(\xi_j):=\xi_j+(1-\xi_j)\sigma^{-1}$ and
 ${\cI}_1(\xi_j):=\xi_j^3+(1-\xi_j)^3\sigma^{-1}-\xi_j\nabla-\sigma^{-1}$ (observe that ${\cI}_1''=6{\cI}_0/H^2$).
 
-\item The interelement smoothness condition~\eqref{eq:ccj} determines the value of~$g^1_j$.
+\item The inter-element smoothness condition~\eqref{eq:ccj} determines the value of~$g^1_j$.
 Substitute~\(u^1\) from~\eqref{eq:u1g1} into~\eqref{eq:ccj} and we require
 \begin{equation*}
 -\frac{\nu\gamma}{H}\delta^2 U_j = -H\left(1+\frac{1}{6}\delta^2\right)g^1_j 
@@ -1194,7 +1192,7 @@ In general, a pair of unstable critical points arise only when $0<\theta<\theta_
 Note that this unstable regime excludes the holistic parameter value of $\theta=\frac{2}{3}$.
 
 Turning now to numerical simulation, we assume a $2\pi$-periodic domain with $\nu=1$ and $\alpha=1$ for
-convenience. The initial field $u(x,0)=A\sin x$ is integrated at the $N+1$ grid-points $X_j=Hj$, $j=0,1,\ldots,N$,
+convenience. The initial field $u(x,0)=A\sin x$ is integrated at the $N+1$ grid-points $X_j=Hj$ for all $j\in\JJ$,
 with spacing $H=\frac{2\pi}{N}$. The integration is performed for a maximum duration of $T=10$, but ceases early at the first sign of either: an instability, detected when $|U_j|>1000$ (denoted by~'x'); or a non-monotonic 
 irregularity (denoted by~'+'). 
 For each number~$N$ of discretised intervals, a search is made over values of~$A$, both positive and negative,
@@ -1212,13 +1210,14 @@ Instability (detected when $|u|>1000$) is denoted by~`\(\times\)', and irregular
 
 The numerical results support the above theoretical results, namely that for $N=3$ intervals ($M=2$ internal points), 
 only the advective model ($\theta=0$) and conservative model ($\theta=1$) display instabilities, and
-that for $N=4$ none of the simulated models show instability, nor irregularity.
+that for $N=4$ none of the simulated models (for $\theta=0$ and $\theta>\theta_c$) show instability, nor irregularity.
 Overall, the advective model continues to display instability for odd~$N$, and shows irregularity for even~$N$, 
 both of which occur for lower~$|A|$ than the other models.
 In contrast, the other models are susceptible to irregularity but not instability, with the critical values
 of amplitude~$A$ roughly inversely proportional to the number~$N$ of intervals, 
 and thus proprtional to the grid-spacing~$H$. None of the conservative, mixture or holistic models inherently outperforms the others in this measure.
-But an advantage of the holistic approach is the rigorous theoretical support, the automatic smooth cubic spline approximation to the out-of-equilibrium subgrid fields, and the automatic derivation of practical sound closures.
+But an advantage of the holistic approach is the rigorous theoretical support, the automatic smooth cubic spline approximation to the out-of-equilibrium subgrid fields, and the automatic derivation of practical sound closures
+with unambiguous approximation of the spatial derivatives. 
 
 
 \section{Conclusion}
@@ -1237,7 +1236,7 @@ continuity and smoothness.
 
 The use of a piecewise--linear initial approximation~$u^0$ to~$u$, discussed in Section~\ref{sec:lin}, 
 has been shown to be especially effective in conjunction with the holistic approach.
-In conjunction with the inner continuity and smoothness conditions, for instance,
+With the inner continuity and smoothness conditions, for instance,
 the self-adjointness of the diffusion operator~$\cL$ is preserved under periodic, Dirichlet or Neumann outer boundary conditions. 
 This holds for all $\gamma\in[0,1]$, although the usual Neumann condition holds exactly only for $\gamma=1$ and requires modification for $\gamma<1$ (governed by the chosen smoothness condition).
 As noted in Section~\ref{sec:nonlin}, also interesting is that
