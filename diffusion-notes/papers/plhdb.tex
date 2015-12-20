@@ -100,10 +100,11 @@ This article's scope is the accurate spatial discretisation of nonlinear \pde{}s
 u_t=F(u_x)_x+\alpha G(x,u,u_x)
 \label{eq:genpde}
 \end{equation}
-where subscripts \(x\) and~\(t\) denote spatial and temporal derivatives, respectively, and for suitably smooth functions~\(F\) and~\(G\), and \(F\)~strictly monotonic increasing. 
-Although most of this article addresses \pde~\eqref{eq:genpde}, section~\ref{sec:smwpde} discusses generalising the theoretical support to wave-like \pde{}s obtained by replacing~\(u_t\) by~\(u_{tt}\) in~\eqref{eq:genpde}.
-Given \(N+1\)~discrete points in space, \(x=X_j\) for \(j=0,\ldots,N\)\,, we define grid values \(U_j(t)=u(X_j,t)\)\,.
-Then the aims are to: firstly, establish a new proof that in principle there exists an \emph{exact} closure of the dynamics of the \pde~\eqref{eq:genpde} in terms of these grid values, \(d\Uv/dt=\gv(\Uv)\); secondly, consequently establish that such a closure is emergent from general initial conditions; thirdly, show how to construct new systematic approximations to the in-principle closure; and fourthly, evaluate the new approach for the classic example of the nonlinear advection--diffusion Burgers' \pde
+for suitably smooth functions~\(F\) and~\(G\), and \(F\)~strictly monotonic increasing,
+where subscripts \(x\) and~\(t\) denote spatial and temporal derivatives, respectively. 
+Although most of this article addresses \pde~\eqref{eq:genpde}, Section~\ref{sec:smwpde} discusses generalising the theoretical support to wave-like \pde{}s obtained by replacing~\(u_t\) by~\(u_{tt}\) in~\eqref{eq:genpde}.
+Given \(N+1\)~discrete points in space, \(x=X_j\) for \(j\in\JJ=\{0,\ldots,N\}\)\,, we define grid values \(U_j(t)=u(X_j,t)\)\,.
+Then the aims are to: firstly, establish a new proof that in principle there exists an \emph{exact} closure of the dynamics of the \pde~\eqref{eq:genpde} in terms of these grid values, \(d\Uv/dt=\gv(\Uv)\); secondly, establish that such a closure is emergent from general initial conditions; thirdly, show how to construct new systematic approximations to the in-principle closure; and fourthly, evaluate the new approach for the classic example of the nonlinear advection--diffusion Burgers' \pde
 \begin{eqnarray}
 	\D tu = \nu\DD xu - \alpha u\D xu\,.
 \label{eq:burgers}
@@ -114,16 +115,18 @@ Generalisation of the approach to two or more spatial dimensions remains for fur
 The spatial domain~\(\XX\) is of length~\(L\), \(0\leq x\leq L\)\,, and we mostly restrict attention to solutions~\(u(x,t)\) which are \(L\)-periodic in space, but occasionally comment on the cases of homogeneous Dirichlet boundary conditions, \(u(0,t)=u(L,t)=0\)\,, and Neumann boundary conditions, \(u_x(0,t)=u_x(L,t)=0\)\,.
 The first step is to partition~$\XX$ into $N$~equi-spaced intervals bounded by the $N+1$~grid-points $X_j$ with spacing~\(H\).
 Traditional spatial discretisation of such \pde{}s, whether finite difference, finite element, or finite volume, imposes assumed fields in each element and then derives approximate rules for the evolution in time of the parameters of the imposed fit.
-Our dynamical systems, holistic, approach is to let the \pde~\eqref{eq:burgers} determine the subgrid structures in order to remain faithful to the \pde.
+Our dynamical systems (holistic) approach is to let the \pde~\eqref{eq:genpde} determine the subgrid structures in order to remain faithful to the \pde, as we will demonstrate for \pde~\eqref{eq:burgers}.
 
-Let the dynamics of the field~$u(x,t)$ be summarised by the coarse variables ${\Uv}=(U_1,U_2,\ldots,U_N)$, where we choose these coarse variables to be grid values 
+Let the dynamics of the field~$u(x,t)$ be summarised by the coarse variables ${\Uv}=(U_0,U_1,\ldots,U_N)$, 
+where we choose these coarse variables to be grid values 
 \begin{equation}
-U_j(t):=u(X_j,t) \quad\text{for all }t\in \TT.
+U_j(t):=u(X_j,t) \quad\text{for all } j\in\JJ,t\in \TT.
 \label{eq:gridval}
 \end{equation}
-New theory to be developed in section~\ref{sec:lin} asserts that in principle an \emph{exact} closure exists: that is, there is some coarse temporal evolution 
+Henceforth we assume $U_0=U_N$ due to the imposed periodicity, unless otherwise stated.
+New theory to be developed in Section~\ref{sec:lin} asserts that in principle an \emph{exact} closure exists; that is, there is some coarse temporal evolution 
 \begin{eqnarray}
-	\dot U_j = g_j({\Uv}) \quad\text{for all }j
+	\dot U_j = g_j({\Uv}) \quad\text{for all }j\in\JJ
 \label{eq:temporal}
 \end{eqnarray}
 that gives exact solutions of the \pde.
@@ -136,7 +139,7 @@ for centred difference $\delta=\sigma^{1/2}-\sigma^{-1/2}$,
 centred mean $\mu=(\sigma^{1/2}+\sigma^{-1/2})/2$,
 and shift operator $\sigma U_j=U_{j+1}$.
 However, the nonlinear advection term has another plausible representation, namely the conservative form~$\mu\delta (U_j^2)/2H$.
-For illustrative purposes, section~\ref{sec:nonlin} compares results with those of a convex combination of these two representations; that is, section~\ref{sec:nonlin}  compares results with Burgers' \pde~\eqref{eq:burgers} discretised to the so-called mixture model
+For illustrative purposes, Section~\ref{sec:nonlin} compares results with those of a convex combination of these two representations; specifically, Section~\ref{sec:nonlin}  compares results with Burgers' \pde~\eqref{eq:burgers} discretised to the so-called mixture model
 \begin{equation}
 	\dot{U}_j = 
 	-(1-\theta)\alpha\frac{U_j\mu\delta U_j}{H}
@@ -144,7 +147,7 @@ For illustrative purposes, section~\ref{sec:nonlin} compares results with those 
     +\nu\frac{\delta^2 U_j}{H^2}\,.
 \label{eq:mixture}
 \end{equation}
-In contrast, Section~\secref{nonlin} shows our holistic approach has no such representational ambiguity, and constructs at first-order the specific model
+In contrast, Section~\secref{nonlin} shows our holistic approach has no such representational ambiguity, and constructs at first-order the particular model
 \begin{equation}
 	\dot{U}_j = S\left[
 	-\alpha\frac{U_j\mu\delta U_j}{3H}
@@ -243,13 +246,13 @@ Consequently, this article develops a systematic approximation to an in-principl
 \label{sec:beitm}
 
 As an introduction to the methodology, this section investigates the modelling of Burgers' \pde~\eqref{eq:burgers} on the specific domain \(-1<x<1\)\,, with basic Dirichlet boundary conditions that \(u(\pm 1,t)=0\)\,, and with viscosity \(\nu=1\) for definiteness.
-For introductory simplicity, the domain space is partitioned into just two intervals, \(-1<x<0\) and \(0<x<1\)\,, by the interior `grid point' \(X=0\)\,.
-Our aim is to model the dynamics of the whole field~\(u(x,t)\) by simply the dynamics of the `grid value' \(U(t):=u(0,t)\) of the field at this central grid point.
+For introductory simplicity, the domain space is partitioned into just two intervals, \(-1<x<0\) and \(0<x<1\).
+Our aim is to model the dynamics of the whole field~\(u(x,t)\) by simply the dynamics of the grid value \(U(t):=u(0,t)\) of the field at the central, interior grid-point \(X=0\).
 
 The dynamics in the two intervals need to be coupled to each other to form a solution valid over the whole domain.
 Conventional numerical methods \emph{impose} an assumed interpolation field and then derive a corresponding model.
-In contrast, here we craft a coupling that moderates the communication between the two intervals, and then lets the \pde~\eqref{eq:burgers} itself tell us the appropriate out-of-equilibrium fields and model.
-The desired full coupling between the two intervals is of \(C^1\)~continuity: \([u]=[u_x]=0\) where we introduce~\([\cdot]\) to denote the jump in value across the grid point \(X=0\); that is, \([u]=u|_{0^+}-u|_{0^-}\)\,.
+In contrast, here we craft a coupling that moderates the communication between the two intervals, and then let the \pde~\eqref{eq:burgers} itself tell us the appropriate out-of-equilibrium fields and model.
+The desired full coupling between the two intervals is of \(C^1\)~continuity: \([u]=[u_x]=0\) where we introduce~\([\cdot]\) to denote the jump in value across the grid-point \(X=0\); that is, \([u]=u|_{0^+}-u|_{0^-}\)\,.
 For reasons developed below, we embed Burgers' \pde~\eqref{eq:burgers} in a family of problems with the moderated coupling between intervals of
 \begin{equation}
 [u]=0\quad\text{and}\quad
@@ -330,7 +333,7 @@ This useful self-adjointness is not a property of previous holistic discretisati
 
 Because the spectrum consists of a zero eigenvalue and all the rest negative (\(\leq -\pi^2<-9\)), centre manifold theory \cite[e.g.]{Carr81} 
 %or \cite[Chap.~4]{Roberts2014a}
-assures us that there exists a slow manifold in some neighbourhood of the subspace~\EE\ of equilibria (corresponding to Theorem~\ref{thm:gsm}): that is, global in amplitude~\(U\) and local in parameters~\(\gamma\) and~\(\alpha\).
+assures us that there exists a slow manifold in some neighbourhood of the subspace~\EE\ of equilibria (corresponding to Theorem~\ref{thm:gsm}); that is, global in amplitude~\(U\) and local in parameters~\(\gamma\) and~\(\alpha\).
 Also, the theory guarantees that all solutions in the neighbourhood are attracted exponentially quickly, at least as fast as roughly~\(e^{-9t}\), to solutions on the slow manifold.
 That is, the slow manifold and the evolution thereon emerges from general initial conditions.
 
@@ -342,7 +345,7 @@ u\approx\left[1-|x|+\gamma(|x|-\tfrac32x^2+\tfrac12|x|^3)\right]U
 \quad\text{such that }\dot U\approx-3\gamma U\,.
 \label{eq:egsm1}
 \end{equation}
-Substituting these expressions into the heat \pde~\eqref{eq:burgers} (\(\alpha=0\)), and the boundary and coupling conditions~\eqref{eq:cc1} we find the equations are satisfied to residual~\Ord{\gamma^2} and so the approximation theorem asserts these expressions are approximations with errors~\Ord{\gamma^2}.
+Substituting these expressions into the heat \pde~\eqref{eq:burgers} (\(\alpha=0\)), with the boundary and coupling conditions~\eqref{eq:cc1} we find the equations are satisfied to residual~\Ord{\gamma^2} and so the approximation theorem asserts these expressions are approximations with errors~\Ord{\gamma^2}.
 
 \begin{figure}
 \centering
@@ -435,7 +438,7 @@ We use centre manifold theory \cite[e.g.]{Carr81, Haragus2011} to establish (The
 Centre manifold theory is based upon an equilibrium or subspace of equilibria, and follows primarily from the spectrum of the linearised dynamics \cite[e.g.]{Roberts2014a}.
 
 To find useful equilibria we embed the \pde~\eqref{eq:genpde} in a wider class of problems.
-First partition the spatial domain into the \(N\)~intervals between the grid points \(x=X_j\)\,: let the interval \(\XX_j=\{x\mid X_{j-1}<x<X_j\}\) and denote the punctured domain \(\tilde\XX:=\XX\backslash\{X_0,X_1,\ldots,X_N\}\).
+First partition the spatial domain into the \(N\)~intervals between the grid-points \(x=X_j\)\,: let the interval \(\XX_j=\{x\mid X_{j-1}<x<X_j\}\) and denote the punctured domain \(\tilde\XX:=\XX\backslash\{X_0,X_1,\ldots,X_N\}\).
 For definiteness take the boundary conditions on the field~\(u(x,t)\) to be that it is \(L\)-periodic in space.
 Then use \(u_j(x,t)\)~to denote solutions of the \pde~\eqref{eq:genpde} on the interval~\(\XX_j\), and reserve \(u(x,t)\), over~\XX\ or~\(\tilde\XX\) as appropriate, to denote the union over all intervals of such solutions.
 To restore the original \pde~\eqref{eq:genpde} over the whole domain~\XX\ we couple the fields on each interval together.
@@ -458,9 +461,9 @@ and where the factor~\(C(\gamma)\) is some smooth function such that \(C(0)=1\) 
 
 
 \begin{lemma}[equilibria] \label{thm:equil}
-The \pde~\eqref{eq:genpde} on domain~\(\tilde\XX\) with coupling conditions~\eqref{eqs:cc} possesses an \(N\)-dimensional subspace~\EE\ of equilibria, parametrised by \(\Uv=(U_1,U_2,\ldots,U_N)\), for parameters \(\alpha=\gamma=0\) of piecewise linear solutions~\(u^*(x)\) such that on the \(j\)th~interval the field 
+The \pde~\eqref{eq:genpde} on domain~\(\tilde\XX\) with coupling conditions~\eqref{eqs:cc} possesses an \(N\)-dimensional subspace~\EE\ of equilibria, parametrised by \(\Uv=(U_1,U_2,\ldots,U_N)\), for parameters \(\alpha=\gamma=0\) of piecewise linear solutions~\(u^*(x)\) such that, on the \(j\)th~interval, the field 
 \begin{equation}
-u_j^*(x)=(1-\xi_j)U_{j-1}+\xi_j U_j
+u^{*}(x)=u_j^*(x)=(1-\xi_j)U_{j-1}+\xi_j U_j
 \quad\text{where }\xi_j=(x-X_{j-1})/H
 \label{eq:equil}
 \end{equation}
@@ -469,9 +472,9 @@ is a local scaled space variable.
 
 \begin{proof} 
 With nonlinearity \(\alpha=0\) the \pde~\eqref{eq:genpde} takes the form \(u_t=F(u_x)_x\)\,.
-For the piecewise linear field~\eqref{eq:equil}, the gradient \(u^*_x=(U_j-U_{j-1})/H\) is constant on each~\(\XX_j\). 
-Hence \(F(u^*_x)\) is constant on each~\(\XX_j\).
-Consequently, \(F(u^*_x)_x=0\) on~\(\tilde\XX\), giving an equilibria of the \pde\ on~\(\tilde\XX\).
+For the piecewise linear field~\eqref{eq:equil}, the gradient \(u^*_{jx}=(U_j-U_{j-1})/H\) is constant on each~\(\XX_j\). 
+Hence \(F(u^*_x)\) is constant on each~\(\XX_j\), and
+consequently \(F(u^*_x)_x=0\) on~\(\tilde\XX\), giving an equilibria of the \pde\ on~\(\tilde\XX\).
 
 From the field~\eqref{eq:equil},  \(u^*_j(X_j^-)=U_j=u^*_{j+1}(X_j^+)\) and hence \(u^*(x)\)~is continuous at~\(X_j\) to satisfy the coupling condition~\eqref{eq:ccc}.
 
@@ -536,7 +539,7 @@ that is,
 \end{subequations}
 The next lemma certifies that this linearised system is self-adjoint and so we need only seek real eigenvalues in the spectrum.
 
-To be definite, define the Hilbert space~\HH\ to be the set of square integrable, infinitely differentiable, functions on~\(\tilde\XX\).
+To be definite, define the Hilbert space~\HH\ to be the set of square integrable, infinitely differentiable functions on~\(\tilde\XX\).
 Also define its subspace~\LL\ to be those which are additionally \(L\)-periodic.
 
 \begin{lemma}[self-adjoint] \label{thm:sa}
