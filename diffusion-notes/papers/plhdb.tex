@@ -61,9 +61,8 @@
 
 \newcommand{\secref}[1]{\ref{sec:#1}}
 
-\title{An exciting application of piecewise-linear holistic discretisation}
-\author{G.~A. Jarrad\thanks{SATAC, South Australia~5000, Australia.  
-\protect\url{mailto:geoff.jarrad@satac.edu.au}}
+\title{Theory and application of piecewise-linear holistic discretisation for diffusive \pde{}s}
+\author{G.~A. Jarrad\thanks{\protect\url{mailto:geoff.jarrad@adelaide.edu.au}}
 \and 
 A.~J. Roberts\thanks{School of Mathematical Sciences, University of Adelaide, South Australia~5005, Australia.  
 \protect\url{mailto:anthony.roberts@adelaide.edu.au}}
@@ -76,10 +75,10 @@ Finite difference\slash element\slash volume methods of discretising \pde{}s imp
 In contrast, the holistic discretisation approach developed herein construct a natural subgrid scale field adapted to the whole system out-of-equilibrium dynamics.
 Consequently, the macroscale discretisation is fully informed by the underlying microscale dynamics. 
 We establish a new proof that in principle there exists an exact closure of the dynamics of a general class of reaction-advection-diffusion \pde{}s, and show how our approach constructs new systematic approximations to the in-principle closure starting from a simple, piecewise-linear, continuous approximation.
-Using specific generic inter-element coupling conditions, the holistic discretisation possesses desirable properties such as a natural cubic spline first-order approximation to the field, and the self-adjointness of the diffusion operator under periodic, Dirichlet and Neumann macroscale boundary conditions.
+Using non-onerous  inter-element coupling conditions, the holistic discretisation possesses desirable properties such as a natural cubic spline first-order approximation to the field, and the self-adjointness of the diffusion operator under periodic, Dirichlet and Neumann macroscale boundary conditions.
 As a concrete example, we demonstrate the holistic discretisation procedure on the well-known Burgers' \pde{},
 and compare the theoretical and numerical stability of the resulting discretisation compared to other approximations.
-The approach developed here promises to be able to systematically construct, automatically good, macroscale discretisations to a wide range of \pde{}s, including wave \pde{}s. 
+The approach developed here promises to be able to systematically construct automatically good, macroscale discretisations to a wide range of \pde{}s, including wave \pde{}s. 
 \end{abstract}
 
 
@@ -166,8 +165,8 @@ That is, as illustrated by the two approximate examples of Figure~\ref{fig:uhat}
 \end{eqnarray}
 where the time evolution of the field~\(u\) occurs via the evolving coarse variables~\(\Uv(t)\).
 Whether the symbol~\(u\) denotes~\(u(x,t)\) or~\(u(x,\Uv)\) should be clear from the context.
-The complete holistic framework comprises equations~\eqref{eq:temporal} and~\eqref{eq:spatial},  along with the addition of suitable boundary conditions that are discussed in Section~\secref{lin}. 
-\ajr{Clarify the preceeding sentence??}
+The complete holistic framework comprises equations~\eqref{eq:temporal} and~\eqref{eq:spatial},  in conjunction with suitable boundary conditions to be specified  
+in more detail in Section~\secref{lin}. 
 
 \begin{figure}
 \centering
@@ -1251,7 +1250,7 @@ AJR thanks the ARC for partial support of this project through grant DP150102385
 \appendix
 \section{Ancillary material: computer algebra}
 \label{sec:aa}
-The following computer algebra code constructs slow manifold approximations to Burgers' \pde~\eqref{eq:burgers}.
+The following computer algebra code constructs successive slow manifold approximations to Burgers' \pde~\eqref{eq:burgers}.
 It is written in the freely available language Reduce.
 \footnote{\url{http://www.reduce-algebra.com}}
 
