@@ -72,12 +72,13 @@ A.~J. Roberts\thanks{School of Mathematical Sciences, University of Adelaide, So
 
 \begin{abstract}
 Finite difference\slash element\slash volume methods of discretising \pde{}s impose a subgrid scale interpolation on the dynamics. 
-In contrast, the holistic discretisation approach developed herein construct a natural subgrid scale field adapted to the whole system out-of-equilibrium dynamics.
+In contrast, the holistic discretisation approach developed herein constructs a natural subgrid scale field adapted to the whole system out-of-equilibrium dynamics.
 Consequently, the macroscale discretisation is fully informed by the underlying microscale dynamics. 
 We establish a new proof that in principle there exists an exact closure of the dynamics of a general class of reaction-advection-diffusion \pde{}s, and show how our approach constructs new systematic approximations to the in-principle closure starting from a simple, piecewise-linear, continuous approximation.
-Using non-onerous  inter-element coupling conditions, the holistic discretisation possesses desirable properties such as a natural cubic spline first-order approximation to the field, and the self-adjointness of the diffusion operator under periodic, Dirichlet and Neumann macroscale boundary conditions.
+Under  inter-element coupling conditions that guarantee continuity of field properties, 
+the holistic discretisation possesses desirable properties such as a natural cubic spline first-order approximation to the field, and the self-adjointness of the diffusion operator under periodic, Dirichlet and Neumann macroscale boundary conditions.
 As a concrete example, we demonstrate the holistic discretisation procedure on the well-known Burgers' \pde{},
-and compare the theoretical and numerical stability of the resulting discretisation compared to other approximations.
+and compare the theoretical and numerical stability of the resulting discretisation to other approximations.
 The approach developed here promises to be able to systematically construct automatically good, macroscale discretisations to a wide range of \pde{}s, including wave \pde{}s. 
 \end{abstract}
 
@@ -98,7 +99,7 @@ where subscripts \(x\) and~\(t\) denote spatial and temporal derivatives, respec
 Although most of this article addresses \pde~\eqref{eq:genpde}, Section~\ref{sec:smwpde} discusses generalising the theoretical support to wave-like \pde{}s obtained by replacing~\(u_t\) by~\(u_{tt}\) in~\eqref{eq:genpde}.
 Given \(N+1\)~discrete points in 1D space, \(x=X_j\) for \(j\in\JJ=\{0,1,\ldots,N\}\)\,, we define grid values \(U_j(t)=u(X_j,t)\)\,.
 Then the aims are to use centre manifold theory \cite[e.g.]{Carr81} to (\S\ref{sec:lin}): firstly, establish a new proof that in principle there exists an \emph{exact} closure of the dynamics of the \pde~\eqref{eq:genpde} in terms of these grid values, \(d\Uv/dt=\gv(\Uv)\); secondly, establish that such a closure is emergent from general initial conditions; and thirdly, show how to construct new systematic approximations to the in-principle closure.
-Fourthly, Sections~\ref{sec:nonlin} and~\ref{sec:numeric} construct and evaluate the new approach for the classic example of the nonlinear advection--diffusion Burgers' \pde
+This new theory is applied in Sections~\ref{sec:nonlin} and~\ref{sec:numeric} to construct and evaluate the new approach for the classic example of the nonlinear advection--diffusion Burgers' \pde
 \begin{eqnarray}
 	\D tu = \nu\DD xu - \alpha u\D xu\,.
 \label{eq:burgers}
@@ -165,8 +166,16 @@ That is, as illustrated by the two approximate examples of Figure~\ref{fig:uhat}
 \end{eqnarray}
 where the time evolution of the field~\(u\) occurs via the evolving coarse variables~\(\Uv(t)\).
 Whether the symbol~\(u\) denotes~\(u(x,t)\) or~\(u(x,\Uv)\) should be clear from the context.
-The complete holistic framework comprises equations~\eqref{eq:temporal} and~\eqref{eq:spatial},  in conjunction with suitable boundary conditions to be specified  
+The complete holistic framework comprises equations~\eqref{eq:temporal} and~\eqref{eq:spatial},  in conjunction with suitable boundary 
+and  inter-element coupling conditions to be specified  
 in more detail in Section~\secref{lin}. 
+
+In particular, the Rayleigh--Ritz theorem motivates coupling conditions that give a piecewise linear function as the leading approximation (e.g., the blue~\(u^0\) of Figure~\ref{fig:uhat}).
+Approximately constructing a slow manifold is analogous to estimating eigenvalues of a perturbed matrix.
+For a self-adjoint operator~\cL, the Rayleigh--Ritz theorem is that an approximate eigenvector~\vv, with error~\Ord{\epsilon},
+predicts a corresponding eigenvalue $\lambda = {\langle{\vv},{\cL}{\vv}\rangle}/{\|{\vv}\|^2}$ with asymptotically smaller error~\Ord{\epsilon^2}.
+This suggests that the more accurate we make an initial approximation to the field~\(u\), the more accurate the predicted evolution on the slow manifold.
+Consequently, this article develops a systematic approximation to an in-principle exact discrete closure based upon the novel approach of systematically refining a piecewise linear and continuous subspace approximation to the field~\(u\).
 
 \begin{figure}
 \centering
@@ -217,13 +226,6 @@ imposing such an interpolation.}
 
 
 
-%\section{Motivation}\label{sec:motive}
-The Rayleigh--Ritz theorem motivates inter-element coupling conditions that give a piecewise linear function as the leading approximation (e.g., the blue~\(u^0\) of Figure~\ref{fig:uhat}).
-Approximately constructing a slow manifold is analogous to estimating eigenvalues of a perturbed matrix.
-For a self-adjoint operator~\cL, the Rayleigh--Ritz theorem is that an approximate eigenvector~\vv, with error~\Ord{\epsilon},
-predicts a corresponding eigenvalue $\lambda = {\langle{\vv},{\cL}{\vv}\rangle}/{\|{\vv}\|^2}$ with asymptotically smaller error~\Ord{\epsilon^2}.
-This suggests that the more accurate we make an initial approximation to the field~\(u\), the more accurate the predicted evolution on the slow manifold.
-Consequently, this article develops a systematic approximation to an in-principle exact discrete closure based upon the novel approach of systematically refining a piecewise linear and continuous subspace approximation to the field~\(u\).
 
 
 
