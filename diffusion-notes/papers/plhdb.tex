@@ -61,7 +61,8 @@
 
 \newcommand{\secref}[1]{\ref{sec:#1}}
 
-\title{Theory and application of piecewise-linear holistic discretisation for diffusive \pde{}s}
+%\title{Smooth subgrid fields preserve self-adjointness in holistic discretisation of reaction-advection-diffusion \pde{}s}
+\title{Smooth subgrid fields underpin rigorous closure in spatial discretisation of reaction-advection-diffusion \pde{}s}
 \author{G.~A. Jarrad\thanks{\protect\url{mailto:geoff.jarrad@adelaide.edu.au}}
 \and 
 A.~J. Roberts\thanks{School of Mathematical Sciences, University of Adelaide, South Australia~5005, Australia.  
@@ -529,7 +530,7 @@ that is,
 \end{subequations}
 The next lemma certifies that this linearised system is self-adjoint and so we need only seek real eigenvalues in the spectrum.
 
-To be definite, define the Hilbert space~\HH\ to be the set of square integrable, infinitely differentiable functions on~\(\tilde\XX\).
+To be definite, define the Hilbert space~\HH\ to be the set of square integrable, twice differentiable, functions on~\(\tilde\XX\).
 Also define its subspace~\LL\ to be those which are additionally \(L\)-periodic.
 
 \begin{lemma}[self-adjoint] \label{thm:sa}
@@ -767,9 +768,10 @@ Consider the nonlinear \pde~\eqref{eq:genpde} on domain~\(\tilde\XX\) with coupl
 \begin{equation}
 u=u(x,\Uv,\gamma,\alpha)
 \quad\text{such that}\quad
-\frac{d\Uv}{dt}=\gv(\Uv,\gamma,\alpha).
+\frac{d\Uv}{dt}=\gv(\Uv,\gamma,\alpha)
 \label{eq:gensm}
 \end{equation}
+(generally one order less smooth than that of~\(F\) and~\(G\)).
 \item\label{thm:gsm:emergent} This slow manifold is emergent in the sense that for all solutions~\(u(x,t)\) of~\eqref{eq:genpde} and~\eqref{eqs:cc}, that stay in~\cE, there exists a solution~\(\Uv(t)\) of~\eqref{eq:gensm} such that \(u(x,t)=u(x,\Uv(t),\gamma,\alpha)+\Ord{e^{-\mu t}}\) for decay rate \(\mu\approx\nu_{\min}\pi^2/H^2\).
 
 \item Given two smooth functions \(\tilde u(x,\Uv,\gamma,\alpha)\) and~\(\tilde\gv(\Uv,\gamma,\alpha)\) for the governing equations~\eqref{eq:genpde} and~\eqref{eqs:cc}, evaluated at \(u=\tilde u\) such that \(d\Uv/dt=\tilde\gv\), having residuals~\Ord{\gamma^p+\alpha^q} as \((\gamma,\alpha)\to\vec 0\)\,,  then the slow manifold is 
@@ -783,7 +785,7 @@ u=\tilde u(x,\Uv,\gamma,\alpha)+\Ord{\gamma^p+\alpha^q}
 
 \begin{proof} 
 The preconditions for the centre manifold theorems of \cite{Haragus2011} [Chapter~2] hold.
-We consider smooth, \(L\)-periodic, square integrable functions on~\(\tilde\XX\) where `smooth' means continuously differentiable as often as necessary, which forms the requisite Hilbert spaces.
+We consider twice differentiable, \(L\)-periodic, square integrable functions on~\(\tilde\XX\) which forms the requisite Hilbert spaces.
 The self-adjoint, linearised operator~\eqref{eqs:lin} of diffusion on a finite spatial domain forms an analytic semigroup \cite[Remark~2.18, e.g.]{Haragus2011}, and the functions \(F\) and~\(G\) of the \pde~\eqref{eq:genpde} are assumed smooth to thus satisfy Hypothesis~2.1 and~2.7 of \cite{Haragus2011}.
 Lemma~\ref{thm:dicho}, under the proviso that \(F'\geq\nu_{\min}>0\), establishes the Spectral Decomposition Hypothesis~2.4 of \cite{Haragus2011}.
 \begin{enumerate}
