@@ -10,7 +10,8 @@
 \allowdisplaybreaks
 \usepackage{pgfplots}
 \usepgfplotslibrary{external} %exports pdf for each tikz figure
-\tikzexternalize
+%% Uncomment next line when done!
+%\tikzexternalize
 %\tikzset{external/force remake}%forces redraw of all tikz graphics
 \pgfplotsset{compat=newest}
 
@@ -199,16 +200,16 @@ Consequently, this article develops a systematic approximation to an in-principl
   ] 
 \addplot [blue,no marks,domain=0:2.0944] {xi1(x)*u1(x)+(1-xi1(x))*u0(x)}; 
 \addlegendentry{${u^0}$};
-\addplot [red,no marks,domain=0:2.0944] {xi1(x)*u1(x)+(1-xi1(x))*u0(x)
+\addplot [densely dashed,red,no marks,domain=0:2.0944] {xi1(x)*u1(x)+(1-xi1(x))*u0(x)
 	+1/6*(xi1(x)^3*sd2u1(x)+(1-xi1(x))^3*sd2u0(x)-xi1(x)*(sd2u1(x)-sd2u0(x))-sd2u0(x))
 }; 
 \addlegendentry{${u^0}+{u^1}$};
 \addplot [blue,no marks,domain=2.0944:4.1888] {xi2(x)*u2(x)+(1-xi2(x))*u1(x)}; 
 \addplot [blue,no marks,domain=4.1888:6.2832] {xi3(x)*u3(x)+(1-xi3(x))*u2(x)}; 
-\addplot [red,no marks,domain=2.0944:4.1888] {xi2(x)*u2(x)+(1-xi2(x))*u1(x)
+\addplot [densely dashed,red,no marks,domain=2.0944:4.1888] {xi2(x)*u2(x)+(1-xi2(x))*u1(x)
 	+1/6*(xi2(x)^3*sd2u2(x)+(1-xi2(x))^3*sd2u1(x)-xi2(x)*(sd2u2(x)-sd2u1(x))-sd2u1(x))
 }; 
-\addplot [red,no marks,domain=4.1888:6.2832] {xi3(x)*u3(x)+(1-xi3(x))*u2(x)
+\addplot [densely dashed,red,no marks,domain=4.1888:6.2832] {xi3(x)*u3(x)+(1-xi3(x))*u2(x)
 	+1/6*(xi3(x)^3*sd2u3(x)+(1-xi3(x))^3*sd2u2(x)-xi3(x)*(sd2u3(x)-sd2u2(x))-sd2u2(x))
 }; 
 \addplot [blue,only marks,mark=*] coordinates 
@@ -277,15 +278,19 @@ with homogeneous Dirichlet boundary conditions \(v(\pm 1)=0\)\,.
 \begin{axis}[xlabel={$x$},ylabel={$v(x)$}
 ,domain=-1:1,axis x line=middle, axis y line=middle
 ,ymax=1.2,xmin=-1.1,xmax=1.2,thick,smooth]
-    \addplot+[dashed,no marks] {sin(180*x)};
-    \addplot+[no marks] {sin(4.4934*180/3.1416*(1-abs(x))};
-    \addplot+[dashed,no marks] {sin(360*x)};
-    \addplot+[no marks] {sin(7.7253*180/3.1416*(1-abs(x))};
+    \addplot+[dashed,no marks] {sin(180*x)};%blue
+    \addplot+[thin,no marks] {sin(4.4934*180/3.1416*(1-abs(x))};%red
+    \addplot+[densely dotted,no marks] {sin(360*x)};%brown
+    \addplot+[thick,no marks] {sin(7.7253*180/3.1416*(1-abs(x))};%black
+%\node[below] at (axis cs: -0.8,-0.3) {$(-\pi^2)$};
+%\node[below] at (axis cs: 0.9,-0.3) {$(-4\pi^2)$};
+%\node[below] at (axis cs: 0.4,-0.8) {$(-59.680)$};
+%\node[above] at (axis cs: -0.4,0.7) {$(-20.191)$};
 \end{axis}
 \end{tikzpicture}
 &
 \parbox[b]{0.45\linewidth}{\caption{\label{fig:simpevec}\sloppy%
-Eigenfunctions~\(v(x)\) of the linearised problem~\eqref{eq:lindiff} corresponding to negative eigenvalues: blue dashed,~\(-\pi^2\); red solid,~\(-20.191\); brown dashed,~\(-4\pi^2\); and black solid,~\(-59.680\).}}
+Eigenfunctions~\(v(x)\) of the linearised problem~\eqref{eq:lindiff} corresponding to negative eigenvalues: blue/dashed,~\(-\pi^2\); red/thin,~\(-20.191\); brown/dotted,~\(-4\pi^2\); and black/thick,~\(-59.680\).}}
 \end{tabular}
 \end{figure}
 
@@ -345,14 +350,14 @@ Substituting these expressions into the heat \pde~\eqref{eq:burgers} (\(\alpha=0
 \begin{axis}[small,xlabel={$x$},ylabel={$u(x,U)$}
 ,domain=-1:1,axis x line=middle, axis y line=middle
 ,ymax=1.1,xmin=-1.1,xmax=1.2,thick]
-    \addplot+[no marks] {1-abs(x)};
-    \addplot+[no marks] {1-1.5*x^2+abs(x)^3/2};
-    \addplot+[no marks] {cos(90*x)};
+    \addplot+[no marks] {1-abs(x)};%blue
+    \addplot+[dotted,no marks] {1-1.5*x^2+abs(x)^3/2};%red
+    \addplot+[no marks] {cos(90*x)};%brown
 \end{axis}
 \end{tikzpicture}
 &
 \parbox[b]{0.55\linewidth}{\caption{\label{fig:simp}%
-A comparison of approximations to the long-term, quasi-stationary, decay of the heat \pde: blue, \(u\propto 1-|x|\) is the basic linear approximation~\eqref{eq:equil}; red, the derived cubic spline~\eqref{eq:egsm1} at full coupling \(\gamma=1\); and, almost indistinguishable, brown, is the exact mode \(u\propto\cos(\pi x/2)\).
+A comparison of approximations to the long-term, quasi-stationary, decay of the heat \pde: blue/solid, \(u\propto 1-|x|\) is the basic linear approximation~\eqref{eq:equil}; red/dotted, the derived cubic spline~\eqref{eq:egsm1} at full coupling \(\gamma=1\); and, almost indistinguishable, brown/solid, is the exact mode \(u\propto\cos(\pi x/2)\).
 }}
 \end{tabular}
 \end{figure}
@@ -387,7 +392,7 @@ Hence we predict that the neighbourhood of validity around~\EE\ includes the  ca
 ,xmin=-1.1,xmax=1.1,legend pos=north west,thick,smooth]
 \foreach \uu in {2.0,1.5,1.0,0.5} {
     \addplot+[no marks] {\uu*(1-6/5*abs(x)^2-1/10*abs(x)^3+3/8*abs(x)^4-3/40*abs(x)^5)+\alfa*(\uu^2)*x*(2/5-abs(x)^2+3/4*abs(x)^3-3/20*abs(x)^4)+\alfa^2*(\uu)^3*(2/15*abs(x)^2-4/15*abs(x)^3+1/6*abs(x)^4-1/30*abs(x)^5)};
-\addlegendentryexpanded{$U=\uu$};
+%\addlegendentryexpanded{$U=\uu$};
 };
 \end{axis}
 \end{tikzpicture}
@@ -734,7 +739,7 @@ Recalling \(s=\sin\kappa\) and \(c=\cos\kappa\), this requirement becomes
   ] 
 \addplot [blue,no marks] {tan(deg(x)/2)}; 
 \addlegendentry{$\tan(\kappa/2)$};
-\addplot [red,no marks,samples=2] {x/2}; 
+\addplot [dashed,red,no marks,samples=2] {x/2}; 
 \addlegendentry{$\kappa/2$};
 \addplot [brown,only marks,mark=*] {0-99*(x/2<tan(deg(x)/2))};
 \addlegendentry{wavenumber};
@@ -1095,16 +1100,17 @@ the $\gamma\alpha$-terms of equation~\eqref{eq:gamma-alpha}.
   ,xticklabels={$\frac{\pi}{5}$,$\frac{2\pi}{5}$,$\frac{3\pi}{5}$,$\frac{4\pi}{5}$,$\pi$,$\frac{6\pi}{5}$}
   ,legend pos=outer north east
   ] 
-\addplot+[thick] {-6*(1-cos(deg(x)))/(2+cos(deg(x)))}; 
+\addplot+[densely dashed,thick] {-6*(1-cos(deg(x)))/(2+cos(deg(x)))}; 
 \addlegendentry{1st order};
-\addplot+[thick] {-1/5*(96+27*cos(deg(x))-72*cos(deg(x))^2-51*cos(deg(x))^3)/(8+12*cos(deg(x))+6*cos(deg(x))^2+cos(deg(x))^3)}; 
+\addplot+[densely dotted,thick] {-1/5*(96+27*cos(deg(x))-72*cos(deg(x))^2-51*cos(deg(x))^3)/(8+12*cos(deg(x))+6*cos(deg(x))^2+cos(deg(x))^3)}; 
 \addlegendentry{2nd order};
-\addplot+[thick] {1/175*(-13824-17010*cos(deg(x))+4050*cos(deg(x))^2+15525*cos(deg(x))^3+8910*cos(deg(x))^4+2349*cos(deg(x))^5)
+\addplot+[loosely dashed,thick] {1/175*(-13824-17010*cos(deg(x))+4050*cos(deg(x))^2+15525*cos(deg(x))^3+8910*cos(deg(x))^4+2349*cos(deg(x))^5)
 /(32+80*cos(deg(x))+80*cos(deg(x))^2+40*cos(deg(x))^3+10*cos(deg(x))^4+cos(deg(x))^5)
 }; 
 \addlegendentry{3rd order};
 \addplot+[thick]  {0-(x^2)}; 
 \addlegendentry{exact};
+%\node[left] at (axis cs: 3.9,-15) {exact};
 \end{axis}
 \end{tikzpicture}
 \caption{The  non-dimensionalised spectrum 
