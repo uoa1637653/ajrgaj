@@ -1,0 +1,97 @@
+X-Account-Key: account4
+X-UIDL: 35803
+X-Mozilla-Status: 0001
+X-Mozilla-Status2: 00000000
+X-Mozilla-Keys:                                                                                 
+Received: from mx-01-01.vesa-hv01.esa.adelaide.edu.au (10.130.4.251) by
+ mailht02.ad.adelaide.edu.au (10.0.62.18) with Microsoft SMTP Server id
+ 14.3.266.1; Thu, 4 Feb 2016 11:44:35 +1030
+X-SBRS: 3.2
+X-Listener: MX_LDAP
+X-IronPort-Anti-Spam-Filtered: true
+X-IronPort-Anti-Spam-Result: A0FaAgAapbJWhAwEVIABXQ4LAQEBAQ8BAQEBBgEBAQGDUm0BiFqcc4JDijWJGwkSBQqBa4VEPBABAQEBAQEBAw4BAQEKBwQJCSEugjc4OwEBAQEBAQEjAhMcagVCOgEMDyVhiBsOohCHXY4eiHcBCgEBAQEbi38Bg0cCgXoLQIEnBYdThkaIWIVJgmyGc0qDeIhUim6DUjeCKxQIFHlZHi6JawEBAQ
+X-IPAS-Result: A0FaAgAapbJWhAwEVIABXQ4LAQEBAQ8BAQEBBgEBAQGDUm0BiFqcc4JDijWJGwkSBQqBa4VEPBABAQEBAQEBAw4BAQEKBwQJCSEugjc4OwEBAQEBAQEjAhMcagVCOgEMDyVhiBsOohCHXY4eiHcBCgEBAQEbi38Bg0cCgXoLQIEnBYdThkaIWIVJgmyGc0qDeIhUim6DUjeCKxQIFHlZHi6JawEBAQ
+X-IronPort-AV: E=Sophos;i="5.22,392,1449495000"; 
+   d="scan'208";a="7821474"
+Received: from lib-arxiv-007.serverfarm.cornell.edu ([128.84.4.12])  by
+ mx-01-01.vesa-hv01.esa.adelaide.edu.au with
+ ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384; 04 Feb 2016 11:44:33 +1030
+Received: from lib-arxiv-007.serverfarm.cornell.edu (localhost [127.0.0.1])	by
+ lib-arxiv-007.serverfarm.cornell.edu (8.14.4/8.14.4) with ESMTP id
+ u141ETgL028590	for <anthony.roberts@adelaide.edu.au>; Wed, 3 Feb 2016
+ 20:14:29 -0500
+Received: (from e-prints@localhost)	by lib-arxiv-007.serverfarm.cornell.edu
+ (8.14.4/8.14.4/Submit) id u141ESmV028586	for anthony.roberts@adelaide.edu.au;
+ Wed, 3 Feb 2016 20:14:28 -0500
+Message-ID: <201602040114.u141ESmV028586@lib-arxiv-007.serverfarm.cornell.edu>
+X-Authentication-Warning: lib-arxiv-007.serverfarm.cornell.edu: e-prints set sender to e-prints@arxiv.org using -f
+To: <anthony.roberts@adelaide.edu.au>
+From: <e-prints@arxiv.org>
+Subject: arXiv New submission -> 1602.01184 in math.NA from
+ anthony.roberts@adelaide.edu.au
+Content-Type: text/plain
+Reply-To: <help@arxiv.org>
+Date: Wed, 3 Feb 2016 20:14:28 -0500
+Return-Path: e-prints@arxiv.org
+X-MS-Exchange-Organization-AuthSource: mailht02.ad.adelaide.edu.au
+X-MS-Exchange-Organization-AuthAs: Anonymous
+MIME-Version: 1.0
+
+Your submission submit/1471905 has been assigned the permanent arXiv
+identifier 1602.01184 and is available at:
+
+http://arxiv.org/abs/1602.01184
+
+ 
+The paper password for this article is: ddfkw
+Please share this with your co-authors. They may use it to claim
+ownership.
+
+
+Abstract will appear in today's mailing as:
+------------------------------------------------------------------------------
+\\
+arXiv:1602.01184
+From: Tony Roberts <anthony.roberts@adelaide.edu.au>
+Date: Wed, 3 Feb 2016 04:06:43 GMT   (105kb)
+
+Title: Smooth subgrid fields underpin rigorous closure in spatial
+  discretisation of reaction-advection-diffusion PDEs
+Authors: G. A. Jarrad and A. J. Roberts
+Categories: math.NA math.DS
+License: http://arxiv.org/licenses/nonexclusive-distrib/1.0/
+\\
+  Finite difference/element/volume methods of discretising PDEs impose a
+subgrid scale interpolation on the dynamics. In contrast, the holistic
+discretisation approach developed herein constructs a natural subgrid scale
+field adapted to the whole system out-of-equilibrium dynamics. Consequently,
+the macroscale discretisation is fully informed by the underlying microscale
+dynamics. We establish a new proof that in principle there exists an exact
+closure of the dynamics of a general class of reaction-advection-diffusion
+PDEs, and show how our approach constructs new systematic approximations to the
+in-principle closure starting from a simple, piecewise-linear, continuous
+approximation. Under inter-element coupling conditions that guarantee
+continuity of several field properties, the holistic discretisation possesses
+desirable properties such as a natural cubic spline first-order approximation
+to the field, and the self-adjointness of the diffusion operator under
+periodic, Dirichlet and Neumann macroscale boundary conditions. As a concrete
+example, we demonstrate the holistic discretisation procedure on the well-known
+Burgers' PDE, and compare the theoretical and numerical stability of the
+resulting discretisation to other approximations. The approach developed here
+promises to be able to systematically construct automatically good, macroscale
+discretisations to a wide range of PDEs, including wave PDEs.
+\\
+
+
+Contains:
+ burgers3.red: 3788 bytes
+ defns.sty: 6218 bytes
+ figures: 4096 bytes
+ figures/burgers_stab_plot3_100.eps: 78519 bytes
+ figures/burgers_stab_plot3_100.pdf: 57518 bytes
+ plhdb.bbl: 7270 bytes
+ plhdb.tex: 77185 bytes
+
+ 
+.
+
