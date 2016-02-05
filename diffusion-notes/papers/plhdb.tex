@@ -1,4 +1,4 @@
-\IfFileExists{ajr.sty}
+\IfFileExists{ajrx.sty}
 {\documentclass[12pt]{article}\usepackage[a5paper,margin=5mm]{geometry}}
 {\documentclass[12pt,a4paper]{article}}
 
@@ -11,8 +11,8 @@
 \usepackage{pgfplots}
 \usepgfplotslibrary{external} %exports pdf for each tikz figure
 %% Uncomment next line when done!
-%\tikzexternalize
-%\tikzset{external/force remake}%forces redraw of all tikz graphics
+\tikzexternalize
+\tikzset{external/force remake}%forces redraw of all tikz graphics
 \pgfplotsset{compat=newest}
 
 \usepackage{amsthm}
