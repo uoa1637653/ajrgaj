@@ -49,16 +49,16 @@ function u_t=dudt_hol2(t,u)
 end
 function dudt=which_dudt(sel)
     switch sel
-    case 'adv'
-        dudt = @dudt_adv;
-    case 'cons'
-        dudt = @dudt_cons;
-    case 'mix'
-        dudt = @dudt_mix;
-    case 'hol'
-        dudt = @dudt_hol;
-    case 'hol2'
-        dudt = @dudt_hol2;
+        case {'adv', 'advective'}
+            dudt = @dudt_adv;
+        case {'cons', 'conservative'}
+            dudt = @dudt_cons;
+        case {'mix', 'mixture'}
+            dudt = @dudt_mix;
+        case {'hol', 'holistic'}
+            dudt = @dudt_hol;
+        case 'hol2'
+            dudt = @dudt_hol2;
     end
 end
 %----------------------------------------------------------------

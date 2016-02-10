@@ -10,9 +10,8 @@
 \allowdisplaybreaks
 \usepackage{pgfplots}
 \usepgfplotslibrary{external} %exports pdf for each tikz figure
-%% Uncomment next line when done!
 \tikzexternalize
-\tikzset{external/force remake}%forces redraw of all tikz graphics
+%\tikzset{external/force remake}%forces redraw of all tikz graphics
 \pgfplotsset{compat=newest}
 
 \usepackage{amsthm}
@@ -1186,12 +1185,12 @@ For each number~$N$ of discretised intervals, a search is made over values of~$A
 for which instability or irregularity first occurs, as plotted in Figure~\ref{fig:numeric1}.
 \begin{figure}
 \centering
-\includegraphics{figures/burgers_stab_plot3_100}
-\caption{Stability of numerical integration of Burgers' \pde, starting from $u(x,0)=A\sin x$. The holistic model
-is contrasted with the general mixture model for $\theta=0$ (advective), $\theta=1$ (conservative) and
-$\theta=\frac{2}{3}$ (mixture). 
-Instability (detected when $|u|>1000$) is denoted by~`\(\times\)', and irregularity
-(the presence of non-monotonic modes) is denoted by `+'.}
+\includegraphics{figures/burgers_stab_plot4_100.pdf}
+\caption{Stability of numerical integration of Burgers' \pde, with each run starting from $u(x,0)=A\sin x$. 
+Critical values of $A$ are found for which the numerical solution becomes either unstable (detected when $|u|>1000$)
+or non-monotonic.
+The holistic model is contrasted with the general mixture model for $\theta=0$ (advective), $\theta=1$ (conservative) and
+$\theta=\frac{2}{3}$ (mixture).} 
 \label{fig:numeric1}
 \end{figure}
 
