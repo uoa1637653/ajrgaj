@@ -1,0 +1,98 @@
+X-Account-Key: account4
+X-UIDL: 39720
+X-Mozilla-Status: 0003
+X-Mozilla-Status2: 00000000
+X-Mozilla-Keys:                                                                                 
+Received: from mx-01-02.vesa-hv01.esa.adelaide.edu.au (10.130.4.251) by
+ mailht03.ad.adelaide.edu.au (10.0.62.19) with Microsoft SMTP Server id
+ 14.3.294.0; Fri, 22 Jul 2016 08:55:22 +0930
+IronPort-PHdr: 9a23:CDeB7RNCRgvypzhOt0sl6mtUPXoX/o7sNwtQ0KIMzox0KPT+rarrMEGX3/hxlliBBdydsKMczbeI+Pq8EUU7or+5+EgYd5JNUxJXwe43pCcHRPC/NEvgMfTxZDY7FskRHHVs/nW8LFQHUJ2mPw6anHS+4HYoFwnlMkItf6KuS9aU0pr8jbz60qaQSj0AvCC6b7J2IUf+hiTqne5Sv7FfLL0swADCuHpCdrce72ppIVWOg0S0vZ/or9YwuxhX7rgo8dJAVqPrOb4/R7FCEC8OOmw44MTquRSFQAeSoHIBGC1CmxxUAw/D/VfgWZ38qDfhnuNx1S2TPMH7C704RHKr8vE4ZgXvjXIoOjk3/in1g9Zqha4T9D2soBJxhazdepucONJld7/UdpUXSXcHV9sHBH8JOZ+1c4ZaV7lJBu1ftYSo/1Y=
+X-SBRS: 2.5
+X-Listener: MX_LDAP
+X-IronPort-Anti-Spam-Filtered: true
+X-IronPort-Anti-Spam-Result: A0CxAgDtWJFXffbiK8BdDg4BAYJ0doEJBrZHgg+BfIYbAoFoEgEBAQEBAQEBEQEBCxQJRQuCMhWCFQEBAgNTIBIEAgEIEQQBAQsdBwIwFAcBAQUDAgQTCAaIIgG5XAaDLAEBCAEBAQEVDoYqhE2BOYYzgi8FmSaDOIFwgV+JUIdYDoVokCElBINjO26Gfn8BAQE
+X-IPAS-Result: A0CxAgDtWJFXffbiK8BdDg4BAYJ0doEJBrZHgg+BfIYbAoFoEgEBAQEBAQEBEQEBCxQJRQuCMhWCFQEBAgNTIBIEAgEIEQQBAQsdBwIwFAcBAQUDAgQTCAaIIgG5XAaDLAEBCAEBAQEVDoYqhE2BOYYzgi8FmSaDOIFwgV+JUIdYDoVokCElBINjO26Gfn8BAQE
+X-IronPort-AV: E=Sophos;i="5.28,401,1464618600"; 
+   d="txt'?scan'208";a="8694012"
+Received: from firewall.satac.edu.au (HELO smtp.satac.edu.au)
+ ([192.43.226.246])  by mx-01-02.vesa-hv01.esa.adelaide.edu.au with
+ ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384; 22 Jul 2016 08:55:22 +0930
+Received: from [10.1.1.93] (port=40861 helo=mail.satac.edu.au)	by
+ smtp.satac.edu.au with esmtps (TLSv1:AES256-SHA:256)	(Exim 4.82_1-5b7a7c0-XX)
+	(envelope-from <Geoff.Jarrad@satac.edu.au>)	id 1bQNLE-0005cZ-05	for
+ anthony.roberts@adelaide.edu.au; Fri, 22 Jul 2016 08:55:20 +0930
+Received: from CC-EX02.SATAC.edu.au ([fe80::bd45:dcdb:19e6:3167]) by
+ CC-EX01.SATAC.edu.au ([169.254.1.30]) with mapi id 14.03.0301.000; Fri, 22
+ Jul 2016 08:55:19 +0930
+X-CTCH-RefID: str=0001.0A150203.579159E0.0037,ss=1,re=0.000,recu=0.000,reip=0.000,cl=1,cld=1,fgs=0
+From: Geoff Jarrad <Geoff.Jarrad@satac.edu.au>
+To: "anthony.roberts@adelaide.edu.au" <anthony.roberts@adelaide.edu.au>
+Subject: FW: MCOM 160405-Jarrad - Decision
+Thread-Topic: MCOM 160405-Jarrad - Decision
+Thread-Index: AQHR4zEs7tDdoipWeEyaV+20wUQD9KAjh8Sw
+Date: Thu, 21 Jul 2016 23:25:18 +0000
+Message-ID: <61DBFAC9DAB02645BCFADDD12BB7686195601673@CC-EX02.SATAC.edu.au>
+References: <fabc9540d7654b06b979d5de1d23fa3b@MAILHT01.ad.adelaide.edu.au>
+In-Reply-To: <fabc9540d7654b06b979d5de1d23fa3b@MAILHT01.ad.adelaide.edu.au>
+Accept-Language: en-AU, en-US
+Content-Language: en-US
+X-MS-Has-Attach: yes
+X-MS-TNEF-Correlator:
+x-originating-ip: [10.1.1.166]
+Content-Type: multipart/mixed;
+	boundary="_002_61DBFAC9DAB02645BCFADDD12BB7686195601673CCEX02SATACedua_"
+Return-Path: prvs=00105b714b=geoff.jarrad@satac.edu.au
+X-MS-Exchange-Organization-AuthSource: mailht03.ad.adelaide.edu.au
+X-MS-Exchange-Organization-AuthAs: Anonymous
+MIME-Version: 1.0
+
+--_002_61DBFAC9DAB02645BCFADDD12BB7686195601673CCEX02SATACedua_
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+And yet again...
+
+-----Original Message-----
+From: Susanne C. Brenner [mailto:mathcomp@math.lsu.edu]=20
+Sent: Thursday, 21 July 2016 6:51 PM
+To: Geoff Jarrad
+Subject: MCOM 160405-Jarrad - Decision
+
+Dear Prof. Jarrad,
+
+I regret to inform you that we do not find your manuscript=20
+
+   Smooth subgrid fields underpin rigorous closure in spatial discretisatio=
+n of reaction-advection-diffusion PDEs
+   by Geoff Jarrad and Anthony Roberts
+
+suitable for publication in Mathematics of Computation.
+
+The decision is based on reasons indicated in the attached referee report a=
+nd the judgment of the associate editor who handled the review process.
+
+We thank you for your interest in this journal.
+
+
+Sincerely,
+
+Susanne C. Brenner
+Managing Editor, Mathematics of Computation
+
+--_002_61DBFAC9DAB02645BCFADDD12BB7686195601673CCEX02SATACedua_
+Content-Type: text/plain; name="report_C_on_v1.txt"
+Content-Disposition: attachment; filename="report_C_on_v1.txt"
+X-Mozilla-External-Attachment-URL: file:///Users/a1184615/Desktop/report_C_on_v1.txt
+X-Mozilla-Altered: AttachmentDetached; date="Fri Jul 22 09:54:30 2016"
+
+You deleted an attachment from this message. The original MIME headers for the attachment were:
+Content-Type: text/plain; name="report_C_on_v1.txt"
+Content-Description: report_C_on_v1.txt
+Content-Disposition: attachment; filename="report_C_on_v1.txt"; size=682;
+	creation-date="Thu, 21 Jul 2016 09:20:40 GMT";
+	modification-date="Thu, 21 Jul 2016 09:20:40 GMT"
+Content-ID: <D65CF0B0007AB2429012A5325F6D30AE@adelaide.edu.au>
+Content-Transfer-Encoding: base64
+
+
+--_002_61DBFAC9DAB02645BCFADDD12BB7686195601673CCEX02SATACedua_--

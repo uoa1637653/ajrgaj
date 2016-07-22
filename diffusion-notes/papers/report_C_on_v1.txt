@@ -1,0 +1,3 @@
+In this article the authors propose a multilevel method to solve some reaction-advection-diffusion PDEs. The article is confused, the methods proposed combine ideas from Central Manifold Theory, Slow Manifold Theory, and it seems of Hierarchical Finite Elements methods, although this concept is not mentioned. There are no solid proofs, and after promising much in the Introduction, the article applies mostly to the 1 D Burgers equation; half of the references are 15 years old.
+The article needs some serious rethinking about what the authors want to do and some serious rewriting. It certainly does not qualify for publication in a journal like Mathematics of Computation. 
+
