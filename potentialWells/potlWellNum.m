@@ -2,7 +2,7 @@
 A=-1
 H=pi
 V=@(x) A*cos(2*x);
-Npts=9
+Npts=19
 
 x=linspace(0,H,Npts);
 j=2:Npts
@@ -23,7 +23,10 @@ A(1,Npts)=-exp(-1i*phi);
 A(Npts+1,2)=-exp(+1i*phi);
 w=eig(A,B);
 w(isinf(w))=[]
-ws=[ws;w'];
+ws=[ws;sort(w)'];
 end
 normimagfreq=norm(imag(ws))
-plot(phis,real(ws),'*')
+plot(phis,asinh(real(ws)),'*')
+tickx=[0.5 1 2];
+tickx=sort([tickx 0 -tickx -10*tickx -100*tickx]');
+set(gca,'Ytick',asinh(tickx),'YtickLabel',num2str(tickx))
