@@ -1,0 +1,109 @@
+X-Account-Key: account4
+X-UIDL: 36064
+X-Mozilla-Status: 0001
+X-Mozilla-Status2: 00000000
+X-Mozilla-Keys:                                                                                 
+Received: from mx-01-02.vesa-hv01.esa.adelaide.edu.au (10.130.4.251) by
+ mailht01.ad.adelaide.edu.au (10.0.62.17) with Microsoft SMTP Server id
+ 14.3.266.1; Tue, 16 Feb 2016 09:29:25 +1030
+X-SBRS: 4.7
+X-Listener: MX_LDAP
+X-IronPort-Anti-Spam-Filtered: true
+X-IronPort-Anti-Spam-Result: A0E1AQDIV8JWkwjiK8BeDgsBAQEBDwEBAQEGAQEBAYQ/BrgDhAiGDQKBdBABAQEBAQEBAw4BAQEBCRYHRAuEQQEBAQEDOhkgEgQCAQgRBAEBCxQJBzIUBwEBBQMCBBMIE4d/szCEEgEBAQcBAQEBARuGEYQ1gTaCfIMrgQ8FlnmGOYh4jRiOPjeCLREIFHk7PC4BAYdRfAEBAQ
+X-IPAS-Result: A0E1AQDIV8JWkwjiK8BeDgsBAQEBDwEBAQEGAQEBAYQ/BrgDhAiGDQKBdBABAQEBAQEBAw4BAQEBCRYHRAuEQQEBAQEDOhkgEgQCAQgRBAEBCxQJBzIUBwEBBQMCBBMIE4d/szCEEgEBAQcBAQEBARuGEYQ1gTaCfIMrgQ8FlnmGOYh4jRiOPjeCLREIFHk7PC4BAYdRfAEBAQ
+X-IronPort-AV: E=Sophos;i="5.22,452,1449495000"; 
+   d="scan'208";a="18097429"
+Received: from webmail.satac.edu.au (HELO mail.satac.edu.au) ([192.43.226.8])
+  by mx-01-02.vesa-hv01.esa.adelaide.edu.au with ESMTP; 16 Feb 2016 09:29:24
+ +1030
+Received: from CC-EX02.SATAC.edu.au (10.1.1.94) by CC-EX01.SATAC.edu.au
+ (10.1.1.93) with Microsoft SMTP Server (TLS) id 14.3.266.1; Tue, 16 Feb 2016
+ 09:29:24 +1030
+Received: from CC-EX01.SATAC.edu.au ([169.254.1.149]) by CC-EX02.SATAC.edu.au
+ ([fe80::bd45:dcdb:19e6:3167%13]) with mapi id 14.03.0266.001; Tue, 16 Feb
+ 2016 09:29:24 +1030
+From: Geoff Jarrad <Geoff.Jarrad@satac.edu.au>
+To: "anthony.roberts@adelaide.edu.au" <anthony.roberts@adelaide.edu.au>
+Subject: FW: Decision on Manuscript ID IMAJNA-AI-2016-034 - IMA Journal of
+ Numerical Analysis
+Thread-Topic: Decision on Manuscript ID IMAJNA-AI-2016-034 - IMA Journal of
+ Numerical Analysis
+Thread-Index: AQHRaEOSQDlo4dABQ0qXh+oBdimHNJ8tt/kw
+Date: Mon, 15 Feb 2016 22:59:23 +0000
+Message-ID: <61DBFAC9DAB02645BCFADDD12BB7686180F7E64A@CC-EX01.SATAC.edu.au>
+References: <95cad5119e2549048af0b7df67792bdb@MAILHT03.ad.adelaide.edu.au>
+In-Reply-To: <95cad5119e2549048af0b7df67792bdb@MAILHT03.ad.adelaide.edu.au>
+Accept-Language: en-AU, en-US
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+x-originating-ip: [10.1.1.166]
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+Return-Path: Geoff.Jarrad@satac.edu.au
+X-MS-Exchange-Organization-AuthSource: mailht01.ad.adelaide.edu.au
+X-MS-Exchange-Organization-AuthAs: Anonymous
+MIME-Version: 1.0
+
+Okay, so what is our post-rejection approach?
+
+-----Original Message-----
+From: onbehalfof+ai+damtp.cam.ac.uk@manuscriptcentral.com [mailto:onbehalfo=
+f+ai+damtp.cam.ac.uk@manuscriptcentral.com] On Behalf Of ai@damtp.cam.ac.uk
+Sent: Tuesday, 16 February 2016 9:23 AM
+To: Geoff Jarrad
+Subject: Decision on Manuscript ID IMAJNA-AI-2016-034 - IMA Journal of Nume=
+rical Analysis
+
+15-Feb-2016
+
+Dear Dr. Jarrad,
+
+I write to you in connection with your manuscript # IMAJNA-AI-2016-034 enti=
+tled "Smooth subgrid fields underpin rigorous closure in spatial discretisa=
+tion of reaction-advection-diffusion PDEs" which you submitted to the IMA J=
+ournal of Numerical Analysis.
+
+I am sorry to inform you that in the opinion of the editors your manuscript=
+ does not meet the high standards that we currently impose on papers that a=
+re published in the IMA Journal of Numerical Analysis. We are therefore una=
+ble to consider this manuscript any further for publication in our journal.=
+ We believe that in this case, it is better to reject the paper quickly ins=
+tead of initiating a lengthy review process.
+
+Let me explain briefly the reasons underlying my decision. The paper is wri=
+tten with complete disregard of modern numerical analysis. (Undergraduate t=
+exts like Burden & Faires's hardly qualify as modern, grown-up numerical an=
+alysis.) Note that the problem is emphatically _not_ that you are using too=
+ls, e.g. slow manifolds, which are unfamiliar to most numerical analysts, b=
+ut that you are disregarding existing, often exceedingly powerful theory. T=
+he most egregious example is your treatment of numerical stability. "Stabil=
+ity" in the sense of "stability of numerical methods for PDEs of evolution"=
+ is _not_ dynamic stability that you consider, it is structural stability i=
+n the sense of "numerical well posedness", which applies not to single disc=
+retisation but to an entire hierarchy of discretisations as the spacing of =
+the grid goes to zero: this is something we teach our third-year students! =
+Your entire approach is, essentially, using adaptivity to produce better so=
+lution of a PDE, but you never compare your approach to the many diverse ty=
+pes of adaptive methods (h-adaptivity, p-adaptivity and r-adaptivity). You =
+prove a numerical method for the Burgers equation - this equation attracted=
+ a huge number of different methods because of its special features (shocks=
+ and rarefactions) but your approach disregards both the special features o=
+f the Burgers equation and all the many competing methods.
+
+I could have sent your paper to an Associate Editor and then to referees bu=
+t the only effect would have been a rejection after three-four months. It i=
+s better for all concerned to do so rapidly. I honestly suggest that, if yo=
+u want to enlighten numerical analysts (and, implicitly, submitting a paper=
+ to a numerical journal implies this) you should first make the effort to l=
+earn the current state of the art in the subject and persuade your readers =
+that your approach improves upon it.=20
+
+Thank you for considering the IMA Journal of Numerical Analysis for the pub=
+lication of your research.
+
+Sincerely,
+Prof. Arieh Iserles
+Editor-in-Chief, IMA Journal of Numerical Analysis ai@damtp.cam.ac.uk
+.
+
