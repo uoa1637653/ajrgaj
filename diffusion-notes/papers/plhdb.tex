@@ -61,11 +61,10 @@
 
 \newcommand{\secref}[1]{\ref{sec:#1}}
 
-%\title{Smooth subgrid fields preserve self-adjointness in holistic discretisation of reaction-advection-diffusion \pde{}s}
 \title{Smooth subgrid fields underpin rigorous closure in spatial discretisation of reaction-advection-diffusion \pde{}s}
 \author{G.~A. Jarrad\thanks{
-SATAC, University of Adelaide, South Australia~5000, Australia.  
-\protect\url{mailto:geoff.jarrad@adelaide.edu.au}}
+University of Adelaide, South Australia~5000, Australia.  
+\protect\url{mailto:Geoff.jarrad@gmail.com}}
 \and 
 A.~J. Roberts\thanks{School of Mathematical Sciences, University of Adelaide, South Australia~5005, Australia.  
 \protect\url{mailto:anthony.roberts@adelaide.edu.au}}
@@ -104,10 +103,11 @@ Given \(N+1\)~discrete points in 1D space, \(x=X_j\) for \(j\in\JJ=\{0,1,\ldots,
 Then the aims are to use centre manifold theory \cite[e.g.]{Carr81} to (\S\ref{sec:lin}): firstly, establish a new proof that in principle there exists an \emph{exact} closure of the dynamics of the \pde~\eqref{eq:genpde} in terms of these grid values, \(d\Uv/dt=\gv(\Uv)\); secondly, establish that such a closure is emergent from general initial conditions; and thirdly, show how to construct new systematic approximations to the in-principle closure.
 This new theory is applied in Sections~\ref{sec:nonlin} and~\ref{sec:numeric} to construct and evaluate the new approach for the classic example of the nonlinear advection--diffusion Burgers' \pde
 \begin{eqnarray}
-	\D tu = \nu\DD xu - \alpha u\D xu\,.
+	\D tu = \nu\DD xu - \alpha u\D xu\,:
 \label{eq:burgers}
 \end{eqnarray}
-Generalisation of the approach to two or more spatial dimensions remains for further research but should be analogous to that established by \cite*{Roberts2011a}.
+this \pde\ is commonly used as a first test of such numerical scheme \cite[e.g.]{Dhawan2012}.
+Generalisation of the approach to two or more spatial dimensions remains for further research and should be analogous to that established by \cite*{Roberts2011a}.
 
 The spatial domain~\(\XX\) is of length~\(L\), \(0\leq x\leq L\)\,, and we mostly restrict attention to solutions~\(u(x,t)\) which are \(L\)-periodic in space, but occasionally comment on the cases of homogeneous Dirichlet boundary conditions, \(u(0,t)=u(L,t)=0\)\,, and Neumann boundary conditions, \(u_x(0,t)=u_x(L,t)=0\)\,.
 The first step is to partition~$\XX$ into $N$~equi-spaced intervals bounded by the $N+1$ grid-points~$X_j$ with spacing~\(H\).
