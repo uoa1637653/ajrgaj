@@ -21,10 +21,11 @@ Aulbach, B. \harvardand\ Wanner, T.  \harvardyearleft 2000\harvardyearright ,
   equations in {Banach} spaces', {\em Nonlinear Analysis} {\bf 40},~91--104.
 \newblock \doi{10.1016/S0362-546X(00)85006-3}.
 
-\harvarditem{Burden \harvardand\ Faires}{1985}{BurdenFaires85}
-Burden, R.~L. \harvardand\ Faires, J.~D.  \harvardyearleft
-  1985\harvardyearright , {\em Numerical Analysis (third edition)}, Prindle,
-  Weber and Schmidt.
+\harvarditem{Bunder \harvardand\ Roberts}{2017}{Bunder2013c}
+Bunder, J.~E. \harvardand\ Roberts, A.~J.  \harvardyearleft
+  2017\harvardyearright , `Resolution of subgrid microscale interactions
+  enhances the discretisation of nonautonomous partial differential equations',
+  {\em Applied Mathematics and Computation} {\bf 304},~164--179.
 
 \harvarditem{Carr}{1981}{Carr81}
 Carr, J.  \harvardyearleft 1981\harvardyearright , {\em Applications of centre
@@ -125,6 +126,11 @@ Roberts, A.~J.  \harvardyearleft 2003\harvardyearright , `A holistic finite
   Computation} {\bf 72},~247--262.
 \newline\harvardurl{http://www.ams.org/mcom/2003-72-241/S0025-5718-02-01448-5}
 
+\harvarditem{Roberts}{2010}{Roberts08l}
+Roberts, A.~J.  \harvardyearleft 2010\harvardyearright , `Choose interelement
+  coupling to preserve self-adjoint dynamics in multiscale modelling and
+  computation', {\em Applied Numerical Modelling} {\bf 60},~949--973.
+
 \harvarditem{Roberts}{2015}{Roberts2014a}
 Roberts, A.~J.  \harvardyearleft 2015\harvardyearright , {\em Model emergent
   dynamics in complex systems}, SIAM, Philadelphia.
@@ -148,5 +154,13 @@ Roberts, A.~J., MacKenzie, T. \harvardand\ Bunder, J.  \harvardyearleft
 Strang, G. \harvardand\ Fix, G.  \harvardyearleft 2008\harvardyearright , {\em
   An Analysis of the Finite Element Method}, 2nd edn, SIAM, Philadelphia.
 \newline\harvardurl{http://bookstore.siam.org/wc08/}
+
+\harvarditem[Turner et~al.]{Turner, Nakshatrala \harvardand\
+  Hjelmstad}{2011}{Turner2011b}
+Turner, D.~Z., Nakshatrala, K.~B. \harvardand\ Hjelmstad, K.~D.
+  \harvardyearleft 2011\harvardyearright , `A stabilized formulation for the
+  advection--diffusion equation using the {Generalized} {Finite} {Element}
+  {Method}', {\em International Journal for Numerical Methods in Fluids} {\bf
+  66}(1),~64--81.
 
 \end{thebibliography}
