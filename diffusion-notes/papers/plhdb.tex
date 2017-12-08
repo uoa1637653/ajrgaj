@@ -1,4 +1,4 @@
-\IfFileExists{ajr.sty}
+\IfFileExists{ajrx.sty}
 {\documentclass[12pt]{article}\usepackage[a5paper,margin=5mm]{geometry}}
 {\documentclass[12pt,a4paper]{article}}
 
@@ -61,13 +61,14 @@
 
 \newcommand{\secref}[1]{\ref{sec:#1}}
 
-\title{Smooth subgrid fields underpin rigorous closure in spatial discretisation of reaction-advection-diffusion \pde{}s}
+\title{Smooth subgrid fields underpin rigorous closure in spatial discretisation of reaction-advection-diffusion PDEs}
 \author{G.~A. Jarrad\thanks{
 University of Adelaide, South Australia~5000, Australia; 
 \protect\url{mailto:Geoff.jarrad@gmail.com};
 \protect\url{https://orcid.org/0000-0001-8005-3097}}
 \and 
 A.~J. Roberts\thanks{ 
+Corresponding author:
 School of Mathematical Sciences, University of Adelaide, South Australia~5005, Australia;  
 \protect\url{mailto:anthony.roberts@adelaide.edu.au};
 \protect\url{http://orcid.org/0000-0001-8930-1552}}
@@ -81,15 +82,19 @@ In contrast, the so-called holistic discretisation approach developed herein con
 Consequently, the macroscale discretisation is systematically informed by the underlying microscale dynamics. 
 We establish a new proof that there exists an exact closure of the spatially-discrete dynamics of a general class of reaction-advection-diffusion \pde{}s.
 The approach also constructs new systematic approximations to the in-principle closure starting from a basis of simple, piecewise-linear, continuous approximation.
-Under inter-element coupling conditions that guarantee continuity of several field properties, 
-the constructed holistic discretisation possesses desirable properties such as a natural cubic spline first-order approximation to the field, and the self-adjointness of the diffusion operator under periodic, Dirichlet and Neumann macroscale boundary conditions.
-As a concrete example, we demonstrate the holistic discretisation procedure on the well-known Burgers' \pde{},
-and compare the theoretical and numerical stability of the resulting discretisation to other approximations.
+Under inter-element coupling conditions that guarantee continuity of several field properties, the constructed holistic discretisation possesses desirable properties such as a natural cubic spline first-order approximation to the field, and the self-adjointness of the diffusion operator under periodic, Dirichlet and Neumann macroscale boundary conditions.
+As a concrete example, we demonstrate the holistic discretisation procedure on the well-known Burgers' \pde{}, and compare the theoretical and numerical stability of the resulting discretisation to other approximations.
 The approach developed here promises to empower systematic construction of good, macroscale discretisations to a wide range of dissipative and wave \pde{}s. 
 \end{abstract}
 
 
 
+\paragraph{Keywords:}
+spatial discretization;
+rigorous closure;
+partial differential equation;
+center manifold;
+inter-element coupling
 
 
 
@@ -124,7 +129,7 @@ This new theory is applied in Sections~\ref{sec:nonlin} and~\ref{sec:numeric} to
 	\D tu = \nu\DD xu - \alpha u\D xu\,:
 \label{eq:burgers}
 \end{eqnarray}
-this \pde\ is commonly used as a first test of such numerical scheme \cite[e.g.]{Dhawan2012}.
+this \pde\ is commonly used as a first test of such numerical schemes \cite[e.g.]{Dhawan2012}.
 Generalisation of the approach to two or more spatial dimensions remains for further research and should be analogous to that established by \cite*{Roberts2011a}.
 
 The spatial domain~\(\XX\) is of length~\(L\), \(0\leq x\leq L\)\,, and we mostly restrict attention to solutions~\(u(x,t)\) which are \(L\)-periodic in space, but occasionally comment on the cases of homogeneous Dirichlet boundary conditions, \(u(0,t)=u(L,t)=0\)\,, and Neumann boundary conditions, \(u_x(0,t)=u_x(L,t)=0\)\,.
@@ -229,7 +234,7 @@ That is, as illustrated by the two approximate examples of Figure~\ref{fig:uhat}
 \end{eqnarray}
 where the time evolution of the field~\(u\) occurs only via the evolving coarse variables~\(\Uv(t)\) and any time dependent coefficients of the \pde.
 Whether the symbol~\(u\) denotes~\(u(x,t)\) or~\(u(x,t,\Uv)\) should be clear from the context.
-The complete holistic framework comprises equations~\eqref{eq:temporal} and~\eqref{eq:spatial},  in conjunction with suitable boundary 
+The complete holistic framework comprises equations~\eqref{eq:csd} and~\eqref{eq:spatial},  in conjunction with suitable boundary 
 and  inter-element coupling conditions to be specified  
 in more detail in Section~\secref{lin}. 
 
@@ -274,7 +279,7 @@ To show there is a useful (slow) centre manifold, we start with equilibria in th
 The  \pde~\eqref{eq:burgers}, with diffusivity \(\nu=1\), together with coupling conditions~\eqref{eq:cc1}, and the Dirichlet boundary conditions, has a subspace~\EE\ of equilibria parametrised by~\(U\):
 \begin{equation}
 u=(1-|x|)U\quad\text{and }\gamma=\alpha=0\,.
-\label{eq:equil}
+\label{eq:equil1}
 \end{equation}
 The spectrum about each of these equilibria determine the manifold structure (corresponding to Lemmas~\ref{thm:dicho} and~\ref{lem:hs} on  pp.~\pageref{thm:dicho},\pageref{lem:hs}).
 We seek linearised solutions \(u(x,t)\approx (1-|x|)U+e^{\lambda t}v(x)\) for small~\(v\):  the diffusion \pde~\eqref{eq:burgers} becomes the eigenproblem
@@ -314,12 +319,12 @@ Eigenfunctions~\(v(x)\) of the linearised problem~\eqref{eq:lindiff} correspondi
 These arise by necessity from the \pde, the homogeneous Dirichlet boundary conditions, and the continuity of~\(v\).
 By straightforward algebra, the jump in the derivative determines the wavenumbers~\(k\) from the solutions of \(k=\tan k\)\,, namely the wavenumbers \(k=4.4934,7.7253,10.9041,\ldots\)\,.
 That is,  non-zero eigenvalues of the linearised problem are \(\lambda=-20.191,-59.680,-118.900,\ldots\)\,.
-Figure~\ref{fig:simpevec} plots (solid) the corresponding eigenfunctions for the two smallest magnitude of these eigenvalues.
+Figure~\ref{fig:simpevec} plots (solid) the two eigenfunctions corresponding to the two of these eigenvalues of smallest magnitudes.
 
 \item Negative eigenvalues also arise from eigenfunctions of the form \(v\propto\sin(kx)\).  
 The boundary and coupling conditions determine the wavenumbers \(k=n\pi\) for \(n=1,2,3,\ldots\)\,.
 That is, the other non-zero eigenvalues are \(\lambda=-\pi^2, -4\pi^2, -9\pi^2, \ldots\)\,.
-Figure~\ref{fig:simpevec} plots (dashed) the corresponding eigenfunctions for the two smallest magnitude of these eigenvalues.
+Figure~\ref{fig:simpevec} plots (dashed) the two eigenfunctions corresponding to the two of these eigenvalues of smallest magnitude.
 \end{itemize}
 One of the beautiful properties of the coupling conditions~\eqref{eq:cc1} is that with them the diffusion operator~\(\DD x{}\) is self-adjoint (Lemma~\ref{thm:sa}, p.\pageref{thm:sa}).
 Hence there are only real eigenvalues of the linear problem~\eqref{eq:lindiff}, namely the ones found above.
@@ -340,7 +345,8 @@ consider
 \\&=&\left<u_{xx},v\right>.
 \end{eqnarray*}
 %Hence it is self-adjoint.
-This useful self-adjointness is not a property of previous holistic discretisations \cite[Part~V, e.g.]{Roberts2014a}, with the exception of the unusual coupling proposed by \cite{Roberts08l}, preserving self-adjointness is a new feature established by the new approach developed herein.
+This useful self-adjointness is not a property of previous holistic discretisations \cite[Part~V, e.g.]{Roberts2014a}, with the exception of the unusual coupling proposed by \cite{Roberts08l}. 
+Preserving self-adjointness is a new feature established by the new approach developed herein.
 
 Because the spectrum consists of a zero eigenvalue and all the rest negative (\(\leq -\pi^2<-9\)), centre manifold theory \cite[e.g.]{Carr81, Haragus2011} 
 %or \cite[Chap.~4]{Roberts2014a}
@@ -373,7 +379,7 @@ Substituting these expressions into the heat \pde~\eqref{eq:burgers} (\(\alpha=0
 \end{tikzpicture}
 &
 \parbox[b]{0.55\linewidth}{\caption{\label{fig:simp}%
-A comparison of approximations to the long-term, quasi-stationary, decay of the heat \pde: blue-solid, \(u\propto 1-|x|\) is the basic linear approximation~\eqref{eq:equil}; red-dotted, the derived cubic spline~\eqref{eq:egsm1} at full coupling \(\gamma=1\); and, almost indistinguishable, brown-solid, is the exact mode \(u\propto\cos(\pi x/2)\).
+A comparison of approximations to the long-term, quasi-stationary, decay of the heat \pde: blue-solid, \(u\propto 1-|x|\) is the basic linear approximation~\eqref{eq:equil1}; red-dotted, the derived cubic spline~\eqref{eq:egsm1} at full coupling \(\gamma=1\); and, almost indistinguishable, brown-solid, is the exact mode \(u\propto\cos(\pi x/2)\).
 }}
 \end{tabular}
 \end{figure}
@@ -559,7 +565,7 @@ To be definite, define the Hilbert space~\HH\ to be the set of square integrable
 Also define its subspace~\LL\ to be those which are additionally \(L\)-periodic.
 
 \begin{lemma}[self-adjoint] \label{thm:sa}
-The differential operator appearing in~\eqref{eqs:lin}, namely \(\cL=\nu\DD x{}\) on~\LL\ and subject to~\eqref{eq:ccclin}--\eqref{eq:ccjlin}, is self-adjoint in the interval-weighted inner product \(\left<v,u\right>:=\sum_j\frac1{h_j}\int_{\XX_j} vu\,dx\)\,.
+The differential operator appearing in~\eqref{eqs:lin}, namely \(\cL=\nu\DD x{}\) on~\LL\ and subject to~\eqref{eq:ccclin}--\eqref{eq:ccjlin}, is self-adjoint in the interval-weighted inner product \(\left<v,u\right>:=\sum_j\frac1{H_j}\int_{\XX_j} vu\,dx\)\,.
 \end{lemma}
 
 \begin{proof} 
@@ -665,7 +671,7 @@ Consequently,
 \end{eqnarray*}
 as, by self-adjointness, \(\left<\check v,-\cL\tilde v\right>=\left<\cL\check v,-\tilde v\right>=\left<0,-\tilde v\right>=0\).
 Thus, we proceed to derive the inequality 
-\begin{subequations}\label{eqs:}%
+\begin{subequations}%
 \begin{eqnarray}
 -\lambda\|v\|^2&=&\left<\tilde v,-\cL\tilde v\right>
 =\sum_j\frac1{H_j}\int_{\XX_j}-\nu\tilde v\tilde v_{xx}\,dx
@@ -720,7 +726,7 @@ Seeking solutions \(\hat u=e^{\lambda t}v(x)\) leads to the \ode{}s \(\lambda v_
 As a piecewise constant coefficient \ode, and setting eigenvalues \(\lambda=-\kappa^2\) for some \(\kappa\geq0\) to be determined, its general solutions are of the form \(v_j=A_j\cos\kappa\xi_j+B_j\sin\kappa\xi_j\) for coefficients~\(A_j\) and~\(B_j\) determined by the coupling conditions~\eqref{eq:ccclin}--\eqref{eq:ccjlin}. 
 Consequently, the spatial derivative is \(v_{jx}=-\frac{A_j\kappa}{H_j}\sin\kappa\xi_j+\frac{B_j\kappa}{H_j}\cos\kappa\xi_j\).
 
-\begin{subequations}\label{eqs:}%
+\begin{subequations}%
 Let's consider the spatial map \((A_j,B_j)\mapsto(A_{j+1},B_{j+1})\).
 Continuity~\eqref{eq:ccclin} at \(x=X_j\) ($\xi_j=1$) requires 
 \begin{equation}
@@ -1047,8 +1053,8 @@ g^1_j=S\left[\frac{\nu\gamma}{H^2}\delta^2 U_j
 \end{equation}
 where nonlocal operator $S:=(1+\delta^2/6)^{-1}$.
 \end{itemize}
-Combining these with the initial approximation gives the slow manifold
-\begin{subequations}\label{eqs:}%
+Combining these with the initial approximation gives the slow manifold and evolution thereon as
+\begin{subequations}%
 \begin{eqnarray}&&
  {u} = \sum_{j=1}^{N}\chi_j(x)\left\{{\cI}_0 U_j+\frac{H^2}{6\nu}{\cI}_1g^1_j
 +\frac{\alpha H}{6\nu}{\cI}_1 U_j\,\nabla U_j\right\}+\Ord{\varepsilon^2},
@@ -1059,9 +1065,10 @@ Combining these with the initial approximation gives the slow manifold
 \label{eq:dudt1}
 \end{eqnarray}
 \end{subequations}
-Apart from the nonlocal operator~$S=(1+\delta^2/6)^{-1}$, this discrete closure~\eqref{eq:dudt1} is just the mixture model~\eqref{eq:mixture}
-with $\theta=\frac{2}{3}$. 
-This parameter value is exactly the critical value predicted by \cite{Fornberg73} to be necessary  for the stability of numerical integration of the mixture model with $\nu=0$ and $\alpha=1$.
+This slow manifold discretisation~\eqref{eq:dudt1} is discussed as~\eqref{eq:holistic1} in the Introduction.
+%Apart from the nonlocal operator~$S=(1+\delta^2/6)^{-1}$, this discrete closure~\eqref{eq:dudt1} is just the mixture model~\eqref{eq:mixture}
+%with $\theta=\frac{2}{3}$. 
+%This parameter value is exactly the critical value predicted by \cite{Fornberg73} to be necessary  for the stability of numerical integration of the mixture model with $\nu=0$ and $\alpha=1$.
 %We demonstrate in Section~\secref{numeric} how this stability arises in low-dimensional models.
 
 \paragraph{Connection to a cubic spline}
@@ -1240,13 +1247,13 @@ This unstable regime does not include the holistic parameter value of $\theta=\f
 
 Turning now to numerical simulation, we assume a $2\pi$-periodic domain with $\nu=1$ and $\alpha=1$ for
 convenience. The initial field $u(x,0)=A\sin x$ is integrated at the $N+1$ grid-points $X_j=Hj$ for all $j\in\JJ$,
-with spacing $H=\frac{2\pi}{N}$. The integration is performed for a maximum duration of $T=10$, but ceases early at the first sign of either: an instability, detected when $|U_j|>1000$ (denoted by~'\(\times\)'); or a non-monotonic 
-irregularity (denoted by~'+'). 
+with spacing $H=\frac{2\pi}{N}$. The integration is performed for a maximum duration of $T=10$, but ceases early at the first sign of either: an instability, detected when $|U_j|>1000$ (denoted by~`\(\times\)'); or a non-monotonic 
+irregularity (denoted by~`+'). 
 For each number~$N$ of discretised intervals, a search is made over values of~$A$, both positive and negative,
 for which instability or irregularity first occurs, as plotted in Figure~\ref{fig:numeric1}.
 \begin{figure}
 \centering
-\includegraphics{figures/burgers_stab_plot4_100.pdf}
+\includegraphics{burgers_stab_plot4_100.pdf}
 \caption{Stability of numerical integration of Burgers' \pde, with each run starting from $u(x,0)=A\sin x$. 
 Critical values of $A$ are found for which the numerical solution becomes either unstable (detected when $|u|>1000$)
 or non-monotonic.
@@ -1277,7 +1284,7 @@ with unambiguous approximation of the spatial derivatives.
 
 Holistic discretisation has proved to have a number of attractive properties when applied to the general class of 
 diffusive \pde{}s described in Section~\ref{sec:intro}.
-In particular, it empowers centre manifold theory, discussed in Section~\ref{sec:lin}, to use the \pde\ to inform iterative refinement to an initial approximation to a field~$u(x,t)$ whilst incorporating the dynamics the relevant \pde{}. 
+In particular, it empowers centre manifold theory, discussed in Section~\ref{sec:lin}, to use the \pde\ to inform iterative refinement from an initial approximation to a field~$u(x,t)$ whilst incorporating the macroscale dynamics of the relevant \pde{}. 
 The resulting approximation is a function of the discrete grid values~$U_j(t)$, the \pde\ parameters, and an introduced homotopy parameter~$\gamma$ that controls continuity and smoothness. 
 
 The use of a piecewise-linear initial approximation~$u^0$ to~$u$, discussed in Section~\ref{sec:lin}, 
@@ -1306,7 +1313,7 @@ In general, there is exciting scope for exploring
 many more applications of this new approach.
 
 \paragraph{Acknowledgements}
-AJR thanks the ARC for partial support of this project through grant DP150102385.
+AJR thanks the Australian Research Council for partial support of this project through grant DP150102385.
 
  
 
