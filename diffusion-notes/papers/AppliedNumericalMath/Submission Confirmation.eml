@@ -1,0 +1,175 @@
+X-Account-Key: account4
+X-UIDL: 58824
+X-Mozilla-Status: 0001
+X-Mozilla-Status2: 00000000
+X-Mozilla-Keys:                                                                                 
+Received: from SY3PR01MB1514.ausprd01.prod.outlook.com (10.171.2.148) by
+ ME1PR01MB1506.ausprd01.prod.outlook.com (10.171.7.23) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384_P256) id
+ 15.20.302.9 via Mailbox Transport; Fri, 8 Dec 2017 00:26:44 +0000
+Received: from SY3PR01CA0119.ausprd01.prod.outlook.com (10.173.248.156) by
+ SY3PR01MB1514.ausprd01.prod.outlook.com (10.171.2.148) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384_P256) id
+ 15.20.302.9; Fri, 8 Dec 2017 00:26:44 +0000
+Received: from SY3AUS01FT014.eop-AUS01.prod.protection.outlook.com
+ (2a01:111:f400:7eb5::204) by SY3PR01CA0119.outlook.office365.com
+ (2603:10c6:0:1a::28) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384) id 15.20.302.9 via Frontend
+ Transport; Fri, 8 Dec 2017 00:26:43 +0000
+Authentication-Results: spf=fail (sender IP is 129.127.13.230)
+ smtp.mailfrom=eu-west-1.amazonses.com; uao365.mail.onmicrosoft.com; dkim=pass
+ (signature was verified)
+ header.d=eesmail.elsevier.com;uao365.mail.onmicrosoft.com; dmarc=pass
+ action=none header.from=eesmail.elsevier.com;
+Received-SPF: Fail (protection.outlook.com: domain of eu-west-1.amazonses.com
+ does not designate 129.127.13.230 as permitted sender)
+ receiver=protection.outlook.com; client-ip=129.127.13.230;
+ helo=mailmbo36504.ad.adelaide.edu.au;
+Received: from mailmbo36504.ad.adelaide.edu.au (129.127.13.230) by
+ SY3AUS01FT014.mail.protection.outlook.com (10.152.234.114) with Microsoft
+ SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.20.282.5 via
+ Frontend Transport; Fri, 8 Dec 2017 00:26:42 +0000
+Received: from mailmbo36503.ad.adelaide.edu.au (10.33.56.11) by
+ mailmbo36504.ad.adelaide.edu.au (10.33.56.12) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384_P256) id
+ 15.1.845.34; Fri, 8 Dec 2017 10:56:42 +1030
+Received: from mx-02-02.vesa-hv02.esa.adelaide.edu.au (129.127.149.251) by
+ mailmbo36503.ad.adelaide.edu.au (10.33.56.11) with Microsoft SMTP Server id
+ 15.1.845.34 via Frontend Transport; Fri, 8 Dec 2017 10:56:42 +1030
+IronPort-PHdr: =?utf-8?B?OWEyMzp4TXdidmhRVG16dFgxeHQ4WjB1MURzMEFwZHBzdit5dmJENVEwWUl1?=
+ =?utf-8?B?anZkMFNvL213YTY3WkJPQnQ4dGtnRktCWjRqSDhmVU0wN09RNy9pNUh6VlJx?=
+ =?utf-8?B?c3piK0ZrNU03VjBIeWNmanNzWG13RnlTT1drTW1iY2FNRFFVaW9oQWM1Wlgw?=
+ =?utf-8?B?Vms5WHpvZVdKY0djTDVla0dBNmlicXRXMWFGUnJ3THhkNktmcm9FWURPa2N1?=
+ =?utf-8?B?M3kvcXkrNXJPYUFsVW1UYXhlN3gvSUFtcm9RbkxxOFViaFlSdUpyZ3Z4aERV?=
+ =?utf-8?B?dm5aR1p1TmF5SDl5SzFtT2hSajgvTUN3L0pCaTh5UlVwZjBzOHROTFhMdjVj?=
+ =?utf-8?B?YW9sVTdGV0ZTd3FQRzhwNnNMbHN4bkRWaGFQNldBSFVtb0tpQnBJQWhQSzR3?=
+ =?utf-8?B?LzhVNXpzcnliMXJPdDkyQzJkUGMzclViQTVYQ21wNHFsM1JCUDBqaW9NS2pn?=
+ =?utf-8?B?MCszelZoTU50bHFKV3VCMnVxUnhrdzRES2VvR2JPdWR3Y2IvU2M5MFpYbWRC?=
+ =?utf-8?B?UXNSY1dqWmREbytnYzRjQ0Rld01OdnRZb1lubm9Gc09xQU96Q1Fld0NlUDMw?=
+ =?utf-8?B?ajlJZ243MjByTW4zTzg4Q1EvR3dRa2dFTXdVc0hUVnNOcjZMcU1TV3YyeXdx?=
+ =?utf-8?B?YlMwVFhEYisxWjJUTG41NGpVY3hBdXZlcU1VYnh0ZXNmVzEwWWdDUmpGams2?=
+ =?utf-8?B?T3Bvei9JVE9heVA0TnZuT0Y0T1YrVHVLdmpuUW9xd0Ixb2pTMTJNZ3NqcExK?=
+ =?utf-8?B?aVp3THlsREY2eXA1MnB3NUtzRy9TRTUrZU5PcEZvWmJ1UytkTjR0eldNd2lR?=
+ =?utf-8?B?bWRvdFQ0a3hiMENvcDYwWWpZS3lKVTV5QjdGY2ZDSWI0K0k0aGZsV2UyTUlq?=
+ =?utf-8?B?bDRuR3BvZGJLd2locW83MFN0eGZId1d0TzEzVnBRc3laSWxzVEF1M1lRM0JM?=
+ =?utf-8?B?SjhNZUhVT0Z5L2tLNTFEYVB5US9UN3VaRUxGZ3VtcWZhTXBJdDM3bzltb2NK?=
+ =?utf-8?B?dlVUWUd5LzJoRjMyZ0xhUmRrVTU1dWlrOGZyb1lxai9xcDZTS1lCMGtSMytQ?=
+ =?utf-8?B?cjB6bHNDbEcrczROeElCWG1tYytlUzZ6NzNzNDFiNVRLOVdnZjB4bDZuVnFK?=
+ =?utf-8?B?SGFKY0lGcWE2bEd3Slkwb2t1NXd5aEF6cXB6TmdVaDNnS0lFaFlkQitEa29U?=
+ =?utf-8?B?bEkxVE9MK3I1RGZlN2pWU3NpakJyeC9YZU03SDlINW5CTW1iUG5LdjhjYnQ4?=
+ =?utf-8?B?OTBKUnhnUSt3Tk5RNnA5YkNMd09QdmIrVmxidnU5REVEUkkxTFJlN3p1VDdC?=
+ =?utf-8?B?TmgvejQ4VAlWbnlBRDYrRFA2L0x2bEtGNWY4akx1MlZhSUlXcERueE51SXE2?=
+ =?utf-8?B?K2ZnZ0hJNmhWQVFmN1dtMEpnV1pYQzJBUGhySUZtV1lYVDFqdHNkRFdzR29o?=
+ =?utf-8?B?WXlRUEQyaEZDWlR6RlRlbSsrWHF3aTZURWdGSUtxRkpyUFNwcTNqN3lFeGlp?=
+ =?utf-8?B?Nkg1cFdabVpkQ2wrU0NuZmtiWm1MVy9BSmFDNktPTTl1amlRRVZhUzlTNDht?=
+ =?utf-8?B?elJ5aHJoTDJ4NmRrSStmYit5QVVxSkx1MmNOdjZPTE9qeDA5N3lGN0FOcVow?=
+ =?utf-8?B?MjZYVG1GN2czMEhTeVVvMDY5aXZFeHgwRTJNMGJVcnk4QmZRTlZWKy9OT1ZC?=
+ =?utf-8?B?WjhMNW5Xd3ZabUVQajdWZy9GZDlhRlJSQ3JUc2pnQ0N4aWROOHB4ODR5WkJN?=
+ =?utf-8?B?M01zMjZpaEhPMDJLTUhyb1lqYjJBRFpoODE2dkEzM1gwTHRwOHdHMk1uUDBt?=
+ =?utf-8?B?Z1ZjblNjWm5OR2l2amJVNjhBN1hCb2pFMVVpRXdmV0ViNk1aaVdUazdIK0h6?=
+ =?utf-8?B?R2VDOUdkRlZRTnFVSzdNV1RnNmIxZldvTkh3K2tMSlZQWG1YYmtxS1JCTTA5?=
+ =?utf-8?B?Q1BNSU5IWjhic2hGUkNBdnJuSTluQVltK3IzV3kzQUVEYmxmdTNjSVAyZGpC?=
+ =?utf-8?B?RmoyM21BMDhlbmxWTDhBPT0=?=
+X-SBRS: 3.5
+X-Listener: MX_LDAP
+X-IronPort-Anti-Spam-Filtered: true
+X-IronPort-Anti-Spam-Result: A0AZAQCz2ylah78G8DZcDg0BAQEBAwEBAQkBAQGEJHInhAKxQQF3CoIBI4UOAQEBAQSFZ0MUAQEBAQEBAQEBARIBAQEIDQkIKC+COCKCXgETHQEBOBAkAhQSAkIwG4oPDZkujWgBAW2CJ4MJAQEFgWKGGwiBD4JKhX2EQAGDH4EEAoIKDDEXgkyjBgKHdo87Y4UuizWCBYsAiVSBOzaBcW9PgRsZdQmCBQE0gVM/QTcBh3eCIwEBAQ
+X-IPAS-Result: A0AZAQCz2ylah78G8DZcDg0BAQEBAwEBAQkBAQGEJHInhAKxQQF3CoIBI4UOAQEBAQSFZ0MUAQEBAQEBAQEBARIBAQEIDQkIKC+COCKCXgETHQEBOBAkAhQSAkIwG4oPDZkujWgBAW2CJ4MJAQEFgWKGGwiBD4JKhX2EQAGDH4EEAoIKDDEXgkyjBgKHdo87Y4UuizWCBYsAiVSBOzaBcW9PgRsZdQmCBQE0gVM/QTcBh3eCIwEBAQ
+X-IronPort-AV: E=Sophos;i="5.45,375,1508765400"; 
+   d="scan'208";a="50666938"
+Received: from a6-191.smtp-out.eu-west-1.amazonses.com ([54.240.6.191])
+  by mx-02-02.vesa-hv02.esa.adelaide.edu.au with ESMTP/TLS/AES128-SHA; 08 Dec 2017 10:56:40 +1030
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/simple;
+	s=3ox6mxyyzn3s5j7cqbbbziokjgj5ybsf; d=eesmail.elsevier.com;
+	t=1512692795;
+	h=MIME-Version:From:Sender:To:Reply-To:Date:Subject:Content-Type:Content-Transfer-Encoding:Message-ID;
+	bh=BRUHo6AR/Rvz/tcea3A0wFIL76l+26ya4WCZ9mm9gNs=;
+	b=UJppm0mDKRqgSyzwvJHfTV+xBk58gLebCTKRnCbxCAQ7OcagHD9//6+VzfA3xRRm
+	B55qJnE36SL6zpuJ1UccHP9krefoIZWJF6YWYCwCbk2Kh+Y2keEjQZRQPFBWKL3kai0
+	o1G8OQf2Ltbasztaen0+g2QUdtryTAaS1XDsFGxc=
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/simple;
+	s=shh3fegwg5fppqsuzphvschd53n6ihuv; d=amazonses.com; t=1512692795;
+	h=MIME-Version:From:Sender:To:Reply-To:Date:Subject:Content-Type:Content-Transfer-Encoding:Message-ID:Feedback-ID;
+	bh=BRUHo6AR/Rvz/tcea3A0wFIL76l+26ya4WCZ9mm9gNs=;
+	b=Yn78hoqshjRwPmksTGD7ZQtNDVOPhBRDii1qq6Yc0qSdenyF/0qqOIXNzgIzM3JY
+	9Zp2Bb9VFhAKEQIa+uta5WZWXvSo8K4peLabuahR25+Nb3/TZLpXSi3u5sH8ZWE+pZG
+	/kUHoDFmTW6tNqLFChUee7FtMgDReFVuPIxQKUIo=
+From: "Applied Numerical Mathematics" <eesserver@eesmail.elsevier.com>
+Sender: eesserver@eesmail.elsevier.com
+To: anthony.roberts@adelaide.edu.au
+Reply-To: "Applied Numerical Mathematics" <office@imacs-online.eu>
+Date: Fri, 8 Dec 2017 00:26:35 +0000
+Subject: Submission Confirmation
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: 7bit
+Message-ID: <01020160338447e9-e082b707-4e5a-4819-8c1a-38c7c86f28cf-000000@eu-west-1.amazonses.com>
+X-OriginalArrivalTime: 08 Dec 2017 00:26:20.0352 (UTC) FILETIME=[2B841400:01D36FBB]
+X-SES-Outgoing: 2017.12.08-54.240.6.191
+Feedback-ID: 1.eu-west-1.pRKtJKgXgYO594tWBhmS9JaYqvAXfOemTPgEZnhXqgs=:AmazonSES
+Return-Path: 01020160338447e9-e082b707-4e5a-4819-8c1a-38c7c86f28cf-000000@eu-west-1.amazonses.com
+X-OrganizationHeadersPreserved: mailmbo36504.ad.adelaide.edu.au
+X-MS-Exchange-Organization-Network-Message-Id: cab1dcf0-fcaa-4847-6660-08d53dd25b92
+X-EOPAttributedMessage: 0
+X-MS-Exchange-Organization-MessageDirectionality: Originating
+X-Forefront-Antispam-Report: CIP:129.127.13.230;IPV:CAL;SCL:-1;CTRY:AU;EFV:NLI;SFV:SKN;SFS:;DIR:INB;SFP:;SCL:-1;SRVR:SY3PR01MB1514;H:mailmbo36504.ad.adelaide.edu.au;FPR:;SPF:None;LANG:en;
+X-MS-Exchange-Organization-SCL: -1
+X-Microsoft-Exchange-Diagnostics: 1;SY3AUS01FT014;1:vfYAIGXpwfpw+pegXgLB9ovsbsyzrhWOxM9JzCfVjMs7NALR+B8pCD6yq+ZevC7WbRCxmfmMSTJ0RkmaR+ymLOiAGyr5dajvuLE/Nb9vIBFeicUgdEm2hcu2OKMHuH3p
+X-CrossPremisesHeadersPromoted: SY3AUS01FT014.eop-AUS01.prod.protection.outlook.com
+X-CrossPremisesHeadersFiltered: SY3AUS01FT014.eop-AUS01.prod.protection.outlook.com
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: cab1dcf0-fcaa-4847-6660-08d53dd25b92
+X-Microsoft-Antispam: UriScan:(38994716169672);BCL:0;PCL:0;RULEID:(5600026)(4604075)(4608076)(4534020)(4602075)(4627115)(201703031133081)(2017052603307);SRVR:SY3PR01MB1514;
+X-Microsoft-Exchange-Diagnostics: 1;SY3PR01MB1514;3:TvUGZSOvRcXBgAYSl5ueCiCKaC3RWAkVrTAEmdTojfQy1ta5bALKCIawbTEPnVa+aPNulSO9hsMzLqu5OAytn1XdYfzTCswDbq5gr74Ef22Iz7hFQ0cw113YS7/0S9gvs+uej/gT8hSV804dLdtV3vYgXu+KMVBbnGbqWIo24XdvaULgKCttQoPIcKUOWr/hPrrK3Z8M13kRCLZBeumDIlfc7MRq5OnQ14HvJKZKXN2S9xF+lzbr4UiV+tgAUibClbQGYTdK1AYkSI8A21wJK1zaCL5IXE9TlTWkKJvRnwXQ/fSffIfWuJwcHhA/TfmelazPhMjwi49IvXeaZpyNNy/S3aFfe9YKb3d6F6A5cvhmoMk+RtXzBaG19z8zslG639oepvTuMfgxPNVE+k3tCQ==;25:E/z1CZpbKNi6eoh89fDbzQK67HnQBDDs8x5aDNFNSF3egkgxpvN1lwwSshA2sA2qmCJtfo8xSyprkCIBRTL6Ilxk+u129sh5+UlXoSOFlqbZQDUy2JWLtbiSVXNOEmgf8vFo9NbqbMnlTwumvWkcbJGRZxf9YfVkPKjH5nnZrjyaDaes6cAjfAgZx2gRH1D5ss35MdmN3x+ddJ5yqQBdJqNOj8iqAxASFuGWQRjR+bzM9rJXZKsitO35cseI6YP7KKhaVRnYFehmssJaqmLCeBVmLXK2hjgPYDQyw6eeI6tviXfn1S0LNnzN+nljLZnPzxJ2TyvP8Nb4BqIuFG30Sw==
+X-MS-TrafficTypeDiagnostic: SY3PR01MB1514:
+X-Microsoft-Exchange-Diagnostics: 1;SY3PR01MB1514;31:VjX5fVtWswIERBegCzSspks5lT7ToV86MrxhHg9fYWK1iI6EVc6WRkbS89vKImqNhXceFM9mKMqzAvC7O/NMgYlDCqcCrp4orR+xoyDwmCbaKa7hKK+mPdxTBZorblUsDLP2cG8o5WGSaqfeiE/j5VFKg8dq0W0aUlSL9wsZEUwTlm0+AhE5Y+T/05OcmXrbguWUYaK4+FIsqbQDmZpinkNwR/C5X0IJCkQYLT7crYY=;20:kqudOAesOvPXoDenMcA+BINTGdJR0vr/+4qMAD+kIaTvBUBLqR93zQzhHttzrR2UeDwRay1gBxYgD1BpTHtchOeF3BddoMlG1hPEhFTE6TWWKztpXrecRSPpr26uezAU7MLGC8PRTTUCBtaDc62QRAY9jFnIOjxrMUfN2dXAs//CFH7ep5eRTx98AGidEEq2GY8g+bE0nDM6jMmB8wpLSKJzzxxZ+0qpWCDHWw49M8M4LTA/egyul2TQkaKvMr1at5xrdpHQx6pMljtQcu+AhAyhHR5h9BR/e6exSDyfrn21izCtf+nIrrKmV4MOL1dpFU1WYAqCypiPmX8CQQaG0EeLS/55Iya8sfa1yt9Vz+x9qoGcNgSJvR4TTRNpPwpg7HsbUH3lEGW6tNfO5bW9Ew/bwMQtWHj7K891cF4LW6cgXp4q69v5caGOEzykel/d/bDzcZV5OkPEmfxHZ/vWEobx5AuHN9cQypT/qDpSeIzEwGbK5ScF4SSCPoqAJmb6
+X-Exchange-Antispam-Report-Test: UriScan:(21799108689641)(279684035028492)(19113083728360)(38994716169672);
+X-Exchange-Antispam-Report-CFA-Test: BCL:0;PCL:0;RULEID:(2401047)(8121501046)(3231022)(3002001)(93006095)(93005095)(10201501046)(201708071742011);SRVR:SY3PR01MB1514;BCL:0;PCL:0;RULEID:(100000803101)(100110400095);SRVR:SY3PR01MB1514;
+X-Microsoft-Exchange-Diagnostics: 1;SY3PR01MB1514;4:pTYQ7baxxQzWqKCT9921dUvW5ZoX8A5RwGOkEFbmEt13m5AqTBhqj+R0teyjLzXG0L5Lc/XSCfocwUF5jM7OClh3mWrzZ6IqFzDb61h1aFdJWbzBBfpvE+6zEKYE8AtQ8dvUS78KY9u+lp10bmXdbeOInoZcdrHWeCff+81zbTs5G5jJyzKX0VxSBWbrXDYMwWexSrEUssIkkylnFW8+fT/Nwcx6QFBVkyJ16JG8BQNQaoxNOxiEyprcyUj17WU1j2715IJpFi1Uw21VUmzMqA8Wp8gO81X/sn9P6kXXjZjMToN6jsqzMHlBnf9MAFoK1n8ZNYfKFFdy9iZeKt2FaziXUM8wq0IaB8yiPmP4pkHD8AzDFJUE1KV7TREcyaBqILk/tmUKi+o5aFLdgaIG+PQmiMU5LEJ5Bpj/pCjPTvE=;23:hDqrSXTukGxgGYIdqHQ0yZMzl2x80apvMwsmacGneaxJWvpIKhjJvtSBEbyQklfW23PCZbflQ6vTjdaT7o5ScGdUadaASsg382VyRXvoxEJsquTf36NSDiyan52FsdtEEIPz1lf1HGMp2B/X5xmoWLmj397BCjj14Hb0SSP9D8Lehb6TNJyB1FzAbQah6HSR
+X-Microsoft-Antispam-Message-Info: QGK5Ja/7DX9Rp77rtuPayK7fK295rFr99XYzO14Ovpx397TpQ83CLwjXFS1ZDATTyFTuI3lhT4CgF4KFFtM37vd3+RAf7teQ3geCdxq8CFLvQ7a/2POppOoPhL8A6xAN
+X-Microsoft-Exchange-Diagnostics: 1;SY3PR01MB1514;6:IHoysu4W0MAc6zejvmyZxecEQSONq+cDVF2M+gY1TSEHJVYx9pgDiN9YX9NsvwxAeuKhWiJCXxWan01NgIahdaPzIraSAYPJI2pDmqTantXG9QzH+Ecsxz3it0Gp3Zn7J1oeE1QXXLmXs2WNofFNKR5ZieCdgIbgVEx+3Gew6mUTzEpO8ZaWRN+ah0t3ScoOIvGnneClBNNZOv4MoH0DLLnSNhfz47G9y+9QAEOuaqV68VGpkrJkdj2d4Pp+RK7WqGpbGxIH4TNfsnH0vfAbgzHYOVc4iQsw7PbTAgiFnsh593DYu0u0ybC2XOdTYbGNkN6+UYnQokZvSpeaqINKPwXTcrzBSB4cxXP9KNzBMSo=;5:w7ooObHjRJDFWqWyEC8jdzKk/AYDG0hrBsvdTCrEmoWtDNwWXSfaoNHPWCBnMg9vqBWZ8l9CGRrL/39HczCEuYNe41FsOkLwYJxabvepUD6bKGariSdTAdsakLHITOgHS+0GEsZFAdMupyeHqJUKeG4YT02nrvT7E71qnXfGcYw=;24:TXy/Co+v8MHrDzoFDjHpfA82yybRGivev1BoHeBZQ76PFYPITdVyX/ymJCEDnRxcBCNxp2nbO/+v5QFqO15IUPx93s76EvxMhGsbllEAXNM=;7:dBdwIDlSD0Yz9T0bGA2OlqE5LGP9OyWCsE2tepWq/pl6ABAVVF5pbbSuYOAm32t6nuoLEcpINP9dU+v8Kpq6CwpePB0+lNHf/TuqHOPFbZbmymmj06Pq/yvfgfvx8bAx3W/7MJVknDCgI9AvDkODOvzwjP2Wd/E9H2rrz7KQlPW4wbY6Evgl7XM6wC7Fnpb2MM+eKAvpSIqfXrBgnWpwR8d9mgbXBI/gJJ+2YodsLNQQtsQUL6838ANgYN1ESRgO
+SpamDiagnosticOutput: 1:99
+SpamDiagnosticMetadata: SKN
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Dec 2017 00:26:42.7790
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: cab1dcf0-fcaa-4847-6660-08d53dd25b92
+X-MS-Exchange-CrossTenant-Id: b3cddf40-9654-4a26-86a1-779c51f69c48
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=b3cddf40-9654-4a26-86a1-779c51f69c48;Ip=[129.127.13.230];Helo=[mailmbo36504.ad.adelaide.edu.au]
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SY3PR01MB1514
+X-MS-Exchange-Organization-AuthSource: mailmbo36503.ad.adelaide.edu.au
+X-MS-Exchange-Organization-AuthAs: Anonymous
+X-OriginatorOrg: hybrid.adelaide.edu.au
+X-MS-Exchange-Transport-EndToEndLatency: 00:00:01.5414784
+X-MS-Exchange-Processed-By-BccFoldering: 15.20.0302.000
+X-Microsoft-Exchange-Diagnostics:
+	1;ME1PR01MB1506;27:pnm+/OdEAqNPBFS1j/WwDk1j7qpj48IsRSgUSFlWSBrmHiC9mZe60KdTEAVW+gT2AkwyRa+1f6HNAwiS4Jzt4d08kfER9zgiFm9gML1fgd7K9tJYr1QF5cDEiil8E4hZ
+X-Microsoft-Antispam-Message-Info:
+	IN61qDqQLdkBPWM3bgk3yenJReo3hru3tmePlEl0FjeLuZidHPKCPK/mFevKN0aeRsqnKSEoTbh/hYiqHvEQmUovA/wbCFqM+2hzlG57HnAso00ZSN7DIeyNIFCR754+vHdpnO/6h7wbODct59pmNA==
+MIME-Version: 1.0
+
+Dear Professor Tony Roberts,
+
+Your submission entitled "Smooth subgrid fields underpin rigorous closure in spatial discretisation of reaction-advection-diffusion PDEs" has been received by Applied Numerical Mathematics
+
+You may check on the progress of your paper by logging on to the Elsevier Editorial System as an author. The URL is https://ees.elsevier.com/apnum/. 
+
+Your username is: anthony.roberts@adelaide.edu.au
+
+If you need to retrieve password details, please go to: 
+http://ees.elsevier.com/apnum/automail_query.asp
+
+Your manuscript will be given a reference number once an Editor has been assigned.
+
+Thank you for submitting your work to this journal.
+
+Kind regards,
+
+
+
+Applied Numerical Mathematics#
+
+For further assistance, please visit our customer support site at http://help.elsevier.com/app/answers/list/p/7923. Here you can search for solutions on a range of topics, find answers to frequently asked questions and learn more about EES via interactive tutorials. You will also find our 24/7 support contact details should you need any further assistance from one of our customer support representatives.
+
+.
+

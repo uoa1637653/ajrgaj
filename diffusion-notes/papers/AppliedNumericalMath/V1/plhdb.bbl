@@ -107,11 +107,6 @@ Potzsche, C. \harvardand\ Rasmussen, M.  \harvardyearleft 2006\harvardyearright
   Differential Equations} {\bf 18},~427--460.
 \newline\harvardurl{http://dx.doi.org/10.1007/s10884-006-9011-8}
 
-\harvarditem{Roberts}{1989}{Roberts89b}
-Roberts, A.~J.  \harvardyearleft 1989\harvardyearright , `Appropriate initial
-  conditions for asymptotic descriptions of the long term evolution of
-  dynamical systems', {\em J.~Austral. Math. Soc.~B} {\bf 31},~48--75.
-
 \harvarditem{Roberts}{1997}{Roberts96a}
 Roberts, A.~J.  \harvardyearleft 1997\harvardyearright , `Low-dimensional
   modelling of dynamics via computer algebra', {\em Computer Phys. Comm.} {\bf
@@ -141,11 +136,6 @@ Roberts, A.~J.  \harvardyearleft 2015\harvardyearright , {\em Model emergent
   dynamics in complex systems}, SIAM, Philadelphia.
 \newline\harvardurl{http://bookstore.siam.org/mm20/}
 
-\harvarditem{Roberts}{2018}{Roberts2018a}
-Roberts, A.~J.  \harvardyearleft 2018\harvardyearright , Backwards theory
-  supports modelling via invariant manifolds for non-autonomous dynamical
-  systems, Technical report, [\url{http://arxiv.org/abs/1804.06998}].
-
 \harvarditem{Roberts \harvardand\ Kevrekidis}{2007}{Roberts06d}
 Roberts, A.~J. \harvardand\ Kevrekidis, I.~G.  \harvardyearleft
   2007\harvardyearright , `General tooth boundary conditions for equation free
@@ -172,9 +162,5 @@ Turner, D.~Z., Nakshatrala, K.~B. \harvardand\ Hjelmstad, K.~D.
   advection--diffusion equation using the {Generalized} {Finite} {Element}
   {Method}', {\em International Journal for Numerical Methods in Fluids} {\bf
   66}(1),~64--81.
-
-\harvarditem{van Kampen}{1985}{vanKampen85}
-van Kampen, N.~G.  \harvardyearleft 1985\harvardyearright , `Elimination of
-  fast variables', {\em Physics Reports} {\bf 124},~69--160.
 
 \end{thebibliography}

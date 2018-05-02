@@ -1,0 +1,201 @@
+X-Account-Key: account4
+X-UIDL: 61754
+X-Mozilla-Status: 0001
+X-Mozilla-Status2: 00000000
+X-Mozilla-Keys:                                                                                 
+Received: from SYXPR01MB1518.ausprd01.prod.outlook.com
+ (2a01:111:e400:180d::28) by ME1PR01MB1506.ausprd01.prod.outlook.com with
+ HTTPS via SYXPR01CA0063.AUSPRD01.PROD.OUTLOOK.COM; Mon, 9 Apr 2018 00:56:47
+ +0000
+Received: from ME1PR01CA0074.ausprd01.prod.outlook.com
+ (2a01:111:e400:5a69::39) by SYXPR01MB1518.ausprd01.prod.outlook.com
+ (2603:10c6:0:38::7) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384_P256) id 15.20.653.12; Mon, 9
+ Apr 2018 00:56:47 +0000
+Received: from ME1AUS01FT012.eop-AUS01.prod.protection.outlook.com
+ (2a01:111:f400:7eb4::205) by ME1PR01CA0074.outlook.office365.com
+ (2a01:111:e400:5a69::39) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384) id 15.20.653.12 via Frontend
+ Transport; Mon, 9 Apr 2018 00:56:47 +0000
+Authentication-Results: spf=fail (sender IP is 129.127.13.229)
+ smtp.mailfrom=eu-west-1.amazonses.com; uao365.mail.onmicrosoft.com; dkim=pass
+ (signature was verified)
+ header.d=eesmail.elsevier.com;uao365.mail.onmicrosoft.com; dmarc=pass
+ action=none header.from=eesmail.elsevier.com;
+Received-SPF: Fail (protection.outlook.com: domain of eu-west-1.amazonses.com
+ does not designate 129.127.13.229 as permitted sender)
+ receiver=protection.outlook.com; client-ip=129.127.13.229;
+ helo=hybrid.adelaide.edu.au;
+Received: from hybrid.adelaide.edu.au (129.127.13.229) by
+ ME1AUS01FT012.mail.protection.outlook.com (10.152.232.70) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id
+ 15.20.653.8 via Frontend Transport; Mon, 9 Apr 2018 00:56:46 +0000
+Received: from mailmbo36504.ad.adelaide.edu.au (10.33.56.12) by
+ mailmbo36503.ad.adelaide.edu.au (10.33.56.11) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384_P256) id
+ 15.1.845.34; Mon, 9 Apr 2018 10:26:46 +0930
+Received: from mx-01-02.vesa-hv01.esa.adelaide.edu.au (129.127.149.251) by
+ mailmbo36504.ad.adelaide.edu.au (10.33.56.12) with Microsoft SMTP Server id
+ 15.1.845.34 via Frontend Transport; Mon, 9 Apr 2018 10:26:46 +0930
+IronPort-PHdr: 9a23:wakerBO7qvafeUtzz0Il6mtUPXoX/o7sNwtQ0KIMzox0K/36pcbcNUDSrc9gkEXOFd2Cra4c16yL6Ou7CSQp2tWoiDg6aptCVhsI2409vjcLJ4q7M3D9N+PgdCcgHc5PBxdP9nC/NlVJSo6lPwWB6nK94iQPFRrhKAF7Ovr6GpLIj8Swyuu+54Dfbx9HiTahbr5+NhW7oAveusQYgoZpN7o8xAbOrnZUYepd2HlmJUiUnxby58ew+IBs/iFNsP8/9MBOTLv3cb0gQbNXEDopPWY15Nb2tRbYVguA+mEcUmQNnRVWBQXO8Qz3UY3wsiv+sep9xTWaMMjrRr06RTiu86FmQwLuhSwaNTA27XvXh9R/g6xbuxKvuQZ/zYDJbo6JO/RwfbjQfc8YSGdbQspdSzBND4G6YoASD+QBJ+FYr4zlqlcAsRa+HRGsBOfuyjBWm3D9wLU00/kkEQ7YxgwgHs4Bv27QrN7oM6kdS/y1zKnWwjXGdfxWxTb955TTchwvvPqBWqx/ftTKyUk0CQzFlEuQppL/Pz6OyOsCrXOb7+96WuKuj24rsR9+ojy0xsgylInJh5waykre+Splx4Y1IMS1RUhmatCqF5tQsjuVN4pwQs46XW5ovD06xaMYuZ66YicK0o4ryALYa/yCa4SI+Q7sVOePLjd+mH1qZq+whxeo8Ue+1uL8StO430pNripAlNTHq3MD1wTL58WHRfZx5Fmt1DmT2wzJ6uxIPVo4mK7bJpMn37U+jIAcsV7ZES/zgEj2jLGZdkEj+uWw8evqYqnqqoaYOoJ0kA3+KaEumtCnAeghNQgOQnSb9f6i273+5EH4TqtFjuYqkqXArZzWP94UpqujDA5U1YYj7Q2/ACm90NgCgXYHK1dFdAqGj4jvJV7OPOj1APewjli2jjtmyOzKMqfhD5nRNHTOlLfsca5460FGyQozyd5f54hTCrEEOP//RlL9uMDGAhMlLg
+ C5wvjrB89/24wA
+	W2+AGLKWPL3csVOR+u4iJ+qBa5MbtTv5L/Up+ufigmQnllAHY6WlxJQaaH6mEvlmOkmWenTsj9QdHmsTowYzQujniFOYXjNXenq+Qb8w6z4lB4+pFIvPWpyhjKCd0CunApFbfX5JCk2VHXbmaYqEQOsMZDuPLsN7iDMEUKKuSo4m1RGorw/11aFnIvDI9S0fsJLvzMJ16PHLlREu6Tx0CNyQ3HuQQ21pnW4FSD470L1/rEFm0FiMzLJ0jOZFGtNN4/NGSAY6OoPCwOBgFd/9Rx/Bcs2TR1a7EZ2aBmQ4SM4xxNkfJVx6Edi4kgvr1ianB7YUm7HNCZAptKvBjEL8P8Js93GTnoA5l10nT8cHE3Cji7R+/AHXT6vAj0WUkq+2dK8HlmaZ82mNzGGDlEBdWQVrFKLDWXEZaw3bsIKqyFnFSurkIKw/NgpMxYakN65HcNzihFEOYf7/ONnban6wkHz6TUKFy6iXYZD0dn810SjGDUEFl0Ye+W2LKwkzHGGqpGeIX28mLk7mf065qbo2k3i8VEJhlww=
+X-SBRS: 3.5
+X-Listener: MX_LDAP
+X-IronPort-Anti-Spam-Filtered: true
+X-IronPort-Anti-Spam-Result: A0BSAADeuMpah18y8DZbDhGENW8og2CXcxqRegFiFAuBZiWEE0EBAQGCQiEMKBgBAgEBAQEBAQIBEwEBAQoLCQgoCxgMgjUigmEBEx0BAS4DAQYQJAIUEgJCBiEJFAeEdQyVbIwVMgEBbIFLUYJuAQEFgVSDcoIWCIEJiHWBDC6CIoF1AYFECwMBGIEFBYEGgjIWgj6FNIF/FYIzjU4IAoVUghqDFYRiO4MghzYKiRI9hi2BJRyCCnAuIYE0GXYJgWQBhA6KGDkBPzABi3kigiEBAQ
+X-IPAS-Result: A0BSAADeuMpah18y8DZbDhGENW8og2CXcxqRegFiFAuBZiWEE0EBAQGCQiEMKBgBAgEBAQEBAQIBEwEBAQoLCQgoCxgMgjUigmEBEx0BAS4DAQYQJAIUEgJCBiEJFAeEdQyVbIwVMgEBbIFLUYJuAQEFgVSDcoIWCIEJiHWBDC6CIoF1AYFECwMBGIEFBYEGgjIWgj6FNIF/FYIzjU4IAoVUghqDFYRiO4MghzYKiRI9hi2BJRyCCnAuIYE0GXYJgWQBhA6KGDkBPzABi3kigiEBAQ
+X-IronPort-AV: E=Sophos;i="5.48,425,1517837400"; 
+   d="scan'208";a="143646747"
+Received: from a50-95.smtp-out.eu-west-1.amazonses.com ([54.240.50.95])
+  by mx-01-02.vesa-hv01.esa.adelaide.edu.au with ESMTP/TLS/AES128-SHA; 09 Apr 2018 10:26:44 +0930
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/simple;
+	s=3ox6mxyyzn3s5j7cqbbbziokjgj5ybsf; d=eesmail.elsevier.com;
+	t=1523235401;
+	h=MIME-Version:From:Sender:To:Reply-To:Date:Subject:Content-Type:Content-Transfer-Encoding:Message-ID;
+	bh=ZzUzsDJHeKWwqJsGb4buDaAwW2QpaSGfp/BpdSZNa+I=;
+	b=p9RYvkFIjwCPZzqFwQyaDx+lsN2o0yNrXjlqBHJniNuHNMGrbdqNYVN1zlPWTYm7
+	l/ubhCYcdsPyfI9PAhilXGRxGwGMGFD7hTf19GyuQGlvvg0mMJQBT5cHPd1BpRmtxZn
+	WVZgmxdA+aqgbMlsBqra4CB+AJrGi6geRsm2/5BA=
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/simple;
+	s=uku4taia5b5tsbglxyj6zym32efj7xqv; d=amazonses.com; t=1523235401;
+	h=MIME-Version:From:Sender:To:Reply-To:Date:Subject:Content-Type:Content-Transfer-Encoding:Message-ID:Feedback-ID;
+	bh=ZzUzsDJHeKWwqJsGb4buDaAwW2QpaSGfp/BpdSZNa+I=;
+	b=xBpnrrohTghQigsd6M3RcvV7bT59eCXpa3PXYTpdrJ/WNEbFIVAQFsV44qiu13IF
+	O29Udjil4b5aN18BFLJLfn7DHIIyspbQCM/yRng4Tohyecb2OqyYIRt3DFnYDa7gYsY
+	aa9hkY2fPAgCp+0iEdu8X3gSGIEax565ncT73Nv0=
+From: "Applied Numerical Mathematics" <eesserver@eesmail.elsevier.com>
+Sender: eesserver@eesmail.elsevier.com
+To: anthony.roberts@adelaide.edu.au
+Reply-To: "Applied Numerical Mathematics" <office@imacs-online.eu>
+Date: Mon, 9 Apr 2018 00:56:41 +0000
+Subject: Your Submission APNUM-D-17-00747
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: 7bit
+Message-ID: <01020162a7e7ad2f-098c3991-bea2-4f25-bf8c-139fa91214e4-000000@eu-west-1.amazonses.com>
+X-OriginalArrivalTime: 09 Apr 2018 00:56:29.0733 (UTC) FILETIME=[98633550:01D3CF9D]
+X-SES-Outgoing: 2018.04.09-54.240.50.95
+Feedback-ID: 1.eu-west-1.pRKtJKgXgYO594tWBhmS9JaYqvAXfOemTPgEZnhXqgs=:AmazonSES
+Return-Path: 01020162a7e7ad2f-098c3991-bea2-4f25-bf8c-139fa91214e4-000000@eu-west-1.amazonses.com
+X-OrganizationHeadersPreserved: mailmbo36503.ad.adelaide.edu.au
+X-MS-Exchange-Organization-ExpirationStartTime: 09 Apr 2018 00:56:46.9086
+ (UTC)
+X-MS-Exchange-Organization-ExpirationStartTimeReason: Original Submit
+X-MS-Exchange-Organization-ExpirationInterval: 2:00:00:00.0000000
+X-MS-Exchange-Organization-ExpirationIntervalReason: Original Submit
+X-MS-Exchange-Organization-Network-Message-Id: 965c4b4a-2330-470f-01ce-08d59db4c517
+X-EOPAttributedMessage: 0
+X-MS-Exchange-Organization-MessageDirectionality: Originating
+X-CrossPremisesHeadersPromoted: ME1AUS01FT012.eop-AUS01.prod.protection.outlook.com
+X-CrossPremisesHeadersFiltered: ME1AUS01FT012.eop-AUS01.prod.protection.outlook.com
+X-Forefront-Antispam-Report: CIP:129.127.13.229;IPV:CAL;SCL:-1;CTRY:AU;EFV:NLI;SFV:SKN;SFS:;DIR:INB;SFP:;SCL:-1;SRVR:SYXPR01MB1518;H:hybrid.adelaide.edu.au;FPR:;SPF:None;LANG:en;
+X-MS-Exchange-Organization-SCL: -1
+X-Microsoft-Exchange-Diagnostics: 1;ME1AUS01FT012;1:KIy/lkArmuzTQL36YLqrOOTkiSI0uIAkejJk0aiQcDAA/jCZRbbfZ9ZZ+MT+PRyFXJUzqvRaqpt43gdzTqjEQU4tDfVd8ZnFUS0OaH/hD++BEvpgSwAPMwVw7wsJzUZt
+X-MS-Exchange-Organization-AuthSource: mailmbo36504.ad.adelaide.edu.au
+X-MS-Exchange-Organization-AuthAs: Anonymous
+X-OriginatorOrg: adelaide.edu.au
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 965c4b4a-2330-470f-01ce-08d59db4c517
+X-Microsoft-Antispam: UriScan:(38994716169672);BCL:0;PCL:0;RULEID:(7020095)(4652020)(5600026)(4604075)(4608076)(2017052603328)(7153060);SRVR:SYXPR01MB1518;
+X-Microsoft-Exchange-Diagnostics: 1;SYXPR01MB1518;3:ESdGe+HJD2OfEaPlit+TgLnYvIWX5/rPnscSwSeL7dsqls6zstmsXv4lMHo0SFg1iz72PrF+ggzS5GrL53V6EoVS4yzsOeKMYTjnv68aqjb2+udAImqBW/foA3aLpP0dLXSeEjQBpOq7pF8+ewEy3IYR0z2makwxjM4q+4FBTa7iXAePLsi1FLfyKePtzfLH/We697rJwohP79oiVpLBuH1usa8GLvWktebaHTfXF8EXMwHF38fBUJJMFYp3r793fQmvTNxnsom0JZ1skUHYpLYdSRYBSKV99wiFPLIXV4VSAkDoef9MuDl/4DDeIdZcSgorFFsjY2wWZatOn2e+aKVFs1s317UNgw649M70ue911ioJEepJa8o3imq/2hu7mPCpPX/2EVxXDIXSoTI0iw==;25:q/oU/nQWPwDVIhypKsuzk4SgsigLxEsM6AbUFV3CWUXy5yM+iJe4h61BL4M39UDEn42XJCdZr4c2l1nk6GtTsXdRjShBFfRAqqIa6pHVPlou3ieikwvQ8vXXJzHA5dRlhLW9G2545A8QUizqTRBE3MGveP61dNXl4djQ04C13yDCwC7KebzGjD52FmgHjNkItLNPAlHJB6ErB0vLwENVno/MjV8Pya+/2QByTOAjgObQNNk5Pngjp/OWEKSVQoB6A8NF96ZLd5Ulq4A8GMgepQo4KmS6k3Fmy0fnAHWB3lxfDgSiotxpPYmQsHeDNf4juvVVqTMdGfgeW7fkcPO/Fw==
+X-MS-TrafficTypeDiagnostic: SYXPR01MB1518:
+X-Microsoft-Exchange-Diagnostics: 1;SYXPR01MB1518;31:JXLzCY1p41iQIlc3MSHrPOoWsuxRbK/lNJ7FL6G6/V9c5nsZU84gyGknz94AJNlZ9nTtP16FiBtT6kD1ktqMOFWLNUMcqPYM5FW0+Y2qOfPPLGktVwKjfdphg053kUZji66ag6DIec7rwPZvlaD2y2pI1ZR/fqbuo0Dyj07vAMibFZN5t6zt1EQxVDE9x+yZM3GKhdSKfvnSAppUzql7V6ZpTKecsnSts4a37Pa8dlc=;20:nI22vtQHl5Nxxb39XqEyYiFKDGNIVNG6gf7j2ZZRiLpQVnU5eMTsQbi+/Q5mnO22+yODXDG/8amdm1bf5a7XgqAdpDvbNSzLwfopAaEg31SpqUEihpfSv9Hrw0tFkhZhVG+42J5JcX715wPOYa0iJlCiUzNncnsxqulDVMkQyk9ZdTrl4X6DTIFzSu7uUKLSSi5w7qMM8rP9bBepBQf3/Ym8QoqRqwr+7SDjrH2Gdawrw0E9MQbANr5X16mUQlS8hsn6+qjc0f/LS66pnb11Fsxm0EJgqwqehbW2mGaoWn4YJe52LJrdlfiZxh8I9zKW44O3aIcJE3SOmla45prElEMexLRS3DCZ5kz8oM1j1uH1iQJIkrfX5CeL9xKC29EkiWy26ZFSechKEuDabhYEu3ShsglsWNDsF72LcZ6w2MuZrwqm2WGGqi1WXqDh/7mPJgo0shNTJm9nWB0DGKz81bMJJDc3JIyWC9Qd5Up+PEVpv85K5PJAdrddc0iLt+3d
+X-Exchange-Antispam-Report-Test: UriScan:(37599857340463)(21799108689641)(209352067349851)(35073007944872)(279684035028492)(83196631938007)(19113083728360)(38994716169672);
+X-Exchange-Antispam-Report-CFA-Test: BCL:0;PCL:0;RULEID:(2401047)(8121501046)(3002001)(93006095)(93005095)(3231221)(902075)(913088)(7045084)(944500087)(944510158)(944921075)(946801075)(946901075)(52103095)(52105095)(52106095)(52401095)(52601095)(52606095)(52606095)(52606095)(52606095)(52606095)(52505095)(52406095)(10201501046)(1610001)(8301001075)(8301002168)(8301003183)(9300000083)(9301003115)(201708071742011);SRVR:SYXPR01MB1518;BCL:0;PCL:0;RULEID:;SRVR:SYXPR01MB1518;
+X-Microsoft-Exchange-Diagnostics: 1;SYXPR01MB1518;4:3fQAzkAC1aBVEr2CEJOaBTpUsjS+TW2T209ZSzS755KEEWXYmaf3PVD6O/V/6nu4engWJYW9udPbW8fZaVF/TT25CSb7G8ddgU3kxyU3BIba58xFJSYvIMKHZ/n3rGdws3y8v+qvBYN3dx6vKlycxmXzOXh6HaO1ifAFifWa2vY8R16GiPr75caeXj00d3VDh1crFPcmHbSFoiO3HLEJdeEXTYR9lcvX9rYyOHix7Xv7PB117XIj2zAl0IZYa1zOXeSiYy5plomSIjmX/qbNxkwEoufh5bMxI4hVByML3DYuY6WSDBKT6HDaKrKF10+GkthQR4OX9Xi61nZs6j8GHUWh6dPlljj0DwRIkF1MKYY9i81RiRMRRDKsMnkaYZ2ui7wPqSNm9NkdpEP//pMtELTdj//XkMcJ98OH86qHCYPPdojEeFKxD/EvS4tCfDShToToOrK9HQBFC3Lz0+6mKQrhrI2PIKVvZTB4IsidB5QWl16HESsLRYf/RUdW6ntCdDrQa0eObyzhNr+eOdWZCoaArR38mI6mE4DRgX8RwWeKcIZOJqWWerg8cHirNG7R;23:QKLNpeyl60KLDVogJIbJ+t6A6p34uZkGnoSZOv2wBJYARAR4OXLJYNnRSm9cccmtKV0uuh7mGwqbbNCPTIT0kCWmOu6UQrOY9yknU/dh5f3NhPiSaSUAiavXNNkg/b4iX1W7mKB1FEyq1eY8DpjI59bB0rxYPhl9QkiiqKGhqwBdCjT7BgEYBUDguA6WRk5H
+X-Microsoft-Antispam-Message-Info: EYgy2nfBy9L1gaLvxPCi2HGR13uutij1cqxunA5YD63ZUNAik2n+y1GGveGR6VMXKFMwWBk1vkHKyaysA7I7WyaNFUOs5wyE+E84Bb7C00973dFsSNDxydu7saCdu9QO9XccWULLpGfLDfQFDDLHSmnS8cGTJx8yXHQG+IeQeNF3IccW1YoMDEUlsWOpX4cWYzt5+rZbp7UEzsQiNnbzaJqPlTlIEJaSegf95Ml2j7ZCQYI+9oP5Fr+6kPq4f2wDifHjRMj9TBvBYdAzaWwU3zU2c+iycbz/phSWKteDNN4jbTuUXL5Xaqvo9eXW8CRzRkwtKjpu6VoCQepY+motud2cv89lTlpoLFHt2eTgCou1+OGfSAj6t/gOjbWTLO0Jwv3AftUNZw1zwVDV6mWw+fBmy1mD5wD0kCaqt6aAsiDeexfS8Eu3JbodrvdYST4zH6EBhnGRWPE0kuheAhHIv7GlknN/jv8Mz+szJJ8NgB6gxz72lkYGirA6CxQ+1IB3w4myrL9ruXWgDmmgrNPohqNL/7oPwdG5TB6AGsxKwk3XQlMlpie1WT5q4v1OFmpY
+X-Microsoft-Exchange-Diagnostics: 1;SYXPR01MB1518;6:5mjElX3kX/tPTSJS7VZAeAgSlPQnrF3HS3Pj0pVP8HdHa422kLO3+zbfsSWiIksy9gNe0wSB00BGKVniI38/nOq8ULxvrEhB2jUVgUZE3Tm6p4yHl/SQ+Ny2jcrrfLH8SDPNiow9hdX0GSys1e8Ri4nztPbXHmYDM/crxNXvJGSzDcMuZGSSu1wz7dwsj55hr9ut79ggC4nR7SlT8Gk5k9Y5dYimGw7V+gBin1IRoi0hsrkd7/wXAY55XbgoGu7/cLXg+CitGxD7B+czhELUFb9c9LxYEbtdJ150/Smp8yIJywHCw8Y5XWZG8rDIGyc7QRJNbmvXIWKTPznmyzZvYaTafocpCi9D46gRexVY+pw7Zbrf3Ax2LS52jiqxqXZUlTXdqnTrePLAdZTB2CDUNaG26z0xlwPj378hU22JL/eKJmNaQYO1jiPxT+r6Uzi/Wvpbq/mElNQf6P6Gv0iyJMRzC1rZF6yosFEZqA1kuUfGw4kMyx6aUtpnDKgiBJYr;5:NvIpSTfhfESmhbwAWP5auhfaIh+I4zq0j7/BUDVrSqbPZsdCrZex5WaSYKbMkiewMJ+JFOKa2qfaGmtGWDACaFCx/NZZgKSBHbVc6Ndzc/Fb8xKQoQWCxonASmLKSsoaDwNGS+ckBmT2nYBl9ZKf7QUw2d0G7okgJVDbbhgv7H0=;24:W0u3JSRFRbn54jk0gGgkc3NI8N/ymOZfiw+zQjzr0GElywZQcO8tkDLQGEODSPyY8OvuGLx7P34I0WjB8BrxWQ3qz59LYbwsCjMId40LNEM=
+SpamDiagnosticOutput: 1:99
+SpamDiagnosticMetadata: SKN
+X-Microsoft-Exchange-Diagnostics: 1;SYXPR01MB1518;7:uUWVR2n2gTElgW+A8LAn3z0B6MSvKYth4H+in9zJzAflWMt7tLuU+zgNv7H/34t6XI3IZaw8D2nSGY+Wxfy94RyKbvumKERiH4VwTWeXwKl97bYvT4ccN4LHyDyNEy+YaiSQDHKGIkoM5UGzyRYx3T5EdxOxdvSlDqdxfeRw2g1jhPoROmKP/awu7kMXNtiAAaZm/u89um5bbrEZgrKapjKLxmn05Nq8UCJaYsGBfIXxO0dOz27nncOLx/sRLEpm
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Apr 2018 00:56:46.7680
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 965c4b4a-2330-470f-01ce-08d59db4c517
+X-MS-Exchange-CrossTenant-Id: b3cddf40-9654-4a26-86a1-779c51f69c48
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=b3cddf40-9654-4a26-86a1-779c51f69c48;Ip=[129.127.13.229];Helo=[hybrid.adelaide.edu.au]
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SYXPR01MB1518
+X-MS-Exchange-Transport-EndToEndLatency: 00:00:01.1950173
+X-MS-Exchange-Processed-By-BccFoldering: 15.20.0653.015
+X-Microsoft-Exchange-Diagnostics:
+	1;ME1PR01MB1506;27:BgindK9eUP1UBHnjpFNHsI9uIAxHHyN6nglDHbwBYmO6alS+9TS8956bTEkr6zYiTZXmQWUVdwMTyhw/ktYhG3MxKghA9wfoEZnKoFL1/pVy+nsogv8QRMbWTJPqFO2b
+X-Microsoft-Antispam-Message-Info:
+	GWbuKC+b9US/bduWsA5KtyY8PU9Jhy4hsHLuSGTj2b8O5dSuTRSncXJq4xG5JaW6kPWLny28KQv/dIGvbAi2/JEP4p8C31CuY4d+DmY+qAP6uRqBKnPg4JHEjcEPPGntSSzYugEeeOj4+axfbEYHAS6HGtKZVPcFmpoAz96qajPMUW7qWLYGanenBXdctnhDaqFfBaxJaXX+Fv1hyWg5r2CYKD8aYg7GLRi4tB68DjBmBa8mFZf/0h2szdToJTYdu2iMwFha0Vs5JpI50WmHyVgR9lAigG0XoBj3RJiSEnMuWh3iJW2EyZkk1ibo0AEM1tK526/lP7WbeKk0XGLPSkWZd9DFxKGO7oiBfljujAeQq3svj5LY1E51wkVGt7Z5OAkRuw3wmoRifk4tDAZzLW+3uOp8YEnMqfE3/jeaFi1K5v3iFlwi8htNO6alijdLSmhleVK23lBAJJEtxQwWGMC6MlYwRYhz2arjacThNhWQPXyimuwBcgPj7YUfEdc/fu3RdHwg8m2V/deQmhTD+CDkjxvazN4R1ftgJbvtBs2ty6J1trwgODtb36A2cCh0
+MIME-Version: 1.0
+
+Ms. Ref. No.:  APNUM-D-17-00747
+Title: Smooth subgrid fields underpin rigorous closure in spatial discretisation of reaction-advection-diffusion PDEs
+Applied Numerical Mathematics
+
+Dear Professor Tony Roberts,
+
+Comments on your work have been received. On the basis of this/these review/s, your Editor is advising that you revise your manuscript.
+
+For your guidance, all comments are appended below or can be downloaded.
+
+If you decide to revise the work, please submit a list of changes or a rebuttal against each point which is being raised when you submit the revised manuscript, together with the source files of your revised manuscript. It is important that you send us the source (editable files in Word or TeX) files of your paper, so that there will be no delays in producing the proof, once your paper is accepted.
+You can submit the TeX files as a .zip file which the system will then automatically unzip. You then need to assign designations to each file.
+
+To submit a revision, please go to https://ees.elsevier.com/apnum/ and log-in as an Author: 
+Your username is: anthony.roberts@adelaide.edu.au   
+
+If you need to retrieve password details, please go to: 
+http://ees.elsevier.com/apnum/automail_query.asp
+
+On your Main Menu page is a folder entitled "Submissions Needing Revision". You will find your submission record there. 
+
+Please note that this journal offers a new, free service called AudioSlides: brief, webcast-style presentations that are shown next to published articles on ScienceDirect (see also http://www.elsevier.com/audioslides). If your paper is accepted for publication, you will automatically receive an invitation to create an AudioSlides presentation.
+
+Applied Numerical Mathematics features the Interactive Plot Viewer, see: http://www.elsevier.com/interactiveplots. Interactive Plots provide easy access to the data behind plots. To include one with your article, please prepare a .csv file with your plot data and test it online at http://authortools.elsevier.com/interactiveplots/verification before submission as supplementary material.
+
+The revised version of your submission is due by May 09, 2018.
+PLEASE NOTE: Applied Numerical Mathematics would like to enrich online articles by displaying interactive figures that help the reader to visualize and explore your research results. For this purpose, we would like to invite you to upload figures in the MATLAB .FIG file format as supplementary material to our online submission system. Elsevier will generate interactive figures from these files and include them with the online article on SciVerse ScienceDirect. If you wish, you can submit .FIG files along with your revised submission.
+Data in Brief (optional) 
+
+We invite you to convert your supplementary data (or a part of it) into a Data in Brief article. Data in Brief articles are descriptions of the data and associated metadata which are normally buried in supplementary material. They are actively reviewed, curated, formatted, indexed, given a DOI and freely available to all upon publication. Data in Brief should be uploaded with your revised manuscript directly to Applied Numerical Mathematics. If your Applied Numerical Mathematics research article is accepted, your Data in Brief article will automatically be transferred over to our new, fully Open Access journal, Data in Brief, where it will be editorially reviewed and published as a separate data article upon acceptance. The Open Access fee for Data in Brief is $500. 
+
+Please just fill in the template found here: https://www.elsevier.com/__data/assets/word_doc/0004/215779/Datainbrief_template.docx. Then, place all Data in Brief files (whichever supplementary files you would like to include as well as your completed Data in Brief template) into a .zip file and upload this as a Data in Brief item alongside your Applied Numerical Mathematics revised manuscript. Note that only this Data in Brief item will be transferred over to Data in Brief, so ensure all of your relevant Data in Brief documents are zipped into a single file. Also, make sure you change references to supplementary material in your Applied Numerical Mathematics manuscript to reference the Data in Brief article where appropriate.
+
+Questions? Please send your inquiries to dib@elsevier.com. Example Data in Brief can be found here: http://www.sciencedirect.com/science/journal/23523409
+MethodsX file (optional)
+
+If you have customized (a) research method(s) for the project presented in your Applied Numerical Mathematics article, you are invited to submit this part of your work as MethodsX article alongside your revised research article. MethodsX is an independent journal that publishes the work you have done to develop research methods to your specific needs or setting. This is an opportunity to get full credit for the time and money you may have spent on developing research methods, and to increase the visibility and impact of your work. 
+
+How does it work?
+1)	Fill in the MethodsX article template: https://www.elsevier.com/MethodsX-template
+2)	Place all MethodsX files (including graphical abstract, figures and other relevant files) into a .zip file and upload this as a 'Method Details (MethodsX) ' item alongside your revised Applied Numerical Mathematics manuscript. Please ensure all of your relevant MethodsX documents are zipped into a single file. 
+3)	 If your Applied Numerical Mathematics research article is accepted, your MethodsX article will automatically be transferred to MethodsX, where it will be reviewed and published as a separate article upon acceptance.  MethodsX is a fully Open Access journal, the publication fee is only 520 US$. 
+
+Questions?  Please contact the MethodsX team at methodsx@elsevier.com.  Example MethodsX articles can be found here: http://www.sciencedirect.com/science/journal/22150161
+
+Include interactive data visualizations in your publication and let your readers interact and engage more closely with your research. Follow the instructions here: https://www.elsevier.com/authors/author-services/data-visualization to find out about available data visualization options and how to include them with your article.
+
+Yours sincerely,
+
+Thiab Taha, PhD
+Editor-in-Chief
+Applied Numerical Mathematics
+
+Note: While submitting the revised manuscript, please double check the author names provided in the submission so that authorship related changes are made in the revision stage. If your manuscript is accepted, any authorship change will involve approval from co-authors and respective editor handling the submission and this may cause a significant delay in publishing your manuscript.
+
+Reviewers' comments:
+
+This is an interesting, rather well written, work on a topic, i.e., numerically solving reaction-advection-diffusion models via a `holistic' approach, that appears to be of interest to the community.  Apart from a few minor items relating to readability, clarity, etc., my main request of the authors is that they pay closer attention to the physics that underpins their PDEs.  
+
+Burgers' equation is a weakly-nonlinear model derived under the assumptions Ma << 1 and that of uni-directional propagation (in gases), where Ma := Mach number.  In particular, the coefficient of the nonlinear term is bounded as: 1 < <alpha> ≤ 4/3 while <nu> = <delta>/2, where <delta> := diffusivity of sound; see, e.g., pp. 14--16 of [D.G. Crighton, Ann, Rev. Fluid Mech., vol. 11 (1979), pp. 11--33], as well as Sect. 3 of [P.M. Jordan, Phys. Lett. A, vol. 326 (2004), pp. 77--84].  As their results will (I expect) be of interest to engineers and physicists, I ask that the authors employ physically realistic values of the parameters in the numerical calculations/simulations. 
+
+Now, for a few minor items:
+1.)  The abstract is a bit lengthy.
+2.)  The mention of ". . . encoding subgrid scale effects" and "the macroscale closure" etc.,
+     seem a bit out of place here; the models examined apply only to homogeneous fluids!
+3.)  Eq. (20) does not indicate a damped wave equation: Consider replacing, on the RHS, u_x with u_t. [NOTE: Eq. (20) does
+     suggest (to me) a nonlinear, driven, string that is executing transverse vibrations in an elastic medium.]
+4.)  In Sect. 5 there are a few sentences that should be revised; e.g., "There remains scope for research . . ." and "In general, 
+     there is exciting scope for . . ." 
+Please note that editors and/or reviewers have uploaded files related to this submission. To access these file(s) while you are not logged into the system, please click on the link below. (Note: this link will expire after 5 clicks or 30 days.) Alternatively, you may log in to the system and click the 'View Review Attachments' link in the Action column.
+https://ees.elsevier.com/apnum/l.asp?i=71549&l=320OGLOJ
+
+For further assistance, please visit our customer support site at http://help.elsevier.com/app/answers/list/p/7923. Here you can search for solutions on a range of topics, find answers to frequently asked questions and learn more about EES via interactive tutorials. You will also find our 24/7 support contact details should you need any further assistance from one of our customer support representatives.
+
+.
+

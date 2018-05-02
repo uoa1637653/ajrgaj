@@ -6,10 +6,7 @@
 
 \usepackage{url,natbib}
 \let\harvardurl\url
-\usepackage{graphicx,amsmath,amsfonts,moreverb,microtype}
-\usepackage{mathrsfs}
-\usepackage{epstopdf}
-\usepackage{enumitem}
+\usepackage{graphicx,amsmath,amsfonts,defns,moreverb,microtype}
 \allowdisplaybreaks
 \usepackage{pgfplots}
 \usepgfplotslibrary{external} %exports pdf for each tikz figure
@@ -18,20 +15,10 @@
 \pgfplotsset{compat=newest}
 
 \usepackage{amsthm}
-\usepackage[]{hyperref}
-\hypersetup{colorlinks,citecolor=blue,linkcolor=blue}
-\usepackage[capitalise,nameinlink,noabbrev]{cleveref}
-\crefname{equation}{}{}
-\let\eqref\cref
-% Default "Item" useless, use enumitem and ref=
-% Nested enumerates inherit the first level ref=
-\crefname{enumi}{}{}
-\crefname{enumii}{}{}
-\crefname{enumiii}{}{}
-\crefname{enumiv}{}{}
-% then mydefs including theorems et al.
-\usepackage{defns}
+\theoremstyle{theorem}
+\newtheorem{conjecture}[theorem]{Conjecture}
 
+\usepackage{epstopdf}
 
 \usepackage{pdfcomment}
 \newcommand{\ajr}[1]{\quad\pdfcomment[author=AJR,color={0.8 0.8 0},subject={#1}]{#1}\quad}
@@ -70,9 +57,9 @@
 \newcommand{\Cal}[1]{%
   \expandafter\def\csname c#1\endcsname%
   {\ensuremath{\mathcal #1}}}
-\Cal E \Cal I \Cal L \Cal M \Cal N \Cal R \Cal V \Cal X \Cal Y \Cal Z
+\Cal E \Cal I \Cal L \Cal M \Cal N \Cal R
 
-\newcommand{\secref}[1]{\cref{sec:#1}}
+\newcommand{\secref}[1]{\ref{sec:#1}}
 
 \title{Smooth subgrid fields underpin rigorous closure in spatial discretisation of reaction-advection-diffusion PDEs}
 \author{G.~A. Jarrad\thanks{
@@ -120,8 +107,8 @@ u_t=F(u_x)_x+\alpha G(x,t,u,u_x)
 \end{equation}
 for suitably smooth functions~\(F\) and~\(G\), and \(F\)~strictly monotonic increasing,
 where subscripts \(x\) and~\(t\) denote spatial and temporal derivatives, respectively. 
-Precise requirements on the class of functions~\(F\) and~\(G\) are identified in \cref{thm:gsm} (\S\ref{sec:lin}).
-Although most of this article addresses \pde{}s of the form~\eqref{eq:genpde}, \cref{sec:smwpde} discusses generalising the theoretical support to wave-like \pde{}s obtained by replacing~\(u_t\) by~\(u_{tt}\) in~\eqref{eq:genpde}.
+Precise requirements on the class of functions~\(F\) and~\(G\) are identified in Theorem~\ref{thm:gsm} (\S\ref{sec:lin}).
+Although most of this article addresses \pde{}s of the form~\eqref{eq:genpde}, Section~\ref{sec:smwpde} discusses generalising the theoretical support to wave-like \pde{}s obtained by replacing~\(u_t\) by~\(u_{tt}\) in~\eqref{eq:genpde}.
 
 Given \(N+1\)~discrete points in 1D space, \(x=X_j\) for \(j\in\JJ=\{0,1,\ldots,N\}\)\,, we define grid values 
 \begin{equation}
@@ -133,30 +120,24 @@ Then a spatial discretisation of the \pde~\eqref{eq:genpde} is a \emph{closed} s
 \de t\Uv=\gv(\Uv,t).
 \label{eq:csd}
 \end{equation}
-We use centre manifold theory \cite[e.g.]{Carr81, Haragus2011} to do the following (\cref{sec:lin}): 
+We use centre manifold theory \cite[e.g.]{Carr81, Haragus2011} to (\S\ref{sec:lin}): 
 firstly, establish a new approach to showing that in principle there exists an \emph{exact} closure~\eqref{eq:csd} of the dynamics of the \pde~\eqref{eq:genpde} in some \Uv-domain; 
 secondly, establish that such a closure is emergent from general initial conditions; and 
 thirdly, show how to construct new systematic approximations to the in-principle closure.
-This new theory is applied in \cref{sec:nonlin,sec:numeric} to construct and evaluate the new approach for the classic example of the nonlinear advection--diffusion Burgers' \pde
-\begin{equation}
-	\D tu = \nu\DD xu - \alpha u\D xu\,,
+This new theory is applied in Sections~\ref{sec:nonlin} and~\ref{sec:numeric} to construct and evaluate the new approach for the classic example of the nonlinear advection--diffusion Burgers' \pde
+\begin{eqnarray}
+	\D tu = \nu\DD xu - \alpha u\D xu\,:
 \label{eq:burgers}
-\end{equation}
-for both diffusion~\(\nu\) and nonlinearity parameter~\(\alpha\) being real and constant.
-This \pde\ is commonly used as a first test of such discretisation schemes \cite[e.g.]{Dhawan2012}.
+\end{eqnarray}
+this \pde\ is commonly used as a first test of such numerical schemes \cite[e.g.]{Dhawan2012}.
 Generalisation of the approach to two or more spatial dimensions remains for further research and should be analogous to that established by \cite*{Roberts2011a}.
 
-Initial conditions for the discrete closure~\eqref{eq:csd} are nontrivial.
-The paradox is that despite the definition~\eqref{eq:gridval} that~\(U_j(t)=u(X_j,t)\), in general the initial grid value \(U_j(0)\neq u(X_j,0)\) for accurate forecasts over long-times.
-In physics, \cite{vanKampen85} called this phenomena ``initial slip'', and it is effectively a `boundary layer' in time that accounts for rapid  transients.
-\cite{Roberts89b} developed an efficient general method that would algebraically derive the correct initial~\(U_j(0)\) for accurate long-time forecasts---the method has been successful in various other applications \cite[e.g.]{Roberts2014a}.
-
-The spatial domain~\(\XX\) of the \pde~\eqref{eq:genpde} is of length~\(L\), \(0\leq x\leq L\)\,, and we mostly restrict attention to solutions~\(u(x,t)\) which are \(L\)-periodic in space, but occasionally comment on the cases of homogeneous Dirichlet boundary conditions, \(u(0,t)=u(L,t)=0\)\,, and Neumann boundary conditions, \(u_x(0,t)=u_x(L,t)=0\)\,.
+The spatial domain~\(\XX\) is of length~\(L\), \(0\leq x\leq L\)\,, and we mostly restrict attention to solutions~\(u(x,t)\) which are \(L\)-periodic in space, but occasionally comment on the cases of homogeneous Dirichlet boundary conditions, \(u(0,t)=u(L,t)=0\)\,, and Neumann boundary conditions, \(u_x(0,t)=u_x(L,t)=0\)\,.
 The first step is to partition~$\XX$ into $N$~equi-spaced intervals bounded by the $N+1$ grid-points~$X_j$ with spacing~\(H\).
 Traditional spatial discretisation of such \pde{}s, whether finite difference, finite element, or finite volume, imposes assumed fields in each element and then derives approximate rules for the evolution in time of the parameters of the imposed fit.
 Our dynamical systems (holistic) approach is to let the \pde~\eqref{eq:genpde} determine the subgrid fields in order to remain faithful to the \pde, as demonstrated explicitly for Burgers' \pde~\eqref{eq:burgers}.
 Using more general subgrid scale structures is cognate to the aims of the so-called Generalised\slash Extended Finite Element Methods \cite[e.g.]{Turner2011b}, but a crucial distinction is that we let the \pde{} determine the subgrid structures.
-The multiscale derivation of the so-called stabilized schemes \cite[e.g.]{Hughes95} appears analogous to the first step of the construction described by \cref{sec:nonlin}.
+The multiscale derivation of the so-called stabilized schemes \cite[e.g.]{Hughes95} appears analogous to the first step of the construction described by Section~\ref{sec:nonlin}.
 A previous dynamical systems approach constructs subgrid fields by systematically refining a piecewise constant initial approximation \cite[e.g.]{Roberts98a, Roberts00a, Roberts2011a}---an approach that adapts to the multi-scale gap-tooth scheme \cite[e.g.]{Roberts06d, Kevrekidis09a}.
 The new approach here systematically refines a continuous piecewise linear initial approximation with the aim of more accurately encoding subgrid scale effects in the macroscale closure.
 
@@ -167,7 +148,7 @@ The new approach here systematically refines a continuous piecewise linear initi
 %\label{eq:gridval}
 %\end{equation}
 %Henceforth, unless otherwise stated, we assume $U_0=U_N$ due to the imposed periodicity.
-New theory established in \cref{sec:lin} asserts that in principle an \emph{exact} closure~\eqref{eq:csd} exists (a slow manifold); that is, there is some system of \ode{}s~\eqref{eq:csd} that gives exact solutions of the \pde~\eqref{eq:genpde}.
+New theory established in Section~\ref{sec:lin} asserts that in principle an \emph{exact} closure~\eqref{eq:csd} exists (a slow manifold); that is, there is some system of \ode{}s~\eqref{eq:csd} that gives exact solutions of the \pde~\eqref{eq:genpde}.
 A traditional approach is to use centred approximations: for the example of Burgers' \pde~\eqref{eq:burgers},
 \begin{eqnarray*}
 \dot U_j&\approx& -\alpha\frac1{2H}U_j(U_{j+1}-U_{j-1})+\nu\frac1{H^2}(U_{j+1}-2U_j+U_{j-1})
@@ -177,16 +158,15 @@ for centred difference $\delta:=\sigma^{1/2}-\sigma^{-1/2}$,
 and centred mean $\mu:=(\sigma^{1/2}+\sigma^{-1/2})/2$,
 in terms of the shift operator $\sigma U_j=U_{j+1}$.
 However, the nonlinear advection term has another plausible representation, namely the conservative form~$\mu\delta (U_j^2)/2H$.
-For illustrative purposes, \cref{sec:nonlin} compares results with Burgers' \pde~\eqref{eq:burgers} on a periodic domain discretised to the so-called mixture model
+For illustrative purposes, Section~\ref{sec:nonlin} compares results with Burgers' \pde~\eqref{eq:burgers} discretised to the so-called mixture model
 \begin{equation}
 	\dot{U}_j = 
 	-(1-\theta)\alpha\frac{U_j\mu\delta U_j}{H}
     -\theta\alpha\frac{\mu\delta (U_j^2)}{2H}
-    +\nu\frac{\delta^2 U_j}{H^2}\,,
+    +\nu\frac{\delta^2 U_j}{H^2}\,.
 \label{eq:mixture}
 \end{equation}
-for \(N\)-periodic index~\(j\).
-In contrast, \secref{nonlin} shows our holistic approach has no such representational ambiguity, and constructs at first-order the specific model
+In contrast, Section~\secref{nonlin} shows our holistic approach has no such representational ambiguity, and constructs at first-order the specific model
 \begin{equation}
 	\dot{U}_j = S\left[
 	-\alpha\frac{U_j\mu\delta U_j}{3H}
@@ -198,7 +178,7 @@ for nonlocal operator $S=(1+\delta^2/6)^{-1}$.
 Apart from the operator~$S$,
 this holistic model matches the mixture model~\eqref{eq:mixture} for parameter $\theta=\frac{2}{3}$.
 This parameter value is exactly the critical value shown by \cite{Fornberg73} to be necessary for stable simulation (with $\nu=0$ and $\alpha=1$) for a selection of numerical integration schemes.
-\secref{numeric} further compares the numerical behaviour of our holistic and established mixture models.
+Section~\secref{numeric} further compares the numerical behaviour of our holistic and established mixture models.
 
 \begin{figure}
 \centering
@@ -247,19 +227,19 @@ imposing such an interpolation.}
 \label{fig:uhat}
 \end{figure}%
 A crucial part of the new methodology is to express the physical field~\(u(x,t)\) naturally in terms of the coarse variables~${\Uv}(t)$ for out-of-equilibrium dynamics. 
-That is, as illustrated by the two approximate examples of \cref{fig:uhat}, we construct the field (a slow manifold)
-\begin{equation}
+That is, as illustrated by the two approximate examples of Figure~\ref{fig:uhat}, we construct the field (a slow manifold)
+\begin{eqnarray}
 	u(x,t)  = {u}(x,t,{\Uv(t)}),
 	\label{eq:spatial}
-\end{equation}
+\end{eqnarray}
 where the time evolution of the field~\(u\) occurs only via the evolving coarse variables~\(\Uv(t)\) and any time dependent coefficients of the \pde.
 Whether the symbol~\(u\) denotes~\(u(x,t)\) or~\(u(x,t,\Uv)\) should be clear from the context.
 The complete holistic framework comprises equations~\eqref{eq:csd} and~\eqref{eq:spatial},  in conjunction with suitable boundary 
 and  inter-element coupling conditions to be specified  
-in more detail in \secref{lin}. 
+in more detail in Section~\secref{lin}. 
 
 
-In particular, the Rayleigh--Ritz theorem motivates coupling conditions that give a piecewise linear function as the leading approximation (e.g., the blue~\(u^0\) of \cref{fig:uhat}).
+In particular, the Rayleigh--Ritz theorem motivates coupling conditions that give a piecewise linear function as the leading approximation (e.g., the blue~\(u^0\) of Figure~\ref{fig:uhat}).
 Approximately constructing a slow manifold is analogous to estimating eigenvalues of a perturbed matrix.
 For a self-adjoint operator~\cL, the Rayleigh--Ritz theorem is that an approximate eigenvector~\vv, with error~\Ord{\epsilon},
 predicts a corresponding eigenvalue $\lambda = {\langle{\vv},{\cL}{\vv}\rangle}/{\|{\vv}\|^2}$ with asymptotically smaller error~\Ord{\epsilon^2}.
@@ -301,7 +281,7 @@ The  \pde~\eqref{eq:burgers}, with diffusivity \(\nu=1\), together with coupling
 u=(1-|x|)U\quad\text{and }\gamma=\alpha=0\,.
 \label{eq:equil1}
 \end{equation}
-The spectrum about each of these equilibria determine the manifold structure (corresponding to \cref{thm:dicho,lem:hs} on  pp.~\pageref{thm:dicho},\pageref{lem:hs}).
+The spectrum about each of these equilibria determine the manifold structure (corresponding to Lemmas~\ref{thm:dicho} and~\ref{lem:hs} on  pp.~\pageref{thm:dicho},\pageref{lem:hs}).
 We seek linearised solutions \(u(x,t)\approx (1-|x|)U+e^{\lambda t}v(x)\) for small~\(v\):  the diffusion \pde~\eqref{eq:burgers} becomes the eigenproblem
 \begin{equation}
 -v_{xx}+\lambda v=0\,,
@@ -339,14 +319,14 @@ Eigenfunctions~\(v(x)\) of the linearised problem~\eqref{eq:lindiff} correspondi
 These arise by necessity from the \pde, the homogeneous Dirichlet boundary conditions, and the continuity of~\(v\).
 By straightforward algebra, the jump in the derivative determines the wavenumbers~\(k\) from the solutions of \(k=\tan k\)\,, namely the wavenumbers \(k=4.4934,7.7253,10.9041,\ldots\)\,.
 That is,  non-zero eigenvalues of the linearised problem are \(\lambda=-20.191,-59.680,-118.900,\ldots\)\,.
-\cref{fig:simpevec} plots (solid) the two eigenfunctions corresponding to the two of these eigenvalues of smallest magnitudes.
+Figure~\ref{fig:simpevec} plots (solid) the two eigenfunctions corresponding to the two of these eigenvalues of smallest magnitudes.
 
 \item Negative eigenvalues also arise from eigenfunctions of the form \(v\propto\sin(kx)\).  
 The boundary and coupling conditions determine the wavenumbers \(k=n\pi\) for \(n=1,2,3,\ldots\)\,.
 That is, the other non-zero eigenvalues are \(\lambda=-\pi^2, -4\pi^2, -9\pi^2, \ldots\)\,.
-\cref{fig:simpevec} plots (dashed) the two eigenfunctions corresponding to the two of these eigenvalues of smallest magnitude.
+Figure~\ref{fig:simpevec} plots (dashed) the two eigenfunctions corresponding to the two of these eigenvalues of smallest magnitude.
 \end{itemize}
-One of the beautiful properties of the coupling conditions~\eqref{eq:cc1} is that with them the diffusion operator~\(\DD x{}\) is self-adjoint (\cref{thm:sa}, p.\pageref{thm:sa}).
+One of the beautiful properties of the coupling conditions~\eqref{eq:cc1} is that with them the diffusion operator~\(\DD x{}\) is self-adjoint (Lemma~\ref{thm:sa}, p.\pageref{thm:sa}).
 Hence there are only real eigenvalues of the linear problem~\eqref{eq:lindiff}, namely the ones found above.
 To confirm self-adjointness under the usual inner product, \(\left<u,v\right>=\int_{-1}^1 u(x)v(x)\,dx\)\,,
 consider
@@ -370,7 +350,7 @@ Preserving self-adjointness is a new feature established by the new approach dev
 
 Because the spectrum consists of a zero eigenvalue and all the rest negative (\(\leq -\pi^2<-9\)), centre manifold theory \cite[e.g.]{Carr81, Haragus2011} 
 %or \cite[Chap.~4]{Roberts2014a}
-assures us that there exists a slow manifold in some neighbourhood of the subspace~\EE\ of equilibria (corresponding to \cref{thm:gsm}); that is, global in amplitude~\(U\) and local in parameters~\(\gamma\) and~\(\alpha\).
+assures us that there exists a slow manifold in some neighbourhood of the subspace~\EE\ of equilibria (corresponding to Theorem~\ref{thm:gsm}); that is, global in amplitude~\(U\) and local in parameters~\(\gamma\) and~\(\alpha\).
 Also, the theory guarantees that all solutions in the neighbourhood are attracted exponentially quickly, at least as fast as roughly~\(e^{-9t}\), to solutions on the slow manifold.
 That is, the slow manifold and the evolution thereon emerges from general initial conditions.
 
@@ -410,7 +390,7 @@ Evaluating the slow manifold~\eqref{eq:egsm1} at \(\gamma=1\) gives
 u\approx(1-\tfrac32x^2+\tfrac12|x|^3)U
 \quad\text{such that }\dot U\approx-3 U\,.
 \end{equation*}
-The field~\(u\), plotted in \cref{fig:simp}, is an excellent cubic spline approximation to the correct~\(U\cos(\pi x/2)\) eigenfunction, also plotted in \cref{fig:simp}.
+The field~\(u\), plotted in Figure~\ref{fig:simp}, is an excellent cubic spline approximation to the correct~\(U\cos(\pi x/2)\) eigenfunction, also plotted in Figure~\ref{fig:simp}.
 The predicted evolution \(U\propto e^{-3t}\) is a good approximation to the correct decay rate of~\(-\pi^2/4\)\,. 
 
 
@@ -450,13 +430,13 @@ This approximation to the slow manifold was computed to errors~\Ord{\gamma^3+\al
 
 Centre manifold theory~\cite[Ch.~4, e.g.]{Carr81, Roberts2014a} was designed for nonlinear problems.
 Thus it also applies here to the nonlinear Burgers' \pde~\eqref{eq:burgers} now with nonlinearity parametrised by~\(\alpha\) and similarly modelled with two intervals on the domain \(-1<x<1\)\,.
-For example, modified computer algebra~\cite[Ch.~14]{Roberts96a, Roberts2014a} constructs the slow manifold plotted in \cref{fig:nonlinsm} on which the nonlinear evolution is
+For example, modified computer algebra~\cite[Ch.~14]{Roberts96a, Roberts2014a} constructs the slow manifold plotted in Figure~\ref{fig:nonlinsm} on which the nonlinear evolution is
 \begin{equation}
 \dot U=-(3\gamma-\tfrac35\gamma^2)U-\tfrac1{15}\gamma^2\alpha^2U^3
 +\Ord{\gamma^3+\alpha^3}.
 \label{eq:nlsme}
 \end{equation}
-The nonlinear advection of Burgers' \pde\ generates steeper gradients in the subgrid field (\cref{fig:nonlinsm}) that enhance the decay.
+The nonlinear advection of Burgers' \pde\ generates steeper gradients in the subgrid field (Figure~\ref{fig:nonlinsm}) that enhance the decay.
 Such enhanced decay is expressed by the cubic nonlinearity in the evolution equation~\eqref{eq:nlsme} for amplitude~\(U(t)\) \cite[cf.][\S5]{Hughes95}.
 
 One important generic feature of the evolution~\eqref{eq:nlsme} is that the enhanced decay has coefficient~\(\alpha^2\)---it is nonlinear in the coefficient~\(\alpha\) of the original Burgers' \pde~\eqref{eq:burgers}.
@@ -478,7 +458,7 @@ Key properties of this example are also exhibited in the application of the appr
 
 \section{Linearisation establishes the existence of a closure}\label{sec:lin}
 
-We use centre manifold theory \cite[e.g.]{Carr81, Haragus2011} to newly establish (\cref{thm:gsm}) the in-principle existence and emergence of an exact closure to the dynamics of  \pde{}s in the class~\eqref{eq:genpde}.
+We use centre manifold theory \cite[e.g.]{Carr81, Haragus2011} to newly establish (Theorem~\ref{thm:gsm}) the in-principle existence and emergence of an exact closure to the dynamics of  \pde{}s in the class~\eqref{eq:genpde}.
 Centre manifold theory is based upon an equilibrium or subspace of equilibria, and follows primarily from the local persistence of a spectral gap from that of the linearised dynamics \cite[e.g.]{Roberts2014a}.
 
 To find useful equilibria we embed the \pde~\eqref{eq:genpde} in a wider class of problems.
@@ -489,20 +469,20 @@ To restore the original \pde~\eqref{eq:genpde} over the whole domain~\XX\ we cou
 By controlling the information flow between intervals we connect the original \pde\ over the whole domain to a useful base problem.
 The general coupling conditions are of continuity and a crafted jump in derivative:%
 \begin{subequations}\label{eqs:cc}%
-\begin{align}
-&u(X_j^-,t)=u(X_j^+,t),
+\begin{eqnarray}
+&&u(X_j^-,t)=u(X_j^+,t),
 \quad\text{and }
 \label{eq:ccc}
-\\&
+\\&&
 \frac{(\nu u_x)|_{X_{j}^+}}{H_{j+1}}
 -\frac{(\nu u_x)|_{X_{j}^-}}{H_j}
-\nonumber\\&{}
+\nonumber\\&&{}
 ={C(\gamma)}\left[
 \frac{(\nu u)|_{X_{j+1}^-} -(\nu u)|_{X_{j}^+}}{H_{j+1}^2}
 +\frac{(\nu u)|_{X_{j-1}^+} -(\nu u)|_{X_{j}^-}}{H_j^2}
 \right],\qquad
 \label{eq:ccj}
-\end{align}
+\end{eqnarray}
 \end{subequations}
 where coefficient \(\nu(x)=F'(u_x)\) is the effective diffusivity at each \(x\in\tilde\XX\), via the gradient~\(u_x\),
 and where the factor~\(C(\gamma)\) is some smooth function such that \(C(0)=1\) and \(C(1)=0\) (typically \(C(\gamma):=1-\gamma\) as in~\eqref{eq:cc1}).
@@ -565,19 +545,19 @@ Then for parameters \(\alpha=\gamma=0\) and small~\(\hat u\), the \pde~\eqref{eq
 \end{equation}
 The coupling conditions~\eqref{eqs:cc} are linear, so for the perturbations they are 
 (with time~\(t\) implicit for brevity)
-\begin{align}
-&\hat u_{j+1}(X_j)=\hat u_j(X_j),
+\begin{eqnarray}
+&&\hat u_{j+1}(X_j)=\hat u_j(X_j),
 \quad\text{and }
 \label{eq:ccclin}
-\\&
+\\&&
 \frac{\nu_{j+1}\hat u_{j+1,x}(X_j)}{H_{j+1}}
 -\frac{\nu_j\hat u_{jx}(X_j)}{H_j}
-\nonumber\\&{}
+\nonumber\\&&{}
 =\frac{\nu_{j+1}\hat u_{j+1}(X_{j+1}) -\nu_{j+1}\hat u_{j+1}(X_{j})}{H_{j+1}^2}
 +\frac{\nu_j\hat  u_j(X_{j-1}) -\nu_j\hat  u_j(X_{j})}{H_j^2}
 \,.
 \qquad\label{eq:ccjlin}
-\end{align}
+\end{eqnarray}
 \end{subequations}
 The next lemma certifies that this linearised system~\eqref{eqs:lin} is self-adjoint and so we need only seek real eigenvalues in the spectrum.
 
@@ -668,7 +648,7 @@ Provided function~\(F\) in the \pde~\eqref{eq:genpde} is monotonically increasin
 
 \begin{proof} 
 The precisely \(N\)~zero eigenvalues are established in the two paragraphs preceding the lemma.
-\cref{thm:sa} establishes all eigenvalues of~\(\cL\) are real. 
+Lemma~\ref{thm:sa} establishes all eigenvalues of~\(\cL\) are real. 
 Let \(\lambda\)~be a non-zero eigenvalue and \(v(x)\)~be a corresponding eigenfunction.
 Then \(v\perp\EE\) by self-adjointness of~\cL, and, as usual,
 \begin{equation*}
@@ -692,25 +672,25 @@ Consequently,
 as, by self-adjointness, \(\left<\check v,-\cL\tilde v\right>=\left<\cL\check v,-\tilde v\right>=\left<0,-\tilde v\right>=0\).
 Thus, we proceed to derive the inequality 
 \begin{subequations}%
-\begin{align}
--\lambda\|v\|^2&=\left<\tilde v,-\cL\tilde v\right>
+\begin{eqnarray}
+-\lambda\|v\|^2&=&\left<\tilde v,-\cL\tilde v\right>
 =\sum_j\frac1{H_j}\int_{\XX_j}-\nu\tilde v\tilde v_{xx}\,dx
-\nonumber\\&=
+\nonumber\\&=&
 \sum_j\left[-\nu\tilde v\tilde v_x\right]_{X_{j-1}^+}^{X_j^-}
 +\sum_j\frac1{H_j}\int_{\XX_j}\nu\tilde v_x^2\,dx
 \quad(\text{integrating by parts})
-\nonumber\\&=
+\nonumber\\&=&
 \sum_j 0
 +\sum_j\frac1{H_j}\int_{\XX_j}\nu\tilde v_x^2\,dx
 \quad(\text{using }\tilde v(X_j^-)=\tilde v(X_j^+)=0)
-\nonumber\\&=
+\nonumber\\&=&
 \sum_j \frac{\nu_j}{H_j^2}\frac1{H_j}\int_{\XX_j} H_j^2\tilde v_x^2\,dx
 \quad\text{(as \(\nu(x)\) is piecewise constant)}
-\nonumber\\&\geq
+\nonumber\\&\geq&
 \frac\beta{\pi^2}\sum_j\frac1{H_j}\int_{\XX_j}H_j^2\tilde v_x^2\,dx
 \,,\label{eq:lem3a}
-\end{align}
-for bound~\(\beta\) defined by \cref{thm:dicho}.
+\end{eqnarray}
+for bound~\(\beta\) defined by Lemma~\ref{thm:dicho}.
 The first consequence of this inequality is that there are no positive eigenvalues~\(\lambda\).
 
 Secondly, relate this inequality to the spatially homogeneous problem.
@@ -730,7 +710,7 @@ But, by the Rayleigh--Ritz theorem, the smallest magnitude, non-zero, eigenvalue
 \end{equation}
 \end{subequations}
 Hence the inequalities~\eqref{eq:lem3a}--\eqref{eq:lem3c} give \(-\lambda\|v\|^2\geq \frac\beta{\pi^1}(-\lambda_1)\|v\|^2\).
-By the next \cref{lem:hs}, \(-\lambda_1\geq\pi^2\), and so all non-zero eigenvalues satisfy \(-\lambda\geq\beta\) as required.
+By the next Lemma~\ref{lem:hs}, \(-\lambda_1\geq\pi^2\), and so all non-zero eigenvalues satisfy \(-\lambda\geq\beta\) as required.
 That the bound \(\beta>0\) follows from~\eqref{eq:nuj} and the monotonicity of~\(F\): \(\nu_j=F'(u^*_{jx})>0\) for all~\(j\), and so \(\min_j(\nu_j/H_j^2)>0\)\,.
 \end{proof}
 
@@ -778,13 +758,13 @@ Dividing by~\(C\) and setting \(\kappa'=\kappa/C\)\, gives the equivalent
 \label{eq:lem4b}
 \end{equation}
 Consider together the two mapping equations~\eqref{eq:lem4a}--\eqref{eq:lem4b}: this spatial map has solutions \((A_j,B_j)\propto \mu^j\) for some multiplier~\(\mu\) given by the vanishing of the determinant
-\begin{align}&
+\begin{eqnarray}&&
 \det\begin{bmatrix} \mu-c&-s\\
 \mu (c-2)+1-s\kappa'&\mu(s-\kappa')+c\kappa' \end{bmatrix}=0\,;
 \nonumber
-\\&\text{that is,}\quad
+\\&&\text{that is,}\quad
 \mu^2-2\frac{s-c\kappa'}{s-\kappa'}\mu+1=0\,.
-\end{align}
+\end{eqnarray}
 %Hence the two possible multipliers must have product one, which reflects the left-right spatial symmetry in the linear problem~\eqref{eqs:lin}.
 Hence the two possible multipliers of the spatial map are 
 \begin{equation*}
@@ -828,7 +808,7 @@ The thick lines along the $\kappa$-axis indicate regions of spatial wavenumbers 
 \end{tabular}
 \end{figure}%
 The specific boundary conditions on the finite macroscale domain~\XX\ then constrain the allowable~\(\kappa\) to a discrete, countably infinite, set of~\(\kappa\) satisfying inequality~\eqref{eq:kappa}.
-As illustrated by \cref{fig:leaspec}, for the specific case of the linearised problem~\eqref{eqs:lin} for which \(C(0)=1\)\,, there is a useful spectral gap because the smallest allowable nonzero nondimensional wavenumber is \(\kappa=\pi\)\,.
+As illustrated by Figure~\ref{fig:leaspec}, for the specific case of the linearised problem~\eqref{eqs:lin} for which \(C(0)=1\)\,, there is a useful spectral gap because the smallest allowable nonzero nondimensional wavenumber is \(\kappa=\pi\)\,.
 Hence the smallest magnitude nonzero eigenvalue is\({}\leq-\pi^2\) as required.
 \end{subequations}
 \end{proof}
@@ -836,43 +816,15 @@ Hence the smallest magnitude nonzero eigenvalue is\({}\leq-\pi^2\) as required.
 The reason to include \(C(\gamma)\)~in the proof is to comment on the  linearisation about another subspace of equilibria.
 As well as the piecewise linear equilibria~\EE\ at \(\gamma=\alpha=0\)\,, another subspace of equilibria is \(u={}\)constant on~\XX\ for nonlinearity \(\alpha=0\) but now for arbitrary coupling parameter~\(\gamma\).
 The linearisation about this set of equilibria is also the system~\eqref{eqs:lin} but with \(\nu(x)=F'(0)\), constant, and with the right-hand side of the coupling~\eqref{eq:ccjlin} multiplied by~\(C(\gamma)\).
-The proof of \cref{lem:hs} also applies to this case.
+The proof of Lemma~\ref{lem:hs} also applies to this case.
 Inequality~\eqref{eq:kappa} then gives allowed wavenumbers for general~\(\gamma\).
-As coupling parameter~\(\gamma\) varies from zero to one, the factor~\(C(\gamma)\) varies from one to zero, and so the denominator~\(C\) in inequality~\eqref{eq:kappa} increases the slope of the straight line of \cref{fig:leaspec}.
+As coupling parameter~\(\gamma\) varies from zero to one, the factor~\(C(\gamma)\) varies from one to zero, and so the denominator~\(C\) in inequality~\eqref{eq:kappa} increases the slope of the straight line of Figure~\ref{fig:leaspec}.
 Thus the set of allowed wavenumbers increases with coupling~\(\gamma\), and, in particular, the spectral gap~\((0,\pi)\) between the slow and the fast modes fills up with the slow modes.
 It is in this manner that the continuum of allowed wavenumbers is restored in the fully coupled \pde\ over the whole domain~\XX, as the coupling parameter~\(\gamma\) varies from zero to one.
 
 
-\begin{hypothesis}
-The following \cref{thm:gsm} relies upon theorems by \cite{Haragus2011} which in turn require certain preconditions listed here that need to hold.
-We consider twice differentiable, \(L\)-periodic, square integrable functions on~\(\tilde\XX\) which forms the requisite Hilbert spaces (\(\cZ\hookrightarrow\cY\hookrightarrow\cX=\LL\)).
-Then the self-adjoint, linearised operator~\eqref{eqs:lin} of diffusion on a finite spatial domain forms an analytic semigroup \cite[Remark~2.18, e.g.]{Haragus2011}.
-\begin{enumerate}[ref=Hypothesis~\thetheorem.\theenumi]
-\item\label{hsd2p4} Spectral Decomposition Hypothesis~2.4 of \cite{Haragus2011}: consider the spectrum \(\sigma\) of the linear operator and assume that
-\begin{enumerate}
-\item there exists a constant~\(\beta>0\) such that
-\begin{equation*}
-\inf_{\{\lambda\in\sigma:\Re\lambda>0\}}\Re\lambda>\beta,
-\quad\text{and}\quad
-\sup_{\{\lambda\in\sigma:\Re\lambda<0\}}\Re\lambda<-\beta;
-\end{equation*}
-\item the set \(\{\lambda\in\sigma:\Re\lambda=0\}\) consists of a finite number of eigenvalues with finite algebraic multiplicity.
-\end{enumerate}
-
-\item\label{h2p1} Hypothesis~2.1 of \cite{Haragus2011}: (i)~\(\cL\in \mathscr L(\cZ,\cX)\); and 
-(ii)~writing a system as \(du/dt=\cL u+R(u)\), for some \(q\geq2\) there exists a neighbourhood \(\cV\subset\cZ\) of the origin such that \(R\in C^q(\cV,\cY)\) and that \(R(0)=0\) and \(DR(0)=0\).
-
-\item\label{h3p8ii} In the case of non-autonomous nonlinearity (\(R\)~becomes~\(R(u,t)\)),  Hypothesis~3.8(ii) of \cite{Haragus2011} additionally assumes that for any sufficiently small~\(\varepsilon\), there exist positive constants~\(\delta_0(\varepsilon)=\Ord{\varepsilon^2}\) and~\(\delta_1(\varepsilon)=\Ord{\varepsilon}\) such that
-%\footnote{These equalities ``show that the nonlinear term~\(R\) is bounded with respect to all \(t\in\RR\), uniformly for~\(u\) in any sufficiently small closed ball~\(B_\varepsilon(\cZ)\).''}
-\begin{equation*}
-\sup_{u\in B_\varepsilon(\cZ)}\|R(u,t)\|_\cY=\delta_0(\varepsilon),\quad
-\sup_{u\in B_\varepsilon(\cZ)}\|D_uR(u,t)\|_{\mathscr L(\cZ,\cY)}=\delta_1(\varepsilon).
-\end{equation*}
-\end{enumerate}
-\end{hypothesis}
-
 \begin{theorem}[slow manifold] \label{thm:gsm}
-Consider the nonlinear \pde~\eqref{eq:genpde} on domain~\(\tilde\XX\) with coupling conditions~\eqref{eqs:cc} and assume that the functions~\(F\) and~\(G\) of the \pde~\eqref{eq:genpde} are smooth enough so that for every \(u^*\in\EE\) the nonlinear function \(R(u,t):=F(u^*_x+u_x)_x-\cL u+\alpha G(t,u^*+u)\) satisfies \cref{h2p1,h3p8ii}.
+Consider the nonlinear \pde~\eqref{eq:genpde} on domain~\(\tilde\XX\) with coupling conditions~\eqref{eqs:cc} and preconditions obtained from \cite{Haragus2011} [Chapter~2].  
 \begin{enumerate}
 \item In an open domain~\cE\ containing the subspace~\EE\ there exists a slow manifold,
 \begin{equation}
@@ -883,7 +835,7 @@ u=u(x,t,\Uv,\gamma,\alpha)
 \end{equation}
 (generally as smooth as~\(F\) and~\(G\)).
 \item\label{thm:gsm:emergent} 
-This slow manifold is emergent in the sense that for all solutions~\(u(x,t)\) of~\eqref{eq:genpde} and~\eqref{eqs:cc}, that stay in~\cE, there exists a solution~\(\Uv(t)\) of~\eqref{eq:gensm} such that \(u(x,t)=u(x,t,\Uv(t),\gamma,\alpha)+\Ord{e^{-\beta' t}}\) for decay rate \(0<\beta'<\beta\) (from \cref{thm:dicho}).
+This slow manifold is emergent in the sense that for all solutions~\(u(x,t)\) of~\eqref{eq:genpde} and~\eqref{eqs:cc}, that stay in~\cE, there exists a solution~\(\Uv(t)\) of~\eqref{eq:gensm} such that \(u(x,t)=u(x,t,\Uv(t),\gamma,\alpha)+\Ord{e^{-\beta' t}}\) for decay rate \(0<\beta'<\beta\) (from Lemma~\ref{thm:dicho}).
 
 \item Given two smooth functions \(\tilde u(x,t,\Uv,\gamma,\alpha)\) and~\(\tilde\gv(\Uv,t,\gamma,\alpha)\) for the governing equations~\eqref{eq:genpde} and~\eqref{eqs:cc}, evaluated at \(u=\tilde u\) such that \(d\Uv/dt=\tilde\gv\), having residuals~\Ord{\gamma^p+\alpha^q} as \((\gamma,\alpha)\to\vec 0\)\,,  then the slow manifold is 
 \begin{equation*}
@@ -895,19 +847,19 @@ u=\tilde u(x,\Uv,\gamma,\alpha)+\Ord{\gamma^p+\alpha^q}
 \end{theorem}
 
 \begin{proof} 
-%Consider first the preconditions for the centre manifold theorems of \cite{Haragus2011} [Chapter~2].
-%We consider twice differentiable, \(L\)-periodic, square integrable functions on~\(\tilde\XX\) which forms the requisite Hilbert spaces.
-%The self-adjoint, linearised operator~\eqref{eqs:lin} of diffusion on a finite spatial domain forms an analytic semigroup \cite[Remark~2.18, e.g.]{Haragus2011}.
-\cref{thm:dicho} establishes the Spectral Decomposition \cref{hsd2p4} \cite[from][]{Haragus2011} for all \(u^*\in\EE\).
-%The functions~\(F\) and~\(G\) of the \pde~\eqref{eq:genpde} are assumed smooth enough so that the nonlinear function \(R(u):=F(u^*_x+u_x)_x-\cL u+\alpha G(u^*+u)\) satisfies \cref{h2p1}.
-%In the non-autonomous case, the system is further restricted by requiring~\(R(u)\) satisfy~(3.10) in \S2.3.2 of \cite{Haragus2011}.
+Consider first the preconditions for the centre manifold theorems of \cite{Haragus2011} [Chapter~2].
+We consider twice differentiable, \(L\)-periodic, square integrable functions on~\(\tilde\XX\) which forms the requisite Hilbert spaces.
+The self-adjoint, linearised operator~\eqref{eqs:lin} of diffusion on a finite spatial domain forms an analytic semigroup \cite[Remark~2.18, e.g.]{Haragus2011}.
+Lemma~\ref{thm:dicho} establishes the Spectral Decomposition Hypothesis~2.4 of \cite{Haragus2011}.
+The functions~\(F\) and~\(G\) of the \pde~\eqref{eq:genpde} are assumed smooth enough so that the nonlinear function \(R(u):=F(u^*_x+u_x)_x-\cL u+\alpha G(u^*+u)\) satisfies Hypothesis~2.1 of \cite{Haragus2011}.
+In the non-autonomous case, the system is further restricted by requiring~\(R(u)\) satisfy~(3.10) in \S2.3.2 of \cite{Haragus2011}.
 \begin{enumerate}
 \item Theorem~2.9 of \cite{Haragus2011} (Theorem~3.9 in the non-autonomous case) then establishes that for each point of~\EE\ (parametrised by~\Uv) a \emph{local centre manifold}~\(\cM_{\Uv}\) exists in some neighbourhood~\(\cE_{\Uv}\) in the \((\Uv,\gamma,\alpha)\)-space.
-Because the centre eigenvalues are all zero (\cref{thm:dicho}), they are more precisely called \emph{local slow manifolds}.
+Because the centre eigenvalues are all zero (Lemma~\ref{thm:dicho}), they are more precisely called \emph{local slow manifolds}.
 Setting \(\cM:=\bigcup_{\Uv}\cM_{\Uv}\) and domain \(\cE:=\bigcup_{\Uv}\cE_{\Uv}\) the slow manifold~\cM\ exists in the domain~\cE\ (containing~\EE) as required.
 
-\item The unstable spectrum is empty (\cref{thm:dicho}), so Theorem~3.22 of \cite{Haragus2011} applies to establish the exponentially quick emergence of the slow manifold to all solutions that remain within~\cE\ for all time.
-By continuity in perturbations, the rate of attraction to the slow manifold in~\cE\ is estimated by the linearised rate~\(\beta\) at~\EE\  \cite[\S11.3, e.g.]{Roberts2014a}.
+\item The unstable spectrum is empty (Lemma~\ref{thm:dicho}), so Theorem~3.22 of \cite{Haragus2011} applies to establish the exponentially quick emergence of the slow manifold to all solutions that remain within~\cE\ for all time.
+The rate of attraction to the slow manifold in~\cE\ is estimated by the linearised rate~\(\beta\) at~\EE\ by continuity in perturbations \cite[\S11.3, e.g.]{Roberts2014a}.
 
 \item Under corresponding preconditions, Proposition~3.6 of \cite{Potzsche2006} proves that if an approximation to the slow manifold~\eqref{eq:gensm} gives residuals of the system's equations which are zero to some order, then the slow manifold is approximated to the same order of error.
 Here introduce parameter~\(\epsilon\) and set \(\gamma=c\epsilon^q\) and \(\alpha=a\epsilon^p\) for some chosen coefficients~\(c\) and~\(a\), and some chosen exponents~\(p\) and~\(q\).
@@ -939,18 +891,18 @@ on a domain~\XX, and for smooth functions~\(F\) and~\(G\) as before.
 This subsection comments on the similarities and differences of the theoretical support for such wave systems.
 
 Partition space as above and apply the coupling conditions~\eqref{eqs:cc}.
-Then, for \(\alpha=\gamma=0\)\,, the subspace~\EE\ of piecewise linear equilibria of \cref{thm:equil} still exists.
-Upon linearisation about each of these equilibria, the spatial differential operator \(\cL=\nu\DD x{}\) on~\(\tilde\XX\) remains self-adjoint (\cref{thm:sa}).
-The exponential dichotomy of the operator~\cL\ (\cref{thm:dicho,lem:hs}) still applies, namely that there are \(N\)~eigenvalues of zero, and the others are\({}\leq-\beta\).
+Then, for \(\alpha=\gamma=0\)\,, the subspace~\EE\ of piecewise linear equilibria of Lemma~\ref{thm:equil} still exists.
+Upon linearisation about each of these equilibria, the spatial differential operator \(\cL=\nu\DD x{}\) on~\(\tilde\XX\) remains self-adjoint (Lemma~\ref{thm:sa}).
+The exponential dichotomy of the operator~\cL\ (Lemmas~\ref{thm:dicho} and~\ref{lem:hs}) still applies, namely that there are \(N\)~eigenvalues of zero, and the others are\({}\leq-\beta\).
 So far, the considerations are the same for both diffusion systems and wave systems.
 
-The differences in theoretical support start with \cref{thm:gsm}.
+The differences in theoretical support start with Theorem~\ref{thm:gsm}.
 The reason for the differences are that the eigenvalues of the right-hand side operator~\cL\ are the square of the eigenvalues of the linearisation of the wave \pde~\eqref{eq:wavpde}: seeking waves of frequency~\(\omega\) then \(|\omega|=\sqrt{-\lambda}\) and all frequencies~\(\omega\) are real as all eigenvalues are\({}\leq0\)\,.
 Here the slow manifold dichotomy is now between slow waves with near zero frequency, separated from fast waves with frequencies\({}\geq\sqrt{\beta}\).
 Such subcentre slow  manifolds are ubiquitous in geophysical applications.
 However, much less is known rigorously about subcentre slow  manifolds: even their existence is problematic \cite[]{Lorenz87}.
-Nonetheless, based upon recursively constructing coordinate transforms to a normal form \cite[Chap.~13]{Cox93a, Cox93b, Roberts2014a} we make the following `backwards' conjecture \cite[e.g.]{Grcar2011, Roberts2018a} for the wave \pde~\eqref{eq:wavpde}.
-Parts of this conjecture for waves correspond to \cref{thm:gsm} for dissipative systems.
+Nonetheless, based upon recursively constructing coordinate transforms to a normal form \cite[Chap.~13]{Cox93a, Cox93b, Roberts2014a} we make the following `backwards' conjecture \cite[e.g.]{Grcar2011} for the wave \pde~\eqref{eq:wavpde}.
+Parts of this conjecture for waves correspond to Theorem~\ref{thm:gsm} for dissipative systems.
 
 \begin{conjecture}
 Specify any order of error~\Ord{\gamma^p+\alpha^q}.
@@ -962,7 +914,7 @@ u=u(x,t,\Uv,V,\gamma,\alpha),\quad
 \label{eq:wavct}
 \end{equation}
 such that  in the \(u\)-space the corresponding dynamics is the same as the \pde~\eqref{eq:wavpde} to an error~\Ord{\gamma^p+\alpha^q}, and \(u(x,t,\Uv,0,\gamma,\alpha)\) (\(V=0\)) is tangent to the subspace~\EE\ at \(\gamma=\alpha=0\)\,.
-\emph{(A difference with \cref{thm:gsm}.3 is that here we posit a `nearby' approximating system and then base results on that.)}
+\emph{(A difference with Theorem~\ref{thm:gsm}.3 is that here we posit a `nearby' approximating system and then base results on that.)}
 \begin{enumerate}
 \item Let \cE\ denote a \(u\gamma\alpha\)-domain in which the coordinate transform~\eqref{eq:wavct} is a diffeomorphism containing~\EE, then \(V=0\) is an exact slow manifold of the dynamics of~\eqref{eq:wavct}: that is, 
 \begin{equation}
@@ -970,13 +922,13 @@ u=u(x,t,\Uv,0,\gamma,\alpha)\quad \text{such that}\quad
 \dd t\Uv=\gv(\Uv,0,t,\gamma,\alpha).
 \label{eq:wavsm}
 \end{equation}
-\emph{(A difference with \cref{thm:gsm}.1 is that here there are nearby systems which have slow manifolds; although like the dissipative case, such a nearby system does possess an exact low-dimensional closure.)}
+\emph{(A difference with Theorem~\ref{thm:gsm}.1 is that here there are nearby systems which have slow manifolds; although like the dissipative case, such a nearby system does possess an exact low-dimensional closure.)}
 
 \item Solutions near, but off the slow manifold with \(V\neq 0\), generally evolve differently (due to wave-wave forcing of mean flow):
 \begin{equation*}
 \dd t\Uv=\gv(\Uv,0,t,\gamma,\alpha)+\Ord{\|V\|^2}.
 \end{equation*}
-\emph{(A difference with \cref{thm:gsm}.\ref{thm:gsm:emergent} is that here the slow manifold is not exponentially attractive and instead generally acts as a dynamical centre for nearby dynamics.)}
+\emph{(A difference with Theorem~\ref{thm:gsm}.\ref{thm:gsm:emergent} is that here the slow manifold is not exponentially attractive and instead generally acts as a dynamical centre for nearby dynamics.)}
 
 \end{enumerate}
 \end{conjecture}
@@ -990,7 +942,7 @@ Consequently, we contend that the methodology developed here for constructing an
 \label{sec:nonlin}
 
 This section uses Burgers' \pde~\eqref{eq:burgers} as an example of the construction of a slow manifold discrete model.
-Burgers' \pde~\eqref{eq:burgers} is in the class~\eqref{eq:genpde} addressed by the theory of \cref{sec:lin} and so \cref{thm:gsm} assures us a slow manifold model exists.
+Burgers' \pde~\eqref{eq:burgers} is in the class~\eqref{eq:genpde} addressed by the theory of Section~\ref{sec:lin} and so Theorem~\ref{thm:gsm} assures us a slow manifold model exists.
 Since Burgers' \pde\ is autonomous, here the slow manifold is independent of time---constructing non-autonomous slow manifolds is significantly more complicated \cite[e.g.]{Bunder2013c}.
 In this example we discretise on an equi-spaced grid with constant~\(H_j=H\).
 
@@ -1018,12 +970,12 @@ We seek the slow manifold for the coupled and nonlinear dynamics in a multivaria
 But to simplify the algebraic construction process we follow the approach of \cite{Jarrad2001} and introduce one ordering parameter \(\varepsilon=\sqrt{\gamma^2+\alpha^2}\) and label terms depending upon their order in~\(\varepsilon\).
 For example, a term in~\(\gamma^p\alpha^q\) is termed of order~\(\varepsilon^{p+q}\).
 Then we seek expressions for the slow manifold in the asymptotic series
-\begin{equation}
+\begin{eqnarray}
   {u}(x,\Uv,\gamma,\alpha) \sim \sum_{n=0}^{\infty} {u}^{n}(x,\Uv,\gamma,\alpha),
-\quad
+&&
   \gv(\Uv,\gamma,\alpha) \sim \sum_{n=1}^{\infty}\gv^{n}(\Uv,\gamma,\alpha),
 \label{eq:power}
-\end{equation}
+\end{eqnarray}
 where \(u^n\) and~\(\gv^n\) are of order~\(n\) in the order parameter~\(\varepsilon\).
 The partial sums of these series are denoted by superscripts in parentheses:
 \begin{equation}
@@ -1031,7 +983,7 @@ The partial sums of these series are denoted by superscripts in parentheses:
    := \sum_{p=0}^{n}{u}^{p},
 \quad
   \gv^{\langle n\rangle}(\Uv,\gamma,\alpha) 
-  := \sum_{p=1}^{n}\gv^{p}.
+  := \sum_{p=1}^{n}\gv^{n}.
 \end{equation}
 Then ${u}={u}^{\langle n\rangle}+\Ord{\varepsilon^{n+1}}$ and
 ${u}^{\langle n\rangle}={u}^{\langle n-1\rangle}+u^n$; 
@@ -1050,7 +1002,7 @@ Hence to require the residual \({\cR}\big({u}^{\langle n\rangle},\gv^{\langle n\
 \end{equation}
 for corrections~\(u^n\) to the subgrid field and corrections~\(\gv^n\) to the slow manifold closure of the evolution.
 
-Computer algebra code listed in the Ancillary Material (\cref{sec:aa}) confirms the following algebraic summary.
+Computer algebra code listed in the Ancillary Material (Appendix~\ref{sec:aa}) confirms the following algebraic summary.
 
 
 \paragraph{First order approximation}
@@ -1073,16 +1025,16 @@ Spatially integrating twice gives
 \item The inter-element continuity condition~\eqref{eq:ccc} requires that ${u^n}(X_j,\Uv)=0$ for $n=1,2,3,\ldots$,
 because ${u^0}(X_j,\Uv)=U_j=u(X_j,\Uv)$. 
 Hence, we solve for~$d_j$ at $\xi_j=0$ and~$c_j$ at $\xi_j=1$, giving
-\begin{align}
-\nu{u^1} & =   \sum_{j=1}^{N}\chi_j(x)\left\{\frac{H^2}{6}\big[\xi_j^3+(1-\xi_j)^3\sigma^{-1}
+\begin{eqnarray}
+\nu{u^1} & = &  \sum_{j=1}^{N}\chi_j(x)\left\{\frac{H^2}{6}\big[\xi_j^3+(1-\xi_j)^3\sigma^{-1}
 -\xi_j\nabla-\sigma^{-1}\big]g^1_j
-\right.\nonumber\\& \qquad\left.{}
+\right.\nonumber\\&& \qquad\left.{}
 +\frac{\alpha H}{6}\left(\big[\xi_j^3+(1-\xi_j)^3\sigma^{-1}-\xi_j\nabla-\sigma^{-1}\big]U_j\right)\,\nabla U_j\right\}
 \nonumber\\
-& =   \sum_{j=1}^{N}\chi_j(x)\left\{\frac{H^2}{6}\cI_1g^1_j
+& = &  \sum_{j=1}^{N}\chi_j(x)\left\{\frac{H^2}{6}\cI_1g^1_j
 +\frac{\alpha H}{6}(\cI_1U_j)\,\nabla U_j\right\},
 \qquad\label{eq:u1g1}
-\end{align}
+\end{eqnarray}
 where it is convenient to introduce interpolation operators ${\cI}_0(\xi_j):=\xi_j+(1-\xi_j)\sigma^{-1}$ and
 ${\cI}_1(\xi_j):=\xi_j^3+(1-\xi_j)^3\sigma^{-1}-\xi_j\nabla-\sigma^{-1}$ (observe that ${\cI}_1''=6{\cI}_0/H^2$).
 
@@ -1103,21 +1055,21 @@ where nonlocal operator $S:=(1+\delta^2/6)^{-1}$.
 \end{itemize}
 Combining these with the initial approximation gives the slow manifold and evolution thereon as
 \begin{subequations}%
-\begin{align}&
+\begin{eqnarray}&&
  {u} = \sum_{j=1}^{N}\chi_j(x)\left\{{\cI}_0 U_j+\frac{H^2}{6\nu}{\cI}_1g^1_j
 +\frac{\alpha H}{6\nu}{\cI}_1 U_j\,\nabla U_j\right\}+\Ord{\varepsilon^2},
-\\&
+\\&&
   \dot{U}_j  = S\left[\frac{\nu\gamma}{H^2}\delta^2 U_j
 -\frac{\alpha}{3H}U_j\mu\delta U_j-\frac{\alpha}{3H}\mu\delta U_j^2
 \right]+\Ord{\varepsilon^2}.
 \label{eq:dudt1}
-\end{align}
+\end{eqnarray}
 \end{subequations}
 This slow manifold discretisation~\eqref{eq:dudt1} is discussed as~\eqref{eq:holistic1} in the Introduction.
 %Apart from the nonlocal operator~$S=(1+\delta^2/6)^{-1}$, this discrete closure~\eqref{eq:dudt1} is just the mixture model~\eqref{eq:mixture}
 %with $\theta=\frac{2}{3}$. 
 %This parameter value is exactly the critical value predicted by \cite{Fornberg73} to be necessary  for the stability of numerical integration of the mixture model with $\nu=0$ and $\alpha=1$.
-%We demonstrate in \secref{numeric} how this stability arises in low-dimensional models.
+%We demonstrate in Section~\secref{numeric} how this stability arises in low-dimensional models.
 
 \paragraph{Connection to a cubic spline}
 An intriguing property of the operator~\(S=(1+\delta^2/6)^{-1}=6(\sigma+4+\sigma^{-1})^{-1}\) is that it is precisely the operator found in constructing a cubic spline interpolation through equi-spaced data. For example,
@@ -1135,58 +1087,58 @@ the holistic approach ensures a cubic spline approximation when $\alpha=0$ and $
 
 \paragraph{Higher order approximations}
 
-Higher order terms in the asymptotic series for the slow manifold field~${u}$ may be systematically computed by iteratively solving equation~\eqref{eq:order-n} after having first computed~$\gv^n$ (as implemented in the computer algebra code of the Ancillary Material, \cref{sec:aa}). 
+Higher order terms in the asymptotic series for the slow manifold field~${u}$ may be systematically computed by iteratively solving equation~\eqref{eq:order-n} after having first computed~$\gv^n$ (as implemented in the computer algebra code of the Ancillary Material, Appendix~\ref{sec:aa}). 
 Such higher-order terms for the field~\(u\) provide subgrid structures tailored to, and informed by, the dynamics of the \pde, instead of subgrid structures assumed and imposed as in other methodologies.
 
 The solvability condition determines~$\gv^n$ \cite[]{Jarrad2001}, namely that the right-hand side of equation~\eqref{eq:order-n} must be orthogonal to the null-space of the adjoint of~$\nu\DD x{}$ on~\(\tilde\XX\). 
 Since the operator is self-adjoint, we isolate the boundary between the~$j$th and $(j+1)$th~intervals with the triangular finite-element
-\begin{equation}
+\begin{eqnarray}
   \hat{v}_0 = \chi_j(x)\xi_j + \chi_{j+1}(x)(1-\xi_{j+1}),
-\end{equation}
+\end{eqnarray}
 which satisfies both the continuity condition~\eqref{eq:ccc} and the smoothness condition~\eqref{eq:ccj}
 (for $\gamma=0$). 
 Now, recall that $u^n(X_j,\vec{U})=0$ for $n\ge 1$,
 and hence $[\nu u^n_x]_j=0$ for $n\ge 2$.
 Thus, taking the inner product of equation~\eqref{eq:order-n} with~$\hat{v}_0$ gives rise to the solvability condition
-\begin{equation}
+\begin{eqnarray}
  HS^{-1}g^n_{j}
 -\left< {\cR}\big({u}^{\langle n-1\rangle},\gv^{\langle n-1\rangle}\big), \hat{v}_0 \right>
- =  0 \quad\text{ for } n=2,3,\ldots\,.
-\end{equation}
+& = & 0 \quad\text{ for } n=2,3,\ldots\,.
+\end{eqnarray}
 
 The higher order advection terms in~$\alpha$ and the interactions between~$\alpha$ and~$\gamma$ rapidly become more complex. 
 For example, the $\gamma\alpha$-terms are 
-\begin{align}
-	g^{2}_{j} & =  \tfrac{1}{H}\left\{
+\begin{eqnarray}
+	g^{2}_{j} & = & \tfrac{1}{H}\left\{
   - \tfrac{1}{10}S\left(U_{j} S\mu\delta U_{j}\right)
   - \tfrac{1}{6}S\left(U_{j} \mu\delta U_{j}\right)
   + \tfrac{1}{10}S\left(SU_{j} \mu\delta U_{j}\right)
-  \right. \nonumber\\  & \left.{}
+  \right. \nonumber\\  && \left.{}
 - \tfrac{1}{5}S^{2}\left(U_{j} S\mu\delta U_{j}\right)
   + \tfrac{13}{30}S^{2}\left(U_{j} \mu\delta U_{j}\right)
   - \tfrac{1}{15}S^{3}\left(U_{j} \mu\delta U_{j}\right)
-  \right. \nonumber\\& \left.{}
+  \right. \nonumber\\&& \left.{}
   - \tfrac{1}{15}S^{3}\mu\delta U_{j}^2
   + \tfrac{7}{30}S^{2}\mu\delta U_{j}^2
   + \tfrac{2}{5}U_{j} S\mu\delta U_{j}
   - \tfrac{11}{30}S\mu\delta U_{j}^2
 \right\}
-\nonumber\\&{}
+\nonumber\\&&{}
 +\Ord{\gamma^2,\alpha^2}.
 \qquad
 \label{eq:gamma-alpha}
-\end{align}
+\end{eqnarray}
 Terms purely in the homotopy parameter~$\gamma$ represent smoothing corrections to the diffusion \pde\  ($\alpha=0$). 
 Computing to errors~\Ord{\gamma^4}, for example, the coarse dynamics of the diffusion \pde\ is 
-\begin{align}
-	\dot{U}_j & =  \frac{\nu\gamma}{H^2}S\delta^2 U _j
+\begin{eqnarray}
+	\dot{U}_j & = & \frac{\nu\gamma}{H^2}S\delta^2 U _j
 + \frac{\nu\gamma^2}{60H^2}(7-2S)S^2\delta^4 U_j
 \nonumber\\
-&{}+ \frac{\nu\gamma^3}{6300H^2}(94-73S+14S^2)S^3\delta^{6}U_j
+&&{}+ \frac{\nu\gamma^3}{6300H^2}(94-73S+14S^2)S^3\delta^{6}U_j
 + \Ord{\gamma^4}.
 \label{eq:diffusion}
-\end{align}
-\cref{fig:diff:spectrum} shows that each additional term in this expansion provides a better approximation to the full continuum dynamics. In particular, since 
+\end{eqnarray}
+Figure~\ref{fig:diff:spectrum} shows that each additional term in this expansion provides a better approximation to the full continuum dynamics. In particular, since 
 $S=\left(1+\frac{1}{6}\delta^2\right)^{-1}\sim 1-\frac{1}{6}\delta^2+\frac{1}{36}\delta^4+\cdots$,
 then the first term of equation~\eqref{eq:diffusion} gives 
 $S\delta^2 u=H^2 u_{xx}+\Ord{H^4}$ from the relevant Taylor series expansion.
@@ -1258,7 +1210,7 @@ with eigenvalues $\bar{\lambda}=\frac{2}{2-3\theta}
 \pm\frac{|4-9\theta|}{|2-3\theta|}$. 
 Observe that the unstable point is removed to infinity when $\theta=\frac{2}{3}$.
 This is exactly the critical value predicted by \cite{Fornberg73} to be necessary (but not always sufficient)
-for numerical stability of the mixture model with $\nu=0$ and $\alpha=1$.
+for numerical stability of the mixture model with $\nu=0, \alpha=1$.
 Consequently, the corresponding reduction of the holistic model~\eqref{eq:holistic1}, namely
 \begin{eqnarray*}
 \frac{H^2}{\nu}\dot{V}_1 & = & -4V_1+\frac{11}{4}V_2-\frac{1}{12}V_1^2-\frac{3}{8}V_1V_2-\frac{7}{24}V_2^2\,,
@@ -1276,16 +1228,15 @@ Similarly, for $M=3$ consecutive points the mixture model~\eqref{eq:mixture} red
 \frac{H^2}{\nu}\dot{V}_3 & = & V_2-2V_3+\frac{(1-\theta)}{2}V_2V_3+\frac{\theta}{4}V_2^2\,.
 \end{eqnarray*}
 Substitution of $V_1=aV_2$ and $V_3=bV_2$ then leads to
-\begin{equation}
-V_1=\frac{\mu(4-\mu\theta)}{8+2\mu(1-\theta)}\,, \quad
-V_2=\mu\,, \quad
-V_3=\frac{\mu(4+\mu\theta)}{8-2\mu(1-\theta)}\,,
+\begin{eqnarray}
+V_1=\frac{\mu(4-\mu\theta)}{8+2\mu(1-\theta)}\,, &
+V_2=\mu\,, & V_3=\frac{\mu(4+\mu\theta)}{8-2\mu(1-\theta)}\,,
 \label{eq:mu-crit}
-\end{equation}
+\end{eqnarray}
 where $\mu$ satisfies
-\begin{equation}
+\begin{eqnarray}
 \mu[\theta(1-\theta)(\theta^2-3\theta+1)\mu^4+16(2\theta^2-4\theta+1)\mu^2-256] = 0\,.
-\end{equation}
+\end{eqnarray}
 The trivial critical point corresponding to $\mu=0$ is unconditionally stable.
 Observe that the coefficient of~$\mu^4$ vanishes at $\theta=0, 1$ and $\theta_c=\frac{3-\sqrt{5}}{2}$, and that the resulting quadratic equation only possesses real roots
 $\mu=\pm 4$ for $\theta=0$ (the purely advective model). However, the critical point~\eqref{eq:mu-crit} is removed to infinity at exactly these roots, 
@@ -1294,12 +1245,12 @@ and so there are no unstable critical points when the $\mu^4$-term vanishes.
 In general, a pair of unstable critical points arise only when $0<\theta<\theta_c$.
 This unstable regime does not include the holistic parameter value of $\theta=\frac{2}{3}$.
 
-Turning now to numerical simulation, we use a $2\pi$-periodic domain with $\nu=1$ and $\alpha=1$ for convenience. 
-The initial field $u(x,0)=A\sin x$ is integrated at the $N+1$ grid-points $X_j=Hj$ for all $j\in\JJ$, with spacing $H=\frac{2\pi}{N}$. 
-All time integration for this article was computed with \textsc{Matlab}'s \verb|ode15s|
-The integration is performed for a maximum duration of $T=10$, but ceases early at the first sign of either: an instability, detected when $|U_j|>1000$ (denoted by~`\(\times\)'); or a non-monotonic  irregularity (denoted by~`+'). 
+Turning now to numerical simulation, we assume a $2\pi$-periodic domain with $\nu=1$ and $\alpha=1$ for
+convenience. The initial field $u(x,0)=A\sin x$ is integrated at the $N+1$ grid-points $X_j=Hj$ for all $j\in\JJ$,
+with spacing $H=\frac{2\pi}{N}$. The integration is performed for a maximum duration of $T=10$, but ceases early at the first sign of either: an instability, detected when $|U_j|>1000$ (denoted by~`\(\times\)'); or a non-monotonic 
+irregularity (denoted by~`+'). 
 For each number~$N$ of discretised intervals, a search is made over values of~$A$, both positive and negative,
-for which instability or irregularity first occurs, as plotted in \cref{fig:numeric1}.
+for which instability or irregularity first occurs, as plotted in Figure~\ref{fig:numeric1}.
 \begin{figure}
 \centering
 \includegraphics{burgers_stab_plot4_100.pdf}
@@ -1332,16 +1283,16 @@ with unambiguous approximation of the spatial derivatives.
 %Are their any suggestions you can make in terms of future research? 
 
 Holistic discretisation has proved to have a number of attractive properties when applied to the general class of 
-diffusive \pde{}s described in \cref{sec:intro}.
-In particular, it empowers centre manifold theory, discussed in \cref{sec:lin}, to use the \pde\ to inform iterative refinement from an initial approximation to a field~$u(x,t)$ whilst incorporating the macroscale dynamics of the relevant \pde{}. 
+diffusive \pde{}s described in Section~\ref{sec:intro}.
+In particular, it empowers centre manifold theory, discussed in Section~\ref{sec:lin}, to use the \pde\ to inform iterative refinement from an initial approximation to a field~$u(x,t)$ whilst incorporating the macroscale dynamics of the relevant \pde{}. 
 The resulting approximation is a function of the discrete grid values~$U_j(t)$, the \pde\ parameters, and an introduced homotopy parameter~$\gamma$ that controls continuity and smoothness. 
 
-The use of a piecewise-linear initial approximation~$u^0$ to~$u$, discussed in \cref{sec:lin}, 
+The use of a piecewise-linear initial approximation~$u^0$ to~$u$, discussed in Section~\ref{sec:lin}, 
 has been shown to be especially effective in conjunction with the holistic approach.
 With the inner continuity and smoothness conditions, for instance,
 the self-adjointness of the diffusion operator~$\cL$ is preserved under periodic, Dirichlet or Neumann outer boundary conditions. 
 This holds for all $\gamma\in[0,1]$, although the usual Neumann condition holds exactly only for $\gamma=1$ and requires modification for $\gamma<1$ (governed by the chosen smoothness condition).
-As discussed in the example application of \cref{sec:nonlin}, also interesting is that
+As discussed in the example application of Section~\ref{sec:nonlin}, also interesting is that
 with the addition of the first-order holistic correction~$u^1$, the approximation $u^0+u^1$ for the diffusion equation ($\alpha=0$) 
 is an exact cubic spline representation of~$u$ in terms of~$U_j$.
 Notably, this cubic spline is defined in terms of the nonlocal operator~$S$, which appears naturally in the holistic derivation of 
@@ -1350,9 +1301,9 @@ the coarse dynamics.
 There remains scope for research into finding an alternative form of the smoothness condition that would lead to $C^n$~smoothness for $\Ord{\gamma^{n+1}}$ approximations.
 
 Another useful facet of holistic discretisation is that it eliminates the ambiguity inherent in choosing appropriate discrete approximations to the spatial derivatives in the \pde{}. 
-\cref{sec:nonlin} illustrates that the induced discretisation follows directly from the \pde{}, as a function of the initial approximation~$u^0$. 
-Furthermore, at least in the case of Burgers' \pde\ with a piecewise-linear initial approximation, \cref{sec:numeric} indicated that the holistic discretisation automatically favours numerically stable approximations. 
-Indeed, the iterative refinement provided by the centre manifold framework acts to improve the order of approximation of spatial derivatives in terms of the discrete grid-spacing~$H$, as discussed in \cref{sec:nonlin}. 
+Section~\ref{sec:nonlin} illustrates that the induced discretisation follows directly from the \pde{}, as a function of the initial approximation~$u^0$. 
+Furthermore, at least in the case of Burgers' \pde\ with a piecewise-linear initial approximation, Section~\ref{sec:numeric} indicated that the holistic discretisation automatically favours numerically stable approximations. 
+Indeed, the iterative refinement provided by the centre manifold framework acts to improve the order of approximation of spatial derivatives in terms of the discrete grid-spacing~$H$, as discussed in Section~\ref{sec:nonlin}. 
 This is somewhat akin to the process of deriving a geometric integration scheme, but applied spatially rather than temporally.
 It would be interesting to compare the stability of the fully second-order holistic approximation against the mixture model with correspondingly higher-order spatial derivative approximations.
 
