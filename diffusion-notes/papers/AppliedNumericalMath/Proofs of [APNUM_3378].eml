@@ -1,0 +1,141 @@
+X-Account-Key: account4
+X-UIDL: 63083
+X-Mozilla-Status: 0001
+X-Mozilla-Status2: 00000000
+X-Mozilla-Keys:                                                                                 
+Received: from ME2PR01MB2321.ausprd01.prod.outlook.com (2603:10c6:200:2e::31)
+ by ME2PR01MB2322.ausprd01.prod.outlook.com with HTTPS via
+ MEXPR01CA0146.AUSPRD01.PROD.OUTLOOK.COM; Mon, 28 May 2018 11:35:30 +0000
+Received: from SY2PR01CA0011.ausprd01.prod.outlook.com (2603:10c6:1:14::23) by
+ ME2PR01MB2321.ausprd01.prod.outlook.com (2603:10c6:201:18::10) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.797.11; Mon, 28 May 2018 11:35:30 +0000
+Received: from ME1AUS01FT003.eop-AUS01.prod.protection.outlook.com
+ (2a01:111:f400:7eb4::207) by SY2PR01CA0011.outlook.office365.com
+ (2603:10c6:1:14::23) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384) id 15.20.797.11 via Frontend
+ Transport; Mon, 28 May 2018 11:35:30 +0000
+Authentication-Results: spf=none (sender IP is 129.127.13.230)
+ smtp.mailfrom=elsevier.vtex.lt; uao365.mail.onmicrosoft.com; dkim=none
+ (message not signed) header.d=none;uao365.mail.onmicrosoft.com; dmarc=none
+ action=none header.from=elsevier.vtex.lt;
+Received-SPF: None (protection.outlook.com: elsevier.vtex.lt does not
+ designate permitted sender hosts)
+Received: from hybrid.adelaide.edu.au (129.127.13.230) by
+ ME1AUS01FT003.mail.protection.outlook.com (10.152.232.68) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id
+ 15.20.820.8 via Frontend Transport; Mon, 28 May 2018 11:35:29 +0000
+Received: from hybridprd01.ad.adelaide.edu.au (10.33.44.92) by
+ mailmbo36504.ad.adelaide.edu.au (10.33.56.12) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id
+ 15.1.845.34; Mon, 28 May 2018 21:05:29 +0930
+Received: from mx-01-02.vesa-hv01.esa.adelaide.edu.au (129.127.149.251) by
+ hybridprd01.ad.adelaide.edu.au (10.33.44.92) with Microsoft SMTP Server id
+ 15.1.1415.2 via Frontend Transport; Mon, 28 May 2018 21:05:29 +0930
+IronPort-PHdr: 9a23:mccDmxVoFLrmHuJY1Frk+YPdD0HV8LGtZVwlr6E/grcLSJyIuqrYYxOPt8tkgFKBZ4jH8fUM07OQ7/i9HzFeqs3f+Fk5M7V0HycfjssXmwFySOWkMmbcaMDQUiohAc5ZX0Vk9XzoeWJcGcL5ekGA6ibqtW1aFRrwLxd6KfroEYDOkcu3y/qy+5rOaAlUmTaxe7x/IAm2oAnLtsQbgIRuJ6gwxxDUvnZGZuNayH9yK1mOhRj8/MCw/JBi8yRUpf0s8tNLXLv5caolU7FWFSwqPG8p6sLlsxnDVhaP6WAHUmoKiBpIAhPK4w/8U5zsryb1rOt92C2dPc3rUbA5XCmp4ql3RBP0jioMKjg0+3zVhMNtlqJWuByvqRxhzYDJfI6bO/VxcKDGcNMGRmdMRNpdWzBdDo6+aYYEEuoPPfxfr4n4v1YBsRy+BRO2BOzx1jBImn723ao80+Q6Cw3JwhcgEM4OsHnPstr1MLwSXv6rzKnJ0zrDdela2Snh6IfWfREtu/WMXa52fMHMx0cvEAbFgU+RqYzjJz6VyPgNvHaU7uZ6UeKvl3YrpB91oji02MgslIjJiZwPylze6Sp5x4M1KNulQ0B4ed6pCJhduz+AO4drTM4vQ3tktDgnxrACo5K2fisHxZI6zBDFcfOHaZKH4hf7WeaRPzh4gHVldaq6hxap9UWs1vfwVteo0FlUoStJiN3MtmwV2xzS7MiIVOd981+i1DqRzQzf9+9JLEAumabFNpIsxqQ8m5gQvEjbGy/5gkT2jKuYdkU+/eio7vzqbanhpp+GLY97lB3xMrgvmsy4B+Q4KRICUHaA+eug1L3u5lP2QLFRjvIojKnZsY7VJd4Bqq6nHw9azIki5wy7Dze6yNgYh2UILEpZeBKbiIjkI0vBLO3lAfq8jFmhkSpnyvDdM7L7H5rBNGLMn6r/crZ58UFcyRc8ws5F651KF74BPej/VVXstI+QMhhsOg
+ qow+HhGZNn0YkT
+	Q36UKqaVPafbsFOFoO8jPq+Fedw7ojH4fvMi/eTjhmM4nlkGO6Sy1ps/ZXSjE+pnLl/ff2bhkpEFDTRZ9jEiRfDn3QXRGQVYYGy/Cvox
+X-SBRS: 3.5
+X-Listener: MX_LDAP
+X-IronPort-Anti-Spam-Filtered: true
+X-IronPort-Anti-Spam-Result: A0DCBgBu6Atbh07bh1JcDhABBgyEJm0SKIN3iGOMC4IIgQCBZYFXj38UgWQLExKEQgECAQGCESE2FgECAQEBAQEBAgETAQEBCgsJCCgjDEIOAYFkIoJ7DwFAOwImAkkpG4MHAoIDAQqkaoIch3lEgWghaIUJgiSCE4EPhE6CelUvgjSCVAKNC4tXBwKBOYQzii8+gzGCX4R9K4lBhx+BSAuBeIQDCYIlg06DaIYwPTwwCoFQgyOLOQEB
+X-IPAS-Result: A0DCBgBu6Atbh07bh1JcDhABBgyEJm0SKIN3iGOMC4IIgQCBZYFXj38UgWQLExKEQgECAQGCESE2FgECAQEBAQEBAgETAQEBCgsJCCgjDEIOAYFkIoJ7DwFAOwImAkkpG4MHAoIDAQqkaoIch3lEgWghaIUJgiSCE4EPhE6CelUvgjSCVAKNC4tXBwKBOYQzii8+gzGCX4R9K4lBhx+BSAuBeIQDCYIlg06DaIYwPTwwCoFQgyOLOQEB
+X-IronPort-AV: E=Sophos;i="5.49,452,1520861400"; 
+   d="scan'208";a="13384828"
+Received: from ms90.vtex.lt ([82.135.219.78])
+  by mx-01-02.vesa-hv01.esa.adelaide.edu.au with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384; 28 May 2018 21:05:27 +0930
+Received: (qmail 10366 invoked by uid 210); 28 May 2018 11:35:21 -0000
+Received: from boole.vtex.vmt by ms90 (envelope-from <corrections.esch@elsevier.vtex.lt>, uid 201) with qmail-scanner-2.08st 
+ (clamdscan: 0.99.3/24609. spamassassin: 3.3.2. perlscan: 2.08st.  
+ Clear:RC:1(10.0.0.8):. 
+ Processed in 0.051297 secs); 28 May 2018 11:35:21 -0000
+Received: from boole.vtex.vmt (10.0.0.8)
+  by lili.vtex.vmt with ESMTPS (DHE-RSA-AES256-GCM-SHA384 encrypted); 28 May 2018 11:35:21 -0000
+Received: (qmail 7476 invoked from network); 28 May 2018 11:35:21 -0000
+Received: from pts.vtex.vmt (HELO pts) (10.1.12.10)
+  by boole.vtex.vmt with SMTP; 28 May 2018 11:35:21 -0000
+Date: Mon, 28 May 2018 14:35:21 +0300
+From: <corrections.esch@elsevier.vtex.lt>
+To: <anthony.roberts@adelaide.edu.au>
+Subject: =?UTF-8?Q?Proofs=20of=20[APNUM=5F3?==?UTF-8?Q?378]?=
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+X-Qmail-Scanner-2.08st: added fake MIME-Version header
+Message-ID: <1527507321102810353@ms90>
+Return-Path: corrections.esch@elsevier.vtex.lt
+X-OrganizationHeadersPreserved: mailmbo36504.ad.adelaide.edu.au
+X-MS-Exchange-Organization-ExpirationStartTime: 28 May 2018 11:35:30.0081
+ (UTC)
+X-MS-Exchange-Organization-ExpirationStartTimeReason: Original Submit
+X-MS-Exchange-Organization-ExpirationInterval: 2:00:00:00.0000000
+X-MS-Exchange-Organization-ExpirationIntervalReason: Original Submit
+X-MS-Exchange-Organization-Network-Message-Id: d20d83a0-ba34-4059-ad10-08d5c48f1dad
+X-EOPAttributedMessage: 0
+X-MS-Exchange-Organization-MessageDirectionality: Originating
+X-CrossPremisesHeadersPromoted: ME1AUS01FT003.eop-AUS01.prod.protection.outlook.com
+X-CrossPremisesHeadersFiltered: ME1AUS01FT003.eop-AUS01.prod.protection.outlook.com
+X-Forefront-Antispam-Report: CIP:129.127.13.230;IPV:CAL;SCL:-1;CTRY:AU;EFV:NLI;SFV:SKN;SFS:;DIR:INB;SFP:;SCL:-1;SRVR:ME2PR01MB2321;H:hybrid.adelaide.edu.au;FPR:;SPF:None;LANG:en;
+X-MS-Exchange-Organization-SCL: -1
+X-Microsoft-Exchange-Diagnostics: 1;ME1AUS01FT003;1:PG+oXA1aEIaGDdvhhHE5IFgeg+kk+DzcjMsW5wdIc7OawR2Y9UirYFY8FRMzZy0aNRcIluRvqTRK7lDXGk8OX+nFIZtuOqN/K6o3rttS8oWdq4H4rbk9KroK4lorjjTA
+X-MS-Exchange-Organization-AuthSource: hybridprd01.ad.adelaide.edu.au
+X-MS-Exchange-Organization-AuthAs: Anonymous
+X-OriginatorOrg: adelaide.edu.au
+X-MS-PublicTrafficType: Email
+X-Microsoft-Antispam: UriScan:;BCL:0;PCL:0;RULEID:(7020095)(4652020)(5600026)(2017052603328)(7153060);SRVR:ME2PR01MB2321;
+X-Microsoft-Exchange-Diagnostics: 1;ME2PR01MB2321;3:VIAHHe3z4jv0xw/mRsxjbD6n62WeulBHcLox6JZde9X3jKNWGnizFhok5uk4wAU2diZitNZErQzxT1fzuF0Hy1o1xD8EpMwQ588+0oPLXinij11h5qA40D7j7z8mg/BTQHQICyfGDikVsAvW83sy+7jKAqfF/ov01/afU8yIhJlS5jyhKIHyHHgnMeh+ZHNX0/hvNPNiO5I96R6fKZF2vD6o1oW2U/TuHDc4tlg8hQ6cQtPAaKes07NgA23Mb6f9/i08JoPfhLfRnn4KqlgeIukLrPBQCjdOcuOmchFKYvWAHjJZGPQWLqj8Oxl9A67kTvcL8T49Iu81a6wK1YpoNNDP1KVZhMnnv3Eu0DereV0=;25:PT7nW8gOT8Az2Cs8KeoEsqAvOh5o2Mr+vtdGVj3wMoq3P2sRkMF+lGX3/lzi/q82w70k7BuOLm/Pil9W3Iz+CL5exflxIaixWCRZuZ7bw4ue99DlvU3s/MG94xZTRPf71vLlj/BYTyFOT9VRinuyR5kGDTalSz8TUM350h7sNee6A1EkoNuDeS4ccbP7l+Xrv0d/s1pWkOSWh53CMM657OIBccfD7Esc25IStvt6a8++BOcKaSaM6dfG2PUGo8oDD6qoyZMgnIgo2zxrB3QO+L0YM6Jyl/5f8wh5UvZuHic3QCojWeXPXCYmGqlNgAWjbTgaQTvyDd8TNBIO1gf2ig==
+X-MS-TrafficTypeDiagnostic: ME2PR01MB2321:
+X-Microsoft-Exchange-Diagnostics: 1;ME2PR01MB2321;31:hYSUQZjVYzqX73dQTwb3fI3ezowIaC7r7cF94Qj1oRMtq+chSpL2Gb+0uVifptUKVry+7ZFiUXNmWnUNs3JPHEgiP9FauvX07ZLBjgrAC5UGDRVQBg0VEFLrbd2BQuQcBYiKb1WYMyGhmyIqP9dcZ4qoduo3OKgkcU7C7UE4OLD94xnz6tn4Jr5Kjqy0Ff6V73aWfLdGbZMuBa8ZKRouSMqOIYA23lG0twWtrHZ/26o=;20:UeCv48/rMNxH1nHB73bfEmKoXIFNrEZ7HxEg9K/Z7gSacjvU4ZVop1LTvi8Bjjxl+pHYaCnG4i3Bwmvov8GYS6DtdxhZy3vp+Jm+99JKb+89nyz7RUpjH6nFeVkl1nxjVbG4QJr9fv57hy9hBdeC0kqhJWydtbUKrEa9iSQqUgXRD903r8rXPTPcidqUKOOAsHjYMyd3JgDTalBqpKUyUkK5ldChjN1mVUqATAAvypjSh1u5f3wMoXDB429Rov8k7lPji/FfZfofh+/8BKl2nWyaGy09ae2qrmr7ko2qK2ap+26maib/4r3tciBc0Mohj3vI0+aYgz8MNpbxGZ/DjU0cHXlZKYWsZsZWtC16omk44c8vsaYZtYrVFhuhxb4XSJyekGIZuBNX2Tf9Mc5bnS8Kd6pRFxfr6dgfw0ZpTp4TYUdz7u9dx9THG7z5PxT5PYwoiijBroflUpqCQzqHX5yQw3AIZz15K4LzsiyOJruk0+O8hsruJkkWH6ZGrDc1
+X-Exchange-Antispam-Report-Test: UriScan:(209352067349851);
+X-Exchange-Antispam-Report-CFA-Test: BCL:0;PCL:0;RULEID:(2401047)(8121501046)(3231254)(901025)(902075)(913088)(7045084)(944500087)(944510158)(944921075)(946801078)(946901078)(52103095)(52104123)(52105095)(52106170)(52401190)(52601095)(52606095)(52606095)(52505095)(52406095)(52305095)(52206095)(10201501046)(12181506113)(3002001)(93006095)(93003095)(1610001)(8301001075)(8301003183)(9300000083)(9301000104)(201708071742011)(7699016);SRVR:ME2PR01MB2321;BCL:0;PCL:0;RULEID:;SRVR:ME2PR01MB2321;
+X-Microsoft-Exchange-Diagnostics: 1;ME2PR01MB2321;4:aKH4pgTjNWVx7gejTLWJ57uql4cIvAA/Nr0tGh6Zn68/+iuX8dwQfevhOGpTTEJIIJd+TRi52iXkY44soxPMVjgaAyqfQPESUz25lRUMZgaV91NrIuOZxSLij7dPjmcylzEhz0akS7eGv2WyKQpgvSoyYNMG1SMu6WPPJNbuw063N+6GlNRf0s9JPjBCIAxAXC9lAC+8AvmR7nYZ99g76xVYjMVH7RIfTLeAPom2ts3zPURSlwWEaUtmelZ8R8Le9DgwHOEFXuXvcLoIchd7wSdnGcPzd8ReYcrU2kuhGTCEPVzcTTij7gX+qhBuHHOl;23:Np/htGq6ZLeneKDKHewpHsOBoJ+uGeJbdbFpFyakJ9Di2J8OWBtiW1TjDN/0rlc4fJac6qg1doed+2WOKW2pZ7fmim4sD+UJo2lGQzK2aQKG1k2d6VKtoEFkDIVXJmdsW5F8HKM0bbhwf4V+1jDTscdFo10J726Ms0pxRpNub2FJP+dUuDirXGEFA2lv3aie
+X-Microsoft-Antispam-Message-Info: JdKnzgr0+3H9VqWpWtuIQfKSfFWvvovi2xCpcMPPuzuc/+XsYpwV3i2/W2Wh/CDbLC7U6LQrhXSh4BkbzqDuFGaJ0SfYjE0IrOhgkFkM2YgACy5FPkKoJ80bfpcmWwS4fuE4zdqzPpNwdMZzUuRzy1o4ELJm1mJsUM5OPetAKjl6PQXRQP3Q0PMvfeWrAtX2Zh/CfsYRjvvoHCSNXWpxQ02MGKIrQZs/+Q9YPXNnFuuYf871zNhCvOj9RcIP6cULSc5JSqzIdreoM2Y8xNbkV7CUY1cT6lGHxvpIEILNfwSl/NreOrHBST2z54drdqJRqBrTnXImvLYp55X9uqbPX16f9Qqj7R06qtiJRClIb1RGGwxx0UP6/T/cR0wOXlppkK+dVPhMWDCEpu02W1JZZSlcuUjalfwbmegom1cd8ygLvvq/MRwA7xwIw3ARQFoWZs6c8Gw6unpnFbmsqmMtQ5erucEgGO1Sj3HsisO3M+33WfJT8K1wvjPZ8vXGU43yRxHz0d7wkBro5GY3IGO/2OzuXMv23H55fCEP5nrGiOhZEk6KQxCMmDVYbgyOS4pTC9c9NerZXmaxzJUPVmETEdEhOynWTczLco3a+DGISNscShxF9877hl2iURwupATkLvqocz+nnhluo9HxrYQBTQ==
+X-Microsoft-Exchange-Diagnostics: 1;ME2PR01MB2321;6:JSrDv75qKbiGawFlfkNxHq/xpo1osgql59Rl2HcrJ3wV/AVa/G2JuT1CnPbqjXe2wGFT/1GrPZ0Ck7k5Ohh9LQk2/n7NdUasbFr1mi/I0SQb2rPTWw225lI6Pv2HMarI1YEB3HWVytDhgF5jD7d4tpSgjSYPXjmhVhHBnq0Sa1UIH4DTigsoTsbv0Z2lNDpM36WO2+qQUGA8UEZgxQGYvtAWV2Az1R8YdQLw9YoDcGbSmpIR3DbRbRZv9Y7CTRrPCFGVlzi7muHwIei+WwCQgpKMO377jF6LmyUPLVel+i/GX1UGcMGg2B3gY75YlFys1hihJbvlXfLr4SOLCaAKwMnkuSK6Bnxd5BjGo9ggYM/VezTFrhjWhhbOsf1cgnxxR6AngWBYhdPRk43omBXxuPbbi9BWS8u6ErBf6W2AetYqNDYDmYucFmDWDo2UBK8mX2DX76Wv3tK0UOzShMzKGFKv9s3VQgVDt45iDbm/12Oj+jvgzrKPlIrVeo83TL7b;5:6SiN89VNbEgYshFnuMXklAm4h9VYnZiINSbURPSOGmydwHkhZ6uJQfnp7ILCFFScSBpO+9VdozuSwwtsT5hVnYmBR9o66fqF7o+4OHgxbhYpOmWV4EwtksNjLSq6LQGV3wC75aswLnQ0/5sy9mkIKVcXEnzWP3RoCcwj8b9LfWI=;24:FXfwlVcJswyJT4tRK1tJOrKY6nLSZ9o1lHvqe1B2XLQ92hNhP9QtE8oC8sUk0PNQBJZIIb9OnzSCQFqFklx64JsgqaFAY7MKUVGNoImznkk=
+SpamDiagnosticOutput: 1:99
+SpamDiagnosticMetadata: SKN
+X-Microsoft-Exchange-Diagnostics: 1;ME2PR01MB2321;7:VbFn/LUXFX2ik5DImdI8SRx1ogqyUEcoYEWr+80hxBjd9An03eLi2j2dSgzKphaio6os3xYbcenF1KOqBAVihYJ8uWaYlm6QaqRCEPtgpg55Dhj33CrQQFFjUYwDCPDcPZZ8ae4cY/8eNh/CydXZ3WnhyBVcHG/rz3ukbG912w8mVGYk7cDqTwbx5IE415a3mlCttQIOid0kOyRwW3AiL/D3vJkiuRXA0GBrB3Lua6zn99He+stXSRr7N7G1rmSk
+X-MS-Office365-Filtering-Correlation-Id: d20d83a0-ba34-4059-ad10-08d5c48f1dad
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 May 2018 11:35:29.8660
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: d20d83a0-ba34-4059-ad10-08d5c48f1dad
+X-MS-Exchange-CrossTenant-Id: b3cddf40-9654-4a26-86a1-779c51f69c48
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=b3cddf40-9654-4a26-86a1-779c51f69c48;Ip=[129.127.13.230];Helo=[hybrid.adelaide.edu.au]
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: ME2PR01MB2321
+X-MS-Exchange-Transport-EndToEndLatency: 00:00:01.0095863
+X-MS-Exchange-Processed-By-BccFoldering: 15.20.0797.000
+X-Microsoft-Exchange-Diagnostics:
+	1;ME2PR01MB2322;27:dPFmqfA/eQHn7pW63+X9+os+kH1Z70nPymBXd3YWwTjrgWhWuowGEFp2+4tZLbrlF3wj++Obgvq4jog/m2McSob+XtvV9YyGRLsNmvC17c53UlNxnvISvKhV6NceDynU
+X-Microsoft-Antispam-Message-Info:
+	q6+FIsrehYtrbjE7OGbJc4VpvYjWTaq6otfmLhwuuOfOLOKeQfIERDINa2SFbSuu+KCqaZIskej2kIDknS+9dB79TFA8Tnc+4xxJC7+WpCuF216XOgNmx3nlPeQuvAvGB0N0m4gLa6JX6IgOdsE6DYlj+TxEWCMCm7x2In7wCXj9MCUTkT4eTvKJvf1bqsfc47NNcbt6SlYJy3Wb0/S1aQ72eHNTxULw8dpIcvlnovUgTr7j50nk21lWhJr+3EhcMKKTaHgp+62TIhE/cZlDCO090mOTeSEdQuSmI7G0elzVaAYxwO+idHOIg6Htzph2fXhqKWPJnvZ1aVrQul9MyBWDPEH13m0xiyoMkdm0YUhUgck0BcdvC1fCbtn1TeuTOuM0ew5b3cxW8xdjF3PcQzpFSfavrcPshfaQqTbiAsKxTbYRwZ8nk+mBhic+bTiss47EDVb8ioswuK2CcqRytrPA87/Cn+H4dEI2KA0fV/2gKAUUf3yONYlvbqGBdRC+Z+P97SwIkzAlH6Wx3Hz19XHYUSFhpIQw23q+rXRi2YtbgNg6dUj9NljlnRjIEjiHs0gtDg8szrl0pqNBRfPgBsQSDvWrkmPh7W2Mu7fH+0ZpC2TvgcAUCc8agRAJ9eJw5MRoMBIcBcopEWw+TiPoqQ==
+MIME-Version: 1.0
+
+PDF-online-authorproof-v2.3
+
+PLEASE DO NOT ALTER THE SUBJECT LINE OF THIS E-MAIL
+
+Dear Professor A. J. Roberts,
+
+The proof of your article, to be published in Applied Numerical Mathematics, is now available online for you via
+
+http://elsevier.vtex.lt/authorproofs/APNUM_3378/fd22e8ae7f6abd6d71a7e7ae12c14fcd
+
+Please read and follow the instructions given there.
+
+Please use this proof only for checking the typesetting, editing, completeness and correctness of the text, tables and figures. To assist you with this, copy-editing changes have been highlighted in red with the original text in a pop-up box.
+
+To ensure fast publication of your paper please return your corrections within 48 hours.
+
+Note that once your corrections have been received, your article is finalized and any further correction is no longer possible.
+
+Yours sincerely,
+
+Elsevier
+
+E-mail: corrections.esch@elsevier.vtex.lt
+
+
+For further assistance, please visit our customer support site at http://support.elsevier.com. Here you can search for solutions on a range of topics. You will also find our 24/7 support contact details should you need any further assistance from one of our customer support representatives.
+
+
+.
+

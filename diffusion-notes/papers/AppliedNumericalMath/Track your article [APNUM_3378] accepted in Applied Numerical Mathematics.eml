@@ -1,0 +1,174 @@
+X-Account-Key: account4
+X-UIDL: 62941
+X-Mozilla-Status: 0001
+X-Mozilla-Status2: 00000000
+X-Mozilla-Keys:                                                                                 
+Received: from MEAPR01MB2326.ausprd01.prod.outlook.com (2603:10c6:201::27) by
+ ME2PR01MB2322.ausprd01.prod.outlook.com with HTTPS via
+ MEAPR01CA0039.AUSPRD01.PROD.OUTLOOK.COM; Wed, 23 May 2018 06:06:19 +0000
+Received: from MEXPR01CA0082.ausprd01.prod.outlook.com (2603:10c6:200:2d::15)
+ by MEAPR01MB2326.ausprd01.prod.outlook.com (2603:10c6:201:6::16) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384_P256) id 15.20.797.11; Wed, 23
+ May 2018 06:06:19 +0000
+Received: from SY3AUS01FT014.eop-AUS01.prod.protection.outlook.com
+ (2a01:111:f400:7eb5::202) by MEXPR01CA0082.outlook.office365.com
+ (2603:10c6:200:2d::15) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384) id 15.20.776.11 via Frontend
+ Transport; Wed, 23 May 2018 06:06:18 +0000
+Authentication-Results: spf=fail (sender IP is 129.127.13.228)
+ smtp.mailfrom=eu-west-1.amazonses.com; uao365.mail.onmicrosoft.com; dkim=pass
+ (signature was verified) header.d=elsevier.com;uao365.mail.onmicrosoft.com;
+ dmarc=pass action=none header.from=elsevier.com;
+Received-SPF: Fail (protection.outlook.com: domain of eu-west-1.amazonses.com
+ does not designate 129.127.13.228 as permitted sender)
+ receiver=protection.outlook.com; client-ip=129.127.13.228;
+ helo=hybrid.adelaide.edu.au;
+Received: from hybrid.adelaide.edu.au (129.127.13.228) by
+ SY3AUS01FT014.mail.protection.outlook.com (10.152.234.114) with Microsoft
+ SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.20.797.11 via
+ Frontend Transport; Wed, 23 May 2018 06:06:18 +0000
+Received: from hybridprd02.ad.adelaide.edu.au (10.33.44.93) by
+ hybridprd01.ad.adelaide.edu.au (10.33.44.92) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id
+ 15.1.1415.2; Wed, 23 May 2018 15:36:05 +0930
+Received: from mx-01-02.vesa-hv01.esa.adelaide.edu.au (129.127.149.251) by
+ hybridprd02.ad.adelaide.edu.au (10.33.44.93) with Microsoft SMTP Server id
+ 15.1.1415.2 via Frontend Transport; Wed, 23 May 2018 15:36:05 +0930
+IronPort-PHdr: 9a23:3aCAGxdIzxv36+ttgRkPV6VelGMj4u6mDksu8pMizoh2WeGdxc26ZRKN2/xhgRfzUJnB7Loc0qyK6/2mBTdLvc3JmUtBWaQEbwUCh8QSkl5oK+++Imq/EsTXaTcnFt9JTl5v8iLzG0FUHMHjew+a+SXqvnYdFRrlKAV6OPn+FJLMgMSrzeCy/IDYbxlViDanbr5+MBW7oR/eu8QYjodvJag8wQbVr3VVfOhb2XlmLk+JkRbm4cew8p9j8yBOtP8k6sVNT6b0cbkmQLJBFDgpPHw768PttRnYUAuA/WAcXXkMkhpJGAfK8hf3VYrsvyTgt+p93C6aPdDqTb0xRD+v4btnRAPuhSwaMTMy7WPZhdFqjK9DrhyvpwJxzY3Jbo6aKPVwcbjQfc8YSGdbQspdSzBND4G6YoASD+QBJ+FYr4zlqlUBqRu+HhejBP3uyjBWnH/9wLQ22Pk9HAHcwAwgHs4BsHDKo97oKakSTfq6zLXVzTXYcvhb3ivw6JLUchAgvf6MWax/ftLMx0kzDQzFkkiQqZf+MjyL0uQNqHaU7/RhVe2xkW4rsR1+oj+qxso1jITCm4wbylfB9SpjwYY1I8W1R1B/Yd6/DpRQqSCaOJVsQs84X25ovyM6xqUduZGnfSgF1pInyALBZPOacoiI+AzsW/qNITtimH1lf7e/ihCv+kaj0u3xTsm53VlQoiZbndTAqmoB2h3J5sSZRfZw8UGs0iuV2Q/J8OFLO0U0mLLbK5E/xr4wkYIevl7CEyPvhkn7g6Cbel8/+uit9+TneqzqppiBN49okA3xLLkultWxAOsmKQgOQ3GX9fmm2LL5+E32WrRLjvowkqnCrp/aPt4XqbK+Aw9Qyooj6hC/ACm60NkAnXQKI0hJdAyIgoT1IV3DIer0AemwjlmjiDtrwurJPrzlApXDNHjDl7LhcK5h50JB1AY/08xT649VB7wPI//8QUv8u8bbAxMnMQ
+ G5zP/rCNtj2YwC
+	Vm+AGaGUPafWvFOR/O0gOPSDaY8MtDvyMfcq+f/jgWY9lF8TYaWk04IbZXSiEfloIkiUb3nhj9kcHWoEowYyUejnhESeXTJPe3q+Q74w6i0gBY24EIfPX46sj6Ka3CenB5Fae3pKBUqJEXjydoSEXPEMaDmMLc96iDALSb+hS4o52RG0qAD606ZnLvbT+iAAr53vycV56u7cmBwz6DB5D9+Q3HuQQG1uhGwHWiE53KRlrkx811iMz7J0jOJFGtxO/f9GSBo6ZtbgyLlzDczyXQTQOM2OQlu8Xs6OCD08Stswz9JIbkpgXdy/3T7Z2C//LrsOmqKKCYZ8t+r1xWTwLMJwg03a3bU8lBFya9FTNGaii5lE6wHPGpXhnkGCmrireL5a1ynIojTQhVGStV1VBVYjGZ7OWmoSMxPb
+X-SBRS: 2.7
+X-Listener: MX_LDAP
+X-IronPort-Anti-Spam-Filtered: true
+X-IronPort-Anti-Spam-Result: A0DsAABuBAVbf/QG8DZcDg8BAQUBCwGDGX8OfSiDdQKIBI99gxIBAYg2h20UgVsUGA2EAUAEgiYhNBgBAgEBAQEBAQIBEwEBCwkLCCYlDIIyAwIgglMEEAETHQEBBwgiBwQwAiYCcoMiAoF3CwycYoxIAQFsghyCbwEBBYFHhAiBdAiBCYUIgniBP4E/gi2BcYFFCwEDGIEOBQEKAQUCAWuCNBaCPodEkRIJBYE0hDGKJT6DMYJfhHoriTmHGoElHIEZPx8CCQhNIy8hgkMJggsMF3oBCYJBihg6PzABixIPF4IgAQE
+X-IPAS-Result: A0DsAABuBAVbf/QG8DZcDg8BAQUBCwGDGX8OfSiDdQKIBI99gxIBAYg2h20UgVsUGA2EAUAEgiYhNBgBAgEBAQEBAQIBEwEBCwkLCCYlDIIyAwIgglMEEAETHQEBBwgiBwQwAiYCcoMiAoF3CwycYoxIAQFsghyCbwEBBYFHhAiBdAiBCYUIgniBP4E/gi2BcYFFCwEDGIEOBQEKAQUCAWuCNBaCPodEkRIJBYE0hDGKJT6DMYJfhHoriTmHGoElHIEZPx8CCQhNIy8hgkMJggsMF3oBCYJBihg6PzABixIPF4IgAQE
+X-IronPort-AV: E=Sophos;i="5.49,432,1520861400"; 
+   d="scan'208";a="11848390"
+Received: from a6-244.smtp-out.eu-west-1.amazonses.com ([54.240.6.244])
+  by mx-01-02.vesa-hv01.esa.adelaide.edu.au with ESMTP/TLS/AES128-SHA256; 23 May 2018 15:35:52 +0930
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/simple;
+	s=3bk6ixsbtgry2sikho57fglgefnk67fa; d=elsevier.com; t=1527055549;
+	h=Date:From:To:Message-ID:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding;
+	bh=V4lPRuwZ3hGfg8lM/DDP01zKeoqiheqmpAhxGtbTLyc=;
+	b=Qw8+bBDY+vCCc3PQOjRinvTSyhJE1xFiDYy0JBmX6i0WSb9ZdDLnIWBBoBHOwbJv
+	saZoX6PhmMy8gqtDm4JpXBXoVIYp2W1GoDOxKPt04eZPeXuwoD1rc8XkIC2NayhgCgV
+	f91332waHLV7B+P8av+D7C+lj1/ju53o8Y2HsFkU=
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/simple;
+	s=uku4taia5b5tsbglxyj6zym32efj7xqv; d=amazonses.com; t=1527055549;
+	h=Date:From:To:Message-ID:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:Feedback-ID;
+	bh=V4lPRuwZ3hGfg8lM/DDP01zKeoqiheqmpAhxGtbTLyc=;
+	b=LuoqMlgdYkA9iz1FR/lXTH1WeGNzwZvW0QwDZ3UL4bC/yVSCy1iFgBoOfbBBwjFR
+	4KBHker0QxcXHjaFhzlJJK5c06DxpU2+9Z3gP3ZykdMgDzFvti8Xj1Lg43ygOzkpmwe
+	xK8DiYvnPZ0Gsx0OPWeA3MHF+44+4i42gn4kAox0=
+Date: Wed, 23 May 2018 06:05:49 +0000
+From: Elsevier - Article Status <Article_Status@elsevier.com>
+To: anthony.roberts@adelaide.edu.au
+Message-ID: <010201638b9a8274-fec4b399-abd5-4ae6-9f03-9a3638313119-000000@eu-west-1.amazonses.com>
+Subject: Track your article [APNUM_3378] accepted in Applied Numerical
+ Mathematics
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: 7bit
+contentType: text/plain; charset=utf-8
+breadcrumbId: ID-ip-10-183-128-154-38525-1527055531457-0-240
+X-SES-Outgoing: 2018.05.23-54.240.6.244
+Feedback-ID: 1.eu-west-1.KbvBv3+q/Jc/MEfE3cAHMWbZwMzxdOvaUrd4LkvHojw=:AmazonSES
+Return-Path: 010201638b9a8274-fec4b399-abd5-4ae6-9f03-9a3638313119-000000@eu-west-1.amazonses.com
+X-OrganizationHeadersPreserved: hybridprd01.ad.adelaide.edu.au
+X-MS-Exchange-Organization-ExpirationStartTime: 23 May 2018 06:06:18.6858
+ (UTC)
+X-MS-Exchange-Organization-ExpirationStartTimeReason: Original Submit
+X-MS-Exchange-Organization-ExpirationInterval: 2:00:00:00.0000000
+X-MS-Exchange-Organization-ExpirationIntervalReason: Original Submit
+X-MS-Exchange-Organization-Network-Message-Id: 66efd371-d2cc-42fc-4ff9-08d5c0734ce8
+X-EOPAttributedMessage: 0
+X-MS-Exchange-Organization-MessageDirectionality: Originating
+X-CrossPremisesHeadersPromoted: SY3AUS01FT014.eop-AUS01.prod.protection.outlook.com
+X-CrossPremisesHeadersFiltered: SY3AUS01FT014.eop-AUS01.prod.protection.outlook.com
+X-Forefront-Antispam-Report: CIP:129.127.13.228;IPV:CAL;SCL:-1;CTRY:AU;EFV:NLI;SFV:SKN;SFS:;DIR:INB;SFP:;SCL:-1;SRVR:MEAPR01MB2326;H:hybrid.adelaide.edu.au;FPR:;SPF:None;LANG:en;
+X-MS-Exchange-Organization-SCL: -1
+X-Microsoft-Exchange-Diagnostics: 1;SY3AUS01FT014;1:3HKlN2194ufLbZ02/6B/C+rIL/WlPaX+Kg2hN267oIZNal3q4uQF/yMdIaQyp5MyHt9xJcMkZVuwL7yRddu/8HU4GmtBkaSRxTtKE2cCxQW8AEkdLeCVERLtc4zxxPRm
+X-MS-Exchange-Organization-AuthSource: hybridprd02.ad.adelaide.edu.au
+X-MS-Exchange-Organization-AuthAs: Anonymous
+X-OriginatorOrg: adelaide.edu.au
+X-MS-PublicTrafficType: Email
+X-Microsoft-Antispam: UriScan:;BCL:0;PCL:0;RULEID:(7020095)(4652020)(5600026)(4608076)(2017052603328)(7153060);SRVR:MEAPR01MB2326;
+X-Microsoft-Exchange-Diagnostics: 1;MEAPR01MB2326;3:1xNdvPtHKzTfxC7wBrmc+ccvs9uCwGJHcVsPUhfxpWzyJ+Adx1dLEHUhu2uRcya2PQo/2o7ung838IE5gvPNTw1AKALyrP0lyfNEiOhyOKEjCuJhw9BdwC0AaZCyXWybKly9pzeheUF7l02tReYRlrlG50/OisFbedwWjFn/jm4WpsIteX967hSK0rtGT0kK0Zv2qjimeT5DYGFiL6G0x8XTVoDS80fgD3u8W+vk2HvzyVDuTm5Cjkh/dm+LUdZZUb0jx2vb0uULtytPqIXoNy6u2FkKtwpKfVnAHcEAI9kyufzECbOAbEh4pnjxWdG9bZ0/spF371WmPEhCXR7iBWyQSUb4284FLp4TPwpPxDo=;25:d7J9O0NgaEnjhBv/2+EYNB1N3Z2ZNryCOcrd4Z8tN1vgD9r5iLiQvbuLPl9vHmDG+jPgAhAUoQ+F0T0tWN1EqDPua6oTvpg+s2qV8aS67RF7BKxz/c9FgVAzz6k0eXuGeFkJEL4m+sxz6GUz8VlmQQnEwO1fCew726TW0za8ktiPSObgIZcuZx4qB61GKc1w9k3+QZ6ZTNDuweSWCURSXW7OI37vlK78ailnx2Ta9k542mKW5yujEWishtOoL+E1agHAHfR/nnXRi97A3G06pjg5S67AsptgKdbneiPHr0y3lRT7qZNOOi+u4M5m0f1jgYe/ZsmEDkA3eV/Dwo+JxQ==
+X-MS-TrafficTypeDiagnostic: MEAPR01MB2326:
+X-Microsoft-Exchange-Diagnostics: 1;MEAPR01MB2326;31:/cGnLB2kF077Y1BufkshbqlVFtUxS5N95QZcaLSXNez6uyeTPZhsLNc29FH5fo9M1ig3W8NKPY2e49Yd0V4r2j9XvK04+4HMT6N2Q602IyspRlKL2btDcy1v9D+gtHjNwQic1Y630ykOwXu61igjo4qMrUnkiwyvldXURMvZjgAp7Rel4Wf15pwV9OqNkkUUsTqqa3ZfamcqbDgNVafipAw/McGl+oE3eJO5NiLS/SQ=;20:icz9itKv77xAwxiAhOKjBVL03picueovvS67L3yAwx2sjFskj+HjBVHe2FuZ0FaCgH2CoGk58s+Vxa2z8Uf3H6PTdgWsc0U7rEx5eGE3xJMMREF8qfYAwY7AmXXNUhXqBNrK4JoERqJ+ivtknGGIvQshTco5A/OZgBYTRTLzUK2dp56hNnQDUHTJJvpPtKDtWGYjLC0kl1i6riRZNxayZHkVrbNh1LXO81Cyxyt2ud/xGVzD3yAb/Js7QcVtqUbbTHZGBXXMWhYqoe3A0VYiylCgJIEaB3uMETyZZq8vnMYFROI239PjfDUnwxy7GZ5JhWF88hN+bpj4ypwL4lBewR/SU8eH6URDha/2cxAS1sGspfXwMNOAuRz2BXLmbLaFtJ3p7WC+Yd6POQWjA//30XnUnYSonLN0xAos42Fh/oruv/I2iG6j1nDBrNtfVdo7fYWnvuWzWy+yyy0TvmlvDayGGT8fLyk3vj0fQFgut9RYh2wziPHUqY+nkBHNj6HG
+X-Exchange-Antispam-Report-Test: UriScan:(37599857340463)(21799108689641)(188416695047994)(83196631938007)(19113083728360)(109801676885301);
+X-Exchange-Antispam-Report-CFA-Test: BCL:0;PCL:0;RULEID:(2401047)(8121501046)(823300237)(823330056)(93006095)(93005095)(3231254)(901025)(902075)(913088)(7045084)(944500087)(944510158)(944921075)(946801078)(946901078)(52103095)(52105095)(52106170)(52401190)(52601095)(52606095)(52606095)(52606095)(52606095)(52606095)(52606095)(52505095)(52406095)(52305095)(52206095)(3002001)(10201501046)(1610001)(8301001075)(8301003183)(9300000083)(9301000104)(201708071742011)(7699016);SRVR:MEAPR01MB2326;BCL:0;PCL:0;RULEID:;SRVR:MEAPR01MB2326;
+X-Microsoft-Exchange-Diagnostics: 1;MEAPR01MB2326;4:931XHWkd2k8o/8TqNAfJpsbo50IoLqhqQRPknyoXOxU9fqGD8W4GYqE78ulXeupjLo4+Dy1Bl9BE0cPpF3T8klfEC+tEN8tmiH36hA/i3P2q92uyLtcPUuf8Z58ydslUZS9HSRCOfMm42e6B1vRQfWgm0G8xY7d/ojrppzXfPOKovboAv4jVqCkKwTXvGJ5k9dXYHN/OFZSjUPVkP7fAokPMGNFChNG6K/9icAyU1aLs5/ZX64BVzH2q8LmDyTaMimf/l7r9EAijdp0HxrbvPSXvqrHNTv0iedbfXpW20lpzOFhjThjZFnKgVrUMaXiv0SWmezXNPGNUW/AshL2VKZpdmI22xsGOo/y9L2+arKFwjSuy+VSCdGEQUgCgZBt+/ypuTrENpaaY1ftKCyS/7IWAUVCc34u4eC2nvDwFa9Vq/fZmrSWfUNY08NaDdT/U01hkkZ4nRn87tsU5O4AmORJECtk0e7+wKIE4sDD4MpE=;23:U/WyfepRxx4/W60Nvwtc+xxAGO4at6R+G1Kox43Dujz05BqzK5su1SNCqqCnWpFiTfMmWgxJAR7Npa9lOEjTTT5T2mIMl6R+VMp+1fEJc40yaM3Cs4kO1BMzv0ZHNFQBYvQkOwrLm/pzclLcDUxwKw0lQ0esCDsIONQIb47qEEtjQXL3M+FRQamxgPEfb45G
+X-Microsoft-Antispam-Message-Info: 7hpdAk4DRKruqW6K3gbQN98bEMNjjxDmwUwjTnSZXbDdY5w1uyuliFnLP6PqDvNvfmxmzc/qMHlBIG4qE1S4qkDZaV5I6bgMiXI6wWZKegqjFmVQkFX19VRKfO0cMwqURHaRyb+mtteV6NEEHD+GKlC8Q6/EEeUmGcqV9zsPbGhcio5+te0DmSm1fix5ww4KJLJimnG0zFf4kOPXxvS25q+jZk0wh/6JUZc+rk9knSh7B7JxSUSi9R6aBslzpavp5OJjTBEPm1plEzIPVcSZ2J/YnK2ZgYD0fZK6kshG14vUpNuBG2VKPBAHTZtc2Mt1cITIqwGmKb9AD7G61HyBpngFaJLVA+4Da2ZiQalF6UEI3wad4s54u2AkEpM1DCPRH0fAWZUZiQSGu9Z7mk1WYNCzjp3WoX7XIkcDNib8JfqHGuHPJtzvEu1VUGG9pyp8xueJDXrfKWrgGSg1vf0V4T28NztzO4OGK1v589HTj/4ITbZBwMOQzCETmYoBiEs4hs6L4fKfVCH18snGi2WIRlBVqxX7KOBJdmsTcdD+M+YrCeIwGVoGyocRRRFVc3WvHtLrB5YHwFczBG06EO4C/tDXeY4V/GcQB391wBj61ufPFw6WrH64hi9zX6DElnfKmO65VR7qVR8XcEDcoEJYPw==
+X-Microsoft-Exchange-Diagnostics: 1;MEAPR01MB2326;6:nBju+sZ86zKHwUXZpVh8Z1LPlO77XgKIGNq4Ox1er6DBnWC2SMeAQll8iHB6Hq/2XmOhnuzb+9Vc3U68+KUJK6udj4+76WeanzEZjOVOlkv0k6CxDDkJA7tVarGXcAQcSH7xS9U6V7i9WUL/39ZHeBBom8JsGbv+qW10ke5rMPDwsfWf37n7vXr8deJbnqMdyRdblP+n1CwIyNrzuu9Ko5eM/Oh8Bo2X9uP07rVMIxpDuQVL3B3zj+Hu1V3kbrWG3Hzq+0Xq/iBVMgy3F+7VUDLoefWsYS/2/DNdPFxGE6anqMcFUpdmtY9eIqyxpSgQGeoEjx6ZpVP+isz1GuK35jwXczlk3FDg25N/RGMrrVGaSaAJpRIQdjCQcCW839R1dWy6pDuAGSpYAipfEwd50/cVEzWET+43M9x7+DzS5j/mCQxTc9vjEXdnesuH2eGqCrRRVxg8Bkkpb8fn9tlCYE9SXYICdxwUNREqr/0RIsL2mWacslZcrgi9aZmkjLow;5:U34IUH9t0px2xg1HiAP3MKiuiKl7xA0n0YldeX1ZPKOqQnDK5C81h4UUPT5xCd5K34z85OPwSuBxxxuS/p5Y8kh91lPKXF2j6NHjJCiCr/Bxb1+553qaKZEuI8T9k0tLjDmMV3adGijXZlEXbLWQi8aOPqHQEPP/engYK8IUzsU=;24:PdVOKv+jYnfSh/IUCOYqC6auMRjmZuYnzSqlB53Ltkha2uROnds227NwFw7JoOpMexWdxWtF1MhpkqWuQOLHnSazRL7czWd0J8aVe0wRCE8=
+SpamDiagnosticOutput: 1:99
+SpamDiagnosticMetadata: SKN
+X-Microsoft-Exchange-Diagnostics: 1;MEAPR01MB2326;7:fNieoxqqAvNV7CqTHbdHQPBbjwVLQurXz1aJIAI61ARL/VE3kru06k3D47e+pzAqSoj7NmD4aDW2aWPeZjiVfQBIdhb2IL8q9zxot9OZFmdgGbJyiKb6oVnmLx81dZp5ZFCvK2TlQAMfE6FMQTiJnuoEgFnWe0+w4pjkhFyAyxKcGX0D1TlZyNsqoPuP25gFnqR7GArF1O0el53Y1hDccyeCCcD7wfOxhFuGqYZkycEzcIKWV6sZIqQhCDw+71ub
+X-MS-Office365-Filtering-Correlation-Id: 66efd371-d2cc-42fc-4ff9-08d5c0734ce8
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 May 2018 06:06:18.5452
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 66efd371-d2cc-42fc-4ff9-08d5c0734ce8
+X-MS-Exchange-CrossTenant-Id: b3cddf40-9654-4a26-86a1-779c51f69c48
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=b3cddf40-9654-4a26-86a1-779c51f69c48;Ip=[129.127.13.228];Helo=[hybrid.adelaide.edu.au]
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MEAPR01MB2326
+X-MS-Exchange-Transport-EndToEndLatency: 00:00:00.8043308
+X-MS-Exchange-Processed-By-BccFoldering: 15.20.0776.003
+X-Microsoft-Exchange-Diagnostics:
+	1;ME2PR01MB2322;27:8UHS3o7WW6XQoxRpTN6ZLT+K208nGNK2oerLto0mlQ9hbtelblJpatImvqUcH0cngcleW7FRu4PJ2CFYaM5YJVe5KEmKqV0WDscLX51yIUF2aAXlYQTX0xZDRN04RnUI
+X-Microsoft-Antispam-Message-Info:
+	H24pS8IP2Q4EGjSf3L4e5rhIwCXtTccE3aNL+uDJv+88Fi7ptTen56NN5swfl0phekjnlV6AuNUmEN6C44fYLOQZ3uZKl2WGYmw2MgaRrzzIzyTPaWpJij4TLn7+drbHx38APydQmmjsAVj50azF8dnSQt/epeMHiaEuhFqdNyN/+KxaUx3RVBuf+GrORJri3dMG8OcinZl6Bqip2NPTl58Vy42bDP1uAC9c1VJzdhpg/S0WXOjZDGwD8FN2Zv77/ch01w0/Ek5xMzCZCiFrFcX/1J+dpxWgnikGKRPvx6bS+/4NN4YWK640SJltFFzCNdDM7OrfjY6U4QjUZJvqCrHYwaPSK6VDEL1Qfv6k3X9yRTkFgud2KJV1ZeOCuLbJoBAlkL0mnl/Mugp0hg2TRyZBy9lwguASnzo2SCkXTbcLNBO8lAc7bMTUsf+wBNTLQ3g0QWtb9kptl5W7gIGyuipGZG1aZwS6kdwuf+efLsnBrDpvHbBStX+AJh3nEvC+utSFa1SE8l2wjyVKk11gkfIvUM0Mt7Ftxb9KY9prj0VBXq3l9oxx/fE97tcWgCfGIgUPbi3rnMz5fZtlB5F/4jjOso9KrLtk2HvD6PZ/1+ZhH41JdY1lAbJCNAePYDZC1dtUuGBB45JHqHHm6Q4Krw==
+MIME-Version: 1.0
+
+
+
+---------------------------------------------------------------------
+
+Please note this is a system generated email from an unmanned mailbox.
+If you have any queries we really want to hear from
+you via our 24/7 support at http://help.elsevier.com
+
+---------------------------------------------------------------------
+
+Article title: Smooth subgrid fields underpin rigorous closure in spatial discretisation of reaction-advection-diffusion PDEs
+Reference: APNUM3378
+Journal title: Applied Numerical Mathematics
+Corresponding author: Professor Tony Roberts
+First author: Dr. Geoff A Jarrad
+Dear Professor Roberts,
+
+Your article Smooth subgrid fields underpin rigorous closure in spatial discretisation of reaction-advection-diffusion PDEs will be published in Applied Numerical Mathematics.
+
+To track the status of your article throughout the publication process, please use our article tracking service:
+
+https://authors.elsevier.com/tracking/article/details.do?aid=3378&jid=APNUM&surname=Roberts
+
+For help with article tracking: http://help.elsevier.com/app/answers/detail/a_id/90
+
+We are committed to publishing your article as quickly as possible. We will therefore send you an alert of each next step in the production process where your involvement is required. Once the expected dispatch date of your proofs is available, you will be automatically alerted by e-mail.
+
+Yours sincerely,
+Elsevier Author Support
+
+----------------------------------------------------------------------
+HAVE A QUERY?
+We have 24/7 support to answer all of your queries quickly.
+http://help.elsevier.com
+
+UNRIVALLED dissemination for your work
+When your article is published, it is made accessible to more than 15 million monthly unique users of ScienceDirect, ranging from scientists, researchers, healthcare professionals and students. This ensures that your paper reaches the right audience, wherever they may be on the globe, and that your research makes the greatest impact possible.
+
+> Find new research yourself at: www.sciencedirect.com
+
+SENDER INFORMATION
+This e-mail has been sent to you from Elsevier Limited, The Boulevard, Langford Lane, Kidlington, Oxford, OX5 1GB, United Kingdom. To ensure delivery to your inbox (not bulk or junk folders), please add Article_Status@elsevier.com to your address book or safe senders list.
+
+PRIVACY POLICY
+Please read our privacy policy.
+
+http://www.elsevier.com/privacypolicy
+
+[T-12b-20150414]
+.
+
